@@ -12,7 +12,7 @@
 #' Timeline:
 #' =========
 #' 14-05-2025: Prepared function + added header description.
-#' 15-05-2025: Fixed bug in function. Previously was not grouping by Country in actual monthly proportion calculation. 
+#' 15-05-2025: Fixed bug in function. Previously was not grouping by Country in actual monthly proportion calculation. Arranged x_monthly_proportions_rolling_CV by date.
 #'
 
 rolling_cross_validation_fun <- function(x, Number_of_years){
@@ -27,6 +27,7 @@ rolling_cross_validation_fun <- function(x, Number_of_years){
   x_monthly_proportions_rolling_CV <- x_monthly_proportions %>%
     mutate(Date = ymd(paste0(Year, "-", Month, "-01"))) %>% 
     group_by(Country, Month) %>%
+    arrange(Date) %>% 
     mutate(Rolling_monthly_proportion = slide_period_dbl(Actual_monthly_proportion, 
                                                          Date, 
                                                          .f = ~mean(head(.x, -1)),  # Exclude current year
