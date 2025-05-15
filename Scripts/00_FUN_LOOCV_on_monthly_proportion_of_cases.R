@@ -1,3 +1,19 @@
+#' ---
+#' title: "00 LOOCV_on_monthly_proportion_of_cases_fun"
+#' author: "K Joshi"
+#' 
+#' ---
+#' 
+#' Overview: 
+#' =========
+#' 
+#' Function to calculate LOOCV using monthly proportion of cases to predict a given year. 
+#'  
+#' Timeline:
+#' =========
+#' 14-05-2025: Prepared function + added header description.
+#'
+
 LOOCV_on_monthly_proportion_of_cases_fun <- function(x){
   
   # Calculate monthly proportions 
