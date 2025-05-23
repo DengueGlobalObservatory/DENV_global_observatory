@@ -492,6 +492,33 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "CRAN"
     },
+    "boot": {
+      "Package": "boot",
+      "Version": "1.3-30",
+      "Source": "Repository",
+      "Priority": "recommended",
+      "Date": "2024-02-19",
+      "Authors@R": "c(person(\"Angelo\", \"Canty\", role = \"aut\", email = \"cantya@mcmaster.ca\",  comment = \"author of original code for S\"), person(\"Brian\", \"Ripley\", role = c(\"aut\", \"trl\"), email = \"ripley@stats.ox.ac.uk\", comment = \"conversion to R, maintainer 1999--2022, author of parallel support\"), person(\"Alessandra R.\", \"Brazzale\", role = c(\"ctb\", \"cre\"), email = \"brazzale@stat.unipd.it\", comment = \"minor bug fixes\"))",
+      "Maintainer": "Alessandra R. Brazzale <brazzale@stat.unipd.it>",
+      "Note": "Maintainers are not available to give advice on using a package they did not author.",
+      "Description": "Functions and datasets for bootstrapping from the book \"Bootstrap Methods and Their Application\" by A. C. Davison and  D. V. Hinkley (1997, CUP), originally written by Angelo Canty for S.",
+      "Title": "Bootstrap Functions (Originally by Angelo Canty for S)",
+      "Depends": [
+        "R (>= 3.0.0)",
+        "graphics",
+        "stats"
+      ],
+      "Suggests": [
+        "MASS",
+        "survival"
+      ],
+      "LazyData": "yes",
+      "ByteCompile": "yes",
+      "License": "Unlimited",
+      "NeedsCompilation": "no",
+      "Author": "Angelo Canty [aut] (author of original code for S), Brian Ripley [aut, trl] (conversion to R, maintainer 1999--2022, author of parallel support), Alessandra R. Brazzale [ctb, cre] (minor bug fixes)",
+      "Repository": "CRAN"
+    },
     "broom": {
       "Package": "broom",
       "Version": "1.0.8",
@@ -767,6 +794,31 @@
       "Maintainer": "Jennifer Bryan <jenny@stat.ubc.ca>",
       "Repository": "CRAN",
       "Encoding": "UTF-8"
+    },
+    "circular": {
+      "Package": "circular",
+      "Version": "0.5-1",
+      "Source": "Repository",
+      "Title": "Circular Statistics",
+      "LazyLoad": "yes",
+      "LazyData": "yes",
+      "Authors@R": "c( person(given = \"Ulric\", family = \"Lund\", role = \"aut\", email = \"ulund@calpoly.edu\"), person(given = \"Claudio\", family = \"Agostinelli\", role = \"aut\", email = \"claudio.agostinelli@unitn.it\", comment = c(ORCID = \"0000-0001-6702-4312\")), person(given = \"Hiroyoshi\", family = \"Arai\", role = \"ctb\", email = \"h_arai@aoni.waseda.jp\"), person(given = \"Alessando\", family = \"Gagliardi\", role = \"ctb\", email = \"gagliardi@stud.unive.it\"), person(given = \"Eduardo\", family = \"García-Portugués\", role = c(\"ctb\", \"cre\"), email = \"edgarcia@est-econ.uc3m.es\", comment = c(ORCID = \"0000-0002-9224-4111\")), person(given = \"Dimitri\", family = \"Giunchi\", role = \"ctb\", email = \"dimitri.giunchi@unipi.it\"), person(given = \"Jean-Olivier\", family = \"Irisson\", role = \"ctb\", email = \"irisson@normalesup.org\"), person(given = \"Matthew\", family = \"Pocernich\", role = \"ctb\", email = \"pocernic@ucar.edu\"), person(given = \"Federico\", family = \"Rotolo\", role = \"ctb\"))",
+      "Date": "2024-08-28",
+      "Depends": [
+        "R (>= 3.0.0)",
+        "stats"
+      ],
+      "Imports": [
+        "boot",
+        "mvtnorm"
+      ],
+      "Description": "Circular Statistics, from \"Topics in circular Statistics\" (2001) S. Rao Jammalamadaka and A. SenGupta, World Scientific.",
+      "License": "GPL-2",
+      "NeedsCompilation": "yes",
+      "Encoding": "UTF-8",
+      "Author": "Ulric Lund [aut], Claudio Agostinelli [aut] (<https://orcid.org/0000-0001-6702-4312>), Hiroyoshi Arai [ctb], Alessando Gagliardi [ctb], Eduardo García-Portugués [ctb, cre] (<https://orcid.org/0000-0002-9224-4111>), Dimitri Giunchi [ctb], Jean-Olivier Irisson [ctb], Matthew Pocernich [ctb], Federico Rotolo [ctb]",
+      "Maintainer": "Eduardo García-Portugués <edgarcia@est-econ.uc3m.es>",
+      "Repository": "RSPM"
     },
     "class": {
       "Package": "class",
@@ -3038,6 +3090,32 @@
       "Author": "Hadley Wickham [aut, cre], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
+    },
+    "mvtnorm": {
+      "Package": "mvtnorm",
+      "Version": "1.3-3",
+      "Source": "Repository",
+      "Title": "Multivariate Normal and t Distributions",
+      "Date": "2025-01-09",
+      "Authors@R": "c(person(\"Alan\", \"Genz\", role = \"aut\"), person(\"Frank\", \"Bretz\", role = \"aut\"), person(\"Tetsuhisa\", \"Miwa\", role = \"aut\"), person(\"Xuefei\", \"Mi\", role = \"aut\"), person(\"Friedrich\", \"Leisch\", role = \"ctb\"), person(\"Fabian\", \"Scheipl\", role = \"ctb\"), person(\"Bjoern\", \"Bornkamp\", role = \"ctb\", comment = c(ORCID = \"0000-0002-6294-8185\")), person(\"Martin\", \"Maechler\", role = \"ctb\", comment = c(ORCID = \"0000-0002-8685-9910\")), person(\"Torsten\", \"Hothorn\", role = c(\"aut\", \"cre\"), email = \"Torsten.Hothorn@R-project.org\", comment = c(ORCID = \"0000-0001-8301-0471\")))",
+      "Description": "Computes multivariate normal and t probabilities, quantiles, random deviates,  and densities. Log-likelihoods for multivariate Gaussian models and Gaussian copulae  parameterised by Cholesky factors of covariance or precision matrices are implemented  for interval-censored and exact data, or a mix thereof. Score functions for these  log-likelihoods are available. A class representing multiple lower triangular matrices  and corresponding methods are part of this package.",
+      "Imports": [
+        "stats"
+      ],
+      "Depends": [
+        "R(>= 3.5.0)"
+      ],
+      "Suggests": [
+        "qrng",
+        "numDeriv"
+      ],
+      "License": "GPL-2",
+      "URL": "http://mvtnorm.R-forge.R-project.org",
+      "NeedsCompilation": "yes",
+      "Author": "Alan Genz [aut], Frank Bretz [aut], Tetsuhisa Miwa [aut], Xuefei Mi [aut], Friedrich Leisch [ctb], Fabian Scheipl [ctb], Bjoern Bornkamp [ctb] (<https://orcid.org/0000-0002-6294-8185>), Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>), Torsten Hothorn [aut, cre] (<https://orcid.org/0000-0001-8301-0471>)",
+      "Maintainer": "Torsten Hothorn <Torsten.Hothorn@R-project.org>",
+      "Repository": "CRAN",
+      "Encoding": "UTF-8"
     },
     "nlme": {
       "Package": "nlme",

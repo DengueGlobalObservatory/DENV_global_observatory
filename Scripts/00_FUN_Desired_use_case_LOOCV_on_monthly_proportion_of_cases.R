@@ -13,7 +13,7 @@
 #' Timeline:
 #' =========
 #' 22-05-2025: Prepared scripts.
-#' 
+#' 23-05-2025: Fixed calculation of monthly cases iteratively portion of function.
 
 desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
@@ -63,42 +63,82 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
       group_by(season_nMonth) %>% 
       summarise(Ave_monthly_proportion = ave(Actual_monthly_proportion)) %>% 
       distinct() %>%
-      arrange(season_nMonth) 
+      arrange(season_nMonth) %>%
+      ungroup() %>%
+      mutate(Average_cum_proportion = cumsum(Ave_monthly_proportion)) %>%
+      rename(Month_to_predict = season_nMonth)
     
     test_data <- x_monthly_proportions %>% 
       filter(season == i) %>% 
-      group_by(season_nMonth) 
+      group_by(season_nMonth) %>%
+      arrange(season_nMonth) %>%
+      select(!Total_season_cases)
     
     iterative_monthly_predictions <- data.frame()
+    Country <- unique(test_data$Country)
+    iso3 <- unique(test_data$iso3)
+    season <- unique(test_data$season)
+    
     
     for(j in 1:12){
       
       monthly_filtered_data <- test_data[1:j,]
       monthly_predictions <- monthly_filtered_data %>% 
         ungroup() %>% 
-        mutate(Cases_to_date = sum(Cases_clean)) %>% 
-        full_join(., training_data, by = "season_nMonth") %>%
         mutate(season = i, 
-               Predictor_month = j) %>%
-        mutate(Total_season_cases = na.omit(unique(Total_season_cases))) %>% 
-        mutate(Predicted_monthly_cases = Total_season_cases * Ave_monthly_proportion) %>% 
-        filter(Predictor_month <= season_nMonth) 
+               Month_to_predict = j) %>%
+        full_join(., training_data, by = "Month_to_predict") %>% 
+        na.omit() %>%
+        distinct() %>%
+        filter(season_nMonth != Month_to_predict) %>%
+        mutate(Actual_cases_to_date = cumsum(Cases_clean)) %>%
+        mutate(Predicted_total_annual_cases = Actual_cases_to_date / Average_cum_proportion) %>% 
+        mutate(Predicted_monthly_cases = Predicted_total_annual_cases * Ave_monthly_proportion)
+
+        
+        
+        
+      #  filter(Predictor_month < season_nMonth)  %>%
+      #   mutate(Cases_to_date = sum(Cases_clean),
+      #          Average_cum_proportion_to_date = sum()) %>% 
+      #   mutate(Predicted_total_season_cases = Cases_to_date / ) %>% 
+      #   
+      #   
+      # 
+      # 
+      # monthly_predictions <- monthly_filtered_data %>% 
+      #   ungroup() %>% 
+      #   mutate(Cases_to_date = sum(Cases_clean)) %>% 
+      #   full_join(., training_data, by = "season_nMonth") %>%
+      #    mutate(season = i, 
+      #           Predictor_month = j) %>%
+      #   mutate(Total_season_cases = na.omit(unique(Total_season_cases))) %>% 
+      #   filter(Predictor_month > season_nMonth) #
+        # mutate(Predicted_monthly_cases = Total_season_cases * Ave_monthly_proportion) %>% 
+        # filter(Predictor_month < season_nMonth) 
   
       iterative_monthly_predictions <- rbind(iterative_monthly_predictions, 
-                                             monthly_predictions)
-                                             # monthly_predictions[1,] %>% 
-                                             #   mutate(Cases_to_date = sum(Cases_clean),
-                                             #          season = i,
-                                             #          Predictor_month = NA,
-                                             #          Total_season_cases = unique(Total_season_cases),
-                                             #          Predicted_monthly_cases = NA))
+                                             monthly_predictions) %>%
+        distinct()
+      
+      Actual_monthly_cases <- test_data %>% 
+        select(season, season_nMonth, Cases_clean) %>% 
+        rename(Month_to_predict = season_nMonth)
+      
+      iterative_monthly_predictions_clean <- iterative_monthly_predictions %>% 
+        select(!Cases_clean) %>%
+        left_join(., Actual_monthly_cases, by = c("season", "Month_to_predict")) %>%
+        distinct() %>%
+        rename(Actual_monthly_cases = Cases_clean) %>% 
+        select(Country, iso3, source, Year, Calendar_year_month, mean_low_month, season, season_nMonth, Actual_cases_to_date, Actual_monthly_proportion, 
+               Month_to_predict, Ave_monthly_proportion, Average_cum_proportion, Predicted_total_annual_cases, Actual_monthly_cases, Predicted_monthly_cases) %>%
+        select(Country, iso3, source, Year, Calendar_year_month, mean_low_month, season, season_nMonth, Actual_cases_to_date, Month_to_predict, Actual_monthly_cases, Predicted_monthly_cases)
+      
       
     }
     
     predicting_monthly_case_load_results <- rbind(predicting_monthly_case_load_results,
-                                                  iterative_monthly_predictions) %>% 
-      distinct() %>%
-      filter(!is.na(Country))
+                                                  iterative_monthly_predictions_clean)  
   }
   
   

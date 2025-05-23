@@ -66,7 +66,7 @@ acc_vs_pred_annual_incid_cor_heatmap <- total_seasonal_incid_LOOCV_plots$cor_hea
 acc_vs_pred_annual_incid_rmse_scatterplot <- total_seasonal_incid_LOOCV_plots$rmse_scatterplot
 acc_vs_pred_annual_incid_rmse_heatmap <- total_seasonal_incid_LOOCV_plots$rmse_heatmap
 
-#--------------- Assess performance predicting monthly cases 
+#--------------- Assess performance predicting monthly cases iteratively
 
 
 
