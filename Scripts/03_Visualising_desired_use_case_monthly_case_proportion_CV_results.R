@@ -66,7 +66,65 @@ acc_vs_pred_annual_incid_cor_heatmap <- total_seasonal_incid_LOOCV_plots$cor_hea
 acc_vs_pred_annual_incid_rmse_scatterplot <- total_seasonal_incid_LOOCV_plots$rmse_scatterplot
 acc_vs_pred_annual_incid_rmse_heatmap <- total_seasonal_incid_LOOCV_plots$rmse_heatmap
 
-#--------------- Assess performance predicting monthly cases iteratively
+#--------------- Assess performance predicting monthly cases iteratively 
 
+#----- Calculate incidence
+source("Scripts/00_FUN_Calculate_incidence_monthly_case_prediction_desired_use_case.R")
+iterative_monthly_case_predictions_incidence <- Calculate_incidence_monthly_case_prediction_desired_use_case(iterative_monthly_case_predictions, 
+                                                                                                             Pop_raster_1990, Pop_raster_1995, Pop_raster_2000, Pop_raster_2005, 
+                                                                                                             Pop_raster_2010, Pop_raster_2015, Pop_raster_2020, Pop_raster_2025)
 
+#----- Plot results 
+source("Scripts/00_FUN_Visualise_monthly_prop_iterative_monthly_incid_prediction_performance_desired_use_case.R")
+iterative_monthly_cases_LOOCV_plots <- Visualise_monthly_prop_iterative_monthly_incid_prediction_performance_desired_use_case_fun(iterative_monthly_case_predictions_incidence)
+acc_vs_pred_monthly_incid_cor_heatmap <- iterative_monthly_cases_LOOCV_plots$cor_heatmap
+acc_vs_pred_monthly_cases_rmse_heatmap <- iterative_monthly_cases_LOOCV_plots$rmse_cases_heatmap
+acc_vs_pred_monthly_cases_rmse_heatmap_minus_brazil <- iterative_monthly_cases_LOOCV_plots$rmse_cases_heatmap_minus_brazil
+acc_vs_pred_monthly_incid_rmse_heatmap <- iterative_monthly_cases_LOOCV_plots$rmse_incid_heatmap
+acc_vs_pred_monthly_incid_rmse_heatmap_minus_st_barthelemy <- iterative_monthly_cases_LOOCV_plots$rmse_incid_heatmap_minus_st_barthelemy
+
+#--------------- Saving 
+
+dir_to_save <- paste0("Results/03_Visualising_desired_use_case_monthly_case_proportion_CV_results/", Sys.Date())
+dir.create(dir_to_save)
+
+#----- Assess performance predicting total seasonal cases
+
+#- Correlation
+ggsave(acc_vs_pred_annual_cases_cor_scatterplot,
+       filename = paste0(dir_to_save, "/Cor_of_observed_vs_monthly_iterative_annual_case_predictions_scatterplot.png"))
+ggsave(acc_vs_pred_annual_cases_cor_heatmap,
+  filename = paste0(dir_to_save, "/Correlation_of_observed_vs_monthly_iterative_annual_case_predictions_heatmap.png"))
+
+#- RMSE
+ggsave(acc_vs_pred_annual_cases_rmse_scatterplot,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_annual_case_predictions_scatterplot.png"))
+ggsave(acc_vs_pred_annual_cases_rmse_heatmap,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_annual_case_predictions_heatmap.png"))
+
+#- RMSE Incid
+ggsave(acc_vs_pred_annual_incid_rmse_scatterplot,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_annual_incidence_predictions_scatterplot.png"))
+ggsave(acc_vs_pred_annual_incid_rmse_heatmap,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_annual_incidence_predictions_heatmap.png"))
+
+#' Cor incid should be same as cor cases therefore didn't save these plots. 
+
+#--------------- Assess performance predicting monthly cases iteratively 
+
+#- Correlation 
+ggsave(acc_vs_pred_monthly_incid_cor_heatmap,
+       filename = paste0(dir_to_save, "/Correlation_of_observed_vs_monthly_iterative_case_predictions_heatmap.png"))
+
+ggsave(acc_vs_pred_monthly_cases_rmse_heatmap,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_case_predictions_heatmap.png"))
+
+ggsave(acc_vs_pred_monthly_cases_rmse_heatmap_minus_brazil,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_case_predictions_heatmap_minus_Brazil.png"))
+
+ggsave(acc_vs_pred_monthly_incid_rmse_heatmap,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_incid_predictions_heatmap.png"))
+
+ggsave(acc_vs_pred_monthly_incid_rmse_heatmap_minus_st_barthelemy,
+       filename = paste0(dir_to_save, "/RMSE_of_observed_vs_monthly_iterative_incid_predictions_heatmap_minus_STM.png"))
 

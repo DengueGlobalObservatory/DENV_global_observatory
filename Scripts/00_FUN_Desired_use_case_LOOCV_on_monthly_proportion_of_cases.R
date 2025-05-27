@@ -14,14 +14,18 @@
 #' =========
 #' 22-05-2025: Prepared scripts.
 #' 23-05-2025: Fixed calculation of monthly cases iteratively portion of function.
+#' 27-05-2025: Swapped from using monthly cases to cumulative cases for prediction of total seasonal cases, and monthly cases.
 
 desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
   #--------------- Calculate monthly proportions 
   x_monthly_proportions <- x %>% 
     group_by(season) %>% 
-    mutate(Total_season_cases = sum(Cases_clean)) %>% 
-    mutate(Actual_monthly_proportion = Cases_clean / Total_season_cases) %>% 
+    mutate(Cumulative_season_cases = cumsum(Cases_clean),
+           Total_season_cases = sum(Cases_clean), 
+           Actual_monthly_proportion = Cases_clean / Total_season_cases) %>% 
+    arrange(season_nMonth) %>%
+    mutate(Actual_cumulative_monthly_proportion = cumsum(Actual_monthly_proportion)) %>%
     ungroup() 
   
   #--------------- Predict annual cases at time point T using leave one season out CV 
@@ -39,7 +43,7 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
     
     average_proportion <- filtered_data %>% 
       group_by(season_nMonth) %>% 
-      summarise(LOO_monthly_proportion = ave(Actual_monthly_proportion)) %>% 
+      summarise(LOO_cum_monthly_proportion = ave(Actual_cumulative_monthly_proportion)) %>% 
       mutate(season = i) %>% 
       distinct()
     
@@ -49,7 +53,7 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
   x_annual_cases_LOOCV <- full_join(x_monthly_proportions, predicting_total_seasonal_case_load_results, by= c("season", "season_nMonth")) %>%
     as.data.frame() %>% 
-    mutate(Predicted_seasonal_cases = Cases_clean / LOO_monthly_proportion)
+    mutate(Predicted_seasonal_cases = Cumulative_season_cases / LOO_cum_monthly_proportion)
   
   #--------------- Predict monthly cases using LOOCV 
   
@@ -60,12 +64,14 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
     
     training_data <- x_monthly_proportions %>% 
       filter(season != i) %>% 
+      group_by(season) %>%
+      mutate(Actual_cum_monthly_proportion = cumsum(Actual_monthly_proportion)) %>%
       group_by(season_nMonth) %>% 
-      summarise(Ave_monthly_proportion = ave(Actual_monthly_proportion)) %>% 
+      summarise(Ave_monthly_proportion = ave(Actual_monthly_proportion),
+                Average_cum_proportion = ave(Actual_cum_monthly_proportion)) %>% 
       distinct() %>%
       arrange(season_nMonth) %>%
       ungroup() %>%
-      mutate(Average_cum_proportion = cumsum(Ave_monthly_proportion)) %>%
       rename(Month_to_predict = season_nMonth)
     
     test_data <- x_monthly_proportions %>% 

@@ -50,3 +50,6 @@ rsconnect/
 
 # Data folder 
 Data/
+
+# Results folder
+/Results/
