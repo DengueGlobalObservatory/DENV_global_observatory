@@ -1,5 +1,5 @@
 #' ---
-#' title: "02_Cross_validation_of_monthly_proportion_of_cases_desired_use_case"
+#' title: "02S_Cross_validation_of_monthly_proportion_of_cases_desired_use_case"
 #' author: "K Joshi"
 #' 
 #' ---
@@ -13,6 +13,7 @@
 #' Timeline:
 #' =========
 #' 22-05-2025: Prepared script.
+#' 02-06-2025: Changed incorrectly names variables from annual to seasonal and saved results.
 
 library(readr)
 library(dplyr)
@@ -29,10 +30,13 @@ source("Scripts/00_FUN_Desired_use_case_LOOCV_on_monthly_proportion_of_cases.R")
 dengue_data_desired_use_case_LOOCV_split <- Map(desired_use_case_LOOCV_on_monthly_proportion_of_cases, season_aligned_dengue_data_split)
 
 #----- Extract results
-annual_case_predictions <- lapply(dengue_data_desired_use_case_LOOCV_split, function(x){x$Annual_cases_LOOCV}) %>%
+seasonal_case_predictions <- lapply(dengue_data_desired_use_case_LOOCV_split, function(x){x$Seasonal_cases_LOOCV}) %>%
   Reduce(rbind,.)
 iterative_monthly_case_predictions <- lapply(dengue_data_desired_use_case_LOOCV_split, function(x){x$Monthly_cases_LOOCV}) %>%
   Reduce(rbind,.)
 
-
-
+#--------------- Saving
+# write_csv(seasonal_case_predictions,
+#           "Results/Slow_processing_results/02_Cross_validation_of_monthly_proportion_of_cases_desired_use_case/Monthly_iterative_total_seasonal_case_predictions.csv")
+# write_csv(iterative_monthly_case_predictions, 
+#           "Results/Slow_processing_results/02_Cross_validation_of_monthly_proportion_of_cases_desired_use_case/Monthly_iterative_seasonal_caseload_distribution_predictions.csv")
