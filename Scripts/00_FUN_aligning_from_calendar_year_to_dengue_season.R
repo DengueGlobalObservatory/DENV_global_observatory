@@ -12,8 +12,8 @@
 #' Timeline:
 #' =========
 #' 22-05-2025: Prepared function. 
-
-
+#' 04-06-2025: Removed code to calculate circular sd from circular mean function, unnecessary. 
+#'             Fixed code to allow for low months with equal number of cases and average them within the year before taking the average across years.
 
 aligning_from_calendar_year_to_dengue_season <- function(country_counts_data){
   
@@ -22,7 +22,7 @@ aligning_from_calendar_year_to_dengue_season <- function(country_counts_data){
   dengue_season_low_month <- country_counts_data %>% 
     ungroup() %>% 
     group_by(Country, Year) %>% 
-    slice_min(order_by = Cases_clean, n = 1, with_ties = FALSE) %>% 
+    slice_min(order_by = Cases_clean, n = 1) %>% 
     rename(Low_month = Month)
   
   #----- Identify average low month 
@@ -36,8 +36,7 @@ aligning_from_calendar_year_to_dengue_season <- function(country_counts_data){
     
     # Calculate circular mean and standard deviation
     circ_mean <- mean(circ_months)
-    circ_sd   <- sd.circular(circ_months)
-    
+
     # Convert the mean angle back to month number
     # as.numeric(circ_mean) gives the mean angle in degrees
     mean_month <- ((as.numeric(circ_mean) %% 360) / 30) + 1
@@ -52,9 +51,18 @@ aligning_from_calendar_year_to_dengue_season <- function(country_counts_data){
   
   dengue_season_ave_low_month <- dengue_season_low_month %>% 
     ungroup() %>% 
-    group_by(Country) %>% 
-    summarise(mean_low_month = circular_mean(Low_month))
+    group_by(Country, Year) %>%
+    filter(sum(Cases_clean) > 0) %>%
+    mutate(No_of_obs = n()) %>% 
+    mutate(within_year_mean_low_month = case_when(No_of_obs > 1 ~ circular_mean(Low_month),
+                                                  No_of_obs == 1  ~ Low_month)) %>%
+    select(Country, Year, within_year_mean_low_month) %>%
+    distinct() %>%
+    ungroup() %>% 
+    group_by(Country) %>%
+    summarise(mean_low_month = circular_mean(within_year_mean_low_month))
   
+
   #----- Add low month back to original dengue counts df 
   country_counts_data_clean <- country_counts_data %>% 
     full_join(., dengue_season_ave_low_month, by = "Country") %>% 
