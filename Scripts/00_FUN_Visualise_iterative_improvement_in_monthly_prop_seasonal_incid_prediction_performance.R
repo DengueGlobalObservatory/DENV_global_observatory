@@ -14,6 +14,7 @@
 #' 22-05-2025: Prepared script.
 #' 28-05-2025: Saved dfs.
 #' 02-06-2025: Removed correlation code - not on response scale. Changed ordering method to fct_reorder().  
+#' 05-06-2025: Added code to combine heatmaps and scatterplots. 
 
 Visualise_iterative_improvement_in_monthly_prop_seasonal_incid_prediction_performance <- function(x){
   
@@ -189,20 +190,58 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_incid_prediction_perfor
     labs(x = "Season Month", y = "RMSE ratio") +
     ggtitle("Total seasonal incidence prediction RMSE normalised to month with >= 90% total cases") 
   
+  #--------------- Generating combined plots  
+  
+  #----- 0.75
+  iterative_incid_improvement_0.75_benchmark_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_heatmap,
+                                                                   iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_scatterplot, 
+                                                                   ncol = 2)
+  
+  #----- 0.80
+  iterative_incid_improvement_0.80_benchmark_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap,
+                                                                   iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot, 
+                                                                   ncol = 2)
+  iterative_incid_improvement_0.80_benchmark_minus_VCT_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap_minus_VCT,
+                                                                             iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot, 
+                                                                             ncol = 2)
+  
+  #----- 0.85
+  iterative_incid_improvement_0.85_benchmark_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap,
+                                                                   iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot, 
+                                                                   ncol = 2)
+  iterative_incid_improvement_0.85_benchmark_minus_VCT_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap_minus_VCT,
+                                                                             iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot, 
+                                                                             ncol = 2)
+  
+  #----- 0.90
+  iterative_incid_improvement_0.90_benchmark_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap,
+                                                                   iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot, 
+                                                                   ncol = 2)
+  iterative_incid_improvement_0.90_benchmark_minus_VCT_combined_plots <- plot_grid(iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap_minus_VCT,
+                                                                             iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot, 
+                                                                             ncol = 2)
+  
   #--------------- Preparing results 
   
   results <- list(Iterative_improvement_total_seasonal_incid_pred_data = x_iterative_improvement_total_seasonal_incid_pred,
-                  Iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_heatmap,
-                  Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap,
-                  Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap_minus_VCT,
-                  Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap,
-                  Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap_minus_VCT,
-                  Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap,
-                  Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap_minus_VCT,
-                  Iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_scatterplot,
-                  Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot,
-                  Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot,
-                  Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot)
+                  # Iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_heatmap,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_heatmap_minus_VCT,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_heatmap_minus_VCT,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap_minus_VCT = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_heatmap_minus_VCT,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.75_benchmark_scatterplot,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.8_benchmark_scatterplot,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.85_benchmark_scatterplot,
+                  # Iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot = iterative_improvement_total_seasonal_incid_pred_0.9_benchmark_scatterplot,
+                  iterative_incid_improvement_0.75_benchmark_combined_plots = iterative_incid_improvement_0.75_benchmark_combined_plots, 
+                  iterative_incid_improvement_0.80_benchmark_combined_plots = iterative_incid_improvement_0.80_benchmark_combined_plots,
+                  iterative_incid_improvement_0.80_benchmark_minus_VCT_combined_plots = iterative_incid_improvement_0.80_benchmark_minus_VCT_combined_plots,
+                  iterative_incid_improvement_0.85_benchmark_combined_plots = iterative_incid_improvement_0.85_benchmark_combined_plots, 
+                  iterative_incid_improvement_0.85_benchmark_minus_VCT_combined_plots = iterative_incid_improvement_0.85_benchmark_minus_VCT_combined_plots,
+                  iterative_incid_improvement_0.90_benchmark_combined_plots = iterative_incid_improvement_0.90_benchmark_combined_plots,
+                  iterative_incid_improvement_0.90_benchmark_minus_VCT_combined_plots = iterative_incid_improvement_0.90_benchmark_minus_VCT_combined_plots)
   
   return(results)
   

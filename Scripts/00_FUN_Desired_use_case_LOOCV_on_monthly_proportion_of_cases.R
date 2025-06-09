@@ -18,6 +18,11 @@
 #' 27-05-2025: Swapped from using monthly cases to cumulative cases for prediction of total seasonal cases, and monthly cases.
 #' 28-05-2025: Removed redundant code lines RE cumulative monthly prop being calculated twice.
 #' 02-06-2025: Swapped incorrect names from annual --> seasonal predictions/ cases.
+#' 05-06-2025: Figures having unexpected NAs. Changed code to handle case when LOO_cum_monthly_proportion == 0 as NaN and Inf being introduced. 
+#'             When LOO_cum_monthly_proportion == 0 if Cumulative_season_cases == 0 then Predicted_seasonal_cases == NaN rather than 0. 
+#'             When LOO_cum_monthly_proportion == 0 if Cumulative_season_cases > 0 then Predicted_seasonal_cases == Inf rather than 0. 
+#'             Changed code to automatically correct these. 
+
 
 desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
@@ -56,8 +61,13 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
   x_seasonal_cases_LOOCV <- full_join(x_monthly_proportions, predicting_total_seasonal_case_load_results, by= c("season", "season_nMonth")) %>%
     as.data.frame() %>% 
-    mutate(Predicted_seasonal_cases = Cumulative_season_cases / LOO_cum_monthly_proportion)
-  
+    mutate(Predicted_seasonal_cases = Cumulative_season_cases / LOO_cum_monthly_proportion) #%>% 
+    mutate(Predicted_seasonal_cases = case_when(Predicted_seasonal_cases == Inf & LOO_cum_monthly_proportion == 0 ~ 0, 
+                                                is.nan(Predicted_seasonal_cases) & LOO_cum_monthly_proportion == 0 ~ 0))
+    
+    #' If LOO_cum_monthly_proportion == 0 and Cumulative_season_cases == 0, Predicted_seasonal_cases == NaN. Correct to 0 predicted seasonal cases. 
+    #' If LOO_cum_monthly_proportion == 0 and Cumulative_season_cases > 0, Predicted_seasonal_cases == Inf. Correct to 0 predicted seasonal cases. 
+    
   #--------------- Predict monthly cases using LOOCV 
   
   # Define df to take leave one out season month case load prediction results
