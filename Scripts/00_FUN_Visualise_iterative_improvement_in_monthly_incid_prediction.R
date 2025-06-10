@@ -13,6 +13,8 @@
 #' =========
 #' 22-05-2025: Prepared script.
 #' 04-06-2025: Removed correlation code. Added in code to split plots along similar groups to that of raw error for pairing.
+#' 09-06-2025: Swapped method to calculate ratio so that each month is divided by the one before it. 
+#'              Smaller values now better, eases interpretability. Added diverging colour scale where 1 is white. 
 
 Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
   
@@ -34,10 +36,10 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
            Lag_acc_vs_pred_monthly_incid_rmse = lag(Acc_vs_pred_monthly_incid_rmse, n = 1),
            Lag_acc_vs_pred_monthly_cases_mae = lag(Acc_vs_pred_monthly_cases_mae, n = 1),
            Lag_acc_vs_pred_monthly_incid_mae = lag(Acc_vs_pred_monthly_incid_mae, n = 1)) %>% 
-    mutate(Iterative_improvement_in_cases_prediction_rmse = Lag_acc_vs_pred_monthly_cases_rmse / Acc_vs_pred_monthly_cases_rmse,
-           Iterative_improvement_in_incid_prediction_rmse = Lag_acc_vs_pred_monthly_incid_rmse / Acc_vs_pred_monthly_incid_rmse,
-           Iterative_improvement_in_cases_prediction_mae = Lag_acc_vs_pred_monthly_cases_mae / Acc_vs_pred_monthly_cases_mae,
-           Iterative_improvement_in_incid_prediction_mae = Lag_acc_vs_pred_monthly_incid_mae / Acc_vs_pred_monthly_incid_mae) %>%
+    mutate(Iterative_improvement_in_cases_prediction_rmse = Acc_vs_pred_monthly_cases_rmse / Lag_acc_vs_pred_monthly_cases_rmse,
+           Iterative_improvement_in_incid_prediction_rmse = Acc_vs_pred_monthly_incid_rmse / Lag_acc_vs_pred_monthly_incid_rmse,
+           Iterative_improvement_in_cases_prediction_mae = Acc_vs_pred_monthly_cases_mae / Lag_acc_vs_pred_monthly_cases_mae,
+           Iterative_improvement_in_incid_prediction_mae = Acc_vs_pred_monthly_incid_mae / Lag_acc_vs_pred_monthly_incid_mae) %>%
     ungroup
   
   #----- Ordering by RMSE
@@ -63,7 +65,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
   #----- Cases RMSE ordered
   iterative_improvement_in_monthly_case_prediction_rmse_heatmap <- ggplot(x_data_lagged_rmse_cases_ordered) + 
     geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_cases_prediction_rmse)) + 
-    scale_fill_gradient(low = "cyan", high = "magenta") +
+    scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
     geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
     scale_x_continuous(breaks = 1:12) +
     scale_y_continuous(breaks = 1:12) +
@@ -78,7 +80,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
   #----- Incidence RMSE ordered
   iterative_improvement_in_monthly_incid_prediction_rmse_heatmap <- ggplot(x_data_lagged_rmse_incid_ordered) + 
     geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_incid_prediction_rmse)) + 
-    scale_fill_gradient(low = "cyan", high = "magenta") +
+    scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
     geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
     scale_x_continuous(breaks = 1:12) +
     scale_y_continuous(breaks = 1:12) +
@@ -93,7 +95,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
   #----- Cases MAE ordered
   iterative_improvement_in_monthly_case_prediction_mae_heatmap <- ggplot(x_data_lagged_mae_cases_ordered) + 
     geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_cases_prediction_mae)) + 
-    scale_fill_gradient(low = "cyan", high = "magenta") +
+    scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
     geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
     scale_x_continuous(breaks = 1:12) +
     scale_y_continuous(breaks = 1:12) +
@@ -108,7 +110,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
   #----- Incidence RMSE ordered
   iterative_improvement_in_monthly_incid_prediction_mae_heatmap <- ggplot(x_data_lagged_mae_incid_ordered) + 
     geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_incid_prediction_mae)) + 
-    scale_fill_gradient(low = "cyan", high = "magenta") +
+    scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
     geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
     scale_x_continuous(breaks = 1:12) +
     scale_y_continuous(breaks = 1:12) +
@@ -128,7 +130,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
     df_subset <- x_data_lagged_rmse_cases_ordered %>% filter(Cases_rmse_groups == group)
     p <- ggplot(df_subset) +
       geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_cases_prediction_rmse)) + 
-      scale_fill_gradient(low = "cyan", high = "magenta") +
+      scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
       geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
       scale_x_continuous(breaks = 1:12) +
       scale_y_continuous(breaks = 1:12) +
@@ -148,7 +150,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
     df_subset <- x_data_lagged_rmse_incid_ordered %>% filter(Incid_rmse_groups == group)
     p <- ggplot(df_subset) +
       geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_incid_prediction_rmse)) +
-      scale_fill_gradient(low = "cyan", high = "magenta") +
+      scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
       geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
       scale_x_continuous(breaks = 1:12) +
       scale_y_continuous(breaks = 1:12) +
@@ -169,7 +171,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
     p <- ggplot(df_subset) +
       geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_cases_prediction_mae)) + 
       geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
-      scale_fill_gradient(low = "cyan", high = "magenta") +
+      scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
       scale_x_continuous(breaks = 1:12) +
       scale_y_continuous(breaks = 1:12) +
       facet_wrap(~ Country, scales = "free") +
@@ -188,7 +190,7 @@ Visualise_iterative_improvement_in_monthly_incid_prediction <- function(x){
     df_subset <- x_data_lagged_mae_incid_ordered %>% filter(Incid_mae_groups == group)
     p <- ggplot(df_subset) +
       geom_tile(mapping = aes(x = Month_to_predict, y = season_nMonth, fill = Iterative_improvement_in_incid_prediction_mae)) + 
-      scale_fill_gradient(low = "cyan", high = "magenta") +
+      scale_fill_gradient2(low = "cyan", mid = "white", high = "magenta", midpoint = 1) +
       geom_vline(mapping = aes(xintercept = Average_season_peak_month, linetype = "Peak month")) +
       scale_x_continuous(breaks = 1:12) +
       scale_y_continuous(breaks = 1:12) +

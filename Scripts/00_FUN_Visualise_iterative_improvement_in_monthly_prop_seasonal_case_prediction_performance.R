@@ -15,6 +15,7 @@
 #' 28-05-2025: Saved dfs.
 #' 02-06-2025: Removed correlation code - not on response scale. Changed ordering method to fct_reorder().  
 #' 05-06-2025: Added code to combine heatmaps and scatterplots. 
+#' 09-06-2025: Changed colour scale from blue-red to cyan-magenta.
 
 Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_performance <- function(x){
   
@@ -81,7 +82,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   #----- 0.75
   iterative_improvement_total_seasonal_cases_pred_0.75_benchmark_heatmap <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.75_ordered) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.75_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 75% total cases") +
@@ -91,7 +92,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   #----- 0.8
   iterative_improvement_total_seasonal_cases_pred_0.8_benchmark_heatmap <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.8_ordered) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.8_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 80% total cases") +
@@ -101,7 +102,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   iterative_improvement_total_seasonal_cases_pred_0.8_benchmark_heatmap_minus_VCT <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.8_ordered %>% 
                                                                                     filter(iso3 != "VCT")) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.8_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 80% total cases") +
@@ -111,7 +112,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   #----- 0.85
   iterative_improvement_total_seasonal_cases_pred_0.85_benchmark_heatmap <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.85_ordered) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.85_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 85% total cases") +
@@ -121,7 +122,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   iterative_improvement_total_seasonal_cases_pred_0.85_benchmark_heatmap_minus_VCT <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.85_ordered %>% 
                                                                                      filter(iso3 != "VCT")) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.85_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 85% total cases") +
@@ -131,7 +132,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   #----- 0.9
   iterative_improvement_total_seasonal_cases_pred_0.9_benchmark_heatmap <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.9_ordered) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.90_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 90% total cases") +
@@ -141,7 +142,7 @@ Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_perform
   iterative_improvement_total_seasonal_cases_pred_0.9_benchmark_heatmap_minus_VCT <- ggplot(x_iterative_improvement_total_seasonal_cases_pred_0.9_ordered %>%
                                                                                     filter(iso3 != "VCT")) + 
     geom_tile(mapping = aes(x = season_nMonth, y = Country, fill = Total_RMSE_to_0.90_prop_rmse)) + 
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "cyan", high = "magenta") +
     scale_x_continuous(breaks = 1:12) +
     labs(x = "", y = "Country", fill = "RMSE ratio") +
     ggtitle("Total seasonal cases prediction RMSE normalised to month with >= 90% total cases") +

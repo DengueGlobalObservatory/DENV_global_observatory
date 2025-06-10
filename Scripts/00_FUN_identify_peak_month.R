@@ -12,6 +12,7 @@
 #' Timeline:
 #' =========
 #' 04-06-2025: Prepared script.
+#' 09-06-2025: Adapted script to handle multiple peaks within a year.
 
 identify_peak_month <- function(x){
   
@@ -40,21 +41,23 @@ identify_peak_month <- function(x){
     
   }
   
-  x_ave_peak <- x %>% 
+  x_peak <- x %>% 
     filter(!is.na(Country)) %>%
-    ungroup() %>% 
-    select(Country, iso3, season, Month_to_predict, Actual_monthly_cases) %>%
-    distinct() %>% 
-    group_by(Country, iso3, season) %>% 
-    summarise(Season_peak_Month = Month_to_predict[which.max(Actual_monthly_cases)]) %>% 
+    group_by(Country, season) %>% 
+    slice_max(order_by = Actual_monthly_cases_per_100000_pop, n = 1) %>% 
+    rename(Peak_month = season_nMonth) %>% 
+    mutate(No_of_obs = n()) %>% 
+    mutate(within_season_mean_peak_month = case_when(No_of_obs > 1 ~ circular_mean(Peak_month),
+                                                   No_of_obs == 1  ~ Peak_month)) %>%
     ungroup() %>% 
     group_by(Country, iso3) %>% 
-    summarise(Average_season_peak_month = circular_mean(Season_peak_Month))
+    summarise(Average_season_peak_month = circular_mean(within_season_mean_peak_month))
   
   #---------------------- Add in mean peak month to main df
   
   x_final <- x %>% 
-    left_join(., x_ave_peak, by = c("Country", "iso3"))
+    left_join(., x_peak, by = c("Country", "iso3")) %>% 
+    filter(!is.na(Country)) 
  
   #---------------------- Return data  
   
