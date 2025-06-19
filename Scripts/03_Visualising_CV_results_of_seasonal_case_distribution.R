@@ -15,6 +15,7 @@
 #' 05-06-2025: Removed code to calculate incidence (moved to 02S_Cross_validation_of_monthly_proportion_of_cases_desired_use_case). 
 #'             Split raw prediction error by month heatmaps into bands to increase interpretability (large error values previously making it difficult to distinguish smaller values). 
 #'             Used same groupings to split iterative improvement in monthly case prediction. Generated combined plots to show raw error vs iterative reduction in error. 
+#' 19-06-2025: Corrected sourced function filepaths.
 
 library(dplyr)
 library(tidyverse)
@@ -40,11 +41,11 @@ iterative_monthly_load_predictions <- read_csv("Results/Slow_processing_results/
 #' Calculate incidence then generate plots for cases and incidence distribution in a single function
 
 #----- Add peak month + identify average
-source("Scripts/00_FUN_identify_peak_month.R")
+source("Scripts/Functions/00_FUN_identify_peak_month.R")
 iterative_monthly_load_predictions_clean <- identify_peak_month(iterative_monthly_load_predictions)
 
 #----- Plot results 
-source("Scripts/00_FUN_Visualise_monthly_prop_iterative_monthly_incid_prediction_performance_desired_use_case.R")
+source("Scripts/Functions/00_FUN_Visualise_monthly_prop_iterative_monthly_incid_prediction_performance_desired_use_case.R")
 iterative_monthly_load_LOOCV_plots <- Visualise_monthly_prop_iterative_monthly_incid_prediction_performance_desired_use_case_fun(iterative_monthly_load_predictions_clean)
 
 # Data 
@@ -63,7 +64,7 @@ split_mae_cases_heatmap <- iterative_monthly_load_LOOCV_plots$split_mae_cases_he
 split_mae_incid_heatmap <- iterative_monthly_load_LOOCV_plots$split_mae_incid_heatmap
 
 #--------------- Assess improvement in performance of iterative monthly cases prediction 
-source("Scripts/00_FUN_Visualise_iterative_improvement_in_monthly_incid_prediction.R")
+source("Scripts/Functions/00_FUN_Visualise_iterative_improvement_in_monthly_incid_prediction.R")
 Iterative_improvement_monthly_load_pred <- Visualise_iterative_improvement_in_monthly_incid_prediction(iterative_monthly_load_LOOCV_RMSE_MAE_data)
 
 # Data
@@ -82,7 +83,7 @@ Split_iterative_improvement_in_monthly_case_prediction_heatmap_mae <- Iterative_
 Split_iterative_improvement_in_monthly_incid_prediction_heatmap_mae <- Iterative_improvement_monthly_load_pred$Split_iterative_improvement_in_monthly_incid_prediction_heatmap_mae
 
 #--------------- Combine paired split plots with absolute error and reduction in error with each new month of data available  
-source("Scripts/00_FUN_Combine_raw_error_and_iterative_improvement_heatmaps.R")
+source("Scripts/Functions/00_FUN_Combine_raw_error_and_iterative_improvement_heatmaps.R")
 paired_raw_error_and_error_reduction_heatmaps <- Combine_raw_error_and_iterative_improvement_heatmaps(split_rmse_cases_heatmap, 
                                                                                                       split_rmse_incid_heatmap, 
                                                                                                       split_mae_cases_heatmap, 

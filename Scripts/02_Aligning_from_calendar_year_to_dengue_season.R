@@ -13,6 +13,7 @@
 #' Timeline:
 #' =========
 #' 22-05-2025: Prepared script.
+#' 19-06-2025: Corrected source function filepaths.
 
 library(dplyr)
 library(tidyverse)
@@ -27,9 +28,9 @@ source("Scripts/02_Combining_WHO_and_OpenDengue_data.R", local = Combining_WHO_a
 dengue_data <- Combining_WHO_and_OpenDengue_data$WHO_OD_target_data_combined_clean
 
 #--------------- Align from calendar year to dengue season 
-source("Scripts/00_FUN_aligning_from_calendar_year_to_dengue_season.R")
+source("Scripts/Functions/00_FUN_aligning_from_calendar_year_to_dengue_season.R")
 dengue_data_season_aligned <- aligning_from_calendar_year_to_dengue_season(dengue_data)
 
 #--------------- Filtering by season instead of calendar year
-source("Scripts/00_FUN_filtering_season_aligned_OpenDengue_WHO_combined_data.R")
+source("Scripts/Functions/00_FUN_filtering_season_aligned_OpenDengue_WHO_combined_data.R")
 dengue_data_season_aligned_filtered <- filtering_season_aligned_OpenDengue_WHO_combined_data_fun(dengue_data_season_aligned)

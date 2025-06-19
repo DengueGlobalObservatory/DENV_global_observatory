@@ -12,6 +12,7 @@
 #' Timeline:
 #' =========
 #' 21-05-2025: Prepared script.
+#' 19-06-2025: Corrected sourced function filepaths.
 
 library(dplyr)
 library(tidyverse)
@@ -34,7 +35,7 @@ dengue_data_5_year_rolling_CV <- monthly_proportion_of_cases_CV$dengue_data_5_ye
 #--------------- Are predicted cases (LOOCV) correlated with actual cases?
 
 #----- Performance by country (correlation) - proportion (same as cases as cor)
-source("Scripts/00_FUN_Visualise_monthly_pred_cases_vs_acc_cases_cor_results.R")
+source("Scripts/Functions/00_FUN_Visualise_monthly_pred_cases_vs_acc_cases_cor_results.R")
 pred_prop_vs_acc_prop_cor_res_plots <- Visualise_monthly_pred_cases_vs_acc_cases_cor_results_fun(dengue_data_LOOCV_df)
 pred_cases_vs_acc_cases_plot <- pred_prop_vs_acc_prop_cor_res_plots$Scatterplot
 pred_prop_vs_acc_prop_cor_df <- pred_prop_vs_acc_prop_cor_res_plots$DataFrame
@@ -55,7 +56,7 @@ cor(pred_prop_vs_acc_prop_cor_lat_ordered_df$dist_from_equator, pred_prop_vs_acc
 #'    No clear latitude dependency 
 
 #--------------- Performance by country (RMSE) - cases
-source("Scripts/00_FUN_Visualise_monthly_pred_cases_vs_acc_cases_rmse_results.R")
+source("Scripts/Functions/00_FUN_Visualise_monthly_pred_cases_vs_acc_cases_rmse_results.R")
 pred_vs_acc_cases_rmse_res_plots <- Visualise_monthly_pred_cases_vs_acc_cases_rmse_results_fun(dengue_data_LOOCV_df)
 pred_vs_acc_cases_rmse_df <- pred_vs_acc_cases_rmse_res_plots$Cases_RMSE_df
 pred_vs_acc_cases_rmse_heatmap <- pred_vs_acc_cases_rmse_res_plots$Cases_RMSE_heatmap
@@ -94,7 +95,7 @@ dengue_data_LOOCV_incid_df <- calculate_incidence(dengue_data_LOOCV_df,
                                                   Pop_raster_2010, Pop_raster_2015, Pop_raster_2020, Pop_raster_2025)
 
 #--- Incidence RMSE 
-source("Scripts/00_FUN_Visualise_monthly_pred_vs_acc_incidence_rmse_results.R")
+source("Scripts/Functions/00_FUN_Visualise_monthly_pred_vs_acc_incidence_rmse_results.R")
 pred_vs_acc_incid_rmse_res_plots <- Visualise_monthly_pred_vs_acc_incidence_rmse_results_fun(dengue_data_LOOCV_incid_df)
 pred_vs_acc_incid_RMSE_df <- pred_vs_acc_incid_rmse_res_plots$Incidence_RMSE_df
 pred_vs_acc_incid_RMSE_heatmap <- pred_vs_acc_incid_rmse_res_plots$Incidence_RMSE_heatmap
@@ -114,7 +115,7 @@ pred_vs_acc_incid_rmse_lat_ordered_heatmap_minus_St_Barthelemy <- pred_vs_acc_in
 
 #--------------- Does LOOCV outperform rolling CV?
 
-source("Scripts/00_FUN_comparing_LOOCV_vs_rolling_CV.R")
+source("Scripts/Functions/00_FUN_comparing_LOOCV_vs_rolling_CV.R")
 comparing_LOOCV_vs_rolling_CV <- comparing_LOOCV_vs_rolling_CV(dengue_data_LOOCV_df, dengue_data_5_year_rolling_CV)
 comparing_LOOCV_vs_rolling_CV_RMSE <- comparing_LOOCV_vs_rolling_CV$RMSE_plot
 comparing_LOOCV_vs_rolling_CV_cor <- comparing_LOOCV_vs_rolling_CV$Cor_plot
@@ -126,7 +127,7 @@ comparing_LOOCV_vs_rolling_CV_cor <- comparing_LOOCV_vs_rolling_CV$Cor_plot
 #--------------- Is correlation between predicted proportion (LOOCV) and actual proportion correlated with population?
 
 #----- Extract population by country
-source("Scripts/00_FUN_population_by_country.R")
+source("Scripts/Functions/00_FUN_population_by_country.R")
 pop_by_country <- population_by_country(dengue_data_LOOCV_df$iso3, Pop_raster_2025)
 
 pred_prop_vs_acc_prop_cor_pop <- pred_prop_vs_acc_prop_cor_df %>% 
@@ -181,12 +182,12 @@ acc_pred_cor_vs_pop_cor <- cor(pred_prop_vs_acc_prop_cor_pop$Correlation, pred_p
 
 
 #---------- Does monthly proportion perform better as a predictor for some months relative to others?
-source("Scripts/00_FUN_RMSE_and_MAE_by_country_and_month_fun.R")
+source("Scripts/Functions/00_FUN_RMSE_and_MAE_by_country_and_month_fun.R")
 LOOCV_performance_by_country_and_month <- RMSE_and_MAE_by_country_and_month_fun(dengue_data_LOOCV_df)
 rolling_CV_performance_by_country_and_month <- RMSE_and_MAE_by_country_and_month_fun(dengue_data_5_year_rolling_CV)
 
 #----- Adding in pop weighted centroids 
-source("Scripts/00_FUN_identifying_at_risk_pop_weighted_centroids.R")
+source("Scripts/Functions/00_FUN_identifying_at_risk_pop_weighted_centroids.R")
 DEN_occurrence_raster <- rast("Data/Arbo_riskmaps_public-main/outputs/Rasters/DCZ_binmap_mean.tif")
 Pop_raster_2025 <- rast("Data/GHS_POP_E2025_GLOBE_R2023A_4326_30ss_V1_0/GHS_POP_E2025_GLOBE_R2023A_4326_30ss_V1_0.tif") 
 #' Downloaded from https://human-settlement.emergency.copernicus.eu/download.php?ds=pop
@@ -212,7 +213,7 @@ ggplot(dengue_data_5_year_rolling_CV) +
   facet_wrap(~ Country, scales = "free")
 
 
-source("Scripts/00_FUN_RMSE_and_MAE_by_country.R")
+source("Scripts/Functions/00_FUN_RMSE_and_MAE_by_country.R")
 dengue_data_LOOCV_RMSE_MAE <- RMSE_and_MAE_by_country_fun(dengue_data_LOOCV_df)
 dengue_data_5_year_rolling_CV_RMSE_MAE <- RMSE_and_MAE_by_country_fun(dengue_data_5_year_rolling_CV)
 

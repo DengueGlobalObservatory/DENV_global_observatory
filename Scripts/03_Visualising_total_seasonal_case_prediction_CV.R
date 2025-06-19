@@ -14,6 +14,7 @@
 #' 22-05-2025: Prepared script.
 #' 02-06-2025: Added in code to show iterative improvement in prediction of total seasonal case number with each new month of data. 
 #'             Changed saving code to just save combined figs.
+#' 19-06-2025: Corrected sourced function filepaths.
 
 library(dplyr)
 library(tidyverse)
@@ -31,7 +32,7 @@ library(exactextractr)
 seasonal_case_predictions <- read_csv("Results/Slow_processing_results/02_Cross_validation_of_monthly_proportion_of_cases_desired_use_case/2025-06-05/Monthly_iterative_total_seasonal_load_predictions.csv")
 
 #--------------- Assess performance predicting total seasonal cases 
-source("Scripts/00_FUN_Visualise_monthly_prop_seasonal_case_prediction_performance_desired_use_case.R")
+source("Scripts/Functions/00_FUN_Visualise_monthly_prop_seasonal_case_prediction_performance_desired_use_case.R")
 total_seasonal_cases_LOOCV_plots <- Visualise_monthly_prop_seasonal_case_prediction_performance_desired_use_case(seasonal_case_predictions)
 
 #- Data
@@ -48,7 +49,7 @@ Combined_seasonal_cases_pred_rmse_plots <- total_seasonal_cases_LOOCV_plots$Comb
 Combined_seasonal_incid_pred_rmse_plots <- total_seasonal_cases_LOOCV_plots$Combined_incidence_plot
 
 #--------------- Assess iterative improvement in performance predicting total seasonal cases with each new month of data. 
-source("Scripts/00_FUN_Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_performance.R")
+source("Scripts/Functions/00_FUN_Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_performance.R")
 Iterative_improvement_in_total_seasonal_case_prediction <- Visualise_iterative_improvement_in_monthly_prop_seasonal_case_prediction_performance(seasonal_case_predictions)
 Iterative_improvement_total_seasonal_cases_pred_data <- Iterative_improvement_in_total_seasonal_case_prediction$Iterative_improvement_total_seasonal_cases_pred_data
 
@@ -69,7 +70,7 @@ iterative_improvement_0.90_benchmark_minus_VCT_combined_plots <- Iterative_impro
 #' Setting benchmark RMSE at 75% of cases performs well - value here is of a similar order of magnitude/ one below to the raw RMSE across countries easing plot interpretability.
 
 #--------------- Assess iterative improvement in performance predicting total seasonal incidence with each new month of data. 
-source("Scripts/00_FUN_Visualise_iterative_improvement_in_monthly_prop_seasonal_incid_prediction_performance.R")
+source("Scripts/Functions/00_FUN_Visualise_iterative_improvement_in_monthly_prop_seasonal_incid_prediction_performance.R")
 Iterative_improvement_in_total_seasonal_incid_prediction <- Visualise_iterative_improvement_in_monthly_prop_seasonal_incid_prediction_performance(seasonal_case_predictions)
 
 #- Data

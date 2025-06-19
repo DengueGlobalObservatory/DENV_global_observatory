@@ -13,6 +13,7 @@
 #' Timeline:
 #' =========
 #' 14-05-2025: Performed LOOCV + 5-year rolling CV for countries with >= 10 years of continuous data.
+#' 19-06-2025: Corrected sourced function filepaths.
 
 library(dplyr)
 library(tidyverse)
@@ -28,17 +29,17 @@ dengue_data <- source("Scripts/02_Combining_WHO_and_OpenDengue_data.R",
 
 #--------------- Leave one out cross validation
 dengue_data_split <- split(dengue_data, dengue_data$Country)
-source("Scripts/00_FUN_LOOCV_on_monthly_proportion_of_cases.R")
+source("Scripts/Functions/00_FUN_LOOCV_on_monthly_proportion_of_cases.R")
 dengue_data_LOOCV_split <- Map(LOOCV_on_monthly_proportion_of_cases_fun, dengue_data_split)
 dengue_data_LOOCV_df <- Reduce(rbind, dengue_data_LOOCV_split)
 
 #--------------- Rolling cross validation
 
 #----- Filtering for countries with at least 10 years of continuous data 
-source("Scripts/00_FUN_filtering_for_10_years_of_continuous_data.R")
+source("Scripts/Functions/00_FUN_filtering_for_10_years_of_continuous_data.R")
 dengue_data_10_year_filtered <- filtering_for_10_years_of_continuous_data_fun(dengue_data)
 
 #----- Performing rolling CV 
-source("Scripts/00_FUN_rolling_cross_validation.R")
+source("Scripts/Functions/00_FUN_rolling_cross_validation.R")
 dengue_data_5_year_rolling_CV <- rolling_cross_validation_fun(dengue_data_10_year_filtered, 5)
 
