@@ -22,7 +22,7 @@
 #'             When LOO_cum_monthly_proportion == 0 if Cumulative_season_cases == 0 then Predicted_seasonal_cases == NaN rather than 0. 
 #'             When LOO_cum_monthly_proportion == 0 if Cumulative_season_cases > 0 then Predicted_seasonal_cases == Inf rather than 0. 
 #'             Changed code to automatically correct these. 
-
+#' 20-06-2025: Added 95% CIs of monthly proportion predictions to LOOCV structure.
 
 desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
@@ -51,7 +51,8 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
     
     average_proportion <- filtered_data %>% 
       group_by(season_nMonth) %>% 
-      summarise(LOO_cum_monthly_proportion = ave(Actual_cumulative_monthly_proportion)) %>% 
+      summarise(LOO_cum_monthly_proportion = ave(Actual_cumulative_monthly_proportion),
+                LOO_CI95_cum_monthly_proportion = sd(Actual_cumulative_monthly_proportion) * 1.96) %>%
       mutate(season = i) %>% 
       distinct()
     
@@ -61,9 +62,10 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
   
   x_seasonal_cases_LOOCV <- full_join(x_monthly_proportions, predicting_total_seasonal_case_load_results, by= c("season", "season_nMonth")) %>%
     as.data.frame() %>% 
-    mutate(Predicted_seasonal_cases = Cumulative_season_cases / LOO_cum_monthly_proportion) #%>% 
-    mutate(Predicted_seasonal_cases = case_when(Predicted_seasonal_cases == Inf & LOO_cum_monthly_proportion == 0 ~ 0, 
-                                                is.nan(Predicted_seasonal_cases) & LOO_cum_monthly_proportion == 0 ~ 0))
+    mutate(Predicted_seasonal_cases = Cumulative_season_cases / LOO_cum_monthly_proportion) %>% 
+    mutate(CI95_Predicted_seasonal_cases = Cumulative_season_cases / LOO_CI95_cum_monthly_proportion) # %>% 
+    # mutate(Predicted_seasonal_cases = case_when(Predicted_seasonal_cases == Inf & LOO_cum_monthly_proportion == 0 ~ 0, 
+    #                                             is.nan(Predicted_seasonal_cases) & LOO_cum_monthly_proportion == 0 ~ 0))
     
     #' If LOO_cum_monthly_proportion == 0 and Cumulative_season_cases == 0, Predicted_seasonal_cases == NaN. Correct to 0 predicted seasonal cases. 
     #' If LOO_cum_monthly_proportion == 0 and Cumulative_season_cases > 0, Predicted_seasonal_cases == Inf. Correct to 0 predicted seasonal cases. 
@@ -80,7 +82,8 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
       ungroup() %>%
       group_by(season_nMonth) %>% 
       summarise(Ave_monthly_proportion = ave(Actual_monthly_proportion),
-                Average_cum_proportion = ave(Actual_cumulative_monthly_proportion)) %>% 
+                Average_cum_proportion = ave(Actual_cumulative_monthly_proportion),
+                CI95_cum_proportion = sd(Actual_cumulative_monthly_proportion) * 1.96) %>% 
       arrange(season_nMonth) %>%
       ungroup() %>%
       rename(Month_to_predict = season_nMonth)
@@ -109,7 +112,8 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
         filter(season_nMonth != Month_to_predict) %>%
         mutate(Actual_cases_to_date = cumsum(Cases_clean)) %>%
         mutate(Predicted_total_seasonal_cases = Actual_cases_to_date / Average_cum_proportion) %>% 
-        mutate(Predicted_monthly_cases = Predicted_total_seasonal_cases * Ave_monthly_proportion)
+        mutate(Predicted_monthly_cases = Predicted_total_seasonal_cases * Ave_monthly_proportion) %>%
+        mutate(CI95_Predicted_monthly_cases = Predicted_total_seasonal_cases * CI95_cum_proportion)
         
       #  filter(Predictor_month < season_nMonth)  %>%
       #   mutate(Cases_to_date = sum(Cases_clean),
@@ -141,9 +145,10 @@ desired_use_case_LOOCV_on_monthly_proportion_of_cases <- function(x){
         distinct() %>%
         rename(Actual_monthly_cases = Cases_clean) %>% 
         select(Country, iso3, source, Year, Calendar_year_month, mean_low_month, season, season_nMonth, Actual_cases_to_date, Actual_monthly_proportion, 
-               Month_to_predict, Ave_monthly_proportion, Average_cum_proportion, Predicted_total_seasonal_cases, Actual_monthly_cases, Predicted_monthly_cases) %>%
+               Month_to_predict, Ave_monthly_proportion, Average_cum_proportion, Predicted_total_seasonal_cases, Actual_monthly_cases, Predicted_monthly_cases, 
+               CI95_Predicted_monthly_cases) %>%
         select(Country, iso3, source, Year, Calendar_year_month, mean_low_month, season, season_nMonth, 
-               Actual_cases_to_date, Month_to_predict, Actual_monthly_cases, Predicted_monthly_cases)
+               Actual_cases_to_date, Month_to_predict, Actual_monthly_cases, Predicted_monthly_cases, CI95_Predicted_monthly_cases)
       
       
     }
