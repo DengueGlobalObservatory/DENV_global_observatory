@@ -48,6 +48,7 @@ plotting_example_use_case_one_two_month_lead_prediction <- function(x, iso3_to_p
     facet_wrap(Country ~ Pred_lead, scales = "free_y") +
     scale_x_continuous(breaks = seq(1:12)) + 
     labs(x = "Month", y = "Monthly cases", color = "") +
+    ggtitle("Fig. 2: Sample use case of monthly proportion for prediction") +
     theme_minimal() +
     lineplot_theme
 

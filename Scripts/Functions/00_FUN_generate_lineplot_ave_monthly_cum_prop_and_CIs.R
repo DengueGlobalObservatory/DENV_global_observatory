@@ -51,7 +51,7 @@ generate_lineplot_ave_monthly_cum_prop_and_CIs <- function(x){
                                 ymin = lower_CI95, ymax = upper_CI95), width = 0.2, linetype = "dashed") + 
     scale_x_continuous(breaks = 1:12) +
     labs(x = "Season month", y = "Cumulative proportion of cases") +
-    ggtitle("Average cumulative monthly proportion of cases observed within a dengue season") +
+    ggtitle("Fig. 1: Average cumulative monthly proportion of cases observed within a dengue season") +
     facet_wrap(~ Country) + 
     theme_minimal() + 
     lineplot_theme
