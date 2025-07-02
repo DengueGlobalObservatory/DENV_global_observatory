@@ -13,7 +13,7 @@
 #' =========
 #' 14-05-2025: Prepared function
 #' 15-05-2025: Added comments. Grouped by country for all zero filtering.
-#'
+#' 20-06-2025: Added threshold of at leat 5 cases per month on average.
 
 filtering_OpenDengue_WHO_combined_data_fun <- function(x){
   
@@ -26,17 +26,17 @@ filtering_OpenDengue_WHO_combined_data_fun <- function(x){
       select(!Number_of_months_in_year) %>%
       ungroup() 
     
-  # Filter for all zero years
-  x_all_zero_filtered <- x_coverage_filtered %>% 
+  # Filter for years with < 5 cases on average per month 
+  threshold <- 5
+  x_monthly_case_thresh_filtered <- x_coverage_filtered %>% 
     ungroup() %>% 
     group_by(Country, Year) %>%
-    mutate(All_zeroes = case_when(sum(Cases_clean) == 0 ~ "Yes",
-                                  sum(Cases_clean) != 0 ~ "No")) %>% 
-    filter(All_zeroes == "No") %>% 
-    select(!All_zeroes)
+    mutate(Average_cases_per_month = ave(Cases_clean)) %>%
+    filter(Average_cases_per_month >= threshold) %>%
+    select(!Average_cases_per_month)
   
   # Filter for locations with less than three years of data.
-    x_year_no_filtered <- x_all_zero_filtered %>%
+    x_year_no_filtered <- x_monthly_case_thresh_filtered %>%
       group_by(Country, Month) %>% 
       mutate(Number_of_years = n()) %>% 
       filter(Number_of_years >= 3) %>% 

@@ -16,10 +16,16 @@
 #' 02-06-2025: Changed incorrectly names variables from annual to seasonal and saved results.
 #' 05-06-2025: Added code to save data by date generated. Added code to add incidence to LOOCV results dfs. 
 #' 19-06-2025: Corrected sourced function filepaths.
+#' 20-06-2025: Added required packages.
 
 library(readr)
 library(dplyr)
 library(tidyverse)
+library(terra)
+library(exactextractr)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
 
 #--------------- Load data 
 Aligning_from_calendar_year_to_dengue_season <- new.env()
