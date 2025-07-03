@@ -97,7 +97,7 @@ PAHO_incid_monthly <- function(df) {
       ) %>%
       select(country, date_seq) %>%
       unnest(date_seq, names_repair = "minimal") %>%
-      rename(date = date_seq)
+      dplyr::rename(date = date_seq)
     
     joined_df <- full_df %>%
       left_join(df, by = c("country", "date")) %>%
@@ -123,4 +123,4 @@ PAHO_incid_monthly <- function(df) {
       ungroup()
     
     return(joined_df)
-  }
+}
