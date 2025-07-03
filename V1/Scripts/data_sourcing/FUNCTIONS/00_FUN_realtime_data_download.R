@@ -12,14 +12,21 @@
 #' 
 #' **PAHO crawler**
 #' 
-#'  remove_total()            = Removes total summary rows from ID/country/serotype
+#' need to write - API function 
+#' 
+#'  remove_total()             = Removes total summary rows from ID/country/serotype
 #'  read_and_clean_PAHO()      = Load files, clean columns, convert types
 #'  normalize_country()        = add english county name and iso3
 #'  compile_PAHO()             = download, check and compile a week worth of download
 #'  
 #' **WHO crawler**
 #' 
+#' need to write - API function 
 #'  
+#'  **SEARO crawler**
+#'  
+#' need to write - API function 
+#' 
 
 # Required Libraries
 library(dplyr)        # Data manipulation
@@ -35,7 +42,6 @@ library(countrycode)  # add ISO3 codes
 #' ───────────────────────────────────────────────────────────────
 #' PAHO dengue dashboard functions
 #' ───────────────────────────────────────────────────────────────
-
 
 
 
@@ -228,6 +234,9 @@ normalize_country <- function(df, col = "country") {
 #' @param final_dir Output directory for cleaned CSV
 #'
 #' @return NULL (writes file to disk)
+
+dir_input <- 
+
 
 compile_PAHO <- function(dir_input, sub_dirs_ls, download_week, final_dir) {
   if (!dir.exists(dir_input)) stop("❌ dir_input does not exist.")
