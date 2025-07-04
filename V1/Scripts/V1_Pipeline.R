@@ -12,6 +12,11 @@
 
 #------ Step 1: start log
 
+# create run directory 
+
+# define log file path 
+
+# start log process 
 
 #------ Step 2: Open data
 
