@@ -59,3 +59,5 @@ who <- read_excel(who_path)
 ##!! need to create API download 
 searo_path <- "Data/SEARO/SEARO_National_data_20250620_0818.csv"
 searo <- read.csv(searo_path)
+searo$country <- searo$Country
+searo <- select(searo, -c(Country))
