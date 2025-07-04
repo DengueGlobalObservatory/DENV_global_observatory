@@ -52,11 +52,12 @@ PAHO_cumm_monthly <- function(df){
       total_den_corrected = total_den * rf,
       month = format(onset_date, "%B")
     ) %>%
+    filter ( !EW == 1) %>%
     group_by(country, year, month) %>%
     slice_max(order_by = EW, n = 1, with_ties = FALSE) %>%
     ungroup() %>%
     select(
-      country, year, month,
+      country, iso3c, year, month, EW, Reporting_EW,
       total_monthly_cases_corr = total_den_corrected,
       total_monthly_cases = total_den
     ) %>%
