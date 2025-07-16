@@ -29,7 +29,7 @@
 #' 
 
 # Required Libraries
-library(dplyr)        # Data manipulation
+library(dplyr)        # Data manipulatio
 library(plyr)         # Counting, ordering (used in encode_fix)
 library(lubridate)    # Date parsing and manipulation
 library(data.table)   # Fast data.frame operations and rbindlist
@@ -147,7 +147,7 @@ read_and_clean_PAHO <- function(file_path, download_week) {
 #' @param df A data frame containing a country column in Spanish
 #' @param col The name of the country column to normalize (default = "country")
 #'
-#' @return A data frame with columns `country_sp`, `country` (English), and `iso3c` (ISO3 code)
+#' @return A data frame with columns `country_sp`, `country` (English), and `iso3` (ISO3 code)
 
 
 normalize_country <- function(df, col = "country") {
@@ -211,7 +211,7 @@ normalize_country <- function(df, col = "country") {
   df$country <- dplyr::recode(df[[col]], !!!country_map)
   
   # Add ISO3 code (using countrycode)
-  df$iso3c <- countrycode(df$country, origin = "country.name", destination = "iso3c")
+  df$iso3 <- countrycode(df$country, origin = "country.name", destination = "iso3")
   
   # Optional: Warn about any unmatched ISO codes
   if (any(is.na(df$iso3c))) {
