@@ -29,12 +29,12 @@ library(rnaturalearthdata)
 
 #--------------- Load data 
 Aligning_from_calendar_year_to_dengue_season <- new.env()
-source("Scripts/02_Aligning_from_calendar_year_to_dengue_season.R", local = Aligning_from_calendar_year_to_dengue_season)
+source("V1/DEV/02_Aligning_from_calendar_year_to_dengue_season.R", local = Aligning_from_calendar_year_to_dengue_season)
 season_aligned_dengue_data <- Aligning_from_calendar_year_to_dengue_season$dengue_data_season_aligned_filtered
 
 #--------------- LOOCV to predict total seasonal cases and monthly case distribution iteratively with each season of new data 
 season_aligned_dengue_data_split <- split(season_aligned_dengue_data, season_aligned_dengue_data$Country)
-source("Scripts/Functions/00_FUN_Desired_use_case_LOOCV_on_monthly_proportion_of_cases.R")
+source("V1/DEV/Functions/00_FUN_Desired_use_case_LOOCV_on_monthly_proportion_of_cases.R")
 dengue_data_desired_use_case_LOOCV_split <- Map(desired_use_case_LOOCV_on_monthly_proportion_of_cases, season_aligned_dengue_data_split)
 
 #----- Extract results
@@ -57,13 +57,13 @@ Pop_raster_2020 <- rast("Data/GHS_POP_E2020_GLOBE_R2023A_4326_30ss_V1_0/GHS_POP_
 Pop_raster_2025 <- rast("Data/GHS_POP_E2025_GLOBE_R2023A_4326_30ss_V1_0/GHS_POP_E2025_GLOBE_R2023A_4326_30ss_V1_0.tif")
 
 #----- Convert total seasonal case prediction to incidence
-source("Scripts/Functions/00_FUN_Calculate_incidence_desired_use_case.R")
+source("V1/DEV/Functions/00_FUN_Calculate_incidence_desired_use_case.R")
 seasonal_case_predictions_incidence <- calculate_incidence_desired_use_case(seasonal_case_predictions, 
                                                                             Pop_raster_1990, Pop_raster_1995, Pop_raster_2000, Pop_raster_2005, 
                                                                             Pop_raster_2010, Pop_raster_2015, Pop_raster_2020, Pop_raster_2025)
 
 #----- Convert monthly iterative case prediction to incidence
-source("Scripts/Functions/00_FUN_Calculate_incidence_monthly_case_prediction_desired_use_case.R")
+source("V1/DEV/Functions/00_FUN_Calculate_incidence_monthly_case_prediction_desired_use_case.R")
 iterative_monthly_case_predictions_incidence <- Calculate_incidence_monthly_case_prediction_desired_use_case(iterative_monthly_case_predictions, 
                                                                                                              Pop_raster_1990, Pop_raster_1995, Pop_raster_2000, Pop_raster_2005, 
                                                                                                              Pop_raster_2010, Pop_raster_2015, Pop_raster_2020, Pop_raster_2025)

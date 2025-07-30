@@ -14,6 +14,7 @@
 #' 14-05-2025: Listed countries unique to each source, and those included in both. 
 #'             For those in both, missing data up to four weeks or one month was interpolated and coverage compared. 
 #' 19-06-2025: Corrected sourced functions filepath.
+#' 29-07-2025: Updated filepaths to functions and scripts sourced.
 
 library(dplyr)
 library(tidyverse)
@@ -27,7 +28,7 @@ OD_national_extract <- read_csv("Data/OpenDengue_V1_2/National_extract_V1_2.csv"
 WHO_data <- read_excel("Data/WHO_dengue_data/dengue-global-data-2025-05-14.xlsx")
 
 #--------------- Cleaning data 
-source("Scripts/Functions/00_FUN_WHO_data_cleaning.R", local = environment())
+source("V1/DEV/Functions/00_FUN_WHO_data_cleaning.R", local = environment())
 WHO_data_clean <- WHO_data_cleaning(WHO_data)
 
 #---------------------- Listing countries unique to one source + in both - national 
@@ -80,16 +81,16 @@ OD_data_for_countries_in_both <- OD_national_extract_filtered %>%
   filter(ISO_A0 %in% Countries_in_both_df$iso3)
 
 #----- Identify highest continuity data source by year + where duplicate counts exist select the source with the highest continuity. 
-source("Scripts/Functions/00_FUN_deduplicating_OpenDengue_data.R", local = environment())
+source("V1/DEV/Functions/00_FUN_deduplicating_OpenDengue_data.R", local = environment())
 OD_data_for_countries_in_both_clean <- deduplicating_OpenDengue_data_FUN(OD_data_for_countries_in_both)
 
 #----- Interpolating missing OpenDengue data
-source("Scripts/Functions/00_FUN_interpolating_missing_OpenDengue_data.R", local = environment())
+source("V1/DEV/Functions/00_FUN_interpolating_missing_OpenDengue_data.R", local = environment())
 OD_data_for_countries_in_both_clean_split <- split(OD_data_for_countries_in_both_clean, OD_data_for_countries_in_both_clean$ISO_A0)
 OD_data_for_countries_in_both_interpolated_split <- Map(interpolating_missing_OpenDengue_data_FUN, OD_data_for_countries_in_both_clean_split)
 
 #----- Data coverage of OpenDengue countries in both
-source("Scripts/Functions/00_FUN_OpenDengue_interpolated_cases_data_coverage.R", local = environment())
+source("V1/DEV/Functions/00_FUN_OpenDengue_interpolated_cases_data_coverage.R", local = environment())
 OD_countries_in_both_coverage <- Map(OpenDengue_interpolated_cases_data_coverage_FUN, OD_data_for_countries_in_both_interpolated_split)
 OD_countries_in_both_coverage_df <- Reduce(rbind, OD_countries_in_both_coverage) %>% as.data.frame() %>%
   mutate(iso3 = countrycode(adm_0_name, "country.name", "iso3c")) %>% 
@@ -103,17 +104,17 @@ WHO_data_for_countries_in_both <- WHO_data_clean %>%
   filter(iso3 %in% Countries_in_both_df$iso3)
 
 #----- Interpolating missing WHO data
-source("Scripts/Functions/00_FUN_interpolating_missing_WHO_data.R", local = environment())
+source("V1/DEV/Functions/00_FUN_interpolating_missing_WHO_data.R", local = environment())
 WHO_data_for_countries_in_both_split <- split(WHO_data_for_countries_in_both, WHO_data_for_countries_in_both$iso3)
 WHO_data_for_countries_in_both_interpolated_split <- Map(interpolating_missing_WHO_data_FUN, WHO_data_for_countries_in_both_split)
 
 #----- Data coverage of WHO countries in both 
-source("Scripts/Functions/00_FUN_WHO_interpolated_cases_data_coverage.R", local = environment())
+source("V1/DEV/Functions/00_FUN_WHO_interpolated_cases_data_coverage.R", local = environment())
 WHO_data_for_countries_in_both_coverage <- Map(WHO_interpolated_cases_data_coverage_fun, WHO_data_for_countries_in_both_interpolated_split)
 WHO_data_for_countries_in_both_coverage_df <- Reduce(rbind, WHO_data_for_countries_in_both_coverage) %>% as.data.frame() %>%
   mutate(iso3 = countrycode(adm_0_name, "country.name", "iso3c"))
 
 #--------------------------- Comparing coverage between countries in both WHO and OD databases 
-source("Scripts/Functions/00_FUN_Which_years_to_keep_between_WHO_and_OpenDengue.R", local = environment())
+source("V1/DEV/Functions/00_FUN_Which_years_to_keep_between_WHO_and_OpenDengue.R", local = environment())
 Comparing_coverage_between_WHO_and_OpenDengue <- Which_years_to_keep_between_WHO_and_OpenDengue_fun(OD_countries_in_both_coverage_df, 
                                                                                                     WHO_data_for_countries_in_both_coverage_df)

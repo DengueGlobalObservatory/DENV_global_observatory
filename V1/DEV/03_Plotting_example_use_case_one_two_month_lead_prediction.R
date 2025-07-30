@@ -42,7 +42,7 @@ Number_of_seasons_per_location <- iterative_monthly_load_prediction_desired_lead
 #' Fiji as country with few seasons of data (3 seasons). Thailand as country with lots of data (32 seasons).
 
 #--------------- Generate lineplots showing performance of prediction method on Thailand and Bahamas, using most recent season as test season. 
-source("Scripts/Functions/00_FUN_plotting_example_use_case_one_two_month_lead_prediction.R")
+source("V1/DEV/Functions/00_FUN_plotting_example_use_case_one_two_month_lead_prediction.R")
 example_use_case_plot <- plotting_example_use_case_one_two_month_lead_prediction(iterative_monthly_load_prediction_desired_lead, c("THA", "FJI"))
 
 #--------------- Saving 
