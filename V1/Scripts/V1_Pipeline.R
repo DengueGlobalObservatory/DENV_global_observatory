@@ -22,7 +22,7 @@
 
 source("V1/Scripts/data_sourcing/01_open_dengue_data.R")
 
-#------ Step 3: Backfilling and data selection 
+#------ Step 3: Data selection and Backfilling  
 
 source("V1/Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
 

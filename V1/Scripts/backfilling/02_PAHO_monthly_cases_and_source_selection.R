@@ -9,16 +9,34 @@
 #' 
 #' Note: This script is dependent on 01_dengue_data_update.R
 
+library(ggplot2)
 # Functions: 
 source("V1/Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R")
 
 # ----- PAHO backfilling and monthly case calculation 
 
 # apply backfilling and define monthly cumulative cases 
-paho_monthly_cumm <- PAHO_cumm_monthly(paho)
 
+# apply correction
+paho_correction <- apply_reporting_correction(df = paho, cases_col = "total_den",
+                                             output_col = "total_corrected_cases")
+# weekly cumm -> month cum -> monthly
+paho_month_cumm  <- compute_monthcumm_cases(df = paho_correction)
 # Calculate monthly cases:
-paho_month <- PAHO_incid_monthly(paho_monthly_cumm)
+monthly_paho <-  PAHO_incid_monthly(paho_month_cumm)
+
+# handle negative values 
+## -- room for improvement in future
+monthly_paho <- monthly_paho %>%
+  mutate( 
+    missing_reason = case_when(computed_monthly_cases_corr < 0 ~ "replaced_with_uncor", TRUE ~ missing_reason), 
+    computed_monthly_cases_corr = case_when(computed_monthly_cases_corr < 0 ~ computed_monthly_cases, TRUE ~ computed_monthly_cases_corr)
+    ) %>%
+  mutate(
+    missing_reason = case_when(computed_monthly_cases_corr < 0 ~ "negative", TRUE ~ missing_reason),
+    computed_monthly_cases_corr = case_when(computed_monthly_cases_corr < 1 ~ NA, TRUE ~ computed_monthly_cases_corr)
+  )
+
 
 
 # ----- Selection of data sources for each country
@@ -46,16 +64,21 @@ all_countries <- full_join(paho_countries, who_countries, by = "country") %>%
     in_searo = replace_na(in_searo, FALSE)
   )
 
+
+
 # make combine df
 
 # Step 1: correct the column names in PAHO and SEARO to match WHO 
-paho_add <- paho_month %>%
+paho_add <- monthly_paho %>%
+  mutate(
+    date = make_date(year = year, month = month_num, day = 1),
+    source = "PAHO"
+  ) %>%
   dplyr::  rename(
     country = country,
-    date = date,
     year = year,
     month = month,
-    cases = computed_monthly_cases
+    cases = computed_monthly_cases_corr
   ) %>%
   mutate(
     month = month.abb[match(month, month.name)]
@@ -64,6 +87,7 @@ paho_add <- paho_month %>%
          date,
          year,
          month,
+         source,
          cases)
 
 searo_add <- searo %>%
@@ -80,13 +104,17 @@ searo_add <- searo %>%
       month == "July" ~ "Jul",
       TRUE ~ month),
     # Build the first-of-month date
-    date = as.Date(paste(year, match(month, month.abb), "01", sep = "-"))
+    date = as.Date(paste(year, match(month, month.abb), "01", sep = "-")), 
+    source = "SEARO"
     ) %>%
   select(country,
          date,
          year,
          month,
+         source,
          cases)
+
+
 # Step 2: Combine PAHO and SEARO data
 paho_searo <- bind_rows(paho_add, searo_add)
 
@@ -96,6 +124,9 @@ existing_countries <- paho_searo %>%
 
 # Step 4: Filter WHO for countries not in paho_searo
 who_unique <- who %>%
+  mutate(
+    source = "WHO"
+  ) %>%
   anti_join(existing_countries, by = "country")
 
 # Step 5: Final combined dataset
