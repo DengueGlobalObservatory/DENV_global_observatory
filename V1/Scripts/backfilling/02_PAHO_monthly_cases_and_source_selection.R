@@ -7,7 +7,7 @@
 #' Overview
 #' ========
 #' 
-#' Note: This script is dependent on 01_dengue_data_update.R
+#' Note: This script is dependent on 01_this_season_dengue_data.R
 
 library(ggplot2)
 # Functions: 
