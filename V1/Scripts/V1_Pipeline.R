@@ -50,12 +50,12 @@ if (needs_update) {
   # open and combine seasonal data
   source("V1/Scripts/data_sourcing/01_historic_national_data.R")
   # calculate average season 
-  source()
+  source() ## ADD HERE
 }
 
 ## open most recent existing average season file 
 
-avg_season <- 
+avg_season <-  # ADD HERE
 
 #------ Step 3: Open data for this season
 
@@ -72,3 +72,5 @@ source("V1/Scripts/forecasting/03_two_month_ahead_forecasting.R")
 
 #------ Step 6: Visualise 
 
+#ADD HERE
+source()

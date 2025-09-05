@@ -26,10 +26,13 @@ WHO_data <- read_excel("Data/WHO/dengue-global-data-2025-06-24.xlsx")
 # Clean WHO data
 WHO_data <- WHO_data %>%
   select(date, country, iso3, cases) %>% 
-  mutate(date = as.Date(date),
-         cases = as.numeric(cases)) %>%
-  mutate(Year = year(date)) %>%
-  mutate(cases = case_when(cases < 0 ~ NA,
+  mutate(
+    date = as.Date(date),
+    cases = as.numeric(cases)) %>%
+  mutate(
+    Year = year(date)) %>%
+  mutate(
+    cases = case_when(cases < 0 ~ NA,
                            TRUE ~ cases))
 
 # Clean and filter OPENdengue national data
@@ -38,15 +41,19 @@ opendengue_data <- OD_national_extract %>%
   mutate(
     date = calendar_start_date,
     iso3 = ISO_A0,
-    cases = dengue_total, 
+    cases = dengue_total,
     country = str_to_title(full_name) # fix ALL CAP
   ) %>%
-    select(date, country, iso3, cases) %>% 
+    select(
+      date, 
+      country, 
+      iso3, 
+      cases) %>% 
     mutate(
-      Year = year(date)) %>%
+      Year = year(date)
+      ) %>%
   filter(Year > 2009)
     
-
 
 #-------------- Threshold of case aviablity  
 
@@ -103,4 +110,3 @@ full_data_interpolated %>%
 
 write_csv(full_data, 
           file = paste0("V1/Output/historic_data/National_clean_data_",Sys.Date(),".csv"))
-
