@@ -132,9 +132,10 @@ who_unique <- who %>%
 # Step 5: Final combined dataset
 final_data <- bind_rows(paho_searo, who_unique)
 
-season_data <- final_data %>%
+current_data <- final_data %>%
   filter( year > 2023) %>%
   select(country,
+         iso3,
          date,
          year,
          month,

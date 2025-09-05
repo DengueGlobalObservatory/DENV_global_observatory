@@ -73,7 +73,7 @@ read_and_clean_PAHO <- function(file_path, download_week) {
   df <- read_tsv(file_path, locale = locale(encoding = "UTF-16LE"))
   # remove sum row
   df <- remove_total(df)
-  # remove extra yeawr col
+  # remove extra year col
   df <- df %>%
     select(!Año...5)
   
@@ -211,7 +211,7 @@ normalize_country <- function(df, col = "country") {
   df$country <- dplyr::recode(df[[col]], !!!country_map)
   
   # Add ISO3 code (using countrycode)
-  df$iso3 <- countrycode(df$country, origin = "country.name", destination = "iso3")
+  df$iso3 <- countrycode(df$country, origin = "country.name", destination = "iso3c")
   
   # Optional: Warn about any unmatched ISO codes
   if (any(is.na(df$iso3c))) {

@@ -17,3 +17,11 @@ library(tidyverse)
 library(ggplot2)
 
 
+
+#------ fill to date
+
+#------ 2 month ahead predictions
+# predictions <- two_month_ahead_predictions(ave_seasonal_profiles, MOCK_PREDICTION_DATA)
+
+#----- situational awareness - stop lights 
+
