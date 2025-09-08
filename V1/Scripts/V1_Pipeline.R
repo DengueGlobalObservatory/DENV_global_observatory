@@ -6,7 +6,7 @@
 #'
 #' Overview
 #' ========
-#' 
+#' 08-09-2025: Added source script for seasonal baseline.
 #' 
 
 
@@ -50,7 +50,7 @@ if (needs_update) {
   # open and combine seasonal data
   source("V1/Scripts/data_sourcing/01_historic_national_data.R")
   # calculate average season 
-  source() ## ADD HERE
+  source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R") ## ADD HERE
 }
 
 ## open most recent existing average season file 

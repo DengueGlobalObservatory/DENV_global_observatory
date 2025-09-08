@@ -14,6 +14,7 @@
 #' 14-05-2025: Combined WHO and OpenDengue data. 
 #' 19-06-2025: Corrected sourced function filepaths.
 #' 29-07-2025: Added code to save file. Moved to V1/DEV, updated filepaths for sourced functions + scripts.
+#' 08-09-2025: Updated WHO data used. 
 
 library(dplyr)
 library(tidyverse)
@@ -28,7 +29,7 @@ Comparing_coverage_between_WHO_and_OpenDengue <- source("V1/DEV/01_Choosing_WHO_
 
 #--------------- Loading data
 OD_national_extract <- read_csv("Data/OpenDengue_V1_2/National_extract_V1_2.csv")
-WHO_data <- read_excel("Data/WHO_dengue_data/dengue-global-data-2025-05-14.xlsx")
+WHO_data <- read_excel("Data/WHO_dengue_data/dengue-global-data-2025-09-08.xlsx")
 
 #--------------- Cleaning data 
 source("V1/DEV/Functions/00_FUN_WHO_data_cleaning.R", local = environment())
