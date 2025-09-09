@@ -14,12 +14,16 @@
 #' Timeline:
 #' ========
 #' 08-09-2025: Reformatted DEV script. 
+#' 09-09-2025: Added code to parameterise negative binomial distribution from monthly data.
+#'             Removed SD + CI95 calculation. 
 
 library(dplyr)
 library(readr)
 library(ggplot2)
 library(tidyverse)
 library(circular)
+library(MASS)
+library(purrr)
 
 #--------------- Loading data
 full_data_interpolated <- read_csv("V1/DEV/02_Combining_WHO_and_OpenDengue_data/2025-09-08/National_clean_data.csv") # HARD CODED - change to load most recently available data...
@@ -62,12 +66,16 @@ dengue_season_ave_low_month <- dengue_season_low_month %>%
   ungroup() %>% 
   group_by(Country, 
            Year) %>%
+  
+  # Remove years with all zeroes from low month identification - circular mean undefined.
   filter(sum(Cases_clean) > 0) %>%
   mutate(No_of_obs = n()) %>% 
+  
+  # Where multiple months have equally few cases calculate within-year circular mean 
   mutate(within_year_mean_low_month = 
            case_when(No_of_obs > 1 ~ circular_mean(Low_month),
                      No_of_obs == 1  ~ Low_month)) %>%
-  select(Country, 
+  dplyr::select(Country, 
          Year, 
          within_year_mean_low_month) %>%
   distinct() %>%
@@ -113,18 +121,20 @@ full_data_filtered <- full_data_season_aligned %>%
   group_by(Country, season) %>%
   mutate(Number_of_months_in_season = n()) %>% 
   filter(Number_of_months_in_season == 12) %>% 
-  select(!Number_of_months_in_season) %>%
+  dplyr::select(!Number_of_months_in_season) %>%
   
   # Filter for seasons with >=5 cases per month on average
   mutate(Average_cases_per_month = ave(Cases_clean)) %>%
   filter(Average_cases_per_month >= monthly_ave_case_threshold) %>%
-  select(!Average_cases_per_month) %>% 
+  dplyr::select(!Average_cases_per_month) %>% 
+  ungroup() %>%
   
-  # Filter for countries with at leas three seasons. 
-  mutate(Number_of_seasons = n()) %>% 
+  # Filter for countries with at least three seasons. 
+  group_by(Country) %>% 
+  mutate(Number_of_seasons = n() / 12) %>% 
   filter(Number_of_seasons >= 3) %>% 
   ungroup() %>%
-  select(!Number_of_seasons)
+  dplyr::select(!Number_of_seasons)
   
 #--------------- Identify average seasonal profile 
 
@@ -133,81 +143,62 @@ full_data_season_monthly_proportions <- full_data_filtered %>%
     group_by(Country, iso3, season) %>% 
     arrange(season_nMonth) %>%
     mutate(
-      Total_season_cases = sum(Cases_clean), 
-      Actual_monthly_proportion = Cases_clean / Total_season_cases,
+      Actual_cum_cases = cumsum(Cases_clean),
+      Actual_monthly_proportion = Cases_clean / sum(Cases_clean),
       Actual_cum_monthly_proportion = cumsum(Actual_monthly_proportion)
       ) %>% 
     ungroup()
   
 #----- Identify ave seasonal profile (log CIs)
   
-# offset to avoid log(0)
-epsilon <- 1e-6
-  
 full_data_average_season <- full_data_season_monthly_proportions %>% 
   group_by(Country, iso3, season_nMonth) %>% 
   mutate(
-    # Identify average season in case space
-    Ave_season_cases = mean(Cases_clean),
-    SD_monthly_cases = sd(Cases_clean),
+    # Identify average season in case space 
+    Ave_season_monthly_cum_cases = mean(Actual_cum_cases),
+    Ave_season_monthly_cases = mean(Cases_clean),
     
-    # Calculate one and two sd from mean values
-    Ave_season_cases_two_sd_lower = Ave_season_cases - 2 * SD_monthly_cases, 
-    Ave_season_cases_one_sd_lower = Ave_season_cases - SD_monthly_cases, 
-    Ave_season_cases_one_sd_upper = Ave_season_cases + SD_monthly_cases, 
-    Ave_season_cases_two_sd_upper = Ave_season_cases + 2 * SD_monthly_cases, 
+    # Define negative binomial 
+    # nb_fit = list(
+    #   tryCatch(
+    #     fitdistr(Cases_clean, densfun = "negative binomial"),
+    #     error = function(e){NULL}
+    #   )),
+    # 
+    # # Extract negative binomial dist parameters 
+    # nb_size = purrr::map_dbl(nb_fit, ~ ifelse(is.null(.x), NA_real_, .x$estimate["size"])),
+    # nb_mu = purrr::map_dbl(nb_fit, ~ifelse(is.null(.x), NA_real_, .x$estimate["mu"])), 
     
-    # Identify average season in proportion space
+    nb_fit = list(
+      tryCatch(
+        glm.nb(Cases_clean ~ 1),
+        error = function(e){NULL}
+      )
+    ),
+    nb_size = purrr::map_dbl(nb_fit, ~ ifelse(is.null(.x), NA_real_, .x$theta)),
+    nb_mean = purrr::map_dbl(nb_fit, ~ ifelse(is.null(.x), NA_real_, exp(coef(.x)))), 
+    
+    # Identify average season in proportion space - for nowcasting/ prediction 
     Ave_monthly_proportion = mean(Actual_monthly_proportion),
     Ave_cum_monthly_proportion = mean(Actual_cum_monthly_proportion),
-     
-    # Log-transform proportions (+epsilon), compute mean and sd on log scale
-    log_mean = mean(log(Actual_monthly_proportion + epsilon)),
-    log_sd = sd(log(Actual_monthly_proportion + epsilon)),
-    n = n(),
-       
-    # Calculate 1 and 2 sd lower and upper SD from mean 
-    log_one_sd_lower = log_mean - log_sd, 
-    log_two_sd_lower = log_mean - (2 * log_sd), 
-    log_one_sd_upper = log_mean + log_sd, 
-    log_two_sd_upper = log_mean + (2 * log_sd),
-    
-    # Back-transform lower and upper SD thresholds  
-    one_sd_lower = exp(log_one_sd_lower),
-    two_sd_lower = exp(log_two_sd_lower),
-    one_sd_upper = exp(log_one_sd_upper),
-    two_sd_upper = exp(log_two_sd_upper),
-    
-    # Calculate 95% CIs for mean 
-    log_se = (sd(log(Actual_monthly_proportion + epsilon)) / sqrt(length(Actual_monthly_proportion))),
-    log_upper_95CI = log_mean + (1.96 * log_se),
-    log_lower_95CI = log_mean - (1.96 * log_se),
-    
-    # Back-transform lower and upper 95% CIs   
-    lower_95CI = exp(log_lower_95CI),
-    upper_95CI = exp(log_upper_95CI)
     ) %>% 
   
   arrange(Country, iso3, season_nMonth) %>%
   ungroup() %>%
-  select(
+  dplyr::select(
     # Identifiers 
     Country, iso3, Calendar_year_month, season_nMonth, 
     
-    # Case space ave season 
-    Ave_season_cases_two_sd_lower, Ave_season_cases_one_sd_lower,
-    Ave_season_cases,
-    Ave_season_cases_one_sd_upper, Ave_season_cases_two_sd_upper,
+    # Negative binomial parameters 
+    nb_size, 
+    nb_mean,
     
+    # Case space ave season 
+    Ave_season_monthly_cases, Ave_season_monthly_cum_cases,
+
     # Prop space ave season
     Ave_cum_monthly_proportion, 
-    two_sd_lower, one_sd_lower, 
-    Ave_monthly_proportion, 
-    one_sd_upper, two_sd_upper,
-    
-    # 95% CIs around proportions 
-    lower_95CI, 
-    upper_95CI
+    Ave_monthly_proportion
     ) %>% 
   distinct()
 

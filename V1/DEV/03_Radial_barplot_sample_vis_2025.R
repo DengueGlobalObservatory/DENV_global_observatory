@@ -11,13 +11,18 @@
 #' Timeline:
 #' ========
 #' 08-09-2025: Initial commit.
-#' 
+#' 09-09-2025: Changed plot from traffic light system to radial lineplots. 
+#'             Changed from forecasting two months ahead to using proportions to fill missing data to date. 
+#'             Added code to colour season by severity above baseline. 
+#'             
 
 library(dplyr)
 library(readr)
+library(readxl)
 library(ggplot2)
 library(tidyverse)
 library(scales)
+library(countrycode)
 
 #--------------- Load average seasonal profiles - CHANGE TO FIT INTO PIPELINE SCRIPT
 #' Load the most up to date version of the national ave seasonal profiles. 
@@ -33,6 +38,7 @@ if (length(avg_season_dirs) == 1) {
 }
 
 avg_season <- read_csv(paste0("V1/DEV/02_identify_seasonal_baseline/", target_data , "/National_average_seasonal_profile.csv"))
+full_data_interpolated <- read_csv("V1/DEV/02_Combining_WHO_and_OpenDengue_data/2025-09-08/National_clean_data.csv") # HARD CODED - change to load most recently available data...
 
 #--------------- Load WHO data and clean
 WHO_data <- read_excel("Data/WHO_dengue_data/dengue-global-data-2025-09-08.xlsx") # CHANGE TO LOAD MOST UP TO DATE DATA 
@@ -47,12 +53,12 @@ WHO_data_2025 <- WHO_data %>%
     Month = month(date)
     )
 
-#--------------- Generate predictions 
+#--------------- Fill missing data to date + identify percentile of most recent month cum cases
 
-monthly_predictions <- avg_season %>% 
+monthly_data_complete <- avg_season %>% 
   ungroup() %>% 
   
-  # Join average season to year to predict data
+  # Join average season to year to fill missing data to date. 
   left_join(
     .,
     WHO_data_2025, 
@@ -63,15 +69,16 @@ monthly_predictions <- avg_season %>%
           iso3, 
           Calendar_year_month) %>%
   
-  # Filter for future time window of two months 
-  mutate(End_prediction_month =  month(Sys.Date()) + 2) %>%
-  filter(Calendar_year_month <= End_prediction_month) %>%
-  
+  # Define previous month as last period requiring data filling.  
+  mutate(End_prediction_month =  month(Sys.Date()) - 1) %>%
+
   # Assign var based on whether cases are observed 
   group_by(Country, iso3) %>% 
-  mutate(Actual_cases_to_date = cumsum(cases)) %>%
-  mutate(Data_status = case_when(is.na(cases) ~ "Predicted",
-                                 !is.na(cases) ~ "Observed")) %>%
+  mutate(
+    Observed_cum_cases = cumsum(cases),
+    Data_status = case_when(is.na(cases) ~ "Unobserved",
+                            !is.na(cases) ~ "Observed")
+    ) %>%
   
   # Identify most recent month with observations by country
   group_by(Country, 
@@ -86,7 +93,7 @@ monthly_predictions <- avg_season %>%
   # Calculate predicted total seasonal cases using cases observed to date 
   mutate(
     Predicted_total_seasonal_cases = 
-      case_when(most_recent_month == "Most_recent" ~ Actual_cases_to_date / Ave_cum_monthly_proportion,
+      case_when(most_recent_month == "Most_recent" ~ Observed_cum_cases / Ave_cum_monthly_proportion,
                 most_recent_month == "Not_most_recent" ~ NA,
                 most_recent_month == "No_data" ~ NA)
          ) %>%
@@ -98,148 +105,169 @@ monthly_predictions <- avg_season %>%
     Any_data_available = 
       case_when(
         length(unique(na.omit(Predicted_total_seasonal_cases))) == 0 ~ "No_data_available",
-        length(unique(na.omit(Predicted_total_seasonal_cases))) > 0 ~ "Data_available")
-    ) %>% 
-  
-  # Fill predicted total seasonal case col, where no data available fill with NA. Else fill with predicted value
-  mutate(Predicted_total_seasonal_cases = 
+        length(unique(na.omit(Predicted_total_seasonal_cases))) > 0 ~ "Data_available"), 
+
+    # Fill predicted total seasonal case col, where no data available enter NA.
+    Predicted_total_seasonal_cases = 
            case_when(Any_data_available == "No_data_available" ~ Predicted_total_seasonal_cases,
                      Any_data_available == "Data_available" ~ first(na.omit(Predicted_total_seasonal_cases))
-                     )
-         ) %>%
-  mutate(
-    Pred_cases_lower_95CI = Predicted_total_seasonal_cases * lower_95CI,
-    Pred_cases = Predicted_total_seasonal_cases * Ave_monthly_proportion,
-    Pred_cases_upper_95CI = Predicted_total_seasonal_cases * upper_95CI,
-    ) %>% 
-  select(
+                     ),
+    
+    # Where data is missing fill using predictions 
+    complete_cases = case_when(!is.na(cases) ~ cases,
+                               is.na(cases) & Calendar_year_month <= End_prediction_month ~ round(Predicted_total_seasonal_cases * Ave_monthly_proportion),
+                               Calendar_year_month > End_prediction_month ~ NA),
+    complete_cum_cases = cumsum(complete_cases),
+    
+    # Identify percentile of most recent month cum cases within negbin dist
+    percentile_most_recent = pnbinom(q = complete_cum_cases, 
+                                     size = nb_size, 
+                                     mu = nb_mean) * 100
+      ) %>% 
+  
+  # Remove entries from predicted data col to only be two months ahead 
+  dplyr::select(
     # Identifiers
     Country, iso3, Calendar_year_month, season_nMonth, 
     
-    # Observed cases + whether cases are observed or predicted, 
-    cases, Data_status, 
+    # Observed and complete cases + whether cases are observed or predicted, 
+    cases, complete_cases, Data_status, 
     
-    # Predictions
-    Pred_cases_lower_95CI,
-    Pred_cases, 
-    Pred_cases_upper_95CI,
+    # Cumulative cases to date 
+    Observed_cum_cases, complete_cum_cases,
     
     # Average season 
-    Ave_season_cases_two_sd_lower, Ave_season_cases_one_sd_lower, 
-    Ave_season_cases, 
-    Ave_season_cases_one_sd_upper, Ave_season_cases_two_sd_upper
-    ) %>%
-  
-  mutate(
-    # Where cases are observed input NA for predictions, else retain predictions      
-    across(
-      starts_with("Pred"),
-      ~ case_when(
-        Data_status == "Observed" ~ NA,
-        Data_status == "Predicted" ~ .
-      )),
-    # Where the lower bound of cases is < 0 change to 0. 
-    across(
-      ends_with("lower"),
-      ~ case_when(. < 0 ~ 0,
-                  TRUE ~ .)
-    ),
-    cases_to_plot = case_when(
-      Data_status == "Observed" ~ cases,
-      Data_status == "Predicted" ~ Pred_cases
-    )
+    Ave_season_monthly_cases, Ave_season_monthly_cum_cases, 
+    
+    # Negative binomial distribution parameters 
+    nb_mean, nb_size,
+    
+    # Percentile position of the observed cases to date within negbin dist 
+    percentile_most_recent
     ) %>%
   ungroup()
   
 #--------------- Visualise data 
 
-plot_theme <- theme(plot.title = element_text(size = 12),
-                    legend.title = element_text(size = 10),
-                    legend.text = element_text(size = 8),
-                    axis.title = element_text(size = 10),
-                    axis.text = element_text(size = 8))   
-
-monthly_predictions_THA <- monthly_predictions %>% 
-  filter(iso3 == "THA")
-
-target_season_plot <- ggplot(monthly_predictions_THA) + 
-  # Average season 
-  geom_line(
-    mapping = aes(x = Calendar_year_month, y = Ave_season_cases), color = "white") +
+generate_target_season_plot <- function(monthly_data, 
+                                        full_data_interpolated, 
+                                        target_country_iso3, radial){
   
-  # Average season lower bounds
-  geom_ribbon(
-    mapping = aes(x = Calendar_year_month, 
-                  ymin = Ave_season_cases_two_sd_lower, ymax = Ave_season_cases, fill = "- Two SD"), alpha = 0.4) + 
+  # Filter monthly predictions for target country
+  monthly_data_filtered <- monthly_data %>% 
+    filter(iso3 %in% target_country_iso3)
   
-  # Average season upper bounds 
-  geom_ribbon(
-    mapping = aes(x = Calendar_year_month, 
-                  ymin = Ave_season_cases, ymax = Ave_season_cases_one_sd_upper, fill = "+ One SD"), alpha = 0.4) + 
-  geom_ribbon(
-    mapping = aes(x = Calendar_year_month, 
-                  ymin = Ave_season_cases_one_sd_upper, ymax = Ave_season_cases_two_sd_upper, fill = "+ Two SD"), alpha = 0.4) + 
+  if(nrow(monthly_data_filtered) == 0){
+    stop("No data available after filtering")
+  }
   
-  # Traffic light colours
-  scale_fill_manual(
-    name = "Distance from\nseasonal baseline",
-    values = c("- Two SD" = "green4",
-               "+ One SD" = "orange",
-               "+ Two SD" = "red3"),
-    breaks = c("- Two SD", 
-               "+ One SD", 
-               "+ Two SD")
-  )  + 
+  # Filter full data for previous year for target country 
+  previous_year <- year(Sys.Date()) - 1
+  previous_year_data <- full_data_interpolated %>% 
+    filter(
+      iso3 %in% target_country_iso3 & 
+        Year %in% previous_year
+    )
   
-  # Current season plotting
-  geom_line(aes(x = Calendar_year_month, y = cases_to_plot, color = Data_status, group = 1)) + 
+  # Assign plot theme 
+  plot_theme <- theme(plot.title = element_text(size = 12),
+                      legend.title = element_text(size = 11),
+                      legend.text = element_text(size = 10),
+                      axis.title = element_text(size = 10),
+                      axis.text = element_text(size = 8))  
   
-  # Observed and predicted colours
-  scale_color_manual(
-    name = NULL,
-    values = c("Observed" = "black",
-               "Predicted" = "blue")
-  ) +
-  
-  # Current season plotting: Predicted cases error 
-  geom_ribbon(mapping = 
-                aes(x = Calendar_year_month, 
-                    ymin = Pred_cases_lower_95CI, ymax = Pred_cases_upper_95CI, fill = "Predicted cases 95% CIs"), alpha = 0.4) +
-  
-  # 95% CIs around predictions colours
-  ggnewscale::new_scale_fill() +
-  scale_fill_manual(
-    name = NULL,
-    values = c("Predicted cases 95% CIs" = "blue")
+  target_season_plot <- ggplot() + 
+    
+    # Average season
+    geom_line(
+      data = monthly_data_filtered, 
+      mapping = aes(
+        x = Calendar_year_month, 
+        y = Ave_season_monthly_cases, 
+        color = "Average season")
+    ) + 
+    
+    scale_color_manual(
+      name = NULL,
+      values = c("Average season" = "black")
+    )  + 
+    
+    ggnewscale::new_scale_color() +
+    
+    # Current year plotting
+    geom_line(
+      data = monthly_data_filtered, 
+      mapping = aes(
+        x = Calendar_year_month, 
+        y = complete_cases, 
+        color = percentile_most_recent)
+    ) + 
+    
+    scale_color_gradient(
+      name = "Current season severity",
+      low = "blue",
+      high = "red",
+      limits = c(0, 100)
     ) +
-  
-  # Axis labels
-  labs(x = "Month", y = "Monthly cases") +
-
-  scale_x_continuous(breaks = 1:12) +
-  scale_y_continuous(labels = label_comma()) +
-
-  # Themes
-  theme_minimal() + 
-  plot_theme
-  
-# Convert to radial format
-target_season_plot_radial <- target_season_plot + 
-  geom_tile(
-    mapping = aes(x = Calendar_year_month, y = Ave_season_cases)
+    
+    ggnewscale::new_scale_color() +
+    
+    # Previous year
+    geom_line(
+      data = previous_year_data, 
+      mapping = aes(x = Month, 
+                    y = Cases_clean,
+                    color = "Previous year")
     ) +
-  coord_polar(theta = "x") 
+    
+    scale_color_manual(
+      name = NULL,
+      values = c("Previous year" = "green4")
+    ) + 
+    
+    # Axis labels
+    labs(x = "Month", 
+         y = "Monthly cases", 
+         title = paste0(countrycode(target_country_iso3, "iso3c", "country.name"))) +
+    
+    scale_x_continuous(breaks = 1:12, labels = month.abb[]) +
+    scale_y_continuous(labels = label_comma()) +
+    
+    # Themes
+    theme_minimal() + 
+    plot_theme
+  
+  if(radial == TRUE){
+    # Convert to radial format
+    target_season_plot_radial <- target_season_plot + 
+      geom_tile(
+        data = monthly_data_filtered,
+        mapping = aes(x = Calendar_year_month, y = Ave_season_monthly_cases),
+        alpha = 0
+      ) +
+      coord_polar(theta = "x", start = -pi/12) + 
+      labs(x = "")
+    
+    return(target_season_plot_radial)
+    
+  } else if(radial == FALSE){
+    
+    return(target_season_plot)
+  }
+  
+  
+}
+
+target_season_plot <- generate_target_season_plot(monthly_data_complete, 
+                                                  full_data_interpolated, "THA", TRUE)
+target_season_plot
 
 #--------------- Saving 
 dir_to_save <- paste0("V1/DEV/03_Radial_barplot_sample_vis_2025/", Sys.Date())
 dir.create(dir_to_save)
 
 ggsave(target_season_plot,
-       filename = paste0(dir_to_save, "/THA_sample_barplot_2025.png"),
+       filename = paste0(dir_to_save, "/THA_sample_linear_barplot_2025.png"),
        device = "png",
        dpi = 300)
 
-ggsave(target_season_plot_radial,
-       filename = paste0(dir_to_save, "/THA_sample_radial_barplot_2025.png"),
-       device = "png",
-       dpi = 300)
