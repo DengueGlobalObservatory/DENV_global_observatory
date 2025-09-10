@@ -164,7 +164,7 @@ generate_target_season_plot <- function(monthly_data,
       start = make_date(2020, Calendar_year_month, 1),
       end = (make_date(2020, Calendar_year_month, 1) %m+% months(1)) - days(1), 
       cases_next_month = lead(complete_cases, 1),
-      cases_next_month = ifelse(is.na(cases_next_month), first(complete_cases), cases_next_month),
+      cases_next_month = ifelse(is.na(cases_next_month), complete_cases, cases_next_month),
       Ave_season_monthly_cases_next_month = lead(Ave_season_monthly_cases, 1),
       Ave_season_monthly_cases_next_month = ifelse(is.na(Ave_season_monthly_cases_next_month),first(Ave_season_monthly_cases), Ave_season_monthly_cases_next_month)
       
