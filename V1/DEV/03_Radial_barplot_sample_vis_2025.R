@@ -15,6 +15,9 @@
 #'             Changed from forecasting two months ahead to using proportions to fill missing data to date. 
 #'             Added code to colour season by severity above baseline. 
 #' 10-09-2025: Added code to compare fit distribution with empirical distribution.            
+#'             Added code to colour season by severity above baseline.
+#'             KMS: Improved generate_target_season_plot(). 
+#'             KJ: resolved conflicts.         
 
 library(dplyr)
 library(readr)
@@ -24,6 +27,7 @@ library(tidyverse)
 library(scales)
 library(countrycode)
 library(purrr)
+library(ggnewscale)
 
 #--------------- Load average seasonal profiles - CHANGE TO FIT INTO PIPELINE SCRIPT
 #' Load the most up to date version of the national ave seasonal profiles. 
@@ -42,7 +46,7 @@ avg_season <- read_csv(paste0("V1/DEV/02_identify_seasonal_baseline/", target_da
 full_data_interpolated <- read_csv("V1/DEV/02_Combining_WHO_and_OpenDengue_data/2025-09-08/National_clean_data.csv") # HARD CODED - change to load most recently available data...
 
 #--------------- Load WHO data and clean
-WHO_data <- read_excel("Data/WHO_dengue_data/dengue-global-data-2025-09-08.xlsx") # CHANGE TO LOAD MOST UP TO DATE DATA 
+WHO_data <- read_excel("Data/WHO/dengue-global-data-2025-06-24.xlsx") # CHANGE TO LOAD MOST UP TO DATE DATA 
 
 # Filter for 2025 and filter for countries with ave seasonal profiles available. 
 WHO_data_2025 <- WHO_data %>% 
@@ -244,7 +248,18 @@ generate_target_season_plot <- function(monthly_data,
   
   # Filter monthly predictions for target country
   monthly_data_filtered <- monthly_data %>% 
-    filter(iso3 %in% target_country_iso3)
+    filter( iso3 %in% target_country_iso3
+      ) %>%
+    # create segment plot varaibles 
+    mutate(
+      start = make_date(2020, Calendar_year_month, 1),
+      end = (make_date(2020, Calendar_year_month, 1) %m+% months(1)) - days(1), 
+      cases_next_month = lead(complete_cases, 1),
+      cases_next_month = ifelse(is.na(cases_next_month), complete_cases, cases_next_month),
+      Ave_season_monthly_cases_next_month = lead(Ave_season_monthly_cases, 1),
+      Ave_season_monthly_cases_next_month = ifelse(is.na(Ave_season_monthly_cases_next_month),first(Ave_season_monthly_cases), Ave_season_monthly_cases_next_month)
+      
+    )
   
   if(nrow(monthly_data_filtered) == 0){
     stop("No data available after filtering")
@@ -256,7 +271,16 @@ generate_target_season_plot <- function(monthly_data,
     filter(
       iso3 %in% target_country_iso3 & 
         Year %in% previous_year
-    )
+    ) %>%
+    # create segment plot varaibles 
+    mutate(
+      start = make_date(2020, Calendar_year_month, 1),
+      end = (make_date(2020, Calendar_year_month, 1) %m+% months(1)) - days(1), 
+      cases_next_month = lead(Cases_clean, 1),
+      cases_next_month = ifelse(is.na(cases_next_month), first(Cases_clean), cases_next_month)
+      )
+  # connect previous year to this season
+  previous_year_data$cases_next_month[previous_year_data$Calendar_year_month == 12] <- monthly_data_filtered$complete_cases[monthly_data_filtered$Calendar_year_month == 1]
   
   # Assign plot theme 
   plot_theme <- theme(plot.title = element_text(size = 12),
@@ -264,6 +288,14 @@ generate_target_season_plot <- function(monthly_data,
                       legend.text = element_text(size = 10),
                       axis.title = element_text(size = 10),
                       axis.text = element_text(size = 8))  
+  
+  # create single percentile value:
+  percentile_color_value <- monthly_data_filtered %>%
+    drop_na( ) %>%
+    slice_tail() %>%
+    select(percentile_most_recent)
+    
+  
   
   target_season_plot <- ggplot() + 
     
@@ -327,15 +359,58 @@ generate_target_season_plot <- function(monthly_data,
     plot_theme
   
   if(radial == TRUE){
-    # Convert to radial format
-    target_season_plot_radial <- target_season_plot + 
-      geom_tile(
-        data = monthly_data_filtered,
-        mapping = aes(x = Calendar_year_month, y = Ave_season_monthly_cases),
-        alpha = 0
+    # # Convert to radial format
+    # target_season_plot_radial <- target_season_plot + 
+    #   geom_tile(
+    #     data = monthly_data_filtered,
+    #     mapping = aes(x = Calendar_year_month, y = Ave_season_monthly_cases),
+    #     alpha = 0
+    #   ) +
+    #   coord_polar(theta = "x", start = -pi/12) + 
+    #   labs(x = "")
+    
+
+    
+    target_season_plot_radial <- 
+      ggplot() +
+      # Current season plot
+      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
+                                              y = complete_cases, yend = cases_next_month,
+                                              color = as.numeric(percentile_color_value)), linewidth = 1) + 
+      
+      scale_color_gradientn(
+        name = "Current season severity",
+        colours = c("cyan", "yellow", "magenta"),
+        values = scales::rescale(c(0, 50, 100)),  # maps 0 → cyan, 50 → yellow, 100 → magenta
+        limits = c(0, 100)
       ) +
-      coord_polar(theta = "x", start = -pi/12) + 
-      labs(x = "")
+      # previous season plot
+      geom_segment(data =previous_year_data, aes(x = start, xend = end, 
+                                              y = Cases_clean, yend = cases_next_month,
+                                              linetype = "Previous year"), linewidth = 1) +
+      
+      scale_linetype_manual(name = NULL,values = c("Previous year" = 3)) + 
+    
+      
+       # average season plot 
+      ggnewscale::new_scale_color() +
+      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
+                                           y = Ave_season_monthly_cases, yend = Ave_season_monthly_cases_next_month, 
+                                           color = "Average season"), linewidth = 1) + 
+      
+      scale_color_manual( name = NULL,values = c("Average season" = "black"))  + 
+      
+      # clean up lables 
+      scale_x_date(date_breaks = "1 month", date_labels = month.abb,
+                   limits = range(c(monthly_data_filtered$start, monthly_data_filtered$end))) +
+      # make radial 
+      coord_polar() +
+      
+      # theme 
+      theme_minimal() + 
+      plot_theme +
+      xlab("") +
+      ylab ("Monthly Dengue Cases")
     
     return(target_season_plot_radial)
     
