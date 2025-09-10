@@ -14,7 +14,7 @@
 #' 09-09-2025: Changed plot from traffic light system to radial lineplots. 
 #'             Changed from forecasting two months ahead to using proportions to fill missing data to date. 
 #'             Added code to colour season by severity above baseline. 
-#'             
+#' 10-09-2025: Added code to compare fit distribution with empirical distribution.            
 
 library(dplyr)
 library(readr)
@@ -23,6 +23,7 @@ library(ggplot2)
 library(tidyverse)
 library(scales)
 library(countrycode)
+library(purrr)
 
 #--------------- Load average seasonal profiles - CHANGE TO FIT INTO PIPELINE SCRIPT
 #' Load the most up to date version of the national ave seasonal profiles. 
@@ -147,6 +148,94 @@ monthly_data_complete <- avg_season %>%
     ) %>%
   ungroup()
   
+#--------------- Compare empirical and fit distribution  
+
+compare_empirical_and_fit_dist <- function(monthly_data_complete,
+                                           full_data_interpolated,
+                                           target_iso3){
+  
+  # Filter data for target country and target month (previous complete month)
+  previous_month <- month(Sys.Date()) - 1
+  
+  full_data_filtered <- full_data_interpolated %>% 
+    filter(iso3 == target_iso3 & 
+             Month == previous_month) 
+  
+  if(nrow(full_data_filtered) == 0){
+    stop("No data in full_data_interpolated following filtering for target country.")
+  }
+  
+  monthly_data_filtered <- monthly_data_complete %>% 
+    filter(iso3 == target_iso3,
+           Calendar_year_month == previous_month)
+  
+  if(nrow(monthly_data_filtered) == 0){
+    stop("No data in monthly_data_complete following filtering for target country.")
+  }
+  
+  # Simulate neg bin dist of cumulative cases observed in month X in previous years 
+  nb_dist_sim <- data.frame(samples = 
+                              rnbinom(n = 1000,
+                                      size = unique(monthly_data_filtered$nb_size),
+                                      mu = unique(monthly_data_filtered$nb_mean)
+                                      )
+                            )
+  
+  # Assign plot theme 
+  plot_theme <- theme(
+    plot.title = element_text(size = 12),
+    legend.title = element_text(size = 11),
+    legend.text = element_text(size = 10),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 10)
+    )  
+  
+  # Generate histogram of previous years cum cases and overlay sim dist 
+  comparison_plot <- ggplot() + 
+    
+    # Histogram of previous years 
+    geom_histogram(
+      data = full_data_filtered,
+      mapping = aes(x = Cases_clean, y = after_stat(density), fill = "Empirical"),
+      alpha = 0.4) + 
+    
+    # Overlay simulated distribution 
+    geom_density(
+      data = nb_dist_sim,
+      mapping = aes(x = samples, fill = "Simulated"),
+      alpha = 0.4) + 
+    
+    # Plot settings 
+    scale_fill_manual(
+      values = c("Empirical" = "red",
+                 "Simulated" = "blue")
+    ) + 
+    labs(
+      x = "Cases", 
+      y = "Density",
+      title = countrycode(target_iso3, "iso3c", "country.name")
+      ) +
+    theme_minimal() + 
+    plot_theme
+  
+  return(comparison_plot)
+}
+
+compare_empirical_and_fit_dist_safe <- safely(compare_empirical_and_fit_dist, 
+                                              otherwise = NULL)
+
+target_iso3 <- c("BRA", "THA", "COL", "PRY", "AFG")
+
+dist_fit_plots <- map(
+  target_iso3,
+  ~ compare_empirical_and_fit_dist_safe(
+    monthly_data_complete,
+    full_data_interpolated,
+    target_iso3 = .x
+  )
+)
+names(dist_fit_plots) <- target_iso3
+
 #--------------- Visualise data 
 
 generate_target_season_plot <- function(monthly_data, 
@@ -205,8 +294,8 @@ generate_target_season_plot <- function(monthly_data,
     
     scale_color_gradient(
       name = "Current season severity",
-      low = "blue",
-      high = "red",
+      low = "cyan",
+      high = "purple",
       limits = c(0, 100)
     ) +
     
@@ -258,14 +347,46 @@ generate_target_season_plot <- function(monthly_data,
   
 }
 
-target_season_plot <- generate_target_season_plot(monthly_data_complete, 
-                                                  full_data_interpolated, "THA", TRUE)
-target_season_plot
+
 
 #--------------- Saving 
 dir_to_save <- paste0("V1/DEV/03_Radial_barplot_sample_vis_2025/", Sys.Date())
 dir.create(dir_to_save)
 
+# Save dist comparison plots 
+map2(dist_fit_plots,
+     names(dist_fit_plots),
+    ~ {
+      
+      # If no plot in result return error message
+      if(is.null(.x$result)){
+        print(paste0("No figure for ", countrycode(.y, "iso3c", "country.name")))
+      } 
+      # If there is a plot in result save 
+      else if(!is.null(.x$result)){
+        
+        # Define dir to save 
+        dir_to_save <- paste0("V1/KJ_attic/Dist_fit_comparison/", Sys.Date())
+        dir.create(dir_to_save)
+        
+        # Define filename to save 
+        filename_to_save <- paste0(dir_to_save,
+                                   "/", 
+                                   countrycode(.y, 
+                                               "iso3c", 
+                                               "country.name"),
+                                   "Negative_binomial_dist_comparison.png")
+        
+        # Save image
+        ggsave(.x$result, 
+               filename = filename_to_save,
+               device = "png", 
+               dpi = 300)
+      }
+    }
+    )
+
+# Save target season sample visualisation  
 ggsave(target_season_plot,
        filename = paste0(dir_to_save, "/THA_sample_linear_barplot_2025.png"),
        device = "png",
