@@ -274,13 +274,13 @@ generate_target_season_plot <- function(monthly_data,
     ) %>%
     # create segment plot varaibles 
     mutate(
-      start = make_date(2020, Calendar_year_month, 1),
-      end = (make_date(2020, Calendar_year_month, 1) %m+% months(1)) - days(1), 
+      start = make_date(2020, Month, 1),
+      end = (make_date(2020, Month, 1) %m+% months(1)) - days(1), 
       cases_next_month = lead(Cases_clean, 1),
       cases_next_month = ifelse(is.na(cases_next_month), first(Cases_clean), cases_next_month)
       )
   # connect previous year to this season
-  previous_year_data$cases_next_month[previous_year_data$Calendar_year_month == 12] <- monthly_data_filtered$complete_cases[monthly_data_filtered$Calendar_year_month == 1]
+  previous_year_data$cases_next_month[previous_year_data$Month == 12] <- monthly_data_filtered$complete_cases[monthly_data_filtered$Calendar_year_month == 1]
   
   # Assign plot theme 
   plot_theme <- theme(plot.title = element_text(size = 12),
@@ -291,12 +291,10 @@ generate_target_season_plot <- function(monthly_data,
   
   # create single percentile value:
   percentile_color_value <- monthly_data_filtered %>%
-    drop_na( ) %>%
+    drop_na(percentile_most_recent ) %>%
     slice_tail() %>%
     select(percentile_most_recent)
-    
-  
-  
+
   target_season_plot <- ggplot() + 
     
     # Average season
@@ -373,21 +371,42 @@ generate_target_season_plot <- function(monthly_data,
     
     target_season_plot_radial <- 
       ggplot() +
-      # Current season plot
-      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
-                                              y = complete_cases, yend = cases_next_month,
-                                              color = as.numeric(percentile_color_value)), linewidth = 1) + 
-      
-      scale_color_gradientn(
+      # Background circle shaded by severity
+      geom_rect(
+        aes(
+          xmin = min(monthly_data_filtered$start),
+          xmax = max(monthly_data_filtered$end),
+          ymin = -Inf, ymax = Inf,
+          fill = as.numeric(percentile_color_value)),
+        inherit.aes = FALSE,
+        alpha = 0.3  # transparency so lines are visible
+      ) +
+      scale_fill_gradientn(
         name = "Current season severity",
         colours = c("cyan", "yellow", "magenta"),
-        values = scales::rescale(c(0, 50, 100)),  # maps 0 → cyan, 50 → yellow, 100 → magenta
+        values = scales::rescale(c(0, 50, 100)),
         limits = c(0, 100)
       ) +
+      
+      
+      # Current season plot
+      ggnewscale::new_scale_color() +
+
+      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
+                                              y = complete_cases, yend = cases_next_month,
+                                              color = "Current season"), linewidth = 1) + 
+     
+       scale_color_manual( name = NULL,values = c("Current season" = "black"))  + 
+  # scale_color_gradientn(
+      #   name = "Current season severity",
+      #   colours = c("cyan", "yellow", "magenta"),
+      #   values = scales::rescale(c(0, 50, 100)),  # maps 0 → cyan, 50 → yellow, 100 → magenta
+      #   limits = c(0, 100)
+      # ) +
       # previous season plot
       geom_segment(data =previous_year_data, aes(x = start, xend = end, 
                                               y = Cases_clean, yend = cases_next_month,
-                                              linetype = "Previous year"), linewidth = 1) +
+                                              linetype = "Previous year"), linewidth = 0.5) +
       
       scale_linetype_manual(name = NULL,values = c("Previous year" = 3)) + 
     
@@ -396,11 +415,12 @@ generate_target_season_plot <- function(monthly_data,
       ggnewscale::new_scale_color() +
       geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
                                            y = Ave_season_monthly_cases, yend = Ave_season_monthly_cases_next_month, 
-                                           color = "Average season"), linewidth = 1) + 
+                                           color = "Average season"), linewidth = 0.5) + 
       
-      scale_color_manual( name = NULL,values = c("Average season" = "black"))  + 
+      scale_color_manual( name = NULL,values = c("Average season" = "grey"))  + 
       
-      # clean up lables 
+      # clean up labels 
+      scale_y_discrete( breaks = NULL) +
       scale_x_date(date_breaks = "1 month", date_labels = month.abb,
                    limits = range(c(monthly_data_filtered$start, monthly_data_filtered$end))) +
       # make radial 
@@ -422,6 +442,10 @@ generate_target_season_plot <- function(monthly_data,
   
 }
 
+target_season_plot <- generate_target_season_plot(monthly_data_complete,
+                                                  full_data_interpolated, 
+                                                  "MTQ", TRUE)
+target_season_plot
 
 
 #--------------- Saving 
