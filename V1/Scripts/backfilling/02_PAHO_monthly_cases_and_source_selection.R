@@ -1,9 +1,3 @@
-#' ---
-#' title: "02_PAHO_monthly_cases_and_source_selection"
-#' author: "K M Susong"
-#' 
-#' ---
-#'
 #' Overview
 #' ========
 #' 
@@ -76,41 +70,38 @@ paho_add <- monthly_paho %>%
   ) %>%
   dplyr::  rename(
     country = country,
-    year = year,
-    month = month,
+    Year = year,
+    Month = month,
     cases = computed_monthly_cases_corr
   ) %>%
   mutate(
-    month = month.abb[match(month, month.name)]
+    Month = month.abb[match(Month, month.name)]
   ) %>%
-  select(country,
+  dplyr::select(country,
          date,
-         year,
-         month,
+         Year,
+         Month,
          source,
          cases)
 
 searo_add <- searo %>%
   dplyr::  rename(
-    country = country,
-    year = Year,
-    month = Month,
     cases = Value
   ) %>%
   mutate(
     # Standardize month to lowercase
-    month = case_when(
-      month == "June" ~ "Jun",
-      month == "July" ~ "Jul",
-      TRUE ~ month),
+    Month = case_when(
+      Month == "June" ~ "Jun",
+      Month == "July" ~ "Jul",
+      TRUE ~ Month),
     # Build the first-of-month date
-    date = as.Date(paste(year, match(month, month.abb), "01", sep = "-")), 
+    date = as.Date(paste(Year, match(Month, month.abb), "01", sep = "-")), 
     source = "SEARO"
     ) %>%
-  select(country,
+  dplyr:: select(country,
          date,
-         year,
-         month,
+         Year,
+         Month,
          source,
          cases)
 
@@ -133,15 +124,18 @@ who_unique <- who %>%
 final_data <- bind_rows(paho_searo, who_unique)
 
 current_data <- final_data %>%
-  filter( year > 2023) %>%
-  select(country,
+  filter( Year > 2023) %>%
+  dplyr::select(country,
          iso3,
          date,
-         year,
-         month,
-         cases)
+         Year,
+         Month,
+         cases) %>%
+  mutate(
+    Month = match(Month, month.abb)
+  )
 
 
 # ------ Save output df 
 dir.create(paste0("V1/Output/",format(Sys.Date(), "%Y_%m_%d")))
-write_csv(season_data, file = paste0("V1/Output/", format(Sys.Date(), "%Y_%m_%d"),"/backfill_nowcast_output.csv"))  
+write_csv(current_data, file = paste0("V1/Output/", format(Sys.Date(), "%Y_%m_%d"),"/backfill_nowcast_output.csv"))  

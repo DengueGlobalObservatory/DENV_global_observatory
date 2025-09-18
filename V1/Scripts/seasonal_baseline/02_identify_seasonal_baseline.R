@@ -25,8 +25,6 @@ library(circular)
 library(MASS)
 library(purrr)
 
-#--------------- Loading data
-full_data_interpolated <- read_csv("V1/DEV/02_Combining_WHO_and_OpenDengue_data/2025-09-08/National_clean_data.csv") # HARD CODED - change to load most recently available data...
 
 #--------------- Align from calendar year to dengue season 
 
@@ -203,11 +201,16 @@ full_data_average_season <- full_data_season_monthly_proportions %>%
   distinct()
 
 #--------------- Saving 
-dir_to_save <- paste0("V1/DEV/02_identify_seasonal_baseline/", Sys.Date()) # CHANGE FILEPATH TO SAVE AVE SEASONAL PROFILES
-dir.create(dir_to_save)
+full_data_average_season <-full_data_average_season %>%
+  dplyr::rename(
+    country= Country,
+    Month = Calendar_year_month
+  )
+
 
 write_csv(full_data_average_season, 
-          file = paste0(dir_to_save, "/National_average_seasonal_profile.csv"))
+          file = paste0("V1/Output/seasonal_baseline/National_average_seasonal_profile_",Sys.Date() ,".csv")
+          )
 
 
 

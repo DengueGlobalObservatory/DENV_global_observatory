@@ -33,8 +33,8 @@ files <- list.files(historic_dir, full.names = FALSE)
 file_dates <- files %>%
   basename() %>%
   sub("^National_clean_data_", "", .) %>%  # remove prefix
-  sub("\\.csv$", "", .) %>%               # remove suffix
-  ymd()                                   # convert to Date
+  sub("\\.csv$", "", .) %>%                # remove suffix
+  ymd()                                    # convert to Date
 
 # 3. Find the most recent file
 latest_file <- files[which.max(file_dates)]
@@ -42,6 +42,7 @@ latest_date <- max(file_dates, na.rm = TRUE)
 
 # 4. Check if the file is older than one year
 needs_update <- today() - latest_date > years(1)
+needs_update <- TRUE
 
 ## if yes, run update of WHO and OPENdengue, open, combine to single data source, recalculate average season 
 
@@ -53,9 +54,9 @@ if (needs_update) {
   source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R") ## ADD HERE
 }
 
-## open most recent existing average season file 
-
-avg_season <-  # ADD HERE
+# ## open most recent existing average season file 
+# 
+# full_data_average_season <-  # ADD HERE
 
 #------ Step 3: Open data for this season
 
@@ -65,12 +66,11 @@ source("V1/Scripts/data_sourcing/01_this_season_dengue_data.R")
 
 source("V1/Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
 
-#------ Step 5: Predictions 
+#------ Step 5: Nowcasting to Date 
 
-#needs work 
-source("V1/Scripts/forecasting/03_two_month_ahead_forecasting.R")
+source("V1/Scripts/nowcasting/03_nowcast.R")
+
 
 #------ Step 6: Visualise 
 
 #ADD HERE
-source()

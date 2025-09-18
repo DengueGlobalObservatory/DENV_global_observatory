@@ -1,7 +1,7 @@
----
-title: "00_FUN_paho_data_process"
-author: "K M Susong"
----
+# ---
+# title: "00_FUN_paho_data_process"
+# author: "K M Susong"
+# ---
   
 # Included functions
 # ==================
@@ -64,7 +64,7 @@ apply_reporting_correction <- function(df,
   
   # Load and clean correction factors
   rf_df <- read.csv("Data/emp_est_PAHO_report_factor.csv") %>%
-    select(country, d, rf) %>%
+    dplyr::select(country, d, rf) %>%
     mutate(
       rf = case_when(
         is.na(rf) ~ 1.000001,
@@ -89,7 +89,7 @@ apply_reporting_correction <- function(df,
   
   # Select final output columns
   df_combine <- df_combine %>%
-    select(
+    dplyr::select(
       country, year, ext_date, EW, onset_date, 
       !!sym(cases_col), !!sym(output_col), correction_applied
     )
@@ -180,7 +180,7 @@ PAHO_incid_monthly <- function(df) {
         month_num = month(onset_date),    # add number month
         date = make_date(year, month_num, 1)
       ) %>%
-      select(country, date, onset_date, EW, total_corrected_cases, total_den, correction_applied)
+      dplyr::select(country, date, onset_date, EW, total_corrected_cases, total_den, correction_applied)
     
    # Create complete monthly sequence for each country
    full_df <- df %>%
@@ -193,9 +193,9 @@ PAHO_incid_monthly <- function(df) {
      mutate(
        date_seq = map2(min_date, max_date, ~ seq.Date(.x, .y, by = "month"))
      ) %>%
-     select(country, date_seq) %>%
+     dplyr::select(country, date_seq) %>%
      unnest(date_seq, names_repair = "minimal") %>%
-     rename(date = date_seq)
+     dplyr:: rename(date = date_seq)
    
    # Merge observed data into complete timeline
     joined_df <- full_df %>%
@@ -228,7 +228,7 @@ PAHO_incid_monthly <- function(df) {
           TRUE ~ total_den - lag_cum
         ) ) %>%
       ungroup() %>%
-      select(
+      dplyr::select(
         country, year, month, month_num,  onset_date,EW,
         cumm_monthly_cases_corr = total_corrected_cases,
         cumm_monthly_cases = total_den,

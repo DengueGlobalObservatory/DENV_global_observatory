@@ -38,11 +38,11 @@ inital <- "~/Dropbox/DMMG/PAHO_crawler/data/"
 final <- "~/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory/Data/PAHO"
 # define the most recent download
 # PAHO is downloaded daily so todays date can be used to make the path to the most recent files
-paho_files <- file.path(paste0("DL_",today_numeric))
-
-
-# Save single formated .csv of PAHO data
-compile_PAHO(inital, paho_files, today_numeric, final)
+# paho_files <- file.path(paste0("DL_",today_numeric))
+# 
+# 
+# # Save single formated .csv of PAHO data
+# compile_PAHO(inital, paho_files, today_numeric, final)
 
 paho_path <- "Data/PAHO/PAHO_week_20250618.csv"
 paho <- read.csv(paho_path)
@@ -60,4 +60,4 @@ who <- read_excel(who_path)
 searo_path <- "Data/SEARO/SEARO_National_data_20250620_0818.csv"
 searo <- read.csv(searo_path)
 searo$country <- searo$Country
-searo <- select(searo, -c(Country))
+searo <- dplyr::select(searo, -c(Country))
