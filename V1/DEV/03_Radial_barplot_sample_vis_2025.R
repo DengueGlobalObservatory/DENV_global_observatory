@@ -294,6 +294,8 @@ generate_target_season_plot <- function(monthly_data,
     drop_na(percentile_most_recent ) %>%
     slice_tail() %>%
     select(percentile_most_recent)
+  
+  percentile_color_value <- 1
 
   target_season_plot <- ggplot() + 
     
@@ -356,7 +358,7 @@ generate_target_season_plot <- function(monthly_data,
     theme_minimal() + 
     plot_theme
   
-  if(radial == TRUE){
+  if(radial == "STAN"){
     # # Convert to radial format
     # target_season_plot_radial <- target_season_plot + 
     #   geom_tile(
@@ -417,7 +419,7 @@ generate_target_season_plot <- function(monthly_data,
                                            y = Ave_season_monthly_cases, yend = Ave_season_monthly_cases_next_month, 
                                            color = "Average season"), linewidth = 0.5) + 
       
-      scale_color_manual( name = NULL,values = c("Average season" = "grey"))  + 
+      scale_color_manual( name = NULL,values = c("Average season" = "grey30"))  + 
       
       # clean up labels 
       scale_y_discrete( breaks = NULL) +
@@ -433,8 +435,69 @@ generate_target_season_plot <- function(monthly_data,
       ylab ("Monthly Dengue Cases")
     
     return(target_season_plot_radial)
+  
+  } else if (radial == "SIMP") {
     
-  } else if(radial == FALSE){
+    target_season_plot_radial <- 
+      ggplot() +
+      # Background circle shaded by severity
+      geom_rect(
+        aes(
+          xmin = min(monthly_data_filtered$start),
+          xmax = max(monthly_data_filtered$end),
+          ymin = -Inf, ymax = Inf,
+          fill = as.numeric(percentile_color_value)),
+        inherit.aes = FALSE,
+        alpha = 0.3  # transparency so lines are visible
+      ) +
+      scale_fill_gradientn(
+        name = "Current season severity",
+        colours = c("cyan", "yellow", "magenta"),
+        values = scales::rescale(c(0, 50, 100)),
+        limits = c(0, 100), 
+        breaks = c(0, 50, 100),                                # where to put ticks
+        labels = c("Better", "Normal Year", "Worse")   
+      ) +
+      theme(
+        legend.title = element_text(face = "bold", size = 14, hjust = 0.5),   # bold + larger
+        legend.text = element_text(size = 10),                  # smaller labels
+        legend.margin = margin(t = 10, b = 10),                 # spacing around legend
+        legend.spacing.y = unit(6, "pt")                        # extra spacing between title and bar
+      ) +
+      
+      # Current season plot
+      ggnewscale::new_scale_color() +
+      
+      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
+                                                     y = complete_cases, yend = cases_next_month,
+                                                     color = "Current season"), linewidth = 1) + 
+      
+      scale_color_manual( name = NULL,values = c("Current season" = "black"))  + 
+
+      # average season plot 
+      ggnewscale::new_scale_color() +
+      geom_segment(data = monthly_data_filtered, aes(x = start, xend = end, 
+                                                     y = Ave_season_monthly_cases, yend = Ave_season_monthly_cases_next_month, 
+                                                     linetype = "Average season"), linewidth = 0.75) + 
+      
+      scale_linetype_manual( name = NULL,values = c("Average season" = 3))  + 
+      
+      # clean up labels 
+      scale_y_discrete( breaks = NULL) +
+      scale_x_date(date_breaks = "1 month", date_labels = month.abb,
+                   limits = range(c(monthly_data_filtered$start, monthly_data_filtered$end))) +
+      # make radial 
+      coord_polar() +
+      
+      # theme 
+      theme_minimal() + 
+      plot_theme +
+      xlab("") +
+      ylab ("Monthly Dengue Cases")
+    
+    return(target_season_plot_radial)
+   
+  } else if (radial == "FALSE"){
     
     return(target_season_plot)
   }
@@ -444,9 +507,10 @@ generate_target_season_plot <- function(monthly_data,
 
 target_season_plot <- generate_target_season_plot(monthly_data_complete,
                                                   full_data_interpolated, 
-                                                  "MTQ", TRUE)
+                                                  "PRY",  "SIMP")
 target_season_plot
 
+c("BRA", "THA", "COL", "PRY", "AFG")
 
 #--------------- Saving 
 dir_to_save <- paste0("V1/DEV/03_Radial_barplot_sample_vis_2025/", Sys.Date())
