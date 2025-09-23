@@ -49,9 +49,30 @@ paho <- read.csv(paho_path)
 
 #---- WHO data selection, process, and save 
 
-##!! need to create API download 
-who_path <-"Data/WHO/dengue-global-data-2025-08-16.xlsx"
-who <- read_excel(who_path)
+# WHO data
+# GitHub API endpoint for the folder contents
+url <- "https://api.github.com/repos/DengueGlobalObservatory/WHOGlobal-crawler/contents/Downloads"
+
+# Get JSON listing of files
+res <- GET(url)
+stop_for_status(res)
+files <- fromJSON(content(res, "text"))
+
+# Extract only Excel files matching the pattern
+xlsx_files <- grep("^dengue-global-data-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.xlsx$", files$name, value = TRUE)
+
+# Find the most recent by date in filename
+latest_file <- xlsx_files[which.max(as.Date(gsub("dengue-global-data-|\\.xlsx", "", xlsx_files)))]
+
+# Get the direct download URL for the latest file
+download_url <- files[files$name == latest_file, "download_url"]
+
+cat("Opening file:", latest_file, "\n")
+
+# Read Excel directly from the GitHub raw link
+temp <- tempfile(fileext = ".xlsx")
+download.file(download_url, temp, mode = "wb")
+who <- readxl::read_excel(temp)
 
 
 #---- SEARO data selection, process and save 
@@ -61,3 +82,5 @@ searo_path <- "Data/SEARO/SEARO_National_data_20250620_0818.csv"
 searo <- read.csv(searo_path)
 searo$country <- searo$Country
 searo <- dplyr::select(searo, -c(Country))
+
+rm(files,res)
