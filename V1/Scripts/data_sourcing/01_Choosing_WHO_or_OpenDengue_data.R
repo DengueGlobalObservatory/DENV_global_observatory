@@ -13,19 +13,13 @@
 #' =========
 #' 
 
-#--------------- Loading data 
-# opens in current version from the github
-OD_national_extract <- read_data(extract = "national", as_data_frame = TRUE, showProgress = FALSE)
-#!!!# this is currently hard coded, this will need to be updated to an API pull of the most recent data
-WHO_data <- read_excel("Data/WHO/dengue-global-data-2025-08-16.xlsx")
-
 #--------------- Load functions
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_OpenDengue_national_data_processing_functions.R")
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_WHO_data_processing_functions.R")
 
 #--------------- Clean data
 
-WHO_clean <- WHO_data %>% 
+WHO_clean <- WHO %>% 
   dplyr::select(date, country, iso3, cases) %>% 
   dplyr::mutate(
     date = as.Date(date),
