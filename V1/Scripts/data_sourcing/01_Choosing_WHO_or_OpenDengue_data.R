@@ -30,10 +30,13 @@ WHO_clean <- WHO_data %>%
   dplyr::mutate(
     date = as.Date(date),
     country = countrycode(iso3, "iso3c", "country.name"),
+    country = ifelse(iso3 == "MDR", "Autonomous Region of Madeira", country),
     cases = as.numeric(cases),
     Year = year(date),
     cases = dplyr::if_else(cases < 0, NA_real_, cases)
   ) 
+
+if(any(is.na(WHO_clean$country))){message("Not all ISO3 codes in WHO database matched to countries - investigate.")}
 
 OD_national_clean <- OD_national_extract %>%
   dplyr::filter(T_res != "Year") %>% 
@@ -82,10 +85,10 @@ OD_interpolated <- OD_dedup %>%
   add_count(ISO_A0, adm_0_name, name = "Counts") %>% 
   dplyr::filter(Counts > 1) %>% 
   dplyr::select(-Counts) %>%
-  interpolate_missing_national_OD_data(.) #-------------------- BUGGING HERE, FIX
+  interpolate_missing_national_OD_data() #-------------------- BUGGING HERE, FIX
 
-# if(any(grepl("^interpolation", colnames(OD_interpolated)))){
-#  stop("Error in OpenDengue interpolation")}
+if(any(grepl("^interpolation", colnames(OD_interpolated)))){
+   stop("Error in OpenDengue interpolation")}
 
 # Data coverage of OD countries in both
 OD_coverage <- OD_interpolated %>%
