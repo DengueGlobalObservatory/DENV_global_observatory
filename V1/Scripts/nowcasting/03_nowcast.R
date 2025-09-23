@@ -18,13 +18,13 @@ monthly_data_complete <-  full_data_average_season %>%
   left_join(
     .,
     current_data, 
-    join_by("Month" == Month, "iso3")
-  ) %>% 
+    join_by("Month", "iso3")
+  ) # %>% 
   distinct() %>%
   dplyr::select(
     -c(country.x, country.y)
   ) %>%
-  mutate(
+  dplyr::mutate(
     country = countrycode(iso3, "iso3c", "country.name"),
   ) %>%
   arrange(country, 
@@ -32,11 +32,11 @@ monthly_data_complete <-  full_data_average_season %>%
           Month) %>%
   
   # Define previous month as last period requiring data filling.  
-  mutate(End_prediction_month =  month(Sys.Date()) - 1) %>%
+  dplyr::mutate(End_prediction_month =  month(Sys.Date()) - 1) %>%
   
   # Assign var based on whether cases are observed 
   group_by(country, iso3) %>% 
-  mutate(
+  dplyr::mutate(
     Observed_cum_cases = cumsum(cases),
     Data_status = case_when(is.na(cases) ~ "Unobserved",
                             !is.na(cases) ~ "Observed")
@@ -46,14 +46,14 @@ monthly_data_complete <-  full_data_average_season %>%
   group_by(country, 
            iso3, 
            Data_status) %>%
-  mutate(most_recent_month = case_when(
+  dplyr::mutate(most_recent_month = case_when(
     Month == max(Month) & !is.na(cases) ~ "Most_recent",
     Month != max(Month) & !is.na(cases) ~ "Not_most_recent",
     is.na(cases) ~ "No_data")
-  ) %>%
+  ) # %>%
   
   # Calculate predicted total seasonal cases using cases observed to date 
-  mutate(
+  dplyr::mutate(
     Predicted_total_seasonal_cases = 
       case_when(most_recent_month == "Most_recent" ~ Observed_cum_cases / Ave_cum_monthly_proportion,
                 most_recent_month == "Not_most_recent" ~ NA,
@@ -63,20 +63,19 @@ monthly_data_complete <-  full_data_average_season %>%
   group_by(country, iso3) %>% 
   
   # Is there any data available for that season?
-  mutate(
+  dplyr::mutate(
     Any_data_available = 
       case_when(
         length(unique(na.omit(Predicted_total_seasonal_cases))) == 0 ~ "No_data_available",
         length(unique(na.omit(Predicted_total_seasonal_cases))) > 0 ~ "Data_available"), 
   ) %>%
-  mutate(
+  dplyr::mutate(
     
     # Fill predicted total seasonal case col, where no data available enter NA.
     Predicted_total_seasonal_cases = 
       case_when(Any_data_available == "No_data_available" ~ Predicted_total_seasonal_cases,
                 Any_data_available == "Data_available" ~ first(na.omit(Predicted_total_seasonal_cases))
-      )
-  )
+      ),
     
     # Where data is missing fill using predictions 
     complete_cases = case_when(!is.na(cases) ~ cases,
