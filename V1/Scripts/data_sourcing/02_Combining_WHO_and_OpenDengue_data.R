@@ -74,13 +74,13 @@ OD_dedup <- deduplicate_OD_data(OD_data)
 # Interpolate
 OD_interpolated <- OD_dedup %>% 
   # Remove locations with only one row
-  add_count(ISO_A0, adm_0_name, name = "Counts") %>% 
+  add_count(ISO_A0, adm_0_name, T_res, name = "Counts") %>% 
   dplyr::filter(Counts > 1) %>% 
   dplyr::select(-Counts) %>%
-  interpolate_missing_national_OD_data(.) # BUGGING HERE, FIX!!!!!!
+  interpolate_missing_national_OD_data(.) 
 
-# if(any(grepl("^interpolation", colnames(OD_interpolated)))){
-#    stop("Error in OpenDengue interpolation")}
+if(any(grepl("^interpolation", colnames(OD_interpolated)))){
+    stop("Error in OpenDengue interpolation")}
 
 #----- Disaggregating weeks crossing months 
 # Allocate cases to respective months, assume equal numbers per day in weeks crossing months.

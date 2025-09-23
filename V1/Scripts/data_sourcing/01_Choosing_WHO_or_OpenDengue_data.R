@@ -85,7 +85,7 @@ OD_interpolated <- OD_dedup %>%
   add_count(ISO_A0, adm_0_name, name = "Counts") %>% 
   dplyr::filter(Counts > 1) %>% 
   dplyr::select(-Counts) %>%
-  interpolate_missing_national_OD_data() #-------------------- BUGGING HERE, FIX
+  interpolate_missing_national_OD_data()
 
 if(any(grepl("^interpolation", colnames(OD_interpolated)))){
    stop("Error in OpenDengue interpolation")}

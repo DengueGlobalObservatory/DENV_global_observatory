@@ -103,7 +103,6 @@ generate_week_sequence <- function(years) {
   })
 }
 
-
 fill_monthly_missing_entries <- function(OpenDengue_data) {
   
   has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
