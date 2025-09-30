@@ -17,6 +17,7 @@
 #' Timeline:
 #' =========
 #' 19-09-2025: Initial commit. 
+#' 23-09-2025: Corrected fill_weekly_missing_entries function to account for differences in intra-annual date_sequence alignment.
 
 deduplicate_OD_data <- function(OD_national){
   
@@ -102,87 +103,13 @@ generate_week_sequence <- function(years) {
   })
 }
 
-interpolate_monthly_data <- function(OpenDengue_data, date_sequence) {
-  
-  OD_interpolated <- OpenDengue_data %>%
-    dplyr::mutate(
-      Month = month(calendar_start_date),
-    ) %>%
-    full_join(date_sequence, by = c("Month", "Year")) %>%
-    arrange(Year, Month) %>%
-    dplyr::mutate(
-      interpolated_cases = ceiling(na_interpolation(dengue_total, option = "linear", maxgap = 1)),
-      T_res = if_else(is.na(T_res), "Month", T_res)
-    ) %>%
-    dplyr::filter(!is.na(interpolated_cases)) %>%
-    dplyr::rename(Period = Month) %>%
-    fill_monthly_missing_entries()
-  
-  return(OD_interpolated)
-}
-
-interpolate_weekly_data <- function(OpenDengue_data, date_sequence) {
-  
-  OD_interpolated <- OpenDengue_data %>%
-    dplyr::mutate(
-      Week = week(calendar_start_date),
-    ) %>%
-    full_join(date_sequence, by = c("Year", "Week")) %>%
-    arrange(Year, Week) %>%
-    dplyr::mutate(
-      interpolated_cases = ceiling(na_interpolation(dengue_total, option = "linear", maxgap = 4)),
-      T_res = if_else(is.na(T_res), "Week", T_res)
-    ) %>%
-    dplyr::filter(!is.na(interpolated_cases)) %>%
-    dplyr::rename(Period = Week) %>%
-    fill_weekly_missing_entries() %>% 
-    remove_redundant_observations()
-  
-  return(OD_interpolated)
-}
-
-fill_weekly_missing_entries <- function(OpenDengue_data) {
-  
-  has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
-  has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
-  
-  result <- OpenDengue_data %>%
-    group_by(Year) %>%
-    dplyr::mutate(
-      date_diff = unique(na.omit(calendar_start_date - Date)),
-      calendar_start_date = if_else(
-        is.na(calendar_start_date),
-        Date + date_diff,
-        calendar_start_date
-      ),
-      calendar_end_date = if_else(
-        is.na(calendar_end_date),
-        calendar_start_date + 6,
-        calendar_end_date
-      )
-    )
-  
-  if (has_ISO_A0) {
-    result <- result %>%
-      dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
-  }
-  if (has_adm_0_name) {
-    result <- result %>%
-      dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
-  }
-  
-  result %>%
-    ungroup() %>%
-    dplyr::select(-date_diff, -Date)
-}
-
 fill_monthly_missing_entries <- function(OpenDengue_data) {
   
   has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
   has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
   
   result <- OpenDengue_data %>%
-    group_by(Year) %>%
+    dplyr::group_by(Year) %>%
     dplyr::mutate(
       calendar_start_date = case_when(
         is.na(calendar_start_date) ~ as.Date(x = paste0("01-", Period, "-", Year), format = "%d-%m-%Y"),
@@ -207,11 +134,107 @@ fill_monthly_missing_entries <- function(OpenDengue_data) {
   
   return(result)
 }
+{
+# fill_weekly_missing_entries <- function(OpenDengue_data) {
+#   
+#   has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
+#   has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
+#   
+#   result <- OpenDengue_data %>%
+#     dplyr::group_by(Year) %>%
+#     dplyr::mutate(
+#       date_diff = unique(na.omit(calendar_start_date - Date)),
+#       calendar_start_date = if_else(
+#         is.na(calendar_start_date),
+#         Date + date_diff,
+#         calendar_start_date
+#       ),
+#       calendar_end_date = if_else(
+#         is.na(calendar_end_date),
+#         calendar_start_date + 6,
+#         calendar_end_date
+#       )
+#     )
+#   
+#   if (has_ISO_A0) {
+#     result <- result %>%
+#       dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
+#   }
+#   if (has_adm_0_name) {
+#     result <- result %>%
+#       dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
+#   }
+#   
+#   result %>%
+#     ungroup() %>%
+#     dplyr::select(-date_diff, -Date)
+# }
+}
+fill_weekly_missing_entries <- function(OpenDengue_data) {
+  
+  has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
+  has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
+  
+  result <- OpenDengue_data %>%
+    arrange(Year, Date) %>% 
+    ungroup() %>%
+    group_by(Year) %>%
+    dplyr::mutate(       
+      # Identify whether a year has multiple diff_dates
+      date_diff = as.integer(calendar_start_date - Date),
+      multiple_date_diff = ifelse(length(unique(na.omit(date_diff))) > 1, TRUE, FALSE),
+      date_diff = ifelse(multiple_date_diff, date_diff, unique(na.omit(date_diff)))) %>% 
+    ungroup() %>% 
+    mutate(
+      # Where there are multiple diff_dates identify the boundaries
+      missing_start = is.na(calendar_start_date) & !lag(is.na(calendar_start_date), default = FALSE),
+      missing_end   = is.na(calendar_start_date) & !lead(is.na(calendar_start_date), default = FALSE)) %>% 
+    
+    mutate(
+      # Fill boundary start and end dates
+      calendar_start_date = case_when(multiple_date_diff & is.na(calendar_start_date) & missing_start ~ lag(calendar_end_date) + 1,
+                                      !multiple_date_diff & is.na(calendar_start_date) ~ Date + date_diff,
+                                      TRUE ~ calendar_start_date),
+      calendar_end_date = case_when(multiple_date_diff & is.na(calendar_end_date) & missing_end  ~ lead(calendar_start_date) - 1,
+                                    !multiple_date_diff & is.na(calendar_end_date) ~ calendar_start_date + 6,
+                                    TRUE ~ calendar_end_date)) %>%
+    
+    mutate(
+      # Fill boundary week end and start dates  
+      calendar_start_date = case_when(multiple_date_diff & is.na(calendar_start_date) & missing_end ~ calendar_end_date - 6,
+                                      TRUE ~ calendar_start_date),
+      calendar_end_date = case_when(multiple_date_diff & is.na(calendar_end_date) & missing_start ~ calendar_start_date + 6,
+                                    TRUE ~ calendar_end_date)) %>% 
+    
+    mutate(
+      # Fill middle missing data
+      calendar_start_date = case_when(multiple_date_diff & is.na(calendar_start_date) & !missing_end & !missing_start ~ lag(calendar_end_date) + 1,
+                                      TRUE ~ calendar_start_date),
+      calendar_end_date = case_when(multiple_date_diff & is.na(calendar_end_date) & !missing_end & !missing_start ~ lead(calendar_start_date) - 1,
+                                    TRUE ~ calendar_end_date)
+    ) 
+  
+  if (has_ISO_A0) {
+    result <- result %>%
+      dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
+  }
+  
+  if (has_adm_0_name) {
+    result <- result %>%
+      dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
+  }
+  
+  result <- result %>%
+    ungroup() #%>%
+  #dplyr::select(-date_diff, -multiple_date_diff, -missing_start , -missing_end )
+  
+  return(result)
+}
 
 remove_redundant_observations <- function(OpenDengue_data) {
   OpenDengue_data %>%
     ungroup() %>%
-    group_by(calendar_start_date, calendar_end_date) %>%
+    dplyr::group_by(calendar_start_date, calendar_end_date) %>%
     dplyr::mutate(
       No_of_obs = n(),
       Obs_to_keep = case_when(
@@ -222,6 +245,46 @@ remove_redundant_observations <- function(OpenDengue_data) {
     ) %>%
     dplyr::filter(Obs_to_keep == "Keep") %>%
     dplyr::select(-No_of_obs, -Obs_to_keep)
+}
+
+interpolate_monthly_data <- function(OpenDengue_data, date_sequence) {
+  
+  OD_interpolated <- OpenDengue_data %>%
+    dplyr::mutate(
+      Month = month(calendar_start_date),
+    ) %>%
+    full_join(date_sequence, by = c("Month", "Year")) %>%
+    arrange(Year, Month) %>%
+    dplyr::mutate(
+      interpolated_cases = ceiling(na_interpolation(dengue_total, option = "linear", maxgap = 1)),
+      T_res = if_else(is.na(T_res), "Month", T_res)
+    ) %>%
+    dplyr::filter(!is.na(interpolated_cases)) %>%
+    dplyr::rename(Period = Month) %>%
+    fill_monthly_missing_entries()
+  
+  return(OD_interpolated)
+}
+
+interpolate_weekly_data <- function(OpenDengue_data, date_sequence) {
+  
+  OD_interpolated <- OpenDengue_data %>%
+    dplyr::mutate(
+      Week = week(calendar_start_date),
+      week_length = as.numeric(calendar_end_date - calendar_start_date)
+    ) %>%
+    full_join(date_sequence, by = c("Year", "Week")) %>%
+    arrange(Year, Week) %>%
+    dplyr::mutate(
+      interpolated_cases = ceiling(na_interpolation(dengue_total, option = "linear", maxgap = 4) * week_length / 6),
+      T_res = if_else(is.na(T_res), "Week", T_res)
+    ) %>%
+    dplyr::filter(!is.na(interpolated_cases)) %>%
+    dplyr::rename(Period = Week) %>%
+    fill_weekly_missing_entries() %>% 
+    remove_redundant_observations()
+  
+  return(OD_interpolated)
 }
 
 # Main function
