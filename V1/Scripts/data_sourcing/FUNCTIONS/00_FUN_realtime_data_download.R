@@ -16,27 +16,23 @@
 #' 
 #'  remove_total()             = Removes total summary rows from ID/country/serotype
 #'  read_and_clean_PAHO()      = Load files, clean columns, convert types
-#'  normalize_country()        = add english county name and iso3
+#'  normalize_country()        = add English county name and iso3
 #'  compile_PAHO()             = download, check and compile a week worth of download
-#'  
-#' **WHO crawler**
-#' 
-#' need to write - API function 
-#'  
-#'  **SEARO crawler**
-#'  
-#' need to write - API function 
-#' 
+#'  compile_PAHO_github()      = download from github, check and compile a week worth of download  
+
 
 # Required Libraries
-library(dplyr)        # Data manipulatio
-library(plyr)         # Counting, ordering (used in encode_fix)
-library(lubridate)    # Date parsing and manipulation
-library(data.table)   # Fast data.frame operations and rbindlist
-library(readr)        # Writing CSVs with write_csv
-library(stringr)      # String matching and cleaning
-library(tibble)       # Creating tibbles for structured data
-library(countrycode)  # add ISO3 codes
+library(dplyr)        # Data manipulation (filter, mutate, bind_rows, etc.)
+library(plyr)         # Counting, ordering (legacy support for encode_fix)
+library(lubridate)    # Date parsing and epidemiological week handling
+library(data.table)   # Efficient data.frame operations (used in rbindlist)
+library(readr)        # Reading CSVs / TSVs (with encoding control)
+library(stringr)      # String cleaning and regex helpers
+library(tibble)       # Creating tidy tibbles
+library(countrycode)  # Add ISO3 country codes
+library(httr)         # GitHub API requests and downloads
+library(jsonlite)     # Parse JSON responses from GitHub API
+
 
 
 #' ───────────────────────────────────────────────────────────────
@@ -74,8 +70,9 @@ read_and_clean_PAHO <- function(file_path, download_week) {
   # remove sum row
   df <- remove_total(df)
   # remove extra year col
-  df <- df %>%
-    select(!Año...5)
+  if ("Año...5" %in% names(df)) {
+    df <- df %>% select(!Año...5)
+  }
   
   # Define column name mappings
   col_map <- list(
@@ -214,8 +211,8 @@ normalize_country <- function(df, col = "country") {
   df$iso3 <- countrycode(df$country, origin = "country.name", destination = "iso3c")
   
   # Optional: Warn about any unmatched ISO codes
-  if (any(is.na(df$iso3c))) {
-    warn_countries <- unique(df$country[is.na(df$iso3c)])
+  if (any(is.na(df$iso3))) {
+    warn_countries <- unique(df$country[is.na(df$iso3)])
     warning("⚠️ Some country names could not be matched to ISO3:\n  - ", paste(warn_countries, collapse = ", "))
   }
   
@@ -276,4 +273,82 @@ compile_PAHO <- function(dir_input, sub_dirs_ls, download_week, final_dir) {
   output_path <- file.path(final_dir, sprintf("PAHO_week_%s.csv", download_week))
   write_csv(final_df, output_path)
   message("✅ Compilation complete. File saved to: ", output_path)
+}
+
+
+#' **compile_PAHO_github()**
+#'
+#' This function retrieves the most recent PAHO dengue data directly from the
+#' `PAHO-crawler` GitHub repository. It identifies the latest weekly download
+#' folder (`DL_YYYYMMDD`), ingests all `.csv` files inside (which are UTF-16LE
+#' tab-separated), cleans and normalizes them with `read_and_clean_PAHO()`,
+#' and compiles into a single dataframe. 
+#'
+#' Unlike the original `compile_PAHO()`, this version does not require local
+#' folders or saving intermediate files — it works entirely via the GitHub API.
+#'
+#' @param repo_owner GitHub repository owner (default = "DengueGlobalObservatory")
+#' @param repo_name GitHub repository name (default = "PAHO-crawler")
+#'
+#' @return A tibble containing compiled and cleaned PAHO dengue data for the most recent week.
+#' @examples
+#' df <- compile_PAHO_github()
+#' head(df)
+#'
+#' @details
+#' Steps:
+#' 1. Query GitHub API for the `data/` folder contents.
+#' 2. Identify the latest `DL_YYYYMMDD` subfolder by date.
+#' 3. List all `.csv` files inside the subfolder.
+#' 4. Download and process each file with `read_and_clean_PAHO()`.
+#' 5. Combine all cleaned files into a single dataframe.
+#' 6. Normalize country names and ISO3 codes with `normalize_country()`.
+#' 7. Add epidemiological week (`Reporting_EW`) based on download date.
+
+
+compile_PAHO_github <- function(repo_owner = "DengueGlobalObservatory",
+                                repo_name = "PAHO-crawler") {
+  # 1. Get list of DL_* subfolders
+  url <- sprintf("https://api.github.com/repos/%s/%s/contents/data", repo_owner, repo_name)
+  res <- GET(url)
+  stop_for_status(res)
+  dirs <- fromJSON(content(res, "text"))
+  
+  dl_dirs <- grep("^DL_[0-9]{8}$", dirs$name, value = TRUE)
+  if (length(dl_dirs) == 0) stop("❌ No DL_YYYYMMDD folders found.")
+  
+  latest_dir <- dl_dirs[which.max(as.Date(gsub("DL_", "", dl_dirs), "%Y%m%d"))]
+  download_week <- gsub("DL_", "", latest_dir)
+  cat("📂 Latest folder:", latest_dir, "\n")
+  
+  # 2. List files inside that folder
+  url_sub <- sprintf("https://api.github.com/repos/%s/%s/contents/data/%s",
+                     repo_owner, repo_name, latest_dir)
+  res_sub <- GET(url_sub)
+  stop_for_status(res_sub)
+  files <- fromJSON(content(res_sub, "text"))
+  
+  # ✅ filter for CSV (but they're UTF-16LE TSV in disguise)
+  csv_files <- grep("\\.csv$", files$name, value = TRUE)
+  if (length(csv_files) == 0) stop("⚠️ No CSV files found in latest folder.")
+  
+  # 3. Read, clean, normalize each file
+  df_list <- list()
+  for (f in csv_files) {
+    file_url <- files[files$name == f, "download_url"]
+    cat("📄 Reading:", f, "\n")
+    tmp <- tempfile(fileext = ".csv")
+    download.file(file_url, tmp, mode = "wb")
+    df <- read_and_clean_PAHO(tmp, download_week)
+    if (!is.null(df)) df_list <- append(df_list, list(df))
+  }
+  
+  if (length(df_list) == 0) stop("❗ No valid files could be read and cleaned.")
+  
+  final_df <- bind_rows(df_list) %>%
+    mutate(Reporting_EW = epiweek(ymd(ext_date))) %>%
+    normalize_country()
+  
+  cat("✅ Compilation complete for week:", download_week, "\n")
+  return(final_df)
 }
