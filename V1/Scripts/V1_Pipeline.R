@@ -9,6 +9,8 @@
 #' 08-09-2025: Added source script for seasonal baseline.
 #' 
 
+library(dplyr)
+library(lubridate)
 
 #------ Step 1: start log
 
@@ -33,8 +35,8 @@ files <- list.files(historic_dir, full.names = FALSE)
 file_dates <- files %>%
   basename() %>%
   sub("^National_clean_data_", "", .) %>%  # remove prefix
-  sub("\\.csv$", "", .) %>%               # remove suffix
-  ymd()                                   # convert to Date
+  sub("\\.csv$", "", .) %>%                # remove suffix
+  ymd()                                    # convert to Date
 
 # 3. Find the most recent file
 latest_file <- files[which.max(file_dates)]
@@ -47,15 +49,19 @@ needs_update <- today() - latest_date > years(1)
 
 if (needs_update) {
   message("Historic data is older than 1 year. Updating...")
+  
   # open and combine seasonal data
   source("V1/Scripts/data_sourcing/01_historic_national_data.R")
-  # calculate average season 
-  source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R") ## ADD HERE
+  
+  # calculate average season
+  source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R")
+  
+} else {
+  message("Historic data is up-to-date. Using existing file...")
+  
+  # directly load the most recent file
+  # full_data_average_season <- read_csv()
 }
-
-## open most recent existing average season file 
-
-avg_season <-  # ADD HERE
 
 #------ Step 3: Open data for this season
 
@@ -65,12 +71,11 @@ source("V1/Scripts/data_sourcing/01_this_season_dengue_data.R")
 
 source("V1/Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
 
-#------ Step 5: Predictions 
+#------ Step 5: Nowcasting to Date 
 
-#needs work 
-source("V1/Scripts/forecasting/03_two_month_ahead_forecasting.R")
+source("V1/Scripts/nowcasting/03_nowcast.R")
+
 
 #------ Step 6: Visualise 
 
 #ADD HERE
-source()

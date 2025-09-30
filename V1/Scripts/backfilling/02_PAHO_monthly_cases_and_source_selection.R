@@ -1,9 +1,3 @@
-#' ---
-#' title: "02_PAHO_monthly_cases_and_source_selection"
-#' author: "K M Susong"
-#' 
-#' ---
-#'
 #' Overview
 #' ========
 #' 
@@ -23,11 +17,13 @@ paho_correction <- apply_reporting_correction(df = paho, cases_col = "total_den"
 # weekly cumm -> month cum -> monthly
 paho_month_cumm  <- compute_monthcumm_cases(df = paho_correction)
 # Calculate monthly cases:
-monthly_paho <-  PAHO_incid_monthly(paho_month_cumm)
+paho_monthly <-  PAHO_incid_monthly(paho_month_cumm)
 
 # handle negative values 
 ## -- room for improvement in future
-monthly_paho <- monthly_paho %>%
+ 
+
+paho_monthly <- paho_monthly %>%
   mutate( 
     missing_reason = case_when(computed_monthly_cases_corr < 0 ~ "replaced_with_uncor", TRUE ~ missing_reason), 
     computed_monthly_cases_corr = case_when(computed_monthly_cases_corr < 0 ~ computed_monthly_cases, TRUE ~ computed_monthly_cases_corr)
@@ -69,79 +65,107 @@ all_countries <- full_join(paho_countries, who_countries, by = "country") %>%
 # make combine df
 
 # Step 1: correct the column names in PAHO and SEARO to match WHO 
-paho_add <- monthly_paho %>%
+
+paho_add <- paho_monthly %>%
   mutate(
     date = make_date(year = year, month = month_num, day = 1),
     source = "PAHO"
   ) %>%
   dplyr::  rename(
     country = country,
-    year = year,
-    month = month,
+    Year = year,
+    Month = month,
     cases = computed_monthly_cases_corr
   ) %>%
   mutate(
-    month = month.abb[match(month, month.name)]
+    Month = month.abb[match(Month, month.name)],
+    iso3 = countrycode(sourcevar = country,
+                       origin = "country.name",
+                       destination = "iso3c")
   ) %>%
-  select(country,
+  dplyr::select(country,
+                iso3,
          date,
-         year,
-         month,
+         Year,
+         Month,
          source,
-         cases)
+         cases,
+         missing_reason)
 
 searo_add <- searo %>%
   dplyr::  rename(
-    country = country,
-    year = Year,
-    month = Month,
     cases = Value
   ) %>%
   mutate(
     # Standardize month to lowercase
-    month = case_when(
-      month == "June" ~ "Jun",
-      month == "July" ~ "Jul",
-      TRUE ~ month),
+    Month = case_when(
+      Month == "June" ~ "Jun",
+      Month == "July" ~ "Jul",
+      TRUE ~ Month),
     # Build the first-of-month date
-    date = as.Date(paste(year, match(month, month.abb), "01", sep = "-")), 
-    source = "SEARO"
+    date = as.Date(paste(Year, match(Month, month.abb), "01", sep = "-")), 
+    source = "SEARO" ,
+    iso3 = countrycode(sourcevar = country,
+                       origin = "country.name",
+                       destination = "iso3c")
     ) %>%
-  select(country,
+  dplyr:: select(country,
+                 iso3,
          date,
-         year,
-         month,
+         Year,
+         Month,
          source,
          cases)
 
 
-# Step 2: Combine PAHO and SEARO data
-paho_searo <- bind_rows(paho_add, searo_add)
-
-# Step 3: Identify countries already in paho_searo
-existing_countries <- paho_searo %>%
-  distinct(country)
-
-# Step 4: Filter WHO for countries not in paho_searo
-who_unique <- who %>%
+who_add <- who %>%
   mutate(
+    Year = year(date), 
+    Month = month(date), 
     source = "WHO"
   ) %>%
-  anti_join(existing_countries, by = "country")
+  mutate(
+    Month = format(date, "%b"),
+  ) %>%
+  dplyr:: select(country,
+                 iso3,
+                 date,
+                 Year,
+                 Month,
+                 source,
+                 cases)
 
-# Step 5: Final combined dataset
-final_data <- bind_rows(paho_searo, who_unique)
+# Step 2: Combine all data
+combine <- bind_rows(paho_add, searo_add, who_add)
 
-current_data <- final_data %>%
-  filter( year > 2023) %>%
-  select(country,
+
+# Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
+final_cases <- combine %>%
+  group_by(country, iso3, date, Year, Month) %>% 
+  # order first by NA status (NA last), then by source preference
+  arrange(is.na(cases), source == "WHO") %>% 
+  # keep the first row in each group (non-NA, non-WHO prioritized)
+  slice(1) %>% 
+  ungroup()
+
+# Step 4 : Selected needed time frame and columns
+current_year <- as.numeric(format(Sys.Date(), "%Y"))
+season_start <-current_year -2
+
+current_data <- final_cases %>%
+  filter( Year > season_start) %>%
+  dplyr::select(country,
          iso3,
          date,
-         year,
-         month,
-         cases)
+         Year,
+         Month,
+         cases,
+         source) %>%
+  mutate(
+    Month = match(Month, month.abb)
+  )
 
 
-# ------ Save output df 
+# # ------ Save output df 
 dir.create(paste0("V1/Output/",format(Sys.Date(), "%Y_%m_%d")))
-write_csv(season_data, file = paste0("V1/Output/", format(Sys.Date(), "%Y_%m_%d"),"/backfill_nowcast_output.csv"))  
+write_csv(current_data, file = paste0("V1/Output/", format(Sys.Date(), "%Y_%m_%d"),"/backfill_nowcast_output.csv"))
