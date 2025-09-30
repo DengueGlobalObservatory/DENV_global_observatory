@@ -44,21 +44,24 @@ latest_date <- max(file_dates, na.rm = TRUE)
 
 # 4. Check if the file is older than one year
 needs_update <- today() - latest_date > years(1)
-needs_update <- TRUE
 
 ## if yes, run update of WHO and OPENdengue, open, combine to single data source, recalculate average season 
 
 if (needs_update) {
   message("Historic data is older than 1 year. Updating...")
+  
   # open and combine seasonal data
   source("V1/Scripts/data_sourcing/01_historic_national_data.R")
-  # calculate average season 
-  source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R") ## ADD HERE
+  
+  # calculate average season
+  source("V1/Scripts/seasonal_baseline/02_identify_seasonal_baseline.R")
+  
+} else {
+  message("Historic data is up-to-date. Using existing file...")
+  
+  # directly load the most recent file
+  # full_data_average_season <- read_csv()
 }
-
-# ## open most recent existing average season file 
-# 
-# full_data_average_season <-  # ADD HERE
 
 #------ Step 3: Open data for this season
 

@@ -20,18 +20,50 @@
 #' 19-06-2025: Changed input OpenDengue data to V1.3.
 #' 19-07-2025: Added status update.
 #' 16-09-2025: Changed function source to a single file for WHO and OD.
+#' 23-09-2025: add WHO API
+
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(readxl)
 
 #--------------- Loading data
 # opens in current version from the github
 OD_national <- read_data(extract = "national", as_data_frame = TRUE, showProgress = FALSE)
-#!!!# this is currently hard coded, this will need to be updated to an API pull of the most recent data
-WHO <- read_excel("Data/WHO/dengue-global-data-2025-08-16.xlsx")
+
+# WHO data
+# GitHub API endpoint for the folder contents
+url <- "https://api.github.com/repos/DengueGlobalObservatory/WHOGlobal-crawler/contents/Downloads"
+
+# Get JSON listing of files
+res <- GET(url)
+stop_for_status(res)
+files <- fromJSON(content(res, "text"))
+
+# Extract only Excel files matching the pattern
+xlsx_files <- grep("^dengue-global-data-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.xlsx$", files$name, value = TRUE)
+
+# Find the most recent by date in filename
+latest_file <- xlsx_files[which.max(as.Date(gsub("dengue-global-data-|\\.xlsx", "", xlsx_files)))]
+
+# Get the direct download URL for the latest file
+download_url <- files[files$name == latest_file, "download_url"]
+
+cat("Opening file:", latest_file, "\n")
+
+# Read Excel directly from the GitHub raw link
+temp <- tempfile(fileext = ".xlsx")
+download.file(download_url, temp, mode = "wb")
+WHO <- readxl::read_excel(temp)
+
 
 # Results
 Choosing_WHO_or_OpenDengue_data <- new.env()
 source("V1/Scripts/data_sourcing/01_Choosing_WHO_or_OpenDengue_data.R", 
        local = Choosing_WHO_or_OpenDengue_data,
        echo = FALSE)
+
+#### THIS IS CURRENTLY RETURNING A NULL OBJ ####
 WHO_OD_coverage <- Choosing_WHO_or_OpenDengue_data$WHO_OD_coverage
 
 #--------------- Load functions
@@ -59,6 +91,8 @@ OD_national_clean <- OD_national %>%
   )
 
 #--------------- Filtering OD and WHO datasets for chosen years 
+
+
 
 # OpenDengue 
 OD_data <- extract_desired_OD_data(OD_national_clean, WHO_OD_coverage)
