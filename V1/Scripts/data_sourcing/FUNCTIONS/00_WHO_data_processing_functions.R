@@ -16,6 +16,8 @@
 #' =========
 #' 19-09-2025: Initial commit
 
+library(imputeTS)
+
 interpolate_missing_WHO_data <- function(WHO_data) {
   
   # Clean and interpolate
@@ -111,9 +113,9 @@ extract_desired_WHO_data <- function(WHO_extract, coverage_results){
     dplyr::filter(
       Which_to_keep_clean == "WHO") %>%
     dplyr::select(
-      Year, country, iso3) %>%
+      Year, country.WHO, iso3) %>%
     dplyr::mutate(
-      WHO_Country_Year = paste(country, "_", Year))
+      WHO_Country_Year = paste(country.WHO, "_", Year))
   
   # Extract desired data from overlap countries
   Overlap_countries_target_data <- WHO_extract %>%

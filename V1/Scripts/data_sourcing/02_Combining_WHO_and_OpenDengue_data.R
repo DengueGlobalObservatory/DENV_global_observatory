@@ -27,72 +27,14 @@ library(jsonlite)
 library(dplyr)
 library(readxl)
 
-#--------------- Loading data
-# opens in current version from the github
-OD_national <- read_data(extract = "national", as_data_frame = TRUE, showProgress = FALSE)
 
-# WHO data
-# GitHub API endpoint for the folder contents
-url <- "https://api.github.com/repos/DengueGlobalObservatory/WHOGlobal-crawler/contents/Downloads"
-
-# Get JSON listing of files
-res <- GET(url)
-stop_for_status(res)
-files <- fromJSON(content(res, "text"))
-
-# Extract only Excel files matching the pattern
-xlsx_files <- grep("^dengue-global-data-[0-9]{4}-[0-9]{2}-[0-9]{2}\\.xlsx$", files$name, value = TRUE)
-
-# Find the most recent by date in filename
-latest_file <- xlsx_files[which.max(as.Date(gsub("dengue-global-data-|\\.xlsx", "", xlsx_files)))]
-
-# Get the direct download URL for the latest file
-download_url <- files[files$name == latest_file, "download_url"]
-
-cat("Opening file:", latest_file, "\n")
-
-# Read Excel directly from the GitHub raw link
-temp <- tempfile(fileext = ".xlsx")
-download.file(download_url, temp, mode = "wb")
-WHO <- readxl::read_excel(temp)
-
-
-# Results
-Choosing_WHO_or_OpenDengue_data <- new.env()
-source("V1/Scripts/data_sourcing/01_Choosing_WHO_or_OpenDengue_data.R", 
-       local = Choosing_WHO_or_OpenDengue_data,
-       echo = FALSE)
-
-#### THIS IS CURRENTLY RETURNING A NULL OBJ ####
-WHO_OD_coverage <- Choosing_WHO_or_OpenDengue_data$WHO_OD_coverage
 
 #--------------- Load functions
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_OpenDengue_national_data_processing_functions.R")
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_WHO_data_processing_functions.R")
 
-#---------------------- Clean data 
-
-# WHO
-WHO_clean <- WHO %>% 
-  dplyr::select(date, country, iso3, cases) %>% 
-  dplyr::mutate(
-    date = as.Date(date),
-    country = countrycode(iso3, "iso3c", "country.name"),
-    cases = as.numeric(cases),
-    Year = year(date),
-    cases = ifelse(cases < 0, NA, cases)
-  ) 
-
-# OpenDengue
-OD_national_clean <- OD_national %>%
-  dplyr::filter(T_res != "Year") %>% 
-  dplyr::mutate(
-    adm_0_name = countrycode(ISO_A0, "iso3c", "country.name")
-  )
-
+#
 #--------------- Filtering OD and WHO datasets for chosen years 
-
-
 
 # OpenDengue 
 OD_data <- extract_desired_OD_data(OD_national_clean, WHO_OD_coverage)
@@ -103,58 +45,61 @@ WHO_data <- extract_desired_WHO_data(WHO_clean, WHO_OD_coverage)
 #--------------- Prepare OD data to join to WHO 
 
 # Deduplicate 
-OD_dedup <- deduplicate_OD_data(OD_data)
+# OD_dedup <- deduplicate_OD_data(OD_data)
 
-# Interpolate
-OD_interpolated <- OD_dedup %>% 
-  # Remove locations with only one row
-  add_count(ISO_A0, adm_0_name, T_res, name = "Counts") %>% 
-  dplyr::filter(Counts > 1) %>% 
-  dplyr::select(-Counts) %>%
-  interpolate_missing_national_OD_data(.) 
+# # Interpolate
+# OD_interpolated <- OD_dedup %>% 
+#   # Remove locations with only one row
+#   add_count(ISO_A0, adm_0_name, T_res, name = "Counts") %>% 
+#   dplyr::filter(Counts > 1) %>% 
+#   dplyr::select(-Counts) %>%
+#   interpolate_missing_national_OD_data(.) 
 
-if(any(grepl("^interpolation", colnames(OD_interpolated)))){
-    stop("Error in OpenDengue interpolation")}
+# if(any(grepl("^interpolation", colnames(OD_interpolated)))){
+#     stop("Error in OpenDengue interpolation")}
 
 #----- Disaggregating weeks crossing months 
 # Allocate cases to respective months, assume equal numbers per day in weeks crossing months.
-OD_weekly_disaggregated <- disaggregate_OD_cases_weeks_crossing_months(OD_interpolated)
+# OD_weekly_disaggregated <- disaggregate_OD_cases_weeks_crossing_months(OD_data)
 
 # if(any(grepl("^disaggregation", colnames(OD_weekly_disaggregated)))){
 #   stop("Error in OpenDengue weekly disaggregation")}
 
 #----- Aggregate weekly --> monthly 
-OD_monthly <- aggregate_weekly_to_monthly_OD_cases(OD_weekly_disaggregated) 
+# OD_monthly <- aggregate_weekly_to_monthly_OD_cases(OD_weekly_disaggregated) 
 
-if(any(grepl("^aggregation", colnames(OD_weekly_disaggregated)))){
-  stop("Error in OpenDengue monthly aggregation")}
+# if(any(grepl("^aggregation", colnames(OD_weekly_disaggregated)))){
+  # stop("Error in OpenDengue monthly aggregation")}
 
 #----- Prepare OpenDengue data to combine with WHO data 
-OD_monthly_final <- OD_monthly %>%
+OD_monthly_final <- OD_data %>%
   ungroup() %>%
-  arrange(ISO_A0, Year, Month) %>%
+  dplyr::mutate(
+    Month = month
+    # monthly_cases = dengue_total) 
+    )%>%
+  arrange(iso3, Year, Month) %>%
   mutate(
     date = lubridate::make_date(year = Year, month = Month, day = 1),
-    iso3 = ISO_A0,
-    cases = monthly_cases,
-    country = str_to_title(adm_0_name), # fix ALL CAP
+    # cases = monthly_cases,
+    country = str_to_title(country), # fix ALL CAP
     Year = year(date)
     ) %>%
   filter(Year > 2009) %>%
   dplyr::select(
-    date, 
-    country, 
-    iso3, 
-    cases) %>% 
+    date,
+    country,
+    iso3,
+    cases) %>%
   distinct() 
 
 #--------------- Preparing WHO data to join to OpenDengue 
 
-#----- Interpolate 
-WHO_interpolated <- interpolate_missing_WHO_data(WHO_clean)
-
-if(any(grepl("error", colnames(WHO_interpolated)))){
-  stop("Error in WHO interpolation")}
+# #----- Interpolate 
+# WHO_interpolated <- interpolate_missing_WHO_data(WHO_clean)
+# 
+# if(any(grepl("error", colnames(WHO_interpolated)))){
+#   stop("Error in WHO interpolation")}
 
 #----- Prepare WHO data to combine with OpenDengue data 
 WHO_final <- WHO_interpolated %>% 
@@ -189,7 +134,7 @@ WHO_OD_combined_clean <- WHO_OD_combined %>%
 #--------------- Filter combined data for complete years, all zero years, and countries with at least 3 years of data.
 
 # Filter for coverage: remove locations with < 12 data points in a year. 
-WHO_OD_combined_final <- WHO_OD_combined_clean %>% 
+full_data <- WHO_OD_combined_clean %>% 
   ungroup() %>%
   dplyr::mutate(Year = year(date),
          Month = month(date)) %>%
@@ -211,9 +156,7 @@ WHO_OD_combined_final <- WHO_OD_combined_clean %>%
   dplyr::mutate(Number_of_years = n()) %>% 
   dplyr::filter(Number_of_years >= 3) %>% 
   dplyr::select(!Number_of_years) %>%
-  ungroup() %>% 
-  dplyr::select(-Year, -Month)
-
+  ungroup()
 #--------------------------- Print status update 
 
 print("Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.")

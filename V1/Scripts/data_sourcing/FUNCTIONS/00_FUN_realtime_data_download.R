@@ -65,10 +65,16 @@ remove_total <- function(df) {
 
 read_and_clean_PAHO <- function(file_path, download_week) {
   tryCatch({
-  # open file (tab seperated, UTF-16LE)
-  df <- read_tsv(file_path, locale = locale(encoding = "UTF-16LE"))
-  # remove sum row
-  df <- remove_total(df)
+    # open file (tab separated, UTF-16LE)
+    df <- suppressMessages(
+      read_tsv(file_path, locale = locale(encoding = "UTF-16LE")))
+    
+    # 🧩 ADD THIS FOR DEBUGGING (safe logging)
+    # cat("[", Sys.time(), "] INFO | File:", basename(file_path), 
+    #     "| Raw cols:", paste(names(df), collapse = ", "), "\n")
+    
+    # remove sum row
+    df <- remove_total(df)
   # remove extra year col
   if ("Año...5" %in% names(df)) {
     df <- df %>% select(!Año...5)
@@ -232,7 +238,6 @@ normalize_country <- function(df, col = "country") {
 #'
 #' @return NULL (writes file to disk)
 
-dir_input <- 
 
 
 compile_PAHO <- function(dir_input, sub_dirs_ls, download_week, final_dir) {
@@ -308,47 +313,124 @@ compile_PAHO <- function(dir_input, sub_dirs_ls, download_week, final_dir) {
 
 compile_PAHO_github <- function(repo_owner = "DengueGlobalObservatory",
                                 repo_name = "PAHO-crawler") {
-  # 1. Get list of DL_* subfolders
+  start_time <- Sys.time()
+  log_message("Starting compile_PAHO_github()...")
+  
+  # 1️⃣ Get list of DL_* subfolders ------------------------------------------
   url <- sprintf("https://api.github.com/repos/%s/%s/contents/data", repo_owner, repo_name)
-  res <- GET(url)
-  stop_for_status(res)
-  dirs <- fromJSON(content(res, "text"))
+  log_message(paste("Querying GitHub API for data folders:", url))
+  
+  dirs <- tryCatch({
+    res <- GET(url)
+    stop_for_status(res)
+    fromJSON(content(res, "text"))
+  }, error = function(e) {
+    log_message(paste("GitHub API request failed:", conditionMessage(e)), level = "ERROR")
+    return(NULL)
+  })
+  
+  if (is.null(dirs)) stop("Failed to retrieve PAHO data directories from GitHub.")
   
   dl_dirs <- grep("^DL_[0-9]{8}$", dirs$name, value = TRUE)
-  if (length(dl_dirs) == 0) stop("❌ No DL_YYYYMMDD folders found.")
+  if (length(dl_dirs) == 0) {
+    log_message("No DL_YYYYMMDD folders found in GitHub repo.", level = "ERROR")
+    stop("No PAHO data folders found.")
+  }
   
   latest_dir <- dl_dirs[which.max(as.Date(gsub("DL_", "", dl_dirs), "%Y%m%d"))]
   download_week <- gsub("DL_", "", latest_dir)
-  cat("📂 Latest folder:", latest_dir, "\n")
+  log_message(paste("Latest available folder:", latest_dir))
   
-  # 2. List files inside that folder
+  # 2️⃣ List files inside that folder ----------------------------------------
   url_sub <- sprintf("https://api.github.com/repos/%s/%s/contents/data/%s",
                      repo_owner, repo_name, latest_dir)
-  res_sub <- GET(url_sub)
-  stop_for_status(res_sub)
-  files <- fromJSON(content(res_sub, "text"))
+
+  files <- tryCatch({
+    res_sub <- GET(url_sub)
+    stop_for_status(res_sub)
+    fromJSON(content(res_sub, "text"))
+  }, error = function(e) {
+    log_message(paste("Error retrieving file list:", conditionMessage(e)), level = "ERROR")
+    return(NULL)
+  })
   
-  # ✅ filter for CSV (but they're UTF-16LE TSV in disguise)
+  if (is.null(files)) stop("Unable to list files for PAHO data folder.")
+  
   csv_files <- grep("\\.csv$", files$name, value = TRUE)
-  if (length(csv_files) == 0) stop("⚠️ No CSV files found in latest folder.")
+  log_message(paste("Found", length(csv_files), "CSV files in latest folder."))
   
-  # 3. Read, clean, normalize each file
+  if (length(csv_files) == 0) {
+    log_message("No CSV files found in latest folder.", level = "ERROR")
+    stop("No CSV files found in PAHO GitHub directory.")
+  }
+  
+  # 3️⃣ Read, clean, and normalize each file ---------------------------------
   df_list <- list()
   for (f in csv_files) {
     file_url <- files[files$name == f, "download_url"]
-    cat("📄 Reading:", f, "\n")
+    log_message(paste("Reading file:", f))
     tmp <- tempfile(fileext = ".csv")
-    download.file(file_url, tmp, mode = "wb")
-    df <- read_and_clean_PAHO(tmp, download_week)
-    if (!is.null(df)) df_list <- append(df_list, list(df))
+    
+    tryCatch({
+      download.file(file_url, tmp, mode = "wb", quiet = TRUE)
+      df <- read_and_clean_PAHO(tmp, download_week)
+      
+      if (!is.null(df) && is.data.frame(df)) {
+        log_message(paste(f, "read successfully with", nrow(df), "rows."))
+        df_list <- append(df_list, list(df))
+      } else {
+        log_message(paste(f, "returned NULL or invalid data."), level = "WARNING")
+      }
+    }, error = function(e) {
+      log_message(paste("Error processing", f, ":", conditionMessage(e)), level = "ERROR")
+    })
   }
   
-  if (length(df_list) == 0) stop("❗ No valid files could be read and cleaned.")
+  if (length(df_list) == 0) {
+    log_message("No valid PAHO CSV files could be read and cleaned.", level = "ERROR")
+    stop("No valid PAHO CSV files found or processed.")
+  }
   
-  final_df <- bind_rows(df_list) %>%
-    mutate(Reporting_EW = epiweek(ymd(ext_date))) %>%
-    normalize_country()
+  # 4️⃣ Combine and normalize -------------------------------------------------
+  final_df <- tryCatch({
+    bind_rows(df_list) %>%
+      mutate(Reporting_EW = epiweek(ymd(ext_date))) %>%
+      normalize_country()
+  }, error = function(e) {
+    log_message(paste("Error during final data binding/normalization:", conditionMessage(e)), level = "ERROR")
+    return(NULL)
+  })
   
-  cat("✅ Compilation complete for week:", download_week, "\n")
+  if (is.null(final_df) || !is.data.frame(final_df)) {
+    stop("Final PAHO dataset could not be created.")
+  }
+  
+  # 5️⃣ Log summary and timing -----------------------------------------------
+  end_time <- Sys.time()
+  log_message(paste("✅ PAHO compilation complete for week", download_week))
+  log_message(paste("Rows:", nrow(final_df), "Cols:", ncol(final_df)))
+  log_message(paste("Total duration:", round(difftime(end_time, start_time, units = "secs"), 2), "seconds"))
+  
   return(final_df)
+}
+
+
+
+# log helper function for country df
+add_country_step <- function(log_df, df, step_name, country_col = "country") {
+  
+  # Extract unique countries
+  new_countries <- df[[country_col]] |> unique()
+  
+  # Combine with existing countries
+  all_countries <- union(log_df$country, new_countries)
+  
+  # Expand log to include all countries
+  log_df <- log_df |> 
+    complete(country = all_countries)
+  
+  # Add a new logical column showing membership
+  log_df[[step_name]] <- log_df$country %in% new_countries
+  
+  return(log_df)
 }

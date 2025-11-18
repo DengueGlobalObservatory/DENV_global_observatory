@@ -32,6 +32,7 @@ source("V1/Scripts/data_sourcing/FUNCTIONS/00_FUN_realtime_data_download.R")
 paho <- compile_PAHO_github()
 
 #---- WHO -API
+log_message("Start WHO - API download...")
 
 # GitHub API endpoint for the folder contents
 url <- "https://api.github.com/repos/DengueGlobalObservatory/WHOGlobal-crawler/contents/Downloads"
@@ -50,7 +51,7 @@ latest_file <- xlsx_files[which.max(as.Date(gsub("dengue-global-data-|\\.xlsx", 
 # Get the direct download URL for the latest file
 download_url <- files[files$name == latest_file, "download_url"]
 
-cat("Opening file:", latest_file, "\n")
+log_message(paste0("WHO - Opening file:", latest_file, "\n"))
 
 # Read Excel directly from the GitHub raw link
 temp <- tempfile(fileext = ".xlsx")
@@ -59,6 +60,7 @@ who <- readxl::read_excel(temp)
 
 
 #---- SEARO - API
+log_message("Start SEARO - API download...")
 
 
 # GitHub API endpoint for the folder contents
@@ -86,7 +88,7 @@ latest_file <- searo_files[which.max(dt)]
 # Get the direct download URL for the latest file
 download_url <- files[files$name == latest_file, "download_url"]
 
-cat("Opening file:", latest_file, "\n")
+log_message(paste0("SEARO - Opening file:", latest_file, "\n"))
 
 # Read Excel directly from the GitHub raw link
 temp <- tempfile(fileext = ".csv")
@@ -99,11 +101,15 @@ searo <- dplyr::select(searo, -c(Country))
 
 
 #---- OpenDengue - historic data 
+log_message("Start Open Dengue - API download...")
 
 # opens in current version from the github
 OD_national <- read_data(extract = "national", as_data_frame = TRUE, showProgress = FALSE)
 
+log_message("Open Dengue download complete")
 
 # remove extra envi objects 
+suppressWarnings(
+suppressMessages(
 rm( "dir_input","download_url" ,"dt" ,"files" ,"latest_file",
-    "res","searo_files","temp","timestamps", "url","xlsx_files")  
+    "res","searo_files","temp","timestamps", "url","xlsx_files")))  

@@ -166,6 +166,27 @@ current_data <- final_cases %>%
   )
 
 
-# # ------ Save output df 
-dir.create(paste0("V1/Output/",format(Sys.Date(), "%Y_%m_%d")))
-write_csv(current_data, file = paste0("V1/Output/", format(Sys.Date(), "%Y_%m_%d"),"/backfill_nowcast_output.csv"))
+
+# Step 5: ensure that all months are list ( even with NAs) for all year:countrys
+
+current_data <- current_data %>%
+  # clean up Year/Month columns
+  mutate(
+    Year = as.integer(Year),
+    Month = as.integer(Month)
+  ) %>%
+  
+  # generate all combinations of country, iso3, and each year present in data
+  group_by(country, iso3) %>%
+  tidyr::complete(
+    Year = full_seq(unique(Year), 1),  # ensures all years in the dataset
+    Month = 1:12,                           # ensures months 1–12 for each year
+    fill = list(cases = NA)                 # only fill cases with NA
+  ) %>%
+  ungroup() %>%
+  
+  # add a proper date column
+  mutate(date = as.Date(paste0(Year, "-", Month, "-01"))) %>%
+  
+  # reorder for clarity
+  arrange(country, Year, Month)

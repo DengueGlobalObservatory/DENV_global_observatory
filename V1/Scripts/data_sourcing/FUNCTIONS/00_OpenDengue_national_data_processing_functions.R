@@ -37,17 +37,17 @@ deduplicate_OD_data <- function(OD_national){
     ) %>% 
     
     add_count(
-      adm_0_name, adm_1_name, adm_2_name, Year, Week,
+      country, adm_1_name, adm_2_name, Year, Week,
       name = "Number_of_counts_per_week") %>% 
     
     # Identify obs by source by year 
-    add_count(adm_0_name, adm_1_name, adm_2_name, Year, data_source_cat, 
+    add_count(country, adm_1_name, adm_2_name, Year, data_source_cat, 
               name = "source_count")
   
   # Identify highest continuity source by country by year 
   max_continuity <-  OD_national_clean %>% 
     group_by(
-      adm_0_name, adm_1_name, adm_2_name, Year) %>%
+      country, adm_1_name, adm_2_name, Year) %>%
     dplyr::summarise(
       counts_highest_continuity_source = max(source_count), .groups = "drop")
   
@@ -56,7 +56,7 @@ deduplicate_OD_data <- function(OD_national){
     left_join(
       .,
       max_continuity, 
-      by = c("adm_0_name", "adm_1_name", "adm_2_name", "Year")
+      by = c("country", "adm_1_name", "adm_2_name", "Year")
     ) %>% 
     dplyr::mutate(
       week_to_keep = case_when(Number_of_counts_per_week == 1  ~ "Keep",
@@ -68,6 +68,8 @@ deduplicate_OD_data <- function(OD_national){
   
   return(OD_national_dedup)
 }
+
+
 
 #----- Interpolation
 
@@ -105,8 +107,8 @@ generate_week_sequence <- function(years) {
 
 fill_monthly_missing_entries <- function(OpenDengue_data) {
   
-  has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
-  has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
+  has_iso3 <- "iso3" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$iso3))
+  has_country <- "country" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$country))
   
   result <- OpenDengue_data %>%
     dplyr::group_by(Year) %>%
@@ -120,13 +122,13 @@ fill_monthly_missing_entries <- function(OpenDengue_data) {
         TRUE ~ calendar_end_date)
     )
   
-  if (has_ISO_A0) {
+  if (has_iso3) {
     result <- result %>%
-      dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
+      dplyr::mutate(iso3 = unique(na.omit(iso3)))
   }
-  if (has_adm_0_name) {
+  if (has_country) {
     result <- result %>%
-      dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
+      dplyr::mutate(country = unique(na.omit(country)))
   }
   
   result <- result %>%
@@ -137,8 +139,8 @@ fill_monthly_missing_entries <- function(OpenDengue_data) {
 {
 # fill_weekly_missing_entries <- function(OpenDengue_data) {
 #   
-#   has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
-#   has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
+#   has_iso3 <- "iso3" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$iso3))
+#   has_country <- "country" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$country))
 #   
 #   result <- OpenDengue_data %>%
 #     dplyr::group_by(Year) %>%
@@ -156,13 +158,13 @@ fill_monthly_missing_entries <- function(OpenDengue_data) {
 #       )
 #     )
 #   
-#   if (has_ISO_A0) {
+#   if (has_iso3) {
 #     result <- result %>%
-#       dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
+#       dplyr::mutate(iso3 = unique(na.omit(iso3)))
 #   }
-#   if (has_adm_0_name) {
+#   if (has_country) {
 #     result <- result %>%
-#       dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
+#       dplyr::mutate(country = unique(na.omit(country)))
 #   }
 #   
 #   result %>%
@@ -172,8 +174,8 @@ fill_monthly_missing_entries <- function(OpenDengue_data) {
 }
 fill_weekly_missing_entries <- function(OpenDengue_data) {
   
-  has_ISO_A0 <- "ISO_A0" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$ISO_A0))
-  has_adm_0_name <- "adm_0_name" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$adm_0_name))
+  has_iso3 <- "iso3" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$iso3))
+  has_country <- "country" %in% names(OpenDengue_data) && !all(is.na(OpenDengue_data$country))
   
   result <- OpenDengue_data %>%
     arrange(Year, Date) %>% 
@@ -214,14 +216,14 @@ fill_weekly_missing_entries <- function(OpenDengue_data) {
                                     TRUE ~ calendar_end_date)
     ) 
   
-  if (has_ISO_A0) {
+  if (has_iso3) {
     result <- result %>%
-      dplyr::mutate(ISO_A0 = unique(na.omit(ISO_A0)))
+      dplyr::mutate(iso3 = unique(na.omit(iso3)))
   }
   
-  if (has_adm_0_name) {
+  if (has_country) {
     result <- result %>%
-      dplyr::mutate(adm_0_name = unique(na.omit(adm_0_name)))
+      dplyr::mutate(country = unique(na.omit(country)))
   }
   
   result <- result %>%
@@ -295,7 +297,7 @@ interpolate_missing_national_OD_data <- function(OpenDengue_data) {
   
   # Group by spatial identifiers and apply interpolation within each group
   OD_filtered %>%
-    group_by(ISO_A0) %>%
+    group_by(iso3) %>%
     
     group_modify(~ {
       tryCatch({
@@ -346,7 +348,7 @@ interpolate_missing_national_OD_data <- function(OpenDengue_data) {
         message("ERROR in main tryCatch: ", e$message)
         # Return failure info
         tibble(
-          adm_0_name = unique(.x$adm_0_name),
+          country = unique(.x$country),
           T_res = case_when(
             length(unique(.x$T_res)) == 2 ~ "Both",
             length(unique(.x$T_res)) == 1 & unique(.x$T_res) == "Week" ~ "Week",
@@ -369,7 +371,7 @@ assess_OD_national_interpolated_data_coverage <- function(OD_extract){
       dplyr::filter(!is.na(interpolated_cases)) %>% 
       dplyr::select(
         # Spatial identifiers
-        adm_0_name, 
+        country, 
         
         # Temporal identifiers
         calendar_start_date, calendar_end_date, Year, T_res,
@@ -383,7 +385,7 @@ assess_OD_national_interpolated_data_coverage <- function(OD_extract){
       dplyr::summarize(OD_annual_counts = n(), .groups = "drop") %>% 
       as.data.frame() %>% 
       dplyr::mutate(
-        adm_0_name = na.omit(unique(OD_extract$adm_0_name))
+        country = na.omit(unique(OD_extract$country))
       )
     
     return(OD_extract_coverage)
@@ -391,8 +393,8 @@ assess_OD_national_interpolated_data_coverage <- function(OD_extract){
   }, error = function(e){
     message("ERROR in OpenDengue data coverage assessment: ", e$message)
     tibble(
-      ISO_A0 = unique(.x$ISO_A0),
-      adm_0_name = unique(.x$adm_0_name),
+      iso3 = unique(.x$iso3),
+      country = unique(.x$country),
       Data_coverage_status = "Failed",
       error_message = as.character(e$message)
     )
@@ -403,17 +405,15 @@ assess_OD_national_interpolated_data_coverage <- function(OD_extract){
 extract_desired_OD_data <- function(OpenDengue_national_extract, coverage_results){
   
   #--- Filter national extract to remove yearly reporting 
-  OpenDengue_national_extract_clean <- OpenDengue_national_extract %>% 
-    dplyr::filter(T_res != "Year")
-  
+  OpenDengue_national_extract_clean <- OpenDengue_national_extract
   #--- Split national extract into countries overlapping and not overlapping with WHO 
   OD_WHO_overlap_countries <- coverage_results$iso3
   
   Overlap_countries_data <- OpenDengue_national_extract_clean %>%
-    dplyr::filter(ISO_A0 %in% OD_WHO_overlap_countries)
+    dplyr::filter(iso3 %in% OD_WHO_overlap_countries)
   
   Non_overlap_countries_data <- OpenDengue_national_extract_clean %>%
-    dplyr::filter(!ISO_A0 %in% OD_WHO_overlap_countries)
+    dplyr::filter(!iso3 %in% OD_WHO_overlap_countries)
   
   #--- Filter overlap data for desired country years
   
@@ -422,15 +422,15 @@ extract_desired_OD_data <- function(OpenDengue_national_extract, coverage_result
     dplyr::filter(
       Which_to_keep_clean == "OpenDengue") %>%
     dplyr::select(
-      Year, adm_0_name, iso3) %>%
+      Year, country.OD, iso3) %>%
     dplyr::mutate(
-      OD_Country_Year = paste(adm_0_name, "_", Year)
+      OD_Country_Year = paste(country.OD, "_", Year)
     )
   
   # Filter for target years
   Overlap_countries_target_data <- Overlap_countries_data %>% 
     dplyr::mutate(
-      Country_Year = paste(adm_0_name, "_", Year)) %>%
+      Country_Year = paste(country, "_", Year)) %>%
     dplyr::filter(
       Country_Year %in% Years_from_OD$OD_Country_Year) %>% 
     dplyr::select(
@@ -497,15 +497,15 @@ disaggregate_weekly_helper <- function(weekly_data) {
 }
 
 disaggregate_OD_cases_weeks_crossing_months <- function(OD_extract){
-  
+  OD_extract <- OD_data
   OD_extract_disagg <- OD_extract %>% 
     ungroup() %>% 
-    group_by(ISO_A0) %>%
+    group_by(iso3) %>%
     group_modify(~{ 
       tryCatch({
         
         # Define common columns to select
-        common_cols <- c("adm_0_name", "calendar_start_date", "calendar_end_date", 
+        common_cols <- c("country", "calendar_start_date", "calendar_end_date", 
                          "Year", "T_res", "dengue_total", "interpolated_cases")
         
         # Get unique temporal resolutions
@@ -544,7 +544,7 @@ disaggregate_OD_cases_weeks_crossing_months <- function(OD_extract){
           return(result)
         } else {
           tibble(
-            adm_0_name = unique(.x$adm_0_name),
+            country = unique(.x$country),
             T_res = paste(unique(.x$T_res), collapse = ","),
             disaggregation_status = "Unhandled T_res",
             disaggregation_error = NA_character_
@@ -555,7 +555,7 @@ disaggregate_OD_cases_weeks_crossing_months <- function(OD_extract){
         message("ERROR in disaggregation of weeks crossing months: ", e$message)
         # Return failure info
         tibble(
-          adm_0_name = unique(.x$adm_0_name),
+          country = unique(.x$country),
           T_res = case_when(
             length(unique(.x$T_res)) == 2 ~ "Both",
             length(unique(.x$T_res)) == 1 & unique(.x$T_res) == "Week" ~ "Week",
@@ -577,7 +577,7 @@ aggregate_weekly_to_monthly_helper <- function(weekly_data) {
     dplyr::mutate(
       Month = month(calendar_start_date),
     ) %>%
-    group_by(adm_0_name, T_res, Month, Year) %>%
+    group_by(country, T_res, Month, Year) %>%
     dplyr::summarize(monthly_cases = round(sum(interpolated_cases_clean)), .groups = "drop")
   
   return(monthly_aggregate)
@@ -591,11 +591,11 @@ aggregate_weekly_to_monthly_OD_cases <- function(OD_extract){
     ungroup()
   
   OD_extract %>% 
-    group_by(ISO_A0) %>% 
+    group_by(iso3) %>% 
     group_modify(~{
       tryCatch({
         
-        desired_cols <- c("adm_0_name", "Month", "Year", "monthly_cases")  
+        desired_cols <- c("country", "Month", "Year", "monthly_cases")  
         
         # Get unique temporal resolutions
         unique_t_res <- unique(.x$T_res)
@@ -637,7 +637,7 @@ aggregate_weekly_to_monthly_OD_cases <- function(OD_extract){
         message("ERROR in OpenDengue monthly aggregation: ", e$message)
         # Return failure info
         tibble(
-          adm_0_name = unique(.x$adm_0_name),
+          country = unique(.x$country),
           T_res = case_when(
             length(unique(.x$T_res)) == 2 ~ "Both",
             length(unique(.x$T_res)) == 1 & unique(.x$T_res) == "Week" ~ "Week",

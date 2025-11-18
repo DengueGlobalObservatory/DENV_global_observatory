@@ -19,7 +19,7 @@ source("V1/Scripts/data_sourcing/FUNCTIONS/00_WHO_data_processing_functions.R")
 
 #--------------- Clean data
 
-WHO_clean <- WHO %>% 
+WHO_clean <- who %>% 
   dplyr::select(date, country, iso3, cases) %>% 
   dplyr::mutate(
     date = as.Date(date),
@@ -32,24 +32,26 @@ WHO_clean <- WHO %>%
 
 if(any(is.na(WHO_clean$country))){message("Not all ISO3 codes in WHO database matched to countries - investigate.")}
 
-OD_national_clean <- OD_national_extract %>%
-  dplyr::filter(T_res != "Year") %>% 
-  dplyr::mutate(adm_0_name = countrycode(ISO_A0, "iso3c", "country.name"))
+OD_national_clean <- OD_national 
+# %>%
+#   dplyr::filter(T_res != "Year") %>% 
+#   dplyr::mutate(adm_0_name = countrycode(ISO_A0, "iso3c", "country.name"))
 
 #---------------------- Listing countries unique to one source + in both  
 
 # Countries only in OpenDengue 
-Countries_only_in_OD_national <- OD_national_clean$adm_0_name[!OD_national_clean$ISO_A0 %in% WHO_clean$iso3] %>% 
+Countries_only_in_OD_national <- OD_national_clean$country[!OD_national_clean$iso3 %in% WHO_clean$iso3] %>% 
   unique()
 
 # Countries only in WHO 
-Countries_only_in_WHO_national <- WHO_clean$country[!WHO_clean$iso3 %in% OD_national_clean$ISO_A0] %>% 
+Countries_only_in_WHO_national <- WHO_clean$country[!WHO_clean$iso3 %in% OD_national_clean$iso3] %>% 
   unique()
 
 # Countries in both 
 Countries_in_both_df <- tibble(
-  Country = unique(OD_national_clean$adm_0_name[OD_national_clean$ISO_A0 %in% WHO_clean$iso3])
+  Country = unique(OD_national_clean$country[OD_national_clean$iso3 %in% WHO_clean$iso3])
 ) %>%
+  ### WHY??????????????
   mutate(
     iso3 = countrycode(Country, "country.name", "iso3c"),
     iso3 = dplyr::if_else(Country == "SAINT MARTIN", "MAF", iso3)
@@ -57,42 +59,50 @@ Countries_in_both_df <- tibble(
 
 # Countries in both WHO and OpenDengue databases:
 cat("Countries in both WHO and OpenDengue databases:\n", paste(as.character(Countries_in_both_df$Country), collapse = ", "), "\n")
-
+cat("Count - Countries in both WHO and OpenDengue databases:\n", paste(length(Countries_in_both_df$Country), "\n"))
+        
 # Countries with data in just OpenDengue 
 cat("Countries only included in OpenDengue:\n", paste(as.character(Countries_only_in_OD_national), collapse = ", "), "\n")
+cat("Count - Countries only included in OpenDengue:\n", paste(length(Countries_only_in_OD_national)), "\n")
 
 # Countries with data in just WHO 
 cat("Countries only included in WHO database:\n", paste(as.character(Countries_only_in_WHO_national), collapse = ", "), "\n")
+cat("Count - Countries only included in WHO database:\n", paste(length(Countries_only_in_WHO_national)), "\n")
 
 #---------------------- Data coverage for countries in both (OpenDengue)
 
 #---- Extract data for countries in both
 OD_data_for_countries_in_both <- OD_national_clean %>% 
-  dplyr::filter(ISO_A0 %in% Countries_in_both_df$iso3)
+  dplyr::filter(iso3 %in% Countries_in_both_df$iso3)
 
-# Deduplicate 
-OD_dedup <- deduplicate_OD_data(OD_data_for_countries_in_both)
+# # Deduplicate 
+# OD_dedup <- deduplicate_OD_data(OD_data_for_countries_in_both)
 
-# Interpolate
-OD_interpolated <- OD_dedup %>% 
-  # Remove locations with only one row
-  add_count(ISO_A0, adm_0_name, name = "Counts") %>% 
-  dplyr::filter(Counts > 1) %>% 
-  dplyr::select(-Counts) %>%
-  interpolate_missing_national_OD_data()
+# # Interpolate
+# OD_interpolated <- OD_dedup %>% 
+#   # Remove locations with only one row
+#   add_count(ISO_A0, adm_0_name, name = "Counts") %>% 
+#   dplyr::filter(Counts > 1) %>% 
+#   dplyr::select(-Counts) %>%
+#   interpolate_missing_national_OD_data()
 
-if(any(grepl("^interpolation", colnames(OD_interpolated)))){
-   stop("Error in OpenDengue interpolation")}
+# if(any(grepl("^interpolation", colnames(OD_interpolated)))){
+#    stop("Error in OpenDengue interpolation")}
 
 # Data coverage of OD countries in both
-OD_coverage <- OD_interpolated %>%
-  group_by(ISO_A0) %>%
-  group_modify(~ assess_OD_national_interpolated_data_coverage(.x)) %>%
+OD_coverage <- OD_data_for_countries_in_both %>%
+  group_by(iso3) %>%
+  # group_modify(~ assess_OD_national_interpolated_data_coverage(.x)) %>%
   ungroup() %>%
   dplyr::mutate(
-    iso3 = countrycode(adm_0_name, "country.name", "iso3c"),
-    iso3 = dplyr::if_else(adm_0_name == "SAINT MARTIN", "MAF", iso3)
-  )
+    iso3 = countrycode(country, "country.name", "iso3c"),
+    iso3 = dplyr::if_else(country == "SAINT MARTIN", "MAF", iso3)
+  )%>%
+  group_by(iso3, Year) %>%
+  mutate(
+    OD_annual_counts = sum(cases)
+  ) %>%
+  ungroup()
 
 if(any(grepl("^error", colnames(OD_coverage)))){
   stop("Error in OpenDengue coverage assessment")}
@@ -135,16 +145,16 @@ identify_which_years_to_keep_OD_vs_WHO <- function(OD_coverage,
         OD_annual_counts %in% c(51, 52, 53) & WHO_annual_counts == 12 ~ "Either",
         TRUE ~ NA),
       
-      # Scaling weekly --> monthly
-      OD_annual_counts_scaled = ifelse(
-        T_res == "Month", OD_annual_counts, OD_annual_counts * (12/52)
-      ),
+      # # Scaling weekly --> monthly
+      # OD_annual_counts_scaled = ifelse(
+      #   T_res == "Month", OD_annual_counts, OD_annual_counts * (12/52)
+      # ),
       
       # Weekly vs monthly comparison - different coverage
       Which_to_keep = dplyr::case_when(
-        is.na(Which_to_keep) & OD_annual_counts_scaled > WHO_annual_counts ~ "OpenDengue",
-        is.na(Which_to_keep) & OD_annual_counts_scaled < WHO_annual_counts ~ "WHO",
-        is.na(Which_to_keep) & OD_annual_counts_scaled == WHO_annual_counts ~ "Either",
+        is.na(Which_to_keep) & OD_annual_counts > WHO_annual_counts ~ "OpenDengue",
+        is.na(Which_to_keep) & OD_annual_counts < WHO_annual_counts ~ "WHO",
+        is.na(Which_to_keep) & OD_annual_counts == WHO_annual_counts ~ "Either",
         TRUE ~ Which_to_keep
       )
     ) 

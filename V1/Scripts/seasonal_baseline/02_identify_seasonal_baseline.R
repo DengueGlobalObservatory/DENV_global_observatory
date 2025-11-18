@@ -9,7 +9,7 @@
 #' Identify seasonal baseline. 
 #' Save as a CSV.
 #' Load new data as made available and when a year has complete data for a year add it to the dataset and re-identify the seasonal baseline.
-#' Naming order: full_data_interpolated -> full_data_season_aligned -> full_data_filtered -> full_data_season_monthly_proportions -> full_data_average_season
+#' Naming order: full_data -> full_data_season_aligned -> full_data_filtered -> full_data_season_monthly_proportions -> full_data_average_season
 #' 
 #' Timeline:
 #' ========
@@ -29,11 +29,11 @@ library(purrr)
 #--------------- Align from calendar year to dengue season 
 
 #----- Identify low month to use as reference point 
-dengue_season_low_month <- full_data_interpolated %>% 
+dengue_season_low_month <- full_data %>% 
     ungroup() %>% 
     group_by(country, 
              Year) %>% 
-    slice_min(order_by = interpolated_cases, 
+    slice_min(order_by = cases, 
               n = 1) %>% 
     dplyr::rename(Low_month = Month)
   
@@ -66,7 +66,7 @@ dengue_season_ave_low_month <- dengue_season_low_month %>%
            Year) %>%
   
   # Remove years with all zeroes from low month identification - circular mean undefined.
-  filter(sum(interpolated_cases) > 0) %>%
+  filter(sum(cases) > 0) %>%
   dplyr::mutate(No_of_obs = n()) %>% 
   
   # Where multiple months have equally few cases calculate within-year circular mean 
@@ -82,7 +82,7 @@ dengue_season_ave_low_month <- dengue_season_low_month %>%
   dplyr::summarize(mean_low_month = circular_mean(within_year_mean_low_month))
   
 #----- Add low month back to original dengue counts df 
-full_data_interpolated <- full_data_interpolated %>% 
+full_data <- full_data %>% 
   full_join(., 
             dengue_season_ave_low_month, 
             by = "country") %>% 
@@ -95,7 +95,7 @@ circular_encode <- function(x, shift, cycle_length) {
   (((x) - shift) %% cycle_length) + 1
 }
   
-full_data_season_aligned <- full_data_interpolated %>% 
+full_data_season_aligned <- full_data %>% 
   mutate(season_nMonth= circular_encode(Month, 
                                         mean_low_month, 
                                         12)) %>%
@@ -121,7 +121,7 @@ full_data_filtered <- full_data_season_aligned %>%
   dplyr::select(!Number_of_months_in_season) %>%
   
   # Filter for seasons with >=5 cases per month on average
-  dplyr::mutate(Average_cases_per_month = ave(interpolated_cases)) %>%
+  dplyr::mutate(Average_cases_per_month = ave(cases)) %>%
   dplyr::filter(Average_cases_per_month >= monthly_ave_case_threshold) %>%
   dplyr::select(!Average_cases_per_month) %>% 
   ungroup() %>%
@@ -140,8 +140,8 @@ full_data_season_monthly_proportions <- full_data_filtered %>%
     group_by(country, iso3, season) %>% 
     arrange(season_nMonth) %>%
     dplyr::mutate(
-      Actual_cum_cases = cumsum(interpolated_cases),
-      Actual_monthly_proportion = interpolated_cases / sum(interpolated_cases),
+      Actual_cum_cases = cumsum(cases),
+      Actual_monthly_proportion = cases / sum(cases),
       Actual_cum_monthly_proportion = cumsum(Actual_monthly_proportion)
       ) %>% 
     ungroup()
@@ -153,7 +153,7 @@ full_data_average_season <- full_data_season_monthly_proportions %>%
   dplyr::mutate(
     # Identify average season in case space 
     Ave_season_monthly_cum_cases = mean(Actual_cum_cases),
-    Ave_season_monthly_cases = mean(interpolated_cases),
+    Ave_season_monthly_cases = mean(cases),
     
     # Define negative binomial 
     # nb_fit = list(
@@ -168,7 +168,7 @@ full_data_average_season <- full_data_season_monthly_proportions %>%
     
     nb_fit = list(
       tryCatch(
-        glm.nb(interpolated_cases ~ 1),
+        glm.nb(cases ~ 1),
         error = function(e){NULL}
       )
     ),
@@ -198,12 +198,3 @@ full_data_average_season <- full_data_season_monthly_proportions %>%
     Ave_monthly_proportion
     ) %>% 
   distinct()
-
-#--------------- Saving 
-write_csv(full_data_average_season, 
-          file = paste0("V1/Output/seasonal_baseline/National_average_seasonal_profile_",Sys.Date() ,".csv")
-          )
-
-
-
-#-------------------- ADD A LOG FOR WHETHER NATIONAL AVERAGE SEASONAL PROFILES HAVE BEEN UPDATED 

@@ -23,13 +23,6 @@ library(stringr)
 library(ggplot2)
 library(countrycode)
 
-#--------------- Loading data
-Combining_WHO_and_OpenDengue_data <- new.env()
-source("V1/Scripts/data_sourcing/02_Combining_WHO_and_OpenDengue_data.R",
-       local = Combining_WHO_and_OpenDengue_data,
-       echo = FALSE)
-
-full_data <- Combining_WHO_and_OpenDengue_data$WHO_OD_combined_final
     
 #-------------- Threshold of case availability  
 
