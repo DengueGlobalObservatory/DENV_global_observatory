@@ -1,0 +1,628 @@
+---
+title: "Global Dengue Observatory"
+format:
+  dashboard:
+     theme: minty
+     css: style.css
+     orientation: rows
+     expandable: true
+     scrolling: true
+     nav-buttons:
+      - icon: github
+        href: https://github.com/DengueGlobalObservatory/DENV_global_observatory
+     self_contained: false
+     embed-resources: true
+
+---
+
+```{r}
+#| label: set_up
+#| context: setup
+#| include: false
+#| echo: false
+#| message: false
+
+# ------- Libraries
+
+library(DT)
+library(htmltools)
+library(dplyr)
+library(purrr)
+library(cropcircles)
+library(magick)
+
+# ------- Functions
+
+# snapshot/clockface plot
+source("V1/Scripts/figures/Radial.R")
+
+
+# ------- Data 
+
+# Run pipeline, open output data
+# source("V1/Scripts/V1_Pipeline.R")
+
+data <- read.csv("V1/Output/2025_10_12/DENV_cases_nowcast_output.csv")
+
+region_summary <- data %>%
+  group_by(Region, Year, Month) %>%
+  reframe(
+    cases = sum(cases, na.rm = TRUE),
+    Ave_season_monthly_cases = sum(Ave_season_monthly_cases, na.rm = TRUE),
+    Ave_season_monthly_cum_cases = sum(Ave_season_monthly_cum_cases, na.rm = TRUE),
+    Predicted_total_seasonal_cases = sum(Predicted_total_seasonal_cases, na.rm = TRUE),
+    # Optionally include averages of proportions or percentiles if needed
+    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion, na.rm = TRUE),
+    Ave_monthly_proportion = mean(Ave_monthly_proportion, na.rm = TRUE),
+    percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
+    n_countries = n_distinct(iso3)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    date = as.Date(paste0(Year, "-", Month, "-01")))
+
+
+```
+
+```{r}
+#| label: setup_all_country_plots
+#| include: false
+#| warning: false
+#| message: false
+
+
+current_year <- as.integer(format(Sys.Date(), "%Y"))
+
+# Use the system date to define "current" and "recent" months ---
+current_month <- as.integer(format(Sys.Date(), "%m"))
+recent_month <- current_month - 1
+if (recent_month == 0) recent_month <- 12  # handle January wrap-around
+
+
+# Create named list of all countries’ most recent data
+data_latest <- data %>%
+  filter(Year == current_year)
+
+# 2) split into a named list of data frames (one entry per country)
+split_by_country <- split(data_latest, data_latest$Country)  # names = country names
+
+# 3) generate a named list of plots (same order and names as split_by_country)
+all_country_plots <- lapply(split_by_country, function(df_country) {
+  make_country_plot(df_country)   # your plotting function that takes a country's df
+})
+
+
+```
+
+```{r}
+#| label: step up - region plot
+#| echo: false
+#| warning: false
+#| message: false
+
+# 1️⃣ Create the list of region plots
+region_plot_list <- region_summary %>%
+  filter(Year == current_year) %>%
+  split(.$Region) %>%
+  purrr::map(make_region_plot)
+
+```
+
+Real-time awareness driven by real-time data. Last updated : 2025-10-14
+
+# Home
+
+## Row {height = 0.125, .flow}
+
+TEXT FILLER We combine state-of-the-art data resources and computer
+modelling to provide rapid, real-time insights into the developing
+dengue season across the world.
+
+## Row
+
+```{r}
+#| label: regional_summary_map
+#| echo: false
+#| warning: false
+#| message: false
+
+library(patchwork)
+library(htmltools)
+library(png)
+library(grid)
+
+# --- Load map background ---
+map_path <- "V1/Assets/WorldMap.png"
+map_img <- png::readPNG(map_path)
+map_grob <- grid::rasterGrob(map_img, width = unit(1, "npc"), height = unit(1, "npc"))
+
+img_height <- dim(map_img)[1]
+img_width  <- dim(map_img)[2]
+img_ratio  <- img_width / img_height  # width / height
+
+# Size of inset plots (larger = bigger circles)
+inset_size <- 0.12 
+
+# --- Define approximate x/y positions for each region (0–1 scale) ---
+region_positions <- data.frame(
+  Region = c(
+    "South America",                     
+    "Caribbean",                         
+    "Pacific Islands",                   
+    "South Asia",                        
+    "Central America & Mexico",          
+    "Sub-Saharan Africa",                
+    "East & Southeast Asia",             
+    "Europe, Middle East & North Africa" 
+  ),
+
+  # ---- X positions (left/right on map) ----
+  x = c(
+    0.15,  # South America
+    0.15,  # Caribbean
+    1.03,  # Pacific Islands
+    0.83,  # South Asia
+    0.15,  # Central America & Mexico
+    0.53,  # Sub-Saharan Africa
+    1.03,  # East & Southeast Asia
+    0.50   # Europe, Middle East & North Africa
+  ),
+
+  # ---- Y positions (up/down on map) ----
+  y = c(
+    0.20,  # South America
+    0.45,  # Caribbean
+    0.50,  # Pacific Islands
+    0.35,  # South Asia
+    0.70,  # Central America & Mexico
+    0.33,  # Sub-Saharan Africa
+    0.70,  # East & Southeast Asia
+    0.68   # Europe, Middle East & North Africa
+  )
+)
+
+# Wrap long region names for better layout
+region_positions <- region_positions %>%
+  mutate(label = Region) %>%
+  mutate(
+    label = str_replace_all(label, "Europe, Middle East & North Africa", "Europe, Middle East\n& North Africa"),
+    label = str_replace_all(label, "Central America & Mexico", "Central America\n& Mexico")
+  )
+
+region_positions$x <- region_positions$x *2
+#---------------------------------------------------------
+#  Base map plot
+#---------------------------------------------------------
+p_map <- ggplot() +
+  annotation_custom(
+    map_grob,
+    xmin = 0, xmax = img_ratio,   # 👈 match the image’s natural width
+    ymin = 0, ymax = 1
+  ) +
+  coord_cartesian(
+    xlim = c(0, img_ratio),
+    ylim = c(0, 1),
+    expand = FALSE,
+    clip = "off"
+  ) +
+  theme_void() +
+  theme(
+    plot.margin = margin(0, 0, 0, 0)
+  )
+
+#---------------------------------------------------------
+# Add inset plots (circles)
+#---------------------------------------------------------
+for (i in seq_len(nrow(region_positions))) {
+  region_name <- region_positions$Region[i]
+  
+  if (region_name %in% names(region_plot_list)) {
+    inset_plot <- region_plot_list[[region_name]] +
+      theme_void() +
+      theme(
+        legend.position = "none",
+        plot.background = element_blank()
+      )
+    
+    p_map <- p_map +
+      annotation_custom(
+        ggplotGrob(inset_plot),
+        xmin = region_positions$x[i] - inset_size,
+        xmax = region_positions$x[i] + inset_size,
+        ymin = region_positions$y[i] - inset_size,
+        ymax = region_positions$y[i] + inset_size
+      )
+  }
+}
+
+#---------------------------------------------------------
+# Add region labels
+#---------------------------------------------------------
+p_map <- p_map +
+  geom_text(
+    data = region_positions,
+    aes(x = x, y = y + inset_size, label = label), # + is the vertical offset
+    size = 3.5,
+    fontface = "bold",
+    lineheight = 0.9
+  )
+
+# --- Display map with overlaid regional plots ---
+p_map
+
+
+
+
+```
+
+## How to read our snapshots {height = 0.25, .flow}
+
+By comparing the current season to the past seasons, we provide a
+seasonal severity score. Higher scores indicate that the current season
+is worse than most of the previous seasons, while lower scores indicate
+that the current season is better than most of the previous seasons.
+
+## Row
+
+```{r}
+#| label: region_circles
+#| echo: false
+#| include: false
+#| warning: false
+#| message: false
+
+library(htmltools)
+library(ggplot2)
+
+
+render_plot_grid(region_plot_list,title = "Regions", scrollable = TRUE)
+
+```
+
+
+## High Severity Countries Right Now {sc}
+
+```{r}
+#| label: top 5 plot
+
+# --- Get country order based on percentile for that month ---
+country_order <- data %>%
+  filter(Year == 2025, Month == recent_month) %>%
+  arrange(!percentile_most_recent) %>%
+  pull(Country) 
+
+country_order <- country_order[1:5]
+
+plots_list <- all_country_plots[country_order]
+plots_list <- plots_list[!sapply(plots_list, is.null)]  # clean out any missing ones
+
+
+render_plot_grid(plots_list,title = "High Severity Countries", scrollable = TRUE)
+
+
+```
+
+# Snap Shots
+
+TEXT FILLER --- By comparing the current season to the past seasons, we
+provide a seasonal severity score. Higher scores indicate that the
+current season is worse than most of the previous seasons, while lower
+scores indicate that the current season is better than most of the
+previous seasons.
+
+## Row {.tabset .scroll}
+
+::: {.card title="Alphebetically"}
+```{r}
+#| lable: Alphebetically snap shots
+
+# --- Get country order based on percentile for that month ---
+country_order <- data %>%
+  filter(Year == 2025, Month == recent_month) %>%
+  arrange(Country) %>%
+  pull(Country) 
+
+plots_list <- all_country_plots[country_order]
+plots_list <- plots_list[!sapply(plots_list, is.null)]  # clean out any missing ones
+
+
+render_plot_grid(plots_list, scrollable = TRUE)
+
+```
+:::
+
+::: {.card title="By Severity"}
+```{r}
+#| lable: Severity snap shots
+
+country_order <- data %>%
+  filter(Year == 2025, Month == recent_month) %>%
+  arrange(percentile_most_recent) %>%
+  pull(Country) 
+
+plots_list <- all_country_plots[country_order]
+plots_list <- plots_list[!sapply(plots_list, is.null)]  # clean out any missing ones
+
+render_plot_grid(plots_list, scrollable = TRUE)
+
+
+```
+:::
+
+::: {.card .scrollable title="By Region"}
+```{r}
+#| label: South America snap shots
+#| echo: false
+#| warning: false
+#| message: false
+region_name <- "South America"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: Caribbean snap shots
+#| echo: false
+region_name <- "Caribbean"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: Pacific Islands snap shots
+#| echo: false
+region_name <- "Pacific Islands"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: South Asia snap shots
+#| echo: false
+region_name <- "South Asia"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: Central America & Mexico snap shots
+#| echo: false
+region_name <- "Central America & Mexico"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: Sub-Saharan Africa snap shots
+#| echo: false
+region_name <- "Sub-Saharan Africa"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: East & Southeast Asia snap shots
+#| echo: false
+region_name <- "East & Southeast Asia"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+
+#| label: Europe, Middle East & North Africa snap shots
+#| echo: false
+region_name <- "Europe, Middle East & North Africa"
+country_order <- data %>%
+  filter(Region == region_name) %>%
+  distinct(Country) %>%
+  pull(Country)
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
+
+```
+:::
+
+# Methods
+
+## Row {.tabset}
+
+::: {.card title="Data Collection"}
+*Collection of Real-Time Data*
+
+-WHO/ PAHO / SEARO crawlers - about, \[link\] (more...)
+
+*Historical data and Averages*
+
+OpenDENGUE
+
+\[link\]
+:::
+
+::: {.card title="Backfilling"}
+*Estimating the reporting factor of American Nations*
+
+For American nations, the estimates of reporting factors were calculated
+empirically from the PAHO DENV cases dashboard [PLISA Health Information
+Platform for the
+Americas](https://www3.paho.org/data/index.php/en/mnu-topics/indicadores-dengue-en/dengue-nacional-en/252-dengue-pais-ano-en.html).
+From June 2022 to February 2023 the PAHO DENV cases dashboard was
+downloaded weekly. Additionally the DENV case data for the same time
+period was downloaded from the PAHO DENV cases dashboard in July 2024.
+Using this data the reporting factor for each country at each lag in
+data reporting could be estimated using the following equation:
+
+$$\mathbf{f}_{c,d} = (\frac{1}{T} \sum_{t=i}^{T} \left( \frac{N_{t,c,d}}{V_{t,c}} \right))/1$$
+where N is the number of DENV cases for a given country (c), at a given
+epiweek (t) for a given delay (d), V is the validated count of DENV
+cases for a given country (c), at a given epiweek (t) and f is the
+reporting factor for a given country (c), at a given epiweek (t) for a
+given delay (d). T is the number of observation recorded.
+
+*Correcting DENV cases*
+
+For all nations the most recent update was considered to be the most
+accurate data for the monthly counts of DENV cases. For PAHO nations
+this case count was multiplied by the average reporting factor at
+corresponding delay and country. Four nations (Belize, Dominica,
+Barbados and Paraguay) did not undergo this correct due to the complex
+nature of reporting factors in those countries. This corrections
+resulted in small differences in the monthly and overall cause count.
+:::
+
+::: {.card title="Nowcasting"}
+*Forecasting using average monthly proportions*
+
+Understanding this underlying seasonal profile can provide a basis for
+predicting future case load, using observations of the number of cases
+observed to date within a given season. Dividing cumulative cases
+observed within a given season by the expected cumulative proportion
+returns an estimate of the total number of cases expected for that
+season. Multiplying this figure by expected monthly proportion returns
+an estimate of monthly cases. Fig. 2 uses data from Thailand and Fiji,
+locations with 32 and 3 seasons of data respectively, to demonstrate
+this use case. Here existing seasonal profiles are used to predict the
+most recent season with data available. Predicted and observed values
+are closer together for Thailand than Fiji, highlighting the increased
+predictive power provided by increasing the number of seasons used for
+prediction.
+:::
+
+::: {.card title="Defining the Dengue Season"}
+*Identifying dengue season*
+
+Using combined data from the OpenDengue and WHO dengue observatories we
+identify the calendar month with the lowest case load on average. We
+define this month as the first month of the dengue season. By example,
+if April is the calendar month with lowest case load on average, it
+becomes the first month of the season, and March the last month. This
+process normalises the seasonal profiles across different locations by
+setting a unified starting point. It also addresses instances where the
+peak season lies across the new year. Were analysis performed by
+calendar year, small changes in the timing of the season peak could lead
+to significant changes in the number of cases allocated to each year.
+Aligning data from calendar year to season accounts for such potential
+peak timing heterogeneity across years, which could skew results.
+
+Once data has been aligned from calendar year to dengue season any
+locations with less than three seasons of data were removed. Monthly
+proportion of cases observed within each season was then calculated,
+normalising for between-season differences in total case load. Taking
+the average of this proportion across all seasons provides a baseline
+seasonal profile for each country. Standard deviation of this proportion
+provides a measure of uncertainty around this average proportion,
+accounting for between year differences in case load distribution.
+Figure 1 shows the average cumulative monthly proportion by country,
+with error bars representing the 95% confidence intervals.
+:::
+
+::: {.card title="Defining Current Sevarity"}
+CARD TEXT
+
+based on cumulative data for the most recent month.
+
+severity is defined by comparing the current season to the historical
+average season.
+:::
+
+# Data
+
+```{r}
+simple_data <- data %>%
+  select(Country, Region, source, Year, Month, season_nMonth, cases, 
+         cum_todate_cases_calendar, Predicted_total_seasonal_cases,
+         Ave_season_monthly_cases, Ave_monthly_proportion, 
+         Ave_season_monthly_cum_cases, Ave_cum_monthly_proportion)
+datatable(simple_data)
+```
+
+## Explanation of the Data
+
+FILLER meta data:
+
+-   Country
+
+-   Region
+
+-   source
+
+-   Year
+
+-   Month
+
+-   season_nMonth
+
+-   cases cum_todate_cases_calendar
+
+-   Predicted_total_seasonal_cases
+
+-   Ave_season_monthly_cases
+
+-   Ave_monthly_proportion
+
+-   Ave_season_monthly_cum_cases
+
+-   Ave_cum_monthly_proportion
+
+# About
+
+We plan to establish a climate-driven real-time global outbreak
+forecasting system for dengue by combining databases, modelling
+approaches, and levering the expertise of the dengue modelling and
+mapping group at LSHTM.
+
+Establishing the observatory will require creating a new real-time
+database of dengue case data for over 50 countries to ensure we always
+have up-to-date data, developing flexible Bayesian forecasting models to
+make nowcasts and forecasts of outbreaks up to three months ahead and
+effectively communicating outbreak warnings at the national and regional
+level to trigger additional mosquito control to prevent epidemics.
+
+Extension of our predictions to non-endemic areas in Europe and North
+America will localise the increasing threat climate change poses to
+mosquito-transmitted disease risk in these areas. Collaboration with
+individuals at the World Health Organization will extent the
+observatory’s reach and allow outbreak forecasts to reach the country
+decision makers necessary to act early and save lives.
+
+The project has three main objectives:
+
+-   *Objective 1: Developing a global dengue database*
+
+-   *Objective 2: Training and testing nowcast and forecast models*
+
+-   *Objective 3: Issuing alerts and evaluating responses*
+
+FUNDING
+
+PEOPLE
+
+CONTACT

@@ -1,0 +1,174 @@
+We combine state-of-the-art data resources and computer modelling to provide real-time insights into the developing dengue season across the world.
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: set up 
+#| include: false
+
+# data opening, plot list creation 
+
+source("V1/Scripts/V1_Dashboard_setup.R")
+message("✅ _setup.R successfully loaded!")
+
+
+# ----- Regional plots on Map 
+
+# Required libraries
+library(patchwork)  # for arranging plots
+library(htmltools)  # for HTML widgets
+library(png)        # to read PNG map
+library(grid)       # to convert images into grobs
+library(dplyr)
+library(stringr)
+
+# --- Load map background ---
+map_path <- "V1/Assets/WorldMap.png"
+map_img <- png::readPNG(map_path)
+map_grob <- grid::rasterGrob(map_img, width = unit(1, "npc"), height = unit(1, "npc"))
+
+# Get image ratio (for correct placement of plots)
+img_height <- dim(map_img)[1]
+img_width  <- dim(map_img)[2]
+img_ratio  <- img_width / img_height  # width / height
+
+# Size of inset plots (larger = bigger circles)
+inset_size <- 0.12 
+
+# --- Define approximate x/y positions for each region (0–1 scale) ---
+region_positions <- data.frame(
+  Region = c(
+    "South America",                     
+    "Caribbean",                         
+    "Pacific Islands",                   
+    "South Asia",                        
+    "Central America & Mexico",          
+    "Sub-Saharan Africa",                
+    "East & Southeast Asia",             
+    "Europe, Middle East & North Africa" 
+  ),
+  
+  # ---- X positions (left/right on map) ----
+  x = c(
+    0.30,  # South America
+    0.30,  # Caribbean
+    0.92,  # Pacific Islands
+    0.70,  # South Asia
+    0.10,  # Central America & Mexico
+    0.52,  # Sub-Saharan Africa
+    0.90,  # East & Southeast Asia
+    0.50   # Europe, Middle East & North Africa
+  ),
+  
+  # ---- Y positions (up/down on map) ----
+  y = c(
+    0.22,  # South America
+    0.50,  # Caribbean
+    0.38,  # Pacific Islands
+    0.45,  # South Asia
+    0.75,  # Central America & Mexico
+    0.35,  # Sub-Saharan Africa
+    0.70,  # East & Southeast Asia
+    0.68   # Europe, Middle East & North Africa
+  )
+)
+
+# Wrap long region names for better layout
+region_positions <- region_positions %>%
+  mutate(label = Region) %>%
+  mutate(
+    label = str_replace_all(label, "Europe, Middle East & North Africa", "Europe, Middle East\n& North Africa"),
+    label = str_replace_all(label, "Central America & Mexico", "Central America\n& Mexico")
+  )
+
+
+# region_positions$x <- region_positions$x *2
+```
+
+
+```{r}
+#| label: create base map
+#| echo: false
+#| message: false
+#
+
+#---------------------------------------------------------
+#  Base map plot
+#---------------------------------------------------------
+p_map <- ggplot() +
+  annotation_custom(
+    map_grob,
+    xmin = 0, xmax = img_ratio,   # 👈 match the image’s natural width
+    ymin = 0, ymax = 1
+  ) +
+  coord_cartesian(
+    xlim = c(0, img_ratio),
+    ylim = c(0, 1),
+    expand = FALSE,
+    clip = "off"
+  ) +
+  theme_void() +
+  theme(
+    plot.margin = margin(0, 0, 0, 0)
+  )
+```
+
+
+```{r,results='asis'}
+#| label: clickable 
+#| echo: false
+#| message: false
+
+# ----------------------------
+# Save radial plots as images
+# ----------------------------
+# Loop over each region and export its radial plot to PNG
+for(i in seq_len(nrow(region_positions))){
+  region_name <- region_positions$Region[i]
+  
+  if(region_name %in% names(region_plot_list)){
+    plot_file <- paste0("www/", tolower(gsub(" & |, | ", "-", region_name)), ".png")
+    
+    # Ensure the directory exists
+    if(!dir.exists("www")) dir.create("www")
+    
+    # Save the plot as PNG
+    ggsave(
+      filename = plot_file,
+      plot = region_plot_list[[region_name]] + theme_void() + theme(legend.position = "none"),
+      width = 3, height = 3, dpi = 150
+    )
+    
+    # Store the file path in the dataframe
+    region_positions$plot_file[i] <- plot_file
+  }
+}
+
+# ----------------------------
+# Output HTML container with map, radial plots, and region labels
+# ----------------------------
+
+cat('<div class="world-map-container">')
+
+# Background map
+cat(sprintf('<img src="%s" class="map-bg" alt="World map background">', map_path))
+
+# Overlay plots
+for(i in seq_len(nrow(region_positions))){
+  region_page <- paste0(tolower(gsub(" & |, | ", "", region_positions$Region[i])), ".html")
+  x_pct <- region_positions$x[i] * 100
+  y_pct <- (1 - region_positions$y[i]) * 100
+  
+  plot_html <- sprintf(
+    '<a href="%s" class="region-plot" style="left:%f%%; top:%f%%;"><img src="%s" alt="%s summary plot"></a>',
+    region_page, x_pct, y_pct, region_positions$plot_file[i], region_positions$Region[i]
+  )
+  cat(plot_html)
+}
+
+cat('</div>')
+
+
+```
+
+

@@ -1,0 +1,52 @@
+
+```{r}
+#| label: set up 
+#| include: false
+
+
+source("V1/Scripts/V1_Dashboard_setup.R")
+
+message("✅ _setup.R successfully loaded!")
+
+
+
+
+
+```
+
+
+```{r}
+#| label: region plot
+#| echo: false
+#| message: false
+
+region_for_page <- "East & Southeast Asia"
+
+render_region_summary_plot(region_plot_list, region_for_page)
+
+
+```
+
+
+```{r}
+#| label: country plots
+#| echo: false
+#| message: false
+
+
+country_order <- data %>%
+  filter(Region == region_for_page) %>%
+  distinct(Country) %>%
+  pull(Country)
+
+region_plots <- all_country_plots[country_order]
+region_plots <- region_plots[!sapply(region_plots, is.null)]
+
+render_country_plot_text_grid(
+  plot_list = region_plots,
+  summary_df = country_summary_df,
+  title = region_for_page
+)
+
+
+```

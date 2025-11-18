@@ -1,0 +1,94 @@
+---
+format: dashboard
+---
+
+## Row {.tabset}
+
+::: {.card title="Data Collection"}
+*Collection of Real-Time Data*
+
+-WHO/ PAHO / SEARO crawlers - about, \[link\] (more...)
+
+*Historical data and Averages*
+
+OpenDENGUE
+
+\[link\]
+:::
+
+::: {.card title="Backfilling"}
+*Estimating the reporting factor of American Nations*
+
+For American nations, the estimates of reporting factors were calculated
+empirically from the PAHO DENV cases dashboard [PLISA Health Information
+Platform for the
+Americas](https://www3.paho.org/data/index.php/en/mnu-topics/indicadores-dengue-en/dengue-nacional-en/252-dengue-pais-ano-en.html).
+From June 2022 to February 2023 the PAHO DENV cases dashboard was
+downloaded weekly. Additionally the DENV case data for the same time
+period was downloaded from the PAHO DENV cases dashboard in July 2024.
+Using this data the reporting factor for each country at each lag in
+data reporting could be estimated using the following equation:
+
+$$\mathbf{f}_{c,d} = (\frac{1}{T} \sum_{t=i}^{T} \left( \frac{N_{t,c,d}}{V_{t,c}} \right))/1$$
+where N is the number of DENV cases for a given country (c), at a given
+epiweek (t) for a given delay (d), V is the validated count of DENV
+cases for a given country (c), at a given epiweek (t) and f is the
+reporting factor for a given country (c), at a given epiweek (t) for a
+given delay (d). T is the number of observation recorded.
+
+*Correcting DENV cases*
+
+For all nations the most recent update was considered to be the most
+accurate data for the monthly counts of DENV cases. For PAHO nations
+this case count was multiplied by the average reporting factor at
+corresponding delay and country. Four nations (Belize, Dominica,
+Barbados and Paraguay) did not undergo this correct due to the complex
+nature of reporting factors in those countries. This corrections
+resulted in small differences in the monthly and overall cause count.
+:::
+
+::: {.card title="Nowcasting"}
+*Forecasting using average monthly proportions*
+
+Understanding this underlying seasonal profile can provide a basis for
+predicting future case load, using observations of the number of cases
+observed to date within a given season. Dividing cumulative cases
+observed within a given season by the expected cumulative proportion
+returns an estimate of the total number of cases expected for that
+season. Multiplying this figure by expected monthly proportion returns
+an estimate of monthly cases. Fig. 2 uses data from Thailand and Fiji,
+locations with 32 and 3 seasons of data respectively, to demonstrate
+this use case. Here existing seasonal profiles are used to predict the
+most recent season with data available. Predicted and observed values
+are closer together for Thailand than Fiji, highlighting the increased
+predictive power provided by increasing the number of seasons used for
+prediction.
+:::
+
+::: {.card title="Defining the Dengue Season"}
+*Identifying dengue season*
+
+Using combined data from the OpenDengue and WHO dengue observatories we
+identify the calendar month with the lowest case load on average. We
+define this month as the first month of the dengue season. By example,
+if April is the calendar month with lowest case load on average, it
+becomes the first month of the season, and March the last month. This
+process normalises the seasonal profiles across different locations by
+setting a unified starting point. It also addresses instances where the
+peak season lies across the new year. Were analysis performed by
+calendar year, small changes in the timing of the season peak could lead
+to significant changes in the number of cases allocated to each year.
+Aligning data from calendar year to season accounts for such potential
+peak timing heterogeneity across years, which could skew results.
+
+Once data has been aligned from calendar year to dengue season any
+locations with less than three seasons of data were removed. Monthly
+proportion of cases observed within each season was then calculated,
+normalising for between-season differences in total case load. Taking
+the average of this proportion across all seasons provides a baseline
+seasonal profile for each country. Standard deviation of this proportion
+provides a measure of uncertainty around this average proportion,
+accounting for between year differences in case load distribution.
+Figure 1 shows the average cumulative monthly proportion by country,
+with error bars representing the 95% confidence intervals.
+:::
