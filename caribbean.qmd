@@ -15,13 +15,31 @@ message("✅ _setup.R successfully loaded!")
 ```
 
 ```{r}
-#| label: region plot
+#| label: last-update
+#| include: false
+
+if (!exists("latest_update_label") || !exists("latest_nowcast_dir")) {
+  latest_dataset_info <- get_latest_dataset_info()
+  latest_update_label <- latest_dataset_info$label
+  latest_nowcast_dir <- latest_dataset_info$dir
+}
+
+```
+
+```{r}
+#| label: region overview
 #| echo: false
 #| message: false
 
 region_for_page <- "Caribbean"
 
-render_region_summary_plot(region_plot_list, region_for_page)
+render_region_overview(
+  region_name = region_for_page,
+  region_plot_list = region_plot_list,
+  region_callouts = region_callouts,
+  map_lookup = region_map_lookup,
+  latest_update_label = latest_update_label
+)
 
 ```
 
@@ -43,7 +61,8 @@ region_plots <- region_plots[!sapply(region_plots, is.null)]
 render_country_plot_text_grid(
   plot_list = region_plots,
   summary_df = country_summary_df,
-  title = region_for_page
+  title = region_for_page,
+  data_status_df = country_data_status
 )
 
 

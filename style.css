@@ -37,6 +37,76 @@ main.content {
 }
 
 /* =====================================
+   HERO SECTION (landing pages)
+   ===================================== */
+
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-logo {
+  width: clamp(200px, 40vw, 500px);
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.hero p {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  max-width: 800px;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 1.5rem;
+  }
+}
+/* =====================================
+   GLOBAL SUMMARY CALLOUT (landing pages)
+   ===================================== */
+.global-summary-callout {
+  background: #f7faf9;
+  border: 1px solid rgba(31, 111, 99, 0.2);
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  margin: 1rem auto 2rem;
+  max-width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #13443c;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.global-summary-label {
+  opacity: 0.8;
+}
+
+.global-summary-date {
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+/* =====================================
    LANDING PAGE WORLD MAP WITH REGIONS
    ===================================== */
 
@@ -44,23 +114,27 @@ main.content {
   position: relative;
   width: 100%;
   max-width: 1400px;
-  aspect-ratio: 2 / 1;              /* maintain world map proportions */
-  margin: 0 auto;                   /* center container */
+  margin: 0 auto 2rem;
   display: block;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  overflow: hidden;
 }
 
 .world-map-container img.map-bg {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 0;                 /* no cropping */
+  border-radius: 12px;
 }
 
 /* clickable region plots */
 .region-plot {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: clamp(150px, 20vw, 420px); /* responsive, visibly larger at full width */
+  width: clamp(120px, 14vw, 280px);
   aspect-ratio: 1 / 1;
   z-index: 10;
 }
@@ -71,42 +145,60 @@ main.content {
   object-fit: contain;
 }
 
-/* Optional label styling */
-.region-label {
+.region-plot-label {
   position: absolute;
-  bottom: -1.4em;
+  top: -1.4rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.9rem;
-  color: #333;
+  font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #13443c;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* RESPONSIVE ADJUSTMENTS */
 
-/* For medium height displays */
-@media (max-height: 850px) {
-  .world-map-container {
-    aspect-ratio: 2.2 / 1;
-  }
-}
-
 /* For tablets / medium widths */
 @media (max-width: 800px) {
   .world-map-container {
-    aspect-ratio: 1.8 / 1;
+    padding: 1rem;
+    border-radius: 12px;
   }
   .region-plot {
-    width: clamp(100px, 16vw, 180px);
+    width: clamp(90px, 14vw, 180px);
+  }
+  .region-plot-label {
+    font-size: clamp(0.55rem, 1.5vw, 0.7rem);
+    padding: 0.1rem 0.4rem;
+    top: -1.2rem;
   }
 }
 
 /* For small mobile screens */
 @media (max-width: 500px) {
   .world-map-container {
-    aspect-ratio: 1.5 / 1;
+    padding: 0.75rem;
+    border-radius: 10px;
   }
   .region-plot {
-    width: clamp(80px, 20vw, 140px);
+    width: clamp(80px, 18vw, 140px);
+  }
+  .region-plot-label {
+    font-size: clamp(0.5rem, 2vw, 0.65rem);
+    padding: 0.08rem 0.35rem;
+    top: -1rem;
+    letter-spacing: 0.03em;
   }
 }
 
@@ -228,6 +320,132 @@ main.content {
 
 
 /* ==============================================
+   REGION HERO (Map + Summary Plot)
+   ============================================== */
+
+.region-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem auto 3rem auto;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 1rem;
+}
+
+.region-hero-panel {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e3e5eb;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  padding: 1.5rem;
+}
+
+.region-hero-map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.region-hero-map-image {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d7dae4;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.region-hero-map-placeholder {
+  width: 100%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(230, 235, 245, 0.6),
+    rgba(230, 235, 245, 0.6) 10px,
+    rgba(248, 250, 252, 0.9) 10px,
+    rgba(248, 250, 252, 0.9) 20px
+  );
+  color: #56647a;
+  font-weight: 600;
+}
+.region-hero-heading-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
+.region-hero-heading {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.region-hero-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.region-hero-text-body {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1f2a37;
+  margin-bottom: 0;
+}
+
+.region-hero-updated {
+  color: #5f6d7a;
+  font-style: italic;
+}
+
+.region-hero-plot .region-summary-container {
+  margin: 0;
+  padding: 0;
+}
+
+.season-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.season-badge.is-above {
+  background: rgba(255, 95, 109, 0.18);
+  color: #a6232f;
+}
+
+.season-badge.is-below {
+  background: rgba(57, 138, 255, 0.18);
+  color: #14509b;
+}
+
+.season-badge.is-neutral {
+  background: rgba(67, 214, 152, 0.18);
+  color: #0d5c48;
+}
+
+@media (max-width: 900px) {
+  .region-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==============================================
    REGION SUMMARY PLOT (Top of Page)
    ============================================== */
 
@@ -331,4 +549,305 @@ main.content {
   color: #555;
   margin-left: 1rem;
   font-style: italic;
+}
+
+
+
+
+/* =====================================================
+   SCROLL NARRATIVE WITH STICKY RIGHT VISUAL
+   ===================================================== */
+
+
+.scrolly-container {
+  display: flex;
+  gap: 4rem;
+  max-width: 1600px;
+  margin: 6rem auto;
+  padding: 0 2rem;
+  min-height: 300vh;
+  position: relative;
+}
+
+.scrolly-steps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.scrolly-step {
+  margin-bottom: 80vh;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #222;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  position: relative;
+  padding-left: 0;
+}
+
+.scrolly-step.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrolly-step-replacement {
+  margin-bottom: 80vh;
+  font-size: 1.4rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scrolly-step-replacement.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bullet points removed - steps stack cleanly without bullets */
+
+.scrolly-step-title {
+  font-size: 1.6rem;  /* Reduced from 2rem */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: none;
+}
+
+.scrolly-step-body {
+  font-size: 1.3rem;  /* Reduced from 1.6rem */
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.scrolly-step-body:last-child {
+  margin-bottom: 0;
+}
+
+/* Removed duplicate - using the one above */
+
+/* Sticky right-side content */
+.scrolly-visual {
+  flex: 1;
+  position: sticky;
+  top: 10vh;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0;
+  align-self: flex-start;  /* Align to top */
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+/* world plot wrapper */
+#global-plot-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.global-plot-title {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+/* how-to card */
+#howto-card {
+  display: none; /* initially hidden */
+  text-align: center;
+  width: 100%;
+}
+
+#howto-card.visible {
+  display: block;
+}
+
+/* small screen behavior */
+@media(max-width: 900px) {
+  .scrolly-container {
+    flex-direction: column;
+  }
+  .scrolly-visual {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+}
+
+/* Bold numbers in scrolly steps */
+.scrolly-step-number {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #13443c;
+}
+
+/* Colored modifiers */
+.scrolly-modifier.above {
+  color: #a6232f;
+  font-weight: 700;
+}
+
+.scrolly-modifier.below {
+  color: #0d5c48;
+  font-weight: 700;
+}
+
+.scrolly-modifier.near {
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.scrolly-modifier.increase {
+  color: #a6232f;
+  font-weight: 700;
+}
+
+.scrolly-modifier.decrease {
+  color: #0d5c48;
+  font-weight: 700;
+}
+
+/* How-to image styling */
+.howto-image {
+  max-width: 90%;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+/* =====================================
+   MAP OVERLAY TRANSITION
+   ===================================== */
+.map-overlay {
+  margin-top: 4rem;
+  padding-top: 2rem;
+}
+
+/* Section after scrolly container */
+.scrolly-container + section,
+.scrolly-container + * > section {
+  margin-top: 6rem;
+  padding-top: 4rem;
+}
+
+/* ==============================================
+   HIGH SEVERITY COUNTRY GRID
+   ============================================== */
+
+.severity-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (min-width: 1200px) {
+  .severity-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 900px) {
+  .severity-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899px) and (min-width: 640px) {
+  .severity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}
+
+@media (max-width: 639px) {
+  .severity-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.severity-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(13, 92, 72, 0.08);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  height: 100%;
+}
+
+.severity-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.severity-plot {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.severity-plot > * {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.severity-blurb {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.severity-footnote {
+  font-size: 0.85rem;
+}
+
+.plot-placeholder {
+  font-size: 0.9rem;
+  color: #5f6d7a;
+}
+
+.severity-region-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.65rem;
+  margin-left: 0.25rem;
+  border-radius: 999px;
+  background: rgba(31, 111, 99, 0.12);
+  color: #0d5c48;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgba(31, 111, 99, 0.2);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.severity-region-link:hover,
+.severity-region-link:focus {
+  background: #1f6f63;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(31, 111, 99, 0.25);
+  text-decoration: none;
+}
+
+.country-region-link:hover,
+.country-region-link:focus {
+  color: #1f6f63;
+  text-decoration: underline;
 }

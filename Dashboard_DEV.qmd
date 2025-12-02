@@ -62,6 +62,25 @@ region_summary <- data %>%
     date = as.Date(paste0(Year, "-", Month, "-01")))
 
 
+world_summary <- data %>%
+  group_by(Year, Month) %>%
+  reframe(
+    cases = sum(cases, na.rm = TRUE),
+    Ave_season_monthly_cases = sum(Ave_season_monthly_cases, na.rm = TRUE),
+    Ave_season_monthly_cum_cases = sum(Ave_season_monthly_cum_cases, na.rm = TRUE),
+    Predicted_total_seasonal_cases = sum(Predicted_total_seasonal_cases, na.rm = TRUE),
+    # Optionally include averages of proportions or percentiles if needed
+    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion, na.rm = TRUE),
+    Ave_monthly_proportion = mean(Ave_monthly_proportion, na.rm = TRUE),
+    percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
+    n_countries = n_distinct(iso3)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    date = as.Date(paste0(Year, "-", Month, "-01"))) %>%
+  filter(Year == current_year)
+
+
 ```
 
 ```{r}
@@ -88,7 +107,7 @@ split_by_country <- split(data_latest, data_latest$Country)  # names = country n
 
 # 3) generate a named list of plots (same order and names as split_by_country)
 all_country_plots <- lapply(split_by_country, function(df_country) {
-  make_country_plot(df_country)   # your plotting function that takes a country's df
+  make_radial_plot(df_country)   # your plotting function that takes a country's df
 })
 
 
@@ -104,7 +123,7 @@ all_country_plots <- lapply(split_by_country, function(df_country) {
 region_plot_list <- region_summary %>%
   filter(Year == current_year) %>%
   split(.$Region) %>%
-  purrr::map(make_region_plot)
+  purrr::map(make_radial_plot)
 
 ```
 
@@ -150,7 +169,7 @@ region_positions <- data.frame(
     "Caribbean",                         
     "Pacific Islands",                   
     "South Asia",                        
-    "Central America & Mexico",          
+    "North & Central America",          
     "Sub-Saharan Africa",                
     "East & Southeast Asia",             
     "Europe, Middle East & North Africa" 
@@ -162,7 +181,7 @@ region_positions <- data.frame(
     0.15,  # Caribbean
     1.03,  # Pacific Islands
     0.83,  # South Asia
-    0.15,  # Central America & Mexico
+    0.15,  # North & Central America
     0.53,  # Sub-Saharan Africa
     1.03,  # East & Southeast Asia
     0.50   # Europe, Middle East & North Africa
@@ -174,7 +193,7 @@ region_positions <- data.frame(
     0.45,  # Caribbean
     0.50,  # Pacific Islands
     0.35,  # South Asia
-    0.70,  # Central America & Mexico
+    0.70,  # North & Central America
     0.33,  # Sub-Saharan Africa
     0.70,  # East & Southeast Asia
     0.68   # Europe, Middle East & North Africa
@@ -186,7 +205,7 @@ region_positions <- region_positions %>%
   mutate(label = Region) %>%
   mutate(
     label = str_replace_all(label, "Europe, Middle East & North Africa", "Europe, Middle East\n& North Africa"),
-    label = str_replace_all(label, "Central America & Mexico", "Central America\n& Mexico")
+    label = str_replace_all(label, "North & Central America", "North & Central\nAmerica")
   )
 
 region_positions$x <- region_positions$x *2
@@ -401,9 +420,9 @@ region_plots <- region_plots[!sapply(region_plots, is.null)]
 render_plot_grid(region_plots, title = region_name, scrollable = TRUE)
 
 
-#| label: Central America & Mexico snap shots
+#| label: North & Central America snap shots
 #| echo: false
-region_name <- "Central America & Mexico"
+region_name <- "North & Central America"
 country_order <- data %>%
   filter(Region == region_name) %>%
   distinct(Country) %>%

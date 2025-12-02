@@ -5,16 +5,43 @@ format: dashboard
 ## Row {.tabset}
 
 ::: {.card title="Data Collection"}
-*Collection of Real-Time Data*
 
--WHO/ PAHO / SEARO crawlers - about, \[link\] (more...)
+*Real-Time Data Collection* 
 
-*Historical data and Averages*
+We retrieve near real-time dengue case data for each country from multiple WHO
+global and regional dashboards: the WHO Global Dengue Surveillance Dashboard
+(https://worldhealthorg.shinyapps.io/dengue_global/), the WHO South-East Asia
+Region Dengue Dashboard (https://worldhealthorg.shinyapps.io/searo-dengue-
+dashboard/#), and the Pan American Health Organization PLISA database
+(https://www.paho.org/en/arbo-portal/dengue-data-and-analysis/dengue-analysis-
+country). Automated data scraping tools visit each dashboard daily, checking whether
+new updates are available since the last download and store the data in a structured
+format in the corresponding data repository. The scraping tools for each dashboard
+along with all downloaded data are publicly available here:
+WHO Global Dengue Surveillance Dashboard:
+https://github.com/DengueGlobalObservatory/WHOGlobal-crawler
+WHO South-East Asia Region Dengue Dashboard:
+https://github.com/DengueGlobalObservatory/SEARO-crawler
+PAHO PLISA: https://github.com/DengueGlobalObservatory/PAHO-crawler
 
-OpenDENGUE
+Data from the regional (PAHO, SEARO) and global (WHO) databases are combine to create a single current year dataframe. For countries included in both the regional and global database the regional database is prioritised. 
 
-\[link\]
+
+*Historical Data*
+
+
+Our predictions are based on the OpenDengue project, which compiles dengue case
+data reported by national health authorities, international organisations such as the
+World Health Organization, and literature. This global database provides a long-term
+view of dengue patterns across many regions and years. To ensure full coverage and
+consistency, we use a version of the OpenDengue data that fills in missing months and
+adjusts gaps in reported data using statistical models that estimate monthly dengue
+cases for 143 countries from 1990 to 2024 based on typical seasonal patterns
+(https://github.com/ahyoung-lim/OD_gap_filling_public). These harmonized data form
+the foundation of our real-time forecasting system, allowing us to X, Y, and Z. 
+
 :::
+
 
 ::: {.card title="Backfilling"}
 *Estimating the reporting factor of American Nations*
@@ -47,48 +74,47 @@ nature of reporting factors in those countries. This corrections
 resulted in small differences in the monthly and overall cause count.
 :::
 
-::: {.card title="Nowcasting"}
-*Forecasting using average monthly proportions*
-
-Understanding this underlying seasonal profile can provide a basis for
-predicting future case load, using observations of the number of cases
-observed to date within a given season. Dividing cumulative cases
-observed within a given season by the expected cumulative proportion
-returns an estimate of the total number of cases expected for that
-season. Multiplying this figure by expected monthly proportion returns
-an estimate of monthly cases. Fig. 2 uses data from Thailand and Fiji,
-locations with 32 and 3 seasons of data respectively, to demonstrate
-this use case. Here existing seasonal profiles are used to predict the
-most recent season with data available. Predicted and observed values
-are closer together for Thailand than Fiji, highlighting the increased
-predictive power provided by increasing the number of seasons used for
-prediction.
-:::
-
 ::: {.card title="Defining the Dengue Season"}
-*Identifying dengue season*
 
-Using combined data from the OpenDengue and WHO dengue observatories we
-identify the calendar month with the lowest case load on average. We
-define this month as the first month of the dengue season. By example,
-if April is the calendar month with lowest case load on average, it
-becomes the first month of the season, and March the last month. This
-process normalises the seasonal profiles across different locations by
-setting a unified starting point. It also addresses instances where the
-peak season lies across the new year. Were analysis performed by
-calendar year, small changes in the timing of the season peak could lead
-to significant changes in the number of cases allocated to each year.
-Aligning data from calendar year to season accounts for such potential
-peak timing heterogeneity across years, which could skew results.
-
-Once data has been aligned from calendar year to dengue season any
-locations with less than three seasons of data were removed. Monthly
-proportion of cases observed within each season was then calculated,
-normalising for between-season differences in total case load. Taking
-the average of this proportion across all seasons provides a baseline
-seasonal profile for each country. Standard deviation of this proportion
-provides a measure of uncertainty around this average proportion,
-accounting for between year differences in case load distribution.
-Figure 1 shows the average cumulative monthly proportion by country,
-with error bars representing the 95% confidence intervals.
+The temporal distribution of dengue counts can be considered with reference to different temporal
+periods. Calendar year represents the natural period for consideration. Here we define another period,
+termed the ‘dengue season’. This is characterized as lasting 12 months starting from the month with
+lowest average case counts. For example, if April is the calendar month with lowest case load on
+average, it becomes the first month of the season, and March the last month.
+Using this alternative temporal window aids assessment of the average dengue season, by addressing
+instances where the peak months lie across the new year. In these instances, if analysis were
+performed by calendar year, small changes in timing of the peak months could lead to significant
+changes in the number of cases allocated to each year, potentially skewing results. Aligning data from
+calendar year to dengue season accounts for this by defining a temporal window with no risk of the
+peak months overlapping consecutive seasons.
 :::
+
+::: {.card title="Nowcasting"}
+
+Using the season aligned data we define an average seasonal profile. First, monthly data is
+normalised, by dividing the number of cases observed in each month by the total across the entire
+season. This normalisation rescales the data to exist between 0 and 1.
+
+$$
+\text{Monthly proportion of cases} = \frac{\text{Monthly cases}}{\text{Total season cases}}
+$$
+Once normalised, the average season is defined by calculating the average proportion of cases
+observed within each month. This average season has power for filling data gaps. The total number of
+cases expected for that season can be calculated by combining the number of cases observed so far
+with the proportion expected.
+
+$$
+\text{Expected total seasonal cases} = \frac{\text{Cases observed to date}}{\text{Expected proportion to date}}
+$$
+
+Once the total number of cases expected for that season has been calculated, the monthly proportions
+of the average seasonal profile can be used to calculate expected cases for months lacking data so far.
+
+$$
+\text{Predicted monthly cases} = \text{Expected total seasonal cases} \times \text{Monthly proportion}
+$$
+
+This method is here used for nowcasting, the process of filling missing data gaps to date.
+:::
+
+

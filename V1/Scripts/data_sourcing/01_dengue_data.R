@@ -24,6 +24,11 @@ library(dplyr)
 library(readxl)
 library(opendenguedata)
 
+if (!exists("log_message")) {
+  source("V1/Scripts/utils/logging.R")
+  ensure_logger(console = TRUE)
+}
+
 #---- Functions
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_FUN_realtime_data_download.R")
 
@@ -38,8 +43,7 @@ log_message("Start WHO - API download...")
 url <- "https://api.github.com/repos/DengueGlobalObservatory/WHOGlobal-crawler/contents/Downloads"
 
 # Get JSON listing of files
-res <- GET(url)
-stop_for_status(res)
+res <- github_api_request(url)  # Changed from GET(url)
 files <- fromJSON(content(res, "text"))
 
 # Extract only Excel files matching the pattern
@@ -68,8 +72,7 @@ url <- "https://api.github.com/repos/DengueGlobalObservatory/SEARO-crawler/conte
 
 
 # Get JSON listing of files
-res <- GET(url)
-stop_for_status(res)
+res <- github_api_request(url)  # Changed from GET(url)
 files <- fromJSON(content(res, "text"))
 
 # Extract only Excel files matching the pattern
@@ -101,12 +104,19 @@ searo <- dplyr::select(searo, -c(Country))
 
 
 #---- OpenDengue - historic data 
-log_message("Start Open Dengue - API download...")
+log_message("Open Open Dengue ")
 
 # opens in current version from the github
-OD_national <- read_data(extract = "national", as_data_frame = TRUE, showProgress = FALSE)
+OD_national <-  read.csv("OD_maps/pred_downscale_with_ci_V3.csv")
 
-log_message("Open Dengue download complete")
+log_message("Open Dengue complete")
+
+log_message(sprintf(
+  "Loaded datasets — OD_national: %s rows, PAHO: %s rows, SEARO: %s rows, WHO: %s rows",
+  nrow(OD_national), nrow(paho), nrow(searo), nrow(who)
+))
+
+log_message("Completed 01_dengue_data.R")
 
 # remove extra envi objects 
 suppressWarnings(

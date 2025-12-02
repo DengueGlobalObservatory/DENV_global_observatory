@@ -1,10 +1,13 @@
-We combine state-of-the-art data resources and computer modelling to provide real-time insights into the developing dengue season across the world.
-
-------------------------------------------------------------------------
+---
+title: ""
+format: html
+page-layout: full
+---
 
 ```{r}
 #| label: set up 
 #| include: false
+#| warning: false
 
 # data opening, plot list creation 
 
@@ -36,13 +39,25 @@ img_ratio  <- img_width / img_height  # width / height
 inset_size <- 0.12 
 
 # --- Define approximate x/y positions for each region (0–1 scale) ---
+# Mapping from region names to their Quarto file names
+region_file_map <- c(
+  "South America" = "southamerica.qmd",
+  "Caribbean" = "caribbean.qmd",
+  "Pacific Islands" = "pacificislands.qmd",
+  "South Asia" = "southasia.qmd",
+  "North & Central America" = "centralamericamexico.qmd",
+  "Sub-Saharan Africa" = "sub-saharanafrica.qmd",
+  "East & Southeast Asia" = "eastsoutheastasia.qmd",
+  "Europe, Middle East & North Africa" = "europemiddleeastnorthafrica.qmd"
+)
+
 region_positions <- data.frame(
   Region = c(
     "South America",                     
     "Caribbean",                         
     "Pacific Islands",                   
     "South Asia",                        
-    "Central America & Mexico",          
+    "North & Central America",          
     "Sub-Saharan Africa",                
     "East & Southeast Asia",             
     "Europe, Middle East & North Africa" 
@@ -50,47 +65,267 @@ region_positions <- data.frame(
   
   # ---- X positions (left/right on map) ----
   x = c(
-    0.30,  # South America
-    0.30,  # Caribbean
-    0.92,  # Pacific Islands
-    0.70,  # South Asia
-    0.10,  # Central America & Mexico
-    0.52,  # Sub-Saharan Africa
-    0.90,  # East & Southeast Asia
-    0.50   # Europe, Middle East & North Africa
+    0.20,  # South America
+    0.25,  # Caribbean
+    0.90,  # Pacific Islands
+    0.68,  # South Asia
+    0.10,  # North & Central America
+    0.45,  # Sub-Saharan Africa
+    0.80,  # East & Southeast Asia
+    0.60   # Europe, Middle East & North Africa
   ),
   
   # ---- Y positions (up/down on map) ----
   y = c(
-    0.22,  # South America
-    0.50,  # Caribbean
-    0.38,  # Pacific Islands
-    0.45,  # South Asia
-    0.75,  # Central America & Mexico
-    0.35,  # Sub-Saharan Africa
-    0.70,  # East & Southeast Asia
-    0.68   # Europe, Middle East & North Africa
+    0.25,  # South America
+    0.55,  # Caribbean
+    0.35,  # Pacific Islands
+    0.34,  # South Asia
+    0.60,  # North & Central America
+    0.45,  # Sub-Saharan Africa
+    0.60,  # East & Southeast Asia
+    0.60   # Europe, Middle East & North Africa
   )
 )
+
+# unique ids for SVG labels
+region_positions$label_id <- paste0("region-label-", seq_len(nrow(region_positions)))
 
 # Wrap long region names for better layout
 region_positions <- region_positions %>%
   mutate(label = Region) %>%
   mutate(
     label = str_replace_all(label, "Europe, Middle East & North Africa", "Europe, Middle East\n& North Africa"),
-    label = str_replace_all(label, "Central America & Mexico", "Central America\n& Mexico")
+    label = str_replace_all(label, "North & Central America", "North & Central\nAmerica")
   )
 
 
 # region_positions$x <- region_positions$x *2
 ```
 
+<!-- ============================= -->
+
+<!--  SECTION A: HERO INTRO BLOCK  -->
+
+<!-- ============================= -->
+
+<section class="hero">
+
+<img src="V1/Assets/logo_large.png" alt="Global Dengue Observatory" class="hero-logo">
+
+<p>
+
+We bring together dengue data reported by more than 70 countries and use advanced modelling to fill the gaps, providing near real-time insights into how the dengue season is unfolding worldwide.
+
+</p>
+
+</section>
+
+```{r}
+#| label: global-plot
+#| include: false
+
+# Save world_plot to PNG for use in scrolly narrative
+ggsave("V1/Assets/world_plot.png", world_plot, width = 6, height = 5, dpi = 150)
+
+```
+
+```{r}
+#| label: global-outlook-metrics
+#| include: false
+
+if (nrow(world_summary) > 0) {
+  global_latest <- world_summary %>% dplyr::arrange(date) %>% dplyr::slice_tail(n = 1)
+  global_latest_month <- format(global_latest$date, "%B %Y")
+  global_latest_cases <- format(round(global_latest$cases), big.mark = ",", scientific = FALSE)
+  latest_ratio_value <- if (!is.na(global_latest$Ave_season_monthly_cases) && global_latest$Ave_season_monthly_cases > 0) {
+    global_latest$cases / global_latest$Ave_season_monthly_cases
+  } else {
+    NA_real_
+  }
+  global_latest_ratio <- if (!is.na(latest_ratio_value)) {
+    glue::glue("{sprintf('%.1f', latest_ratio_value)}× the seasonal baseline")
+  } else {
+    "close to the seasonal baseline"
+  }
+  
+  global_ytd_cases <- sum(world_summary$cases, na.rm = TRUE)
+  global_ytd_cases_text <- format(round(global_ytd_cases), big.mark = ",", scientific = FALSE)
+  ytd_expected <- sum(world_summary$Ave_season_monthly_cases, na.rm = TRUE)
+  global_ytd_ratio <- if (!is.na(ytd_expected) && ytd_expected > 0) {
+    glue::glue("{sprintf('%.1f', global_ytd_cases / ytd_expected)}× the expected cumulative burden")
+  } else {
+    "tracking near the expected cumulative burden"
+  }
+  
+  global_summary_sentence <- glue::glue("{global_latest_month} recorded {global_latest_cases} cases globally, {global_latest_ratio}.")
+  global_ytd_sentence <- glue::glue("Year-to-date we have tallied {global_ytd_cases_text} cases, {global_ytd_ratio}.")
+} else {
+  global_summary_sentence <- "Global totals are still loading."
+  global_ytd_sentence <- ""
+}
+
+```
+
+```{r}
+#| label: last-update
+#| include: false
+
+if (!exists("latest_update_label") || !exists("latest_nowcast_dir")) {
+  latest_dataset_info <- get_latest_dataset_info()
+  latest_update_label <- latest_dataset_info$label
+  latest_nowcast_dir <- latest_dataset_info$dir
+}
+
+```
+```{r}
+#| label: scrolly-story-data
+#| include: false
+
+global_story_points <- build_global_story_points(world_summary)
+n_global_story <- nrow(global_story_points)
+
+if (n_global_story == 0) {
+  global_story_points <- dplyr::tibble(
+    step = 1,
+    title = "Global summary",
+    text = "Latest situational text is loading."
+  )
+  n_global_story <- 1
+}
+
+n_global_story <- nrow(global_story_points)
+```
+
+
+<!-- =============================================== -->
+<!-- SECTION B — NARRATIVE WITH STICKY GLOBAL PLOT  -->
+<!-- =============================================== -->
+
+<!-- Scrollama + Intersection Observer -->
+<script src="https://unpkg.com/intersection-observer"></script>
+<script src="https://unpkg.com/scrollama"></script>
+
+
+<div class="scrolly-container">
+
+  <!-- LEFT SIDE — narrative steps -->
+  <div class="scrolly-steps">
+
+```{r}
+#| label: scrolly-story-point
+#| echo: false
+#| results: asis
+
+if (exists("global_story_points") && nrow(global_story_points) > 0) {
+  story_text <- global_story_points$text[1]
+  knitr::asis_output(sprintf(
+    '<div class="scrolly-step" data-step="1">
+      %s
+    </div>',
+    story_text
+  ))
+} else {
+  knitr::asis_output('<div class="scrolly-step" data-step="1">
+    <p class="scrolly-step-body">Global case data is still being compiled.</p>
+  </div>')
+}
+
+```
+
+```{r}
+#| label: scrolly-howto-section
+#| echo: false
+#| results: asis
+
+knitr::asis_output('<div class="scrolly-step" data-step="2">
+  <p class="scrolly-step-title">How to read our plots</p>
+  <p class="scrolly-step-body">Each wedge or spoke shows one month of the year. Providing information about the average season in black and the current season in colours. The outside ring shows whether the cumulative cases over the year so far are above (red) or below (blue) the average.</p>
+  <img src="V1/Assets/how_to.png" alt="How to read plots guide" class="howto-image">
+</div>')
+
+```
+
+```{r}
+#| label: scrolly-deepdive-section
+#| echo: false
+#| results: asis
+
+knitr::asis_output('<div class="scrolly-step" data-step="3">
+  <p class="scrolly-step-title">Deep Dive</p>
+  <p class="scrolly-step-body">Scroll to explore the current situation in each region or jump directly into country-level situation reports. Click on any circular region plot on the map to open the full report for that region.</p>
+</div>')
+
+```
+
+</div>
+
+  <!-- RIGHT SIDE — sticky global plot -->
+<div class="scrolly-visual">
+<div id="global-plot-wrapper">
+<h3 class="global-plot-title">Current Global Dengue Situation</h3>
+<img src="V1/Assets/world_plot.png" alt="World dengue plot"/>
+</div>
+</div>
+
+</div>
+
+<!-- javascript -->
+
+<script>
+  const scroller = scrollama();
+  
+  scroller
+    .setup({
+      step: ".scrolly-step",
+      offset: 0.5,
+      progress: false
+    })
+    .onStepEnter(response => {
+      response.element.classList.add("revealed");
+    })
+    .onStepExit(response => {
+      // Keep steps visible when scrolling back (reversible)
+      // Don't remove revealed class
+    });
+
+  window.addEventListener("resize", scroller.resize);
+  
+  // Hide scroll down banner on scroll
+  let scrollDownBanner = document.getElementById('scroll-down-banner');
+  if (scrollDownBanner) {
+    window.addEventListener('scroll', function() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 100) {
+        scrollDownBanner.classList.add('hidden');
+      } else {
+        scrollDownBanner.classList.remove('hidden');
+      }
+    }, { passive: true });
+  }
+</script>
+
+<!-- =============================================== -->
+
+<!--  SECTION C: ANCHOR INTO GLOBAL MAP              -->
+
+<!-- =============================================== -->
+
+
+## **Global Dengue Outlook**
+
+<div class="global-summary-callout">
+  <span class="global-summary-label">Data last updated</span>
+  <span class="global-summary-date">`r latest_update_label`</span>
+</div>
+
+Below is the most up-to-date global summary based on our modelling and data integration system.
 
 ```{r}
 #| label: create base map
 #| echo: false
 #| message: false
-#
+#| warning: false
 
 #---------------------------------------------------------
 #  Base map plot
@@ -111,13 +346,14 @@ p_map <- ggplot() +
   theme(
     plot.margin = margin(0, 0, 0, 0)
   )
-```
 
+```
 
 ```{r,results='asis'}
 #| label: clickable 
 #| echo: false
 #| message: false
+#| warning: false
 
 # ----------------------------
 # Save radial plots as images
@@ -155,13 +391,22 @@ cat(sprintf('<img src="%s" class="map-bg" alt="World map background">', map_path
 
 # Overlay plots
 for(i in seq_len(nrow(region_positions))){
-  region_page <- paste0(tolower(gsub(" & |, | ", "", region_positions$Region[i])), ".html")
+  region_name <- region_positions$Region[i]
+  # Use the mapping to get the correct file name, fallback to generated name if not found
+  if (region_name %in% names(region_file_map)) {
+    region_page <- gsub("\\.qmd$", ".html", region_file_map[region_name])
+  } else {
+    region_page <- paste0(tolower(gsub(" & |, | ", "", region_name)), ".html")
+  }
   x_pct <- region_positions$x[i] * 100
   y_pct <- (1 - region_positions$y[i]) * 100
   
   plot_html <- sprintf(
-    '<a href="%s" class="region-plot" style="left:%f%%; top:%f%%;"><img src="%s" alt="%s summary plot"></a>',
-    region_page, x_pct, y_pct, region_positions$plot_file[i], region_positions$Region[i]
+    '<a href="%s" class="region-plot" style="left:%f%%; top:%f%%;">
+      <img src="%s" alt="%s summary plot">
+      <span class="region-plot-label">%s</span>
+    </a>',
+    region_page, x_pct, y_pct, region_positions$plot_file[i], region_name, region_name
   )
   cat(plot_html)
 }
@@ -171,4 +416,70 @@ cat('</div>')
 
 ```
 
+<!-- =============================================== -->
 
+<!--  SECTION D: HIGH SEVERITY COUNTRIES PANEL        -->
+
+<!-- =============================================== -->
+
+
+## High Severity Countries
+
+Below we spotlight the five countries currently running the furthest above their yearly average based on cumulative case ratios. Click on any circular region plot on the map to open the full report for that region..
+
+<div style="text-align: center; margin: 1.5rem 0;">
+  <a href="country-index.html" class="btn btn-outline-primary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+    Explore All Countries →
+  </a>
+</div>
+
+```{r}
+#| label: high-severity-panel
+#| echo: false
+#| message: false
+#| warning: false
+
+panel <- if (!exists("top_severity_countries") || nrow(top_severity_countries) == 0) {
+  htmltools::div(
+    class = "alert alert-info",
+    "High severity countries will appear once sufficient year-to-date data is available."
+  )
+} else {
+  severity_cards <- purrr::map(seq_len(nrow(top_severity_countries)), function(idx) {
+    row <- top_severity_countries[idx, ]
+    country_name <- row$country_label[[1]]
+    blurb_text <- row$severity_blurb[[1]]
+    plot_obj <- top_severity_plots[[country_name]]
+    
+    plot_block <- if (is.null(plot_obj)) {
+      htmltools::div(
+        class = "plot-placeholder",
+        "Plot not yet available for this country."
+      )
+    } else {
+      htmltools::plotTag(plot_obj, alt = paste(country_name, "yearly outlook"))
+    }
+    
+    htmltools::div(
+      class = "snapshot-card severity-card",
+      htmltools::tags$h4(country_name, class = "text-center fw-semibold"),
+      htmltools::div(class = "severity-plot", plot_block),
+      htmltools::tags$p(
+        class = "severity-blurb",
+        htmltools::HTML(blurb_text)
+      ),
+      htmltools::tags$small(
+        class = "severity-footnote text-muted",
+        glue::glue("Updated {latest_update_label}")
+      )
+    )
+  })
+  
+  htmltools::div(
+    class = "snapshot-grid severity-grid",
+    severity_cards
+  )
+}
+
+htmltools::tagList(panel)
+```

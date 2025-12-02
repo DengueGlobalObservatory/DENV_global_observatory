@@ -1,8 +1,52 @@
-ABOUT
+---
+title: ""
+format:
+  html:
+    code-fold: false
+---
 
-FUNDING
+![](V1/Assets/logo_large.png)
 
-PEOPLE
+The Global Dengue Observatory is a project run by researchers at the [London School of Hygiene and Tropical Medicine](https://www.lshtm.ac.uk) that aims to monitor the current global dengue situation to enable faster outbreak response.
 
-CONTACT
+## The Challenge
 
+While many countries regularly publish dengue case statistics, delays mean the information is often out of date. While important progress has been made with platforms like the [World Health Organization Dengue dashboard](https://worldhealthorg.shinyapps.io/dengue_global/) and historical databases like [OpenDengue](https://opendengue.org) we still lack a comprehensive global estimate of what the current dengue situation is right now.
+
+## Our Goal
+
+We aggregate reported case data from countries in real-time and combine them with advanced reporting delay and seasonal estimation models to produce estimates of the current number of cases in each country worldwide.
+
+## Why useful?
+
+This project provides countries and the public with an up-to-date estimate of the current national, regional and global dengue situation and how it compares to previous years. This improves the speed and quality of public health decision making and better informs the public of the [precautions they can take right now to avoid infection](https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue).
+
+## Team
+
+The Global dengue observatory is run by the Dengue Mapping and Modelling Group at LSHTM. We are a group of modellers, epidemiologists and public health practitioners who use data to give new insights into the burden, spread and containment of mosquito-transmitted diseases. We are part of the Centre for Mathematical Modelling of Infectious Diseases.
+
+The project team includes:
+
+**Dr Katie Susong** (lead)
+
+<!-- [image temp] -->
+
+**Dr Ahyoung Lim**
+
+<!-- [image temp] -->
+
+**Mr Kishen Joshi**
+
+<!-- [image temp] -->
+
+**Prof. Oliver Brady** (director)
+
+<!-- [image temp] -->
+
+## Funders
+
+The Global Dengue Observatory was made possible by a research grant from the AXA Research Foundation (title: "Pioneering a global observatory for dengue outbreak early warning")
+
+## Contact
+
+[tbd]

@@ -4,9 +4,11 @@ project:
   resources:
     - V1/Assets/          # include only these assets in the final site
     - V1/Scripts/
+    - OD_maps/temp_maps/
   render: 
     - data_alert.qmd
     - index.qmd
+    - country-index.qmd
     - centralamericamexico.qmd
     - caribbean.qmd
     - southamerica.qmd
@@ -27,9 +29,11 @@ website:
     right:
       - text: "Home"
         href: index.qmd
+      - text: "All Countries"
+        href: country-index.qmd
       - text: "Regions"
         menu: 
-          - text: "Central America & Mexico"         
+          - text: "North & Central America"         
             href: centralamericamexico.qmd
           - text: "Caribbean"                       
             href: caribbean.qmd
@@ -60,11 +64,13 @@ format:
   html:
     theme: minty
     css: style.css
+    include-after-body:
+      - scrollama.js
     toc: false
     toc-depth: 3
     page-layout: full
     embed-resources: true
-    self-contained: true
+    self-contained: false
 
 filters:
   - quarto

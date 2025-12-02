@@ -33,14 +33,27 @@ library(readxl)
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_OpenDengue_national_data_processing_functions.R")
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_WHO_data_processing_functions.R")
 
+if (!exists("log_message")) {
+  source("V1/Scripts/utils/logging.R")
+  ensure_logger(console = TRUE)
+}
+
+if (!exists("record_countries_at_step")) {
+  source("V1/Scripts/utils/country_tracking.R")
+}
+
+log_message("Running 02_Combining_WHO_and_OpenDengue_data.")
+
 #
 #--------------- Filtering OD and WHO datasets for chosen years 
 
 # OpenDengue 
 OD_data <- extract_desired_OD_data(OD_national_clean, WHO_OD_coverage)
+log_message("Selected OpenDengue records: " %+% nrow(OD_data))
 
 # WHO
 WHO_data <- extract_desired_WHO_data(WHO_clean, WHO_OD_coverage)
+log_message("Selected WHO records: " %+% nrow(WHO_data))
 
 #--------------- Prepare OD data to join to WHO 
 
@@ -114,6 +127,7 @@ WHO_final <- WHO_interpolated %>%
 
 #--------------- Combine WH0 and OpenDengue data
 WHO_OD_combined <- rbind(OD_monthly_final, WHO_final) 
+log_message("Combined dataset rows: " %+% nrow(WHO_OD_combined))
 
 #----- Clean combined data 
 WHO_OD_combined_clean <- WHO_OD_combined %>% 
@@ -131,35 +145,148 @@ WHO_OD_combined_clean <- WHO_OD_combined %>%
     !To_keep & !Number_of_obs & !Max_val) %>%
   ungroup()
 
+# Record countries before filtering (Step 3b: Combined Before Filter)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    record_countries_at_step(WHO_OD_combined_clean, "Step_3b_Combined_Before_Filter")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 3b Before Filter: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
+
 #--------------- Filter combined data for complete years, all zero years, and countries with at least 3 years of data.
 
-# Filter for coverage: remove locations with < 12 data points in a year. 
-full_data <- WHO_OD_combined_clean %>% 
+# Prepare data with Year and Month columns
+WHO_OD_combined_clean <- WHO_OD_combined_clean %>%
   ungroup() %>%
   dplyr::mutate(Year = year(date),
-         Month = month(date)) %>%
-  group_by(country, Year) %>%  
-  
-  # Filter for coverage: remove locations with < 12 data points in a year. 
-  dplyr::mutate(Number_of_months_in_year = n()) %>% 
-  dplyr::filter(Number_of_months_in_year == 12) %>% 
+         Month = month(date))
+
+# Step 1: Filter for complete years (12 months per year)
+full_data_complete_years <- WHO_OD_combined_clean %>%
+  group_by(country, Year) %>%
+  dplyr::mutate(Number_of_months_in_year = n()) %>%
+  dplyr::filter(Number_of_months_in_year == 12) %>%
   dplyr::select(!Number_of_months_in_year) %>%
-  
-  # Filter for all zero years
-  dplyr::mutate(All_zeroes = ifelse(sum(cases) == 0, "Yes", "No")) %>%  
+  ungroup()
+
+# Step 2: Filter for all zero years
+full_data_nonzero_years <- full_data_complete_years %>%
+  group_by(country, Year) %>%
+  dplyr::mutate(All_zeroes = ifelse(sum(cases, na.rm = TRUE) == 0, "Yes", "No")) %>%
   dplyr::filter(All_zeroes == "No") %>%
   dplyr::select(!All_zeroes) %>%
-  ungroup() %>% 
-  
-  # Filter for locations with less than three years of data.
-  group_by(country, Month) %>% 
-  dplyr::mutate(Number_of_years = n()) %>% 
-  dplyr::filter(Number_of_years >= 3) %>% 
+  ungroup()
+
+# Step 3: Filter for locations with at least 3 years of data
+full_data <- full_data_nonzero_years %>%
+  group_by(country, Month) %>%
+  dplyr::mutate(Number_of_years = n()) %>%
+  dplyr::filter(Number_of_years >= 3) %>%
   dplyr::select(!Number_of_years) %>%
   ungroup()
+
 #--------------------------- Print status update 
 
-print("Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.")
+log_message("Filtered combined dataset rows: " %+% nrow(full_data))
+log_message("Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.")
+
+# Determine specific drop reasons for countries that were in before_filter but not after
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    # Get countries before and after each filtering step
+    countries_before <- WHO_OD_combined_clean %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::distinct()
+    
+    countries_after_complete <- full_data_complete_years %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::distinct()
+    
+    countries_after_nonzero <- full_data_nonzero_years %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::distinct()
+    
+    countries_after_final <- full_data %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::distinct()
+    
+    # Create drop reason mapping - check in order of filtering steps
+    # Only include countries that were dropped (not in final)
+    dropped_countries <- countries_before %>%
+      dplyr::filter(!iso3 %in% countries_after_final$iso3)
+    
+    if (nrow(dropped_countries) > 0) {
+      drop_reasons_df <- dropped_countries %>%
+        dplyr::mutate(
+          drop_reason = dplyr::case_when(
+            # Dropped at complete years step (first filter)
+            !iso3 %in% countries_after_complete$iso3 ~ "Filtered: incomplete years (<12 months per year)",
+            # Dropped at nonzero years step (second filter) - but passed complete years
+            !iso3 %in% countries_after_nonzero$iso3 ~ "Filtered: all-zero years",
+            # Dropped at minimum years step (third filter) - but passed previous two
+            !iso3 %in% countries_after_final$iso3 ~ "Filtered: <3 years of data",
+            # Should not happen, but just in case
+            TRUE ~ "Filtered: unknown reason"
+          )
+        ) %>%
+        dplyr::select(iso3, drop_reason)  # Ensure only iso3 and drop_reason columns
+      
+      # Store for use in tracking
+      assign("step3b_drop_reasons", drop_reasons_df, envir = .GlobalEnv)
+      
+      if (exists("log_message")) {
+        log_message("Created drop reasons for " %+% nrow(drop_reasons_df) %+% " countries dropped at step 3b filtering")
+      }
+    } else {
+      # No countries dropped, create empty data frame with correct structure
+      assign("step3b_drop_reasons", 
+             data.frame(iso3 = character(), drop_reason = character(), stringsAsFactors = FALSE),
+             envir = .GlobalEnv)
+      
+      if (exists("log_message")) {
+        log_message("No countries dropped at step 3b filtering")
+      }
+    }
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Could not determine specific drop reasons for step 3b: " %+% conditionMessage(e), level = "WARNING")
+    }
+    # Create empty data frame on error
+    assign("step3b_drop_reasons", 
+           data.frame(iso3 = character(), drop_reason = character(), stringsAsFactors = FALSE),
+           envir = .GlobalEnv)
+  })
+}
+
+# Record countries after filtering (Step 3b: Combined After Filter)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    # Use country-specific drop reasons if available
+    if (exists("step3b_drop_reasons") && is.data.frame(step3b_drop_reasons) && nrow(step3b_drop_reasons) > 0) {
+      if (exists("log_message")) {
+        log_message("Using country-specific drop reasons for " %+% nrow(step3b_drop_reasons) %+% " countries at step 3b")
+      }
+      record_countries_at_step(full_data, "Step_3b_Combined_After_Filter",
+                               drop_reason = step3b_drop_reasons)
+      # Clean up
+      rm(step3b_drop_reasons, envir = .GlobalEnv)
+    } else {
+      if (exists("log_message")) {
+        log_message("Warning: No step3b_drop_reasons found, using generic drop reason", level = "WARNING")
+      }
+      # Fallback to generic reason
+      record_countries_at_step(full_data, "Step_3b_Combined_After_Filter",
+                               drop_reason = "Filtered: incomplete years, all-zero years, or <3 years of data")
+    }
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 3b After Filter: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
 
 #---------------------- Saving 
 # write_csv(WHO_OD_combined_final,

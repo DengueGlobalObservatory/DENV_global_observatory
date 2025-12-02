@@ -17,6 +17,17 @@
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_OpenDengue_national_data_processing_functions.R")
 source("V1/Scripts/data_sourcing/FUNCTIONS/00_WHO_data_processing_functions.R")
 
+if (!exists("log_message")) {
+  source("V1/Scripts/utils/logging.R")
+  ensure_logger(console = TRUE)
+}
+
+if (!exists("record_countries_at_step")) {
+  source("V1/Scripts/utils/country_tracking.R")
+}
+
+log_message("Running 01_Choosing_WHO_or_OpenDengue_data.")
+
 #--------------- Clean data
 
 WHO_clean <- who %>% 
@@ -32,7 +43,12 @@ WHO_clean <- who %>%
 
 if(any(is.na(WHO_clean$country))){message("Not all ISO3 codes in WHO database matched to countries - investigate.")}
 
-OD_national_clean <- OD_national 
+OD_national_clean <- OD_national %>%
+  mutate(
+    iso3 = ISO_A0,
+    country = str_to_sentence(adm_0_name),
+    cases = dengue_total_scaled
+  )
 # %>%
 #   dplyr::filter(T_res != "Year") %>% 
 #   dplyr::mutate(adm_0_name = countrycode(ISO_A0, "iso3c", "country.name"))
@@ -48,26 +64,39 @@ Countries_only_in_WHO_national <- WHO_clean$country[!WHO_clean$iso3 %in% OD_nati
   unique()
 
 # Countries in both 
+countries_vec <- unique(OD_national_clean$country[OD_national_clean$iso3 %in% WHO_clean$iso3])
 Countries_in_both_df <- tibble(
-  Country = unique(OD_national_clean$country[OD_national_clean$iso3 %in% WHO_clean$iso3])
+  Country = as.character(countries_vec)
 ) %>%
-  ### WHY??????????????
   mutate(
     iso3 = countrycode(Country, "country.name", "iso3c"),
     iso3 = dplyr::if_else(Country == "SAINT MARTIN", "MAF", iso3)
   )
 
-# Countries in both WHO and OpenDengue databases:
-cat("Countries in both WHO and OpenDengue databases:\n", paste(as.character(Countries_in_both_df$Country), collapse = ", "), "\n")
-cat("Count - Countries in both WHO and OpenDengue databases:\n", paste(length(Countries_in_both_df$Country), "\n"))
-        
-# Countries with data in just OpenDengue 
-cat("Countries only included in OpenDengue:\n", paste(as.character(Countries_only_in_OD_national), collapse = ", "), "\n")
-cat("Count - Countries only included in OpenDengue:\n", paste(length(Countries_only_in_OD_national)), "\n")
+log_message("Countries in both WHO and OpenDengue databases: " %+% paste(as.character(Countries_in_both_df$Country), collapse = ", "))
+log_message("Count - Countries in both WHO and OpenDengue databases: " %+% length(Countries_in_both_df$Country))
+log_message("Countries only included in OpenDengue: " %+% paste(as.character(Countries_only_in_OD_national), collapse = ", "))
+log_message("Count - Countries only included in OpenDengue: " %+% length(Countries_only_in_OD_national))
+log_message("Countries only included in WHO database: " %+% paste(as.character(Countries_only_in_WHO_national), collapse = ", "))
+log_message("Count - Countries only included in WHO database: " %+% length(Countries_only_in_WHO_national))
 
-# Countries with data in just WHO 
-cat("Countries only included in WHO database:\n", paste(as.character(Countries_only_in_WHO_national), collapse = ", "), "\n")
-cat("Count - Countries only included in WHO database:\n", paste(length(Countries_only_in_WHO_national)), "\n")
+# Record countries after cleaning (Step 3a: WHO/OD Clean)
+if (exists("record_countries_at_step") && exists("WHO_clean") && exists("OD_national_clean")) {
+  tryCatch({
+    # Combine cleaned countries
+    cleaned_countries <- dplyr::bind_rows(
+      WHO_clean %>% dplyr::select(country, iso3) %>% dplyr::distinct(),
+      OD_national_clean %>% dplyr::select(country, iso3) %>% dplyr::distinct()
+    ) %>% dplyr::distinct()
+    
+    record_countries_at_step(cleaned_countries, "Step_3a_WHO_OD_Clean")
+  }, error = function(e) {
+    # Silently fail - tracking should not stop pipeline
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 3a Clean: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
 
 #---------------------- Data coverage for countries in both (OpenDengue)
 
@@ -183,7 +212,32 @@ WHO_OD_coverage <- identify_which_years_to_keep_OD_vs_WHO(
 
 #--------------------------- Print status update 
 
-print("Finished running 01_Choosing_WHO_or_OpenDengue_data script.")
+log_message("Finished running 01_Choosing_WHO_or_OpenDengue_data script.")
+
+# Record countries selected for historical data (Step 3a: WHO/OD Selection)
+# Countries that will be used are those in WHO_OD_coverage
+if (exists("record_countries_at_step") && exists("WHO_OD_coverage")) {
+  tryCatch({
+    selected_countries <- WHO_OD_coverage %>%
+      dplyr::select(iso3) %>%
+      dplyr::distinct() %>%
+      dplyr::left_join(
+        dplyr::bind_rows(
+          WHO_clean %>% dplyr::select(country, iso3) %>% dplyr::distinct(),
+          OD_national_clean %>% dplyr::select(country, iso3) %>% dplyr::distinct()
+        ) %>% dplyr::distinct(),
+        by = "iso3"
+      ) %>%
+      dplyr::filter(!is.na(country))
+    
+    record_countries_at_step(selected_countries, "Step_3a_WHO_OD_Selection")
+  }, error = function(e) {
+    # Silently fail - tracking should not stop pipeline
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 3a Selection: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
 
 #--------------------------- Saving
 

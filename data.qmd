@@ -5,11 +5,31 @@ format:
     code-fold: false
 ---
 
+```{r}
+#| label: setup-data-page
+#| include: false
+#| warning: false
+
+source("V1/Scripts/V1_Dashboard_setup.R")
+message("✅ _setup.R successfully loaded!")
+
+```
+
 ## Global Dengue Observatory Data
 
 You can download the **latest processed data** and its **metadata** directly from this page.
 
 ---
+
+```{r}
+#| label: last-update
+#| include: false
+#| warning: false
+
+latest_dataset_info <- get_latest_dataset_info()
+latest_update_label <- latest_dataset_info$label
+
+```
 
 ### Download Dataset
 
@@ -17,13 +37,6 @@ You can download the **latest processed data** and its **metadata** directly fro
 #| echo: false
 #| message: false
 #| warning: false
-
-# data opening, plot list creation 
-
-source("V1/Scripts/V1_Dashboard_setup.R")
-message("✅ _setup.R successfully loaded!")
-
-
 #  --- Select final dataset columns ---
 simple_data <- data %>%
   dplyr::select(
@@ -110,7 +123,7 @@ htmltools::tags$div(
   ),
   htmltools::tags$span(
     class = "last-updated",
-    paste("Last updated:", format(Sys.Date(), "%Y-%m-%d"))
+    paste("Last updated:", latest_update_label)
   )
 )
 ```

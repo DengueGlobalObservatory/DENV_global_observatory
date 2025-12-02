@@ -7,6 +7,17 @@ library(ggplot2)
 # Functions: 
 source("V1/Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R")
 
+if (!exists("log_message")) {
+  source("V1/Scripts/utils/logging.R")
+  ensure_logger(console = TRUE)
+}
+
+if (!exists("record_countries_at_step")) {
+  source("V1/Scripts/utils/country_tracking.R")
+}
+
+log_message("Running 02_PAHO_monthly_cases_and_source_selection.")
+
 # ----- PAHO backfilling and monthly case calculation 
 
 # apply backfilling and define monthly cumulative cases 
@@ -18,6 +29,7 @@ paho_correction <- apply_reporting_correction(df = paho, cases_col = "total_den"
 paho_month_cumm  <- compute_monthcumm_cases(df = paho_correction)
 # Calculate monthly cases:
 paho_monthly <-  PAHO_incid_monthly(paho_month_cumm)
+log_message("PAHO monthly rows after correction: " %+% nrow(paho_monthly))
 
 # handle negative values 
 ## -- room for improvement in future
@@ -137,6 +149,7 @@ who_add <- who %>%
 
 # Step 2: Combine all data
 combine <- bind_rows(paho_add, searo_add, who_add)
+log_message("Combined country-month rows across sources: " %+% nrow(combine))
 
 
 # Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
@@ -190,3 +203,17 @@ current_data <- current_data %>%
   
   # reorder for clarity
   arrange(country, Year, Month)
+
+log_message("Current data rows after completeness expansion: " %+% nrow(current_data))
+log_message("Completed 02_PAHO_monthly_cases_and_source_selection.")
+
+# Record countries in current data (Step 4: Current Data)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    record_countries_at_step(current_data, "Step_4_Current_Data")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 4: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
