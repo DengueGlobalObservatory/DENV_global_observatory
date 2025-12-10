@@ -154,12 +154,19 @@ log_message("Combined country-month rows across sources: " %+% nrow(combine))
 
 # Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
 final_cases <- combine %>%
-  group_by(country, iso3, date, Year, Month) %>% 
+  mutate( 
+    Month_num = match(Month, month.abb)
+  ) %>%
+  group_by(iso3, Year, Month_num) %>% 
   # order first by NA status (NA last), then by source preference
   arrange(is.na(cases), source == "WHO") %>% 
   # keep the first row in each group (non-NA, non-WHO prioritized)
   slice(1) %>% 
-  ungroup()
+  ungroup() %>%%
+  mutate(
+    Month = month.name[Month_num]
+    country = country_code(iso3, "iso3c", "country.name")
+  )
 
 # Step 4 : Selected needed time frame and columns
 current_year <- as.numeric(format(Sys.Date(), "%Y"))

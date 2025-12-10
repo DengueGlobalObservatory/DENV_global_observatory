@@ -206,6 +206,7 @@ n_global_story <- nrow(global_story_points)
 <script src="https://unpkg.com/intersection-observer"></script>
 <script src="https://unpkg.com/scrollama"></script>
 
+<h3 class="global-plot-title">Current Global Dengue Situation</h3>
 
 <div class="scrolly-container">
 
@@ -240,7 +241,7 @@ if (exists("global_story_points") && nrow(global_story_points) > 0) {
 
 knitr::asis_output('<div class="scrolly-step" data-step="2">
   <p class="scrolly-step-title">How to read our plots</p>
-  <p class="scrolly-step-body">Each wedge or spoke shows one month of the year. Providing information about the average season in black and the current season in colours. The outside ring shows whether the cumulative cases over the year so far are above (red) or below (blue) the average.</p>
+  <p class="scrolly-step-body">Each wedge or spoke shows one month of the year. Providing information about the average season in black and the current season in colours. The outside ring shows whether the cumulative cases over the year so far are <span style="color: #d32f2f; font-weight: 600;">above</span> or <span style="color: #388e3c; font-weight: 600;">below</span> the average.</p>
   <img src="V1/Assets/how_to.png" alt="How to read plots guide" class="howto-image">
 </div>')
 
@@ -263,7 +264,6 @@ knitr::asis_output('<div class="scrolly-step" data-step="3">
   <!-- RIGHT SIDE — sticky global plot -->
 <div class="scrolly-visual">
 <div id="global-plot-wrapper">
-<h3 class="global-plot-title">Current Global Dengue Situation</h3>
 <img src="V1/Assets/world_plot.png" alt="World dengue plot"/>
 </div>
 </div>

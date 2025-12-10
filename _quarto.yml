@@ -70,7 +70,7 @@ format:
     toc-depth: 3
     page-layout: full
     embed-resources: true
-    self-contained: false
+    self-contained: true
 
 filters:
   - quarto

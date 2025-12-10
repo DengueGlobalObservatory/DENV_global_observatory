@@ -27,11 +27,11 @@ The Global dengue observatory is run by the Dengue Mapping and Modelling Group a
 
 The project team includes:
 
-**Dr Katie Susong** (lead)
+[**Dr Katie Susong**](https://www.lshtm.ac.uk/aboutus/people/susong.katie-milligan) (lead)
 
 <!-- [image temp] -->
 
-**Dr Ahyoung Lim**
+[**Dr Ahyoung Lim**](https://www.lshtm.ac.uk/aboutus/people/lim.ahyoung)
 
 <!-- [image temp] -->
 
@@ -39,7 +39,7 @@ The project team includes:
 
 <!-- [image temp] -->
 
-**Prof. Oliver Brady** (director)
+[**Prof. Oliver Brady** ](https://www.lshtm.ac.uk/aboutus/people/brady.oliver) (director)
 
 <!-- [image temp] -->
 
@@ -49,4 +49,4 @@ The Global Dengue Observatory was made possible by a research grant from the AXA
 
 ## Contact
 
-[tbd]
+[https://github.com/DengueGlobalObservatory](https://github.com/DengueGlobalObservatory)

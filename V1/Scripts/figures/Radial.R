@@ -38,8 +38,7 @@ make_radial_plot <- function(df_region) {
     mutate(
       over_cap = high_speed_raw > (1.8 * max_low),
       capped_height = pmin(high_speed_raw, 1.8 * max_low),
-      small_both = (low_speed_raw < 0.15 * (2 * max_low)) &
-      (high_speed_raw < 0.15 * (2 * max_low)),
+      small_both = (high_speed_raw < 0.15 * (2 * max_low))  ,
       dot_y = max_low * 1.7  #  visibility
     )
   
@@ -102,7 +101,7 @@ make_radial_plot <- function(df_region) {
   
   # Add colored bars if we have current year data
   if (has_current_year_data) {
-    p <- p + geom_col(aes(y = capped_height, fill = ratio_capped), width = 0.6, alpha = 0.7, na.rm = TRUE)
+    p <- p + geom_col(aes(y = capped_height, fill = ratio_capped), width = 0.6, alpha = 0.8, na.rm = TRUE)
   }
   
   # Add outer ring if we have current year data
@@ -131,17 +130,34 @@ make_radial_plot <- function(df_region) {
         color = ratio_capped
       ),
       shape = 21,
-      size = 3,
+      size = 4,
       stroke = 0.3
     )
   }
   
+  my_colours <- brewer.pal(3, "RdYlBu")
   # Add polar coordinates and scales
   p <- p + coord_polar() +
+    # scale_fill_brewer("RdYlBu")
+    # scale_fill_gradientn( colours = my_colours)
     scale_fill_gradient2(
       low = "green",
       mid = "yellow",
       high = "red",
+
+      # low = "#006164",
+      # mid = "#e6e1bc",
+      # high = "#b3589a",
+# 
+#       low = "#05f7ff",
+#       mid = "#fff9cf",
+#       high = "#ff5432",
+#       
+#       low = "#6b9dc1",
+#       mid = "#c9ccd2",
+#       high = "#bf511f",
+      
+      
       midpoint = 1,
       limits = c(0.5, 2),
       name = "Relative cases",
@@ -181,12 +197,12 @@ make_radial_plot <- function(df_region) {
     
     scale_y_continuous(limits = c(0, max_low * 2))+
     
-    # ggtitle(unique(df$Region)) +
     theme_minimal() +
     theme(panel.grid = element_blank(),
           axis.text = element_blank(),
           axis.title = element_blank(),
           legend.position = "none",
+          # legend.position = "bottom",
           plot.title = element_text(
             hjust = 0.5,          # center align horizontally
             vjust = -0.05,        # slightly lift above plot content

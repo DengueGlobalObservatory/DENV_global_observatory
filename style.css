@@ -41,7 +41,7 @@ main.content {
    ===================================== */
 
 .hero {
-  min-height: 90vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,6 +70,30 @@ main.content {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   max-width: 800px;
   margin: 0;
+}
+
+/* Scroll down banner */
+.scroll-down-banner {
+  text-align: center;
+  padding: 0.5rem 0;  /* Reduced padding */
+  margin: 0 auto;
+  max-width: 1000px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-down-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+
+.scroll-down-banner.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 @media (max-width: 600px) {
@@ -575,6 +599,7 @@ main.content {
   flex-direction: column;
   max-width: 50%;
   box-sizing: border-box;
+  padding-top: 2rem;  /* Add top padding to align with map */
 }
 
 .scrolly-step {
@@ -657,9 +682,13 @@ main.content {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 1.5rem;
-  margin-top: 0;
+  margin-bottom: 2rem;
+  margin-top: 3rem;
   font-size: 1.3rem;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
 }
 
 /* how-to card */
