@@ -41,14 +41,14 @@ inset_size <- 0.12
 # --- Define approximate x/y positions for each region (0–1 scale) ---
 # Mapping from region names to their Quarto file names
 region_file_map <- c(
-  "South America" = "southamerica.qmd",
-  "Caribbean" = "caribbean.qmd",
-  "Pacific Islands" = "pacificislands.qmd",
-  "South Asia" = "southasia.qmd",
-  "North & Central America" = "centralamericamexico.qmd",
-  "Sub-Saharan Africa" = "sub-saharanafrica.qmd",
-  "East & Southeast Asia" = "eastsoutheastasia.qmd",
-  "Europe, Middle East & North Africa" = "europemiddleeastnorthafrica.qmd"
+  "South America" = "pages/southamerica.qmd",
+  "Caribbean" = "pages/caribbean.qmd",
+  "Pacific Islands" = "pages/pacificislands.qmd",
+  "South Asia" = "pages/southasia.qmd",
+  "North & Central America" = "pages/centralamericamexico.qmd",
+  "Sub-Saharan Africa" = "pages/sub-saharanafrica.qmd",
+  "East & Southeast Asia" = "pages/eastsoutheastasia.qmd",
+  "Europe, Middle East & North Africa" = "pages/europemiddleeastnorthafrica.qmd"
 )
 
 region_positions <- data.frame(
@@ -126,7 +126,9 @@ We bring together dengue data reported by more than 70 countries and use advance
 #| include: false
 
 # Save world_plot to PNG for use in scrolly narrative
-ggsave("V1/Assets/world_plot.png", world_plot, width = 6, height = 5, dpi = 150)
+ggsave("V1/Assets/world_plot.png", 
+world_plot + theme_void() + theme(legend.position = "none"),
+ width = 6, height = 5, dpi = 150)
 
 ```
 
@@ -207,6 +209,10 @@ n_global_story <- nrow(global_story_points)
 <script src="https://unpkg.com/scrollama"></script>
 
 <h3 class="global-plot-title">Current Global Dengue Situation</h3>
+
+<div class="section-scroll-banner">
+  <p class="section-scroll-text">Scroll to explore</p>
+</div>
 
 <div class="scrolly-container">
 
@@ -428,7 +434,7 @@ cat('</div>')
 Below we spotlight the five countries currently running the furthest above their yearly average based on cumulative case ratios. Click on any circular region plot on the map to open the full report for that region..
 
 <div style="text-align: center; margin: 1.5rem 0;">
-  <a href="country-index.html" class="btn btn-outline-primary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+  <a href="pages/country-index.html" class="btn btn-outline-primary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
     Explore All Countries →
   </a>
 </div>

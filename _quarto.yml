@@ -6,20 +6,19 @@ project:
     - V1/Scripts/
     - OD_maps/temp_maps/
   render: 
-    - data_alert.qmd
     - index.qmd
-    - country-index.qmd
-    - centralamericamexico.qmd
-    - caribbean.qmd
-    - southamerica.qmd
-    - europemiddleeastnorthafrica.qmd
-    - sub-saharanafrica.qmd
-    - southasia.qmd
-    - eastsoutheastasia.qmd
-    - pacificislands.qmd
-    - methods.qmd
-    - about.qmd
-    - data.qmd
+    - pages/country-index.qmd
+    - pages/centralamericamexico.qmd
+    - pages/caribbean.qmd
+    - pages/southamerica.qmd
+    - pages/europemiddleeastnorthafrica.qmd
+    - pages/sub-saharanafrica.qmd
+    - pages/southasia.qmd
+    - pages/eastsoutheastasia.qmd
+    - pages/pacificislands.qmd
+    - pages/methods.qmd
+    - pages/about.qmd
+    - pages/data.qmd
  
   
 website:
@@ -30,31 +29,31 @@ website:
       - text: "Home"
         href: index.qmd
       - text: "All Countries"
-        href: country-index.qmd
+        href: pages/country-index.qmd
       - text: "Regions"
         menu: 
           - text: "North & Central America"         
-            href: centralamericamexico.qmd
+            href: pages/centralamericamexico.qmd
           - text: "Caribbean"                       
-            href: caribbean.qmd
+            href: pages/caribbean.qmd
           - text: "South America"
-            href: southamerica.qmd
+            href: pages/southamerica.qmd
           - text: "Europe, Middle East & North Africa" 
-            href: europemiddleeastnorthafrica.qmd
+            href: pages/europemiddleeastnorthafrica.qmd
           - text: "Sub-Saharan Africa"    
-            href: sub-saharanafrica.qmd
+            href: pages/sub-saharanafrica.qmd
           - text: "South Asia"
-            href: southasia.qmd
+            href: pages/southasia.qmd
           - text:  "East & Southeast Asia"
-            href: eastsoutheastasia.qmd
+            href: pages/eastsoutheastasia.qmd
           - text: "Pacific Islands"  
-            href: pacificislands.qmd
+            href: pages/pacificislands.qmd
       - text: "Methods"
-        href: methods.qmd
+        href: pages/methods.qmd
       - text: "Data"
-        href: data.qmd
+        href: pages/data.qmd
       - text: "About"
-        href: about.qmd
+        href: pages/about.qmd
       - icon: github
         href: https://github.com/DengueGlobalObservatory/DENV_global_observatory
   page-footer:

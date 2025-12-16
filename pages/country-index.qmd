@@ -1,0 +1,430 @@
+---
+title: "All Countries"
+format: html
+page-layout: full
+---
+
+```{r}
+#| label: set up 
+#| include: false
+#| warning: false
+
+# Set working directory to project root (needed when rendering from subdirectory)
+if (basename(getwd()) == "pages") {
+  setwd("..")
+}
+
+source("V1/Scripts/V1_Dashboard_setup.R")
+message("✅ _setup.R successfully loaded!")
+
+# Prepare all countries data frame
+# Get unique countries with their metadata
+country_name_col <- dplyr::case_when(
+  "country" %in% names(country_summary_df) ~ "country",
+  "Country" %in% names(country_summary_df) ~ "Country",
+  TRUE ~ NA_character_
+)
+
+if (!is.na(country_name_col)) {
+  # Get latest data for each country
+  all_countries_data <- country_summary_df %>%
+    dplyr::mutate(country_label = .data[[country_name_col]]) %>%
+    dplyr::filter(
+      !is.na(country_label) & country_label != "",
+      !is.na(Month),
+      Month <= recent_month
+    ) %>%
+    dplyr::group_by(country_label) %>%
+    dplyr::arrange(Month, .by_group = TRUE) %>%
+    dplyr::slice_tail(n = 1) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(
+      region_label = dplyr::coalesce(.data[["Region"]], ""),
+      region_slug = if_else(
+        nzchar(region_label),
+        tolower(gsub(" & |, | ", "", region_label)),
+        NA_character_
+      ),
+      region_href = if_else(
+        !is.na(region_slug),
+        paste0(region_slug, ".html"),
+        NA_character_
+      ),
+      # Generate blurb text similar to severity countries
+      severity_blurb = severity_country_blurb(
+        country_label,
+        cum_ratio,
+        cum_high,
+        region = region_label,
+        region_href = region_href
+      ),
+      # Ensure we have plot available
+      has_plot = country_label %in% names(all_country_plots)
+    ) %>%
+    # Only keep countries that have plots
+    dplyr::filter(has_plot) %>%
+    dplyr::arrange(country_label)
+  
+  # Merge data status info with all_countries_data (reuse from setup script)
+  if (exists("country_data_status") && nrow(country_data_status) > 0) {
+    all_countries_data <- all_countries_data %>%
+      dplyr::left_join(
+        country_data_status,
+        by = c("country_label" = "country_name")
+      ) %>%
+      dplyr::mutate(
+        has_estimated = dplyr::if_else(is.na(has_estimated), FALSE, has_estimated),
+        has_observed = dplyr::if_else(is.na(has_observed), FALSE, has_observed),
+        data_status_message = dplyr::if_else(
+          is.na(data_status_message),
+          "Recent months contain observed data only",
+          data_status_message
+        )
+      )
+  } else {
+    # Fallback if country_data_status doesn't exist
+    all_countries_data <- all_countries_data %>%
+      dplyr::mutate(
+        has_estimated = FALSE,
+        has_observed = TRUE,
+        data_status_message = "Recent months contain observed data only"
+      )
+  }
+} else {
+  all_countries_data <- dplyr::tibble(
+    country_label = character(),
+    region_label = character(),
+    cum_ratio = numeric(),
+    cum_high = numeric(),
+    severity_blurb = character(),
+    region_href = character(),
+    has_plot = logical()
+  )
+}
+
+```
+
+```{r}
+#| label: last-update
+#| include: false
+
+if (!exists("latest_update_label") || !exists("latest_nowcast_dir")) {
+  latest_dataset_info <- get_latest_dataset_info()
+  latest_update_label <- latest_dataset_info$label
+  latest_nowcast_dir <- latest_dataset_info$dir
+}
+
+```
+
+<div class="global-summary-callout">
+  <span class="global-summary-label">Data last updated</span>
+  <span class="global-summary-date">`r latest_update_label`</span>
+</div>
+
+Explore all countries with available dengue surveillance data. Use the search and sort controls below to filter by name, region, cumulative cases, or severity ratio.
+
+```{r}
+#| label: search-sort-controls
+#| echo: false
+#| results: 'asis'
+
+# Create search and sort controls using htmltools
+search_controls <- htmltools::div(
+  class = "country-search-controls",
+  style = "margin: 2rem 0; max-width: 1200px; margin-left: auto; margin-right: auto;",
+  htmltools::div(
+    style = "display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;",
+    htmltools::div(
+      style = "flex: 1; min-width: 250px;",
+      htmltools::tags$label(
+        `for` = "country-search",
+        style = "display: block; margin-bottom: 0.5rem; font-weight: 600;",
+        "Search by name:"
+      ),
+      htmltools::tags$input(
+        type = "text",
+        id = "country-search",
+        placeholder = "Type country name...",
+        style = "width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"
+      )
+    ),
+    htmltools::div(
+      style = "flex: 1; min-width: 200px;",
+      htmltools::tags$label(
+        `for` = "region-filter",
+        style = "display: block; margin-bottom: 0.5rem; font-weight: 600;",
+        "Filter by region:"
+      ),
+      htmltools::tags$select(
+        id = "region-filter",
+        style = "width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;",
+        htmltools::tags$option(value = "", "All regions")
+      )
+    ),
+    htmltools::div(
+      style = "flex: 1; min-width: 200px;",
+      htmltools::tags$label(
+        `for` = "sort-by",
+        style = "display: block; margin-bottom: 0.5rem; font-weight: 600;",
+        "Sort by:"
+      ),
+      htmltools::tags$select(
+        id = "sort-by",
+        style = "width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;",
+        htmltools::tags$option(value = "name", "Name (A-Z)"),
+        htmltools::tags$option(value = "name-desc", "Name (Z-A)"),
+        htmltools::tags$option(value = "region", "Region"),
+        htmltools::tags$option(value = "cases", "Cumulative Cases (High to Low)"),
+        htmltools::tags$option(value = "cases-asc", "Cumulative Cases (Low to High)"),
+        htmltools::tags$option(value = "ratio", "Severity Ratio (High to Low)"),
+        htmltools::tags$option(value = "ratio-asc", "Severity Ratio (Low to High)")
+      )
+    )
+  )
+)
+
+# Output the HTML properly for Quarto
+knitr::asis_output(as.character(search_controls))
+
+```
+
+```{r}
+#| label: all-countries-grid
+#| echo: false
+#| message: false
+#| warning: false
+
+if (nrow(all_countries_data) == 0) {
+  panel <- htmltools::div(
+    class = "alert alert-info",
+    "Country data is still loading. Please check back soon."
+  )
+} else {
+  # Create cards for all countries
+  country_cards <- purrr::map(seq_len(nrow(all_countries_data)), function(idx) {
+    row <- all_countries_data[idx, ]
+    country_name <- row$country_label[[1]]
+    blurb_text <- row$severity_blurb[[1]]
+    region_name <- row$region_label[[1]]
+    region_href <- row$region_href[[1]]
+    cum_cases <- row$cum_high[[1]]
+    cum_ratio <- row$cum_ratio[[1]]
+    plot_obj <- all_country_plots[[country_name]]
+    
+    plot_block <- if (is.null(plot_obj)) {
+      htmltools::div(
+        class = "plot-placeholder",
+        "Plot not yet available for this country."
+      )
+    } else {
+      htmltools::plotTag(plot_obj, alt = paste(country_name, "yearly outlook"))
+    }
+    
+    # Create region link if href is available (using same format as high severity countries)
+    region_display <- if (!is.na(region_href) && region_href != "") {
+      htmltools::div(
+        style = "text-align: center; margin-bottom: 0.5rem;",
+        htmltools::tags$a(
+          href = region_href,
+          class = "severity-region-link",
+          region_name
+        )
+      )
+    } else {
+      htmltools::tags$small(
+        class = "text-muted",
+        style = "display: block; text-align: center; margin-bottom: 0.5rem; font-size: 0.85rem;",
+        region_name
+      )
+    }
+    
+    # Add data attributes for filtering/sorting
+    htmltools::div(
+      class = "snapshot-card severity-card country-card",
+      `data-country-name` = tolower(country_name),
+      `data-region` = tolower(region_name),
+      `data-cum-cases` = ifelse(is.na(cum_cases), 0, cum_cases),
+      `data-cum-ratio` = ifelse(is.na(cum_ratio), 0, cum_ratio),
+      htmltools::tags$h4(country_name, class = "text-center fw-semibold"),
+      region_display,
+      htmltools::div(class = "severity-plot", plot_block),
+      htmltools::tags$p(
+        class = "severity-blurb",
+        htmltools::HTML(blurb_text)
+      ),
+      htmltools::tags$small(
+        class = "severity-footnote text-muted",
+        row$data_status_message[[1]]
+      )
+    )
+  })
+  
+  panel <- htmltools::div(
+    class = "snapshot-grid severity-grid",
+    id = "country-grid",
+    country_cards
+  )
+}
+
+htmltools::tagList(panel)
+
+```
+
+```{r}
+#| label: populate-region-filter
+#| echo: false
+#| results: 'asis'
+
+# Store regions as a JavaScript array for the script to use
+if (nrow(all_countries_data) > 0) {
+  unique_regions <- sort(unique(all_countries_data$region_label))
+  # Create JavaScript array string manually (no dependency on jsonlite)
+  region_json <- paste0('["', paste(unique_regions, collapse = '","'), '"]')
+  cat(sprintf('<script>window.countryRegions = %s;</script>', region_json))
+} else {
+  cat('<script>window.countryRegions = [];</script>')
+}
+
+```
+
+<script>
+(function() {
+  // Wait for DOM to be ready
+  function initCountryExplorer() {
+    // Get DOM elements
+    const searchInput = document.getElementById('country-search');
+    const regionFilter = document.getElementById('region-filter');
+    const sortSelect = document.getElementById('sort-by');
+    const grid = document.getElementById('country-grid');
+    
+    if (!grid) {
+      console.warn('Country grid not found');
+      return;
+    }
+    
+    // Populate region filter dropdown
+    if (regionFilter && window.countryRegions) {
+      window.countryRegions.forEach(region => {
+        const option = document.createElement('option');
+        option.value = region.toLowerCase();
+        option.textContent = region;
+        regionFilter.appendChild(option);
+      });
+    }
+    
+    const cards = Array.from(grid.querySelectorAll('.country-card'));
+    
+    if (cards.length === 0) {
+      console.warn('No country cards found');
+      return;
+    }
+    
+    // Filter and sort function
+    function filterAndSort() {
+    const searchTerm = (searchInput?.value || '').toLowerCase().trim();
+    const regionTerm = (regionFilter?.value || '').toLowerCase().trim();
+    const sortValue = sortSelect?.value || 'name';
+    
+    // Filter cards
+    let visibleCards = cards.filter(card => {
+      const countryName = card.getAttribute('data-country-name') || '';
+      const region = card.getAttribute('data-region') || '';
+      
+      const matchesSearch = !searchTerm || countryName.includes(searchTerm);
+      const matchesRegion = !regionTerm || region === regionTerm;
+      
+      return matchesSearch && matchesRegion;
+    });
+    
+    // Sort cards
+    visibleCards.sort((a, b) => {
+      const nameA = (a.getAttribute('data-country-name') || '').toLowerCase();
+      const nameB = (b.getAttribute('data-country-name') || '').toLowerCase();
+      const regionA = (a.getAttribute('data-region') || '').toLowerCase();
+      const regionB = (b.getAttribute('data-region') || '').toLowerCase();
+      const casesA = parseFloat(a.getAttribute('data-cum-cases') || 0);
+      const casesB = parseFloat(b.getAttribute('data-cum-cases') || 0);
+      const ratioA = parseFloat(a.getAttribute('data-cum-ratio') || 0);
+      const ratioB = parseFloat(b.getAttribute('data-cum-ratio') || 0);
+      
+      switch(sortValue) {
+        case 'name':
+          return nameA.localeCompare(nameB);
+        case 'name-desc':
+          return nameB.localeCompare(nameA);
+        case 'region':
+          if (regionA !== regionB) return regionA.localeCompare(regionB);
+          return nameA.localeCompare(nameB);
+        case 'cases':
+          if (casesB !== casesA) return casesB - casesA;
+          return nameA.localeCompare(nameB);
+        case 'cases-asc':
+          if (casesA !== casesB) return casesA - casesB;
+          return nameA.localeCompare(nameB);
+        case 'ratio':
+          if (ratioB !== ratioA) return ratioB - ratioA;
+          return nameA.localeCompare(nameB);
+        case 'ratio-asc':
+          if (ratioA !== ratioB) return ratioA - ratioB;
+          return nameA.localeCompare(nameB);
+        default:
+          return nameA.localeCompare(nameB);
+      }
+    });
+    
+    // Hide all cards first
+    cards.forEach(card => {
+      card.style.display = 'none';
+    });
+    
+    // Show and reorder visible cards
+    visibleCards.forEach(card => {
+      card.style.display = '';
+      grid.appendChild(card);
+    });
+    
+    // Show message if no results
+    let noResultsMsg = document.getElementById('no-results-message');
+    if (visibleCards.length === 0) {
+      if (!noResultsMsg) {
+        noResultsMsg = document.createElement('div');
+        noResultsMsg.id = 'no-results-message';
+        noResultsMsg.className = 'alert alert-warning text-center';
+        noResultsMsg.style.margin = '2rem auto';
+        noResultsMsg.style.maxWidth = '600px';
+        noResultsMsg.textContent = 'No countries match your search criteria.';
+        grid.parentNode.insertBefore(noResultsMsg, grid);
+      }
+      noResultsMsg.style.display = 'block';
+      grid.style.display = 'none';
+    } else {
+      if (noResultsMsg) noResultsMsg.style.display = 'none';
+      grid.style.display = 'grid';
+    }
+    }
+    
+    // Add event listeners
+    if (searchInput) {
+      searchInput.addEventListener('input', filterAndSort);
+    }
+    if (regionFilter) {
+      regionFilter.addEventListener('change', filterAndSort);
+    }
+    if (sortSelect) {
+      sortSelect.addEventListener('change', filterAndSort);
+    }
+    
+    // Initial sort
+    filterAndSort();
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCountryExplorer);
+  } else {
+    // DOM is already ready
+    initCountryExplorer();
+  }
+})();
+</script>
+

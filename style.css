@@ -24,6 +24,15 @@ main.content {
   grid-template-columns: 1fr !important;
 }
 
+/* Page background image */
+body {
+  background-image: url('V1/Assets/background2.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
 
 
@@ -682,13 +691,31 @@ main.content {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   margin-top: 3rem;
   font-size: 1.3rem;
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 2rem;
+}
+
+/* Small scroll banner below section header */
+.section-scroll-banner {
+  text-align: center;
+  padding: 0.25rem 0;
+  margin: 0 auto 1.5rem;
+  max-width: 1600px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.section-scroll-text {
+  font-size: 0.75rem;
+  color: #888;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
 }
 
 /* how-to card */
@@ -750,7 +777,7 @@ main.content {
 /* How-to image styling */
 .howto-image {
   max-width: 90%;
-  border: 1px solid #ccc;
+  border: none;
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 4px;
