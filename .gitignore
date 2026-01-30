@@ -58,4 +58,7 @@ V1/DEV/Results/
 # Attic
 /V1/KJ_attic/
 
+#un-needed
+/www/
+
 /.quarto/
