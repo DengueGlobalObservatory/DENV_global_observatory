@@ -3,14 +3,136 @@ library(geomtextpath)
 library(RColorBrewer)
 library(patchwork)
 
+# df_start <- split_by_country$Brazil
+# year <- 2026
+# month <- 1
 
 # Regional Summary radial plot:
-make_radial_plot <- function(df_region) {
+make_radial_plot <- function(df_start, year = NULL, month = NULL ) {
+
   
   # Validate input
-  if (is.null(df_region) || !is.data.frame(df_region) || nrow(df_region) == 0) {
+  if (is.null(df_start) || !is.data.frame(df_start) || nrow(df_start) == 0) {
     return(NULL)
   }
+  
+  
+    if (is.null(month)) {
+    month <- as.integer(format(Sys.Date(), "%m"))
+  }
+
+  # check for year variable
+
+  if ("Year" %in% names(df_start)) {
+    # If year is NULL, use current year
+    if (is.null(year)) {
+      year <- as.integer(format(Sys.Date(), "%Y"))
+    }
+  }
+
+cat("Plotting:", unique(df_start$country))
+    # Filter to needed months
+
+    # Option 1: there are more that 6 months of data in the current year (ie month > 6)
+    if (month > 6) {
+      df_region <- df_start %>% filter(Year == year)
+      cat("Option 1 - Rows after filter:", nrow(df_region), "\n")
+
+
+    # Option 2: It is January, so all of the prior year is shown (i.e. month = 1)
+    } else if (month == 1) {
+      df_region <- df_start %>% filter(Year == year-1)
+      cat("Option 2 - Rows after filter:", nrow(df_region), "\n")
+      
+      ### baseline is not needed in this version could that be why it is breaking?
+
+    # Option 3: There are not more that 6 months of data in the year (i.e. month >1, month < 7)
+    } else  {
+      # Calculate the last 6 months (going back from month - 1)
+      # This may span two years
+      months_to_include <- numeric()
+      years_to_include <- numeric()
+
+      # Start from (month - 1) and go back 6 months
+      for (i in 1:6) {
+        target_month <- month - i
+        if (target_month <= 0) {
+          # Need to go to previous year
+          target_year <- year - 1
+          target_month <- 12 + target_month  # e.g., if target_month is -1, we want month 11
+        } else {
+          target_year <- year
+        }
+        months_to_include <- c(months_to_include, target_month)
+        years_to_include <- c(years_to_include, target_year)
+      }
+
+      # Filter to include these specific year-month combinations
+      df_region <- df_start %>%
+        filter(
+          (Year == years_to_include[1] & Month == months_to_include[1]) |
+            (Year == years_to_include[2] & Month == months_to_include[2]) |
+            (Year == years_to_include[3] & Month == months_to_include[3]) |
+            (Year == years_to_include[4] & Month == months_to_include[4]) |
+            (Year == years_to_include[5] & Month == months_to_include[5]) |
+            (Year == years_to_include[6] & Month == months_to_include[6])
+        )
+ 
+      # ---- Restore baseline values
+      
+      # First, identify which columns we want to KEEP for baseline
+      # These are the columns that contain baseline/seasonal information
+      baseline_cols_to_keep <- c("iso3", "Country", "country", "Region", "Month",
+                                 "season_nMonth", "nb_size", "nb_mean",
+                                 "Ave_season_monthly_cases", "Ave_season_monthly_cum_cases",
+                                 "Ave_cum_monthly_proportion", "Ave_monthly_proportion")
+      
+      # Only keep columns that actually exist in df_start
+      baseline_cols_to_keep <- intersect(baseline_cols_to_keep, names(df_start))
+      
+      # Create baseline with only the columns we want
+      baseline <- df_start %>%
+        dplyr::select(dplyr::all_of(baseline_cols_to_keep))
+      
+      # Identify the key columns for grouping (Month + identifier columns)
+      grouping_cols <- colnames(baseline)
+      
+      # Deduplicate baseline: keep only one row per Month (and per identifier)
+      # If multiple rows exist, take the first non-NA value for Ave_season_monthly_cases
+      baseline <- baseline %>%
+        dplyr::group_by(dplyr::across(dplyr::all_of(grouping_cols))) %>%
+        dplyr::arrange(dplyr::desc(!is.na(Ave_season_monthly_cases))) %>%
+        dplyr::slice_head(n = 1) %>%
+        dplyr::ungroup()
+      
+      # Merge baseline back with filtered df_region
+      # Match only on the grouping columns to avoid creating duplicates
+      df_region <- dplyr::left_join(baseline,df_region, by = grouping_cols)
+      
+      cat("Option 3 - Rows after filter:", nrow(df_region), "\n")
+      cat("Looking for:", paste(years_to_include, months_to_include, sep="-"), "\n")
+    }
+  
+
+  # Check for duplicate months in final df
+  df_dups <- df_region %>%
+    dplyr::group_by(Month) %>%
+    dplyr::summarise(n = n(), .groups = "drop") %>%
+    filter(n > 1)
+  if (nrow(df_dups) > 0) {
+    cat("WARNING: Duplicate Month values in df_region!\n")
+    print(df_dups)
+  }
+  
+  
+  cat("After merge - df_region rows:", nrow(df_region), "\n")
+
+    if ("Ave_season_monthly_cases" %in% names(df_region)) {
+    cat("Non-NA baseline values:", sum(!is.na(df_region$Ave_season_monthly_cases)), "\n")
+    cat("All baseline NA?", all(is.na(df_region$Ave_season_monthly_cases)), "\n")
+  }
+  
+  # ---- Build plot DF
   
   df <- df_region %>%
     mutate(
@@ -214,15 +336,14 @@ make_radial_plot <- function(df_region) {
       plot.background = element_blank(),  # transparent outside
     )
   
-  # Create extras data frame (variables are always defined now)
-  extras <- data_frame(max_ref, max_low, last_month, cum_low, cum_high, cum_ratio, cum_ratio_capped)
-  if (nrow(ring_df) > 0) {
-    extras <- cbind(ring_df, extras)
-  }
+  # # Create extras data frame (variables are always defined now)
+  # extras <- data_frame(max_ref, max_low, last_month, cum_low, cum_high, cum_ratio, cum_ratio_capped)
+  # if (nrow(ring_df) > 0) {
+  #   extras <- cbind(ring_df, extras)
+  # }
   return(p)
   # return(list(p, df, extras))
   
 }
-
 
 

@@ -12,28 +12,31 @@ library(magick)
 get_latest_dataset_info <- function(output_root = "V1/Output") {
   output_dirs <- list.dirs(output_root, recursive = FALSE, full.names = TRUE)
   nowcast_dirs <- output_dirs[file.exists(file.path(output_dirs, "DENV_cases_nowcast_output.csv"))]
-
+  
   if (length(nowcast_dirs) == 0) {
-    return(list(label = "Not available", dir = NA_character_))
+    return(list(label = "Not available", dir = NA_character_, file = NA_character_))
   }
-
+  
   folder_dates <- as.Date(gsub("_", "-", basename(nowcast_dirs)))
   valid_dates <- !is.na(folder_dates)
-
+  
   if (!any(valid_dates)) {
-    return(list(label = "Not available", dir = NA_character_))
+    return(list(label = "Not available", dir = NA_character_, file = NA_character_))
   }
-
+  
   folder_dates <- folder_dates[valid_dates]
   nowcast_dirs <- nowcast_dirs[valid_dates]
   latest_idx <- which.max(folder_dates)
   latest_update_date <- folder_dates[latest_idx]
-
+  latest_dir <- nowcast_dirs[latest_idx]
+  
   list(
     label = format(latest_update_date, "%d %B %Y"),
-    dir = nowcast_dirs[latest_idx]
+    dir = latest_dir,
+    file = file.path(latest_dir, "DENV_cases_nowcast_output.csv")
   )
 }
+
 
 latest_dataset_info <- get_latest_dataset_info()
 latest_update_label <- latest_dataset_info$label
@@ -46,150 +49,73 @@ source("V1/Scripts/figures/Radial.R")
 source("V1/Scripts/figures/FUN_utility.R")
 
 
+# Function to get data status for countries
+get_country_data_status <- function(data_df, country_col_name = NULL) {
+  if (is.null(country_col_name)) {
+    country_col_name <- if ("Country" %in% names(data_df)) "Country" else "country"
+  }
+  
+  recent_months_data <- data_df %>%
+    dplyr::filter(
+      Year == current_year,
+      Month <= recent_month,
+      Month >= max(1, recent_month - 2)  # Last 3 months
+    ) %>%
+    dplyr::group_by(.data[[country_col_name]]) %>%
+    dplyr::summarise(
+      has_estimated = any(source == "Estimates", na.rm = TRUE),
+      has_observed = any(source != "Estimates" & !is.na(source), na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(
+      data_status_message = dplyr::case_when(
+        has_estimated & has_observed ~ "Some recent months contain estimated data",
+        has_estimated ~ "Recent months contain estimated data",
+        TRUE ~ "Recent months contain observed data only"
+      )
+    ) %>%
+    dplyr::rename(country_name = .data[[country_col_name]])
+  
+  return(recent_months_data)
+}
+
+
+# ------- Universal Objects
+
+current_year <- as.integer(format(Sys.Date(), "%Y"))
+# current_year <- 2025
+
+# Use the system date to define "current" and "recent" months ---
+current_month <- as.integer(format(Sys.Date(), "%m"))
+# current_month <- 1
+recent_month <- current_month - 1
+if (recent_month == 0) recent_month <- 12  # handle January wrap-around
 
 # ------- Data 
 
 # Run pipeline, open output data
 # source("V1/Scripts/V1_Pipeline.R")
 
-default_data_path <- "V1/Output/2025_10_12/DENV_cases_nowcast_output.csv"
-
-# Function to compare file structures
-compare_file_structure <- function(file1_path, file2_path) {
-  if (!file.exists(file1_path) || !file.exists(file2_path)) {
-    return(FALSE)
-  }
-  
-  # Read just the headers to compare column structure
-  tryCatch({
-    cols1 <- names(read.csv(file1_path, nrows = 0, check.names = FALSE))
-    cols2 <- names(read.csv(file2_path, nrows = 0, check.names = FALSE))
-    
-    # Compare column names (order doesn't matter, but names should match)
-    setequal(cols1, cols2) && length(cols1) == length(cols2) && length(cols1) > 0
-  }, error = function(e) {
-    return(FALSE)
-  })
-}
-
-# Get expected structure from default file
-expected_structure <- if (file.exists(default_data_path)) {
-  tryCatch({
-    cols <- names(read.csv(default_data_path, nrows = 0, check.names = FALSE))
-    # Remove empty first column if present
-    if (length(cols) > 0 && (cols[1] == "" || cols[1] == "X")) {
-      cols <- cols[-1]
-    }
-    if (length(cols) > 0) cols else NULL
-  }, error = function(e) {
-    NULL
-  })
+# Get the most recent data file
+data_path <- if (!is.na(latest_dataset_info$file) && file.exists(latest_dataset_info$file)) {
+  latest_dataset_info$file
 } else {
-  NULL
+  # Fallback to default if no recent file found
+  "V1/Output/2025_10_12/DENV_cases_nowcast_output.csv"
 }
-
-# Function to find a matching file by going back in time
-find_matching_data_file <- function(start_dir, expected_cols, output_root = "V1/Output") {
-  if (is.null(expected_cols) || length(expected_cols) == 0) {
-    # If we can't get expected structure, just use the latest available
-    if (!is.na(start_dir) && file.exists(file.path(start_dir, "DENV_cases_nowcast_output.csv"))) {
-      return(file.path(start_dir, "DENV_cases_nowcast_output.csv"))
-    }
-    return(default_data_path)
-  }
-  
-  # Try the preferred path first
-  preferred_file <- file.path(start_dir, "DENV_cases_nowcast_output.csv")
-  if (!is.na(start_dir) && file.exists(preferred_file)) {
-    if (compare_file_structure(preferred_file, default_data_path)) {
-      return(preferred_file)
-    }
-  }
-  
-  # Get all output directories sorted by date (newest first)
-  output_dirs <- list.dirs(output_root, recursive = FALSE, full.names = TRUE)
-  if (length(output_dirs) == 0) {
-    return(default_data_path)
-  }
-  
-  # Extract dates and sort
-  dir_dates <- tryCatch({
-    dates <- as.Date(gsub("_", "-", basename(output_dirs)))
-    valid_idx <- !is.na(dates)
-    
-    # Only proceed if we have valid dates
-    if (sum(valid_idx) == 0) {
-      return(output_dirs)
-    }
-    
-    dirs_valid <- output_dirs[valid_idx]
-    dates_valid <- dates[valid_idx]
-    
-    # Ensure lengths match
-    if (length(dirs_valid) != length(dates_valid)) {
-      return(output_dirs)
-    }
-    
-    # Sort by date descending (newest first)
-    sorted_idx <- order(dates_valid, decreasing = TRUE)
-    if (length(sorted_idx) != length(dirs_valid)) {
-      return(output_dirs)
-    }
-    dirs_valid[sorted_idx]
-  }, error = function(err) {
-    warning("Error sorting output directories: ", err$message)
-    return(output_dirs)
-  })
-  
-  # Check each directory for a matching file
-  for (dir in dir_dates) {
-    candidate_file <- file.path(dir, "DENV_cases_nowcast_output.csv")
-    if (file.exists(candidate_file)) {
-      # Compare structure
-      tryCatch({
-        candidate_cols <- names(read.csv(candidate_file, nrows = 0, check.names = FALSE))
-        # Remove empty first column if present (for comparison)
-        if (length(candidate_cols) > 0 && (candidate_cols[1] == "" || candidate_cols[1] == "X")) {
-          candidate_cols <- candidate_cols[-1]
-        }
-        if (setequal(candidate_cols, expected_cols) && 
-            length(candidate_cols) == length(expected_cols) && 
-            length(candidate_cols) > 0) {
-          message("✅ Found matching data file: ", candidate_file)
-          return(candidate_file)
-        }
-      }, error = function(e) {
-        # Continue to next file
-      })
-    }
-  }
-  
-  # If no match found, return default (even if structure might not match)
-  warning("No matching file structure found, using default: ", default_data_path)
-  return(default_data_path)
-}
-
-# Find the appropriate data file
-data_path <- find_matching_data_file(
-  start_dir = latest_nowcast_dir,
-  expected_cols = expected_structure
-)
 
 data <- read.csv(data_path, check.names = FALSE)
+
+# data <- read.csv("V1/Output/2026_01_14/DENV_cases_nowcast_output.csv")
 
 # Remove unnamed first column if it exists (often created by row numbers in CSV)
 col_names <- names(data)
 if (length(col_names) > 0 && (col_names[1] == "" || col_names[1] == "X" || col_names[1] == "X.")) {
-  data <- data %>% select(-1)
+  data <- data %>% dplyr::select(-1)
   message("Removed unnamed first column from data")
 }
 
-current_year <- as.integer(format(Sys.Date(), "%Y"))
-
-# Use the system date to define "current" and "recent" months ---
-current_month <- as.integer(format(Sys.Date(), "%m"))
-recent_month <- current_month - 1
-if (recent_month == 0) recent_month <- 12  # handle January wrap-around
+# ----- Corrections and checks
 
 # Correct case data to NA for dates after the current month 
 
@@ -200,8 +126,10 @@ data <- data %>%
     cum_todate_cases_calendar = if_else(is_future, NA_real_, cum_todate_cases_calendar),
     cum_todate_cases_season   = if_else(is_future, NA_real_, cum_todate_cases_season)
   ) %>%
-  select(-is_future)
+  dplyr::select(-is_future)
 
+
+# ----- Build regional Summary
 
 region_summary <- data %>%
   group_by(Region, Year, Month) %>%
@@ -213,7 +141,7 @@ region_summary <- data %>%
     # Optionally include averages of proportions or percentiles if needed
     Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion),
     Ave_monthly_proportion = mean(Ave_monthly_proportion),
-    percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
+    # percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
     n_countries = n_distinct(iso3)
   ) %>%
   ungroup() %>%
@@ -239,6 +167,9 @@ format_big_number <- function(x) {
     }
   )
 }
+
+
+# ----- Build Text phrases for auto text 
 
 ratio_phrase <- function(ratio, baseline_phrase = "the seasonal baseline") {
   len <- length(ratio)
@@ -295,14 +226,14 @@ season_badge_state_class <- function(ratio) {
 }
 
 region_map_lookup <- c(
-  "South America" = "OD_maps/temp_maps/southamerica.png",
-  "Caribbean" = "OD_maps/temp_maps/caribbean.png",
-  "Pacific Islands" = "OD_maps/temp_maps/pacific.png",
-  "South Asia" = "OD_maps/temp_maps/southasia.png",
-  "North & Central America" = "OD_maps/temp_maps/mexico_centralamerica.png",
-  "Sub-Saharan Africa" = "OD_maps/temp_maps/africa.png",
-  "East & Southeast Asia" = "OD_maps/temp_maps/southeast_east_asia.png",
-  "Europe, Middle East & North Africa" = "OD_maps/temp_maps/europe_middleeast.png"
+  "South America" = "../OD_maps/temp_maps/southamerica.png",
+  "Caribbean" = "../OD_maps/temp_maps/caribbean.png",
+  "Pacific Islands" = "../OD_maps/temp_maps/pacific.png",
+  "South Asia" = "../OD_maps/temp_maps/southasia.png",
+  "North & Central America" = "../OD_maps/temp_maps/mexico_centralamerica.png",
+  "Sub-Saharan Africa" = "../OD_maps/temp_maps/africa.png",
+  "East & Southeast Asia" = "../OD_maps/temp_maps/southeast_east_asia.png",
+  "Europe, Middle East & North Africa" = "../OD_maps/temp_maps/europe_middleeast.png"
 )
 
 region_callouts <- {
@@ -313,17 +244,17 @@ region_callouts <- {
     ) %>%
     filter(!is.na(cases)) %>%
     group_by(Region) %>%
-    arrange(date, .by_group = TRUE) %>%
+    dplyr::arrange(date, .by_group = TRUE) %>%
     slice_tail(n = 1) %>%
     ungroup()
   
   region_ytd <- region_summary %>%
     filter(Year == current_year, Month <= recent_month) %>%
     group_by(Region) %>%
-    summarise(
+    dplyr::summarise(
       ytd_cases = sum(cases, na.rm = TRUE),
       ytd_expected = sum(Ave_season_monthly_cases, na.rm = TRUE),
-      .groups = "drop"
+       .groups = "drop"
     )
   
   latest_rows %>%
@@ -342,8 +273,8 @@ region_callouts <- {
       latest_sentence = glue::glue("{Region} logged {latest_cases_label} cases in {latest_month_label}, {monthly_ratio_phrase}."),
       ytd_sentence = ifelse(
         !is.na(ytd_cases_label),
-        glue::glue("Season-to-date totals sit at {ytd_cases_label}, {ytd_ratio_phrase}."),
-        "Season-to-date totals are still being compiled."
+        glue::glue("Year-to-date totals sit at {ytd_cases_label}, {ytd_ratio_phrase}."),
+        "Year-to-date totals are still being compiled."
       ),
       season_badge_label = season_badge_label_text(ytd_ratio),
       season_badge_state = season_badge_state_class(ytd_ratio)
@@ -353,19 +284,16 @@ region_callouts <- {
 
 # ------- All country Plots
 
-# Create named list of all countries’ most recent data
-data_latest <- data %>%
-  filter(Year == current_year)
 
-# 2) split into a named list of data frames (one entry per country)
-split_by_country <- split(data_latest, data_latest$Country)  # names = country names
+# 1) split into a named list of data frames (one entry per country)
+split_by_country <- split(data, data$country)  # names = country names
 
-# 3) generate a named list of plots (same order and names as split_by_country)
+# 2) generate a named list of plots (same order and names as split_by_country)
 # Wrap in tryCatch to prevent one failure from breaking dashboard
 all_country_plots <- lapply(names(split_by_country), function(country_name) {
   df_country <- split_by_country[[country_name]]
   tryCatch({
-    plot_result <- make_radial_plot(df_country)
+    plot_result <- make_radial_plot(df_country, current_year, current_month)
     if (is.null(plot_result)) {
       if (exists("log_message")) {
         log_message("Warning: Failed to generate plot for " %+% country_name %+% " (returned NULL)", level = "WARNING")
@@ -380,10 +308,10 @@ all_country_plots <- lapply(names(split_by_country), function(country_name) {
   })
 })
 
-# Name the list with country names
+# 3) Name the list with country names
 names(all_country_plots) <- names(split_by_country)
 
-# Filter out NULL entries
+# 4) Filter out NULL entries
 all_country_plots <- all_country_plots[!sapply(all_country_plots, is.null)]
 
 
@@ -392,9 +320,8 @@ all_country_plots <- all_country_plots[!sapply(all_country_plots, is.null)]
 
 # 1️⃣ Create the list of region plots
 region_plot_list <- region_summary %>%
-  filter(Year == current_year) %>%
   split(.$Region) %>%
-  purrr::map(make_radial_plot)
+  purrr::map(~ make_radial_plot(.x, current_year, current_month))
 
 
 
@@ -410,15 +337,14 @@ world_summary <- data %>%
     # Optionally include averages of proportions or percentiles if needed
     Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion),
     Ave_monthly_proportion = mean(Ave_monthly_proportion),
-    percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
+    # percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
     n_countries = n_distinct(iso3)
   ) %>%
   ungroup() %>%
   mutate(
-    date = as.Date(paste0(Year, "-", Month, "-01"))) %>%
-  filter( Year == current_year)
+    date = as.Date(paste0(Year, "-", Month, "-01")))
 
-world_plot <- make_radial_plot(world_summary)
+world_plot <- make_radial_plot(world_summary, current_year, current_month)
 
 world_summary_text <- world_summary %>%
   # keep only the focal year (you supply current_year)
@@ -555,36 +481,6 @@ if (!is.na(country_name_col)) {
 }
 
 # ------- Country data status (for reuse across pages) -------
-
-# Function to get data status for countries
-get_country_data_status <- function(data_df, country_col_name = NULL) {
-  if (is.null(country_col_name)) {
-    country_col_name <- if ("Country" %in% names(data_df)) "Country" else "country"
-  }
-  
-  recent_months_data <- data_df %>%
-    dplyr::filter(
-      Year == current_year,
-      Month <= recent_month,
-      Month >= max(1, recent_month - 2)  # Last 3 months
-    ) %>%
-    dplyr::group_by(.data[[country_col_name]]) %>%
-    dplyr::summarise(
-      has_estimated = any(source == "Estimates", na.rm = TRUE),
-      has_observed = any(source != "Estimates" & !is.na(source), na.rm = TRUE),
-      .groups = "drop"
-    ) %>%
-    dplyr::mutate(
-      data_status_message = dplyr::case_when(
-        has_estimated & has_observed ~ "Some recent months contain estimated data",
-        has_estimated ~ "Recent months contain estimated data",
-        TRUE ~ "Recent months contain observed data only"
-      )
-    ) %>%
-    dplyr::rename(country_name = .data[[country_col_name]])
-  
-  return(recent_months_data)
-}
 
 # Create country data status lookup
 country_data_status <- get_country_data_status(data)

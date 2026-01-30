@@ -100,15 +100,10 @@ if (length(missing_objs) > 0) {
 
 # ----- Step 3: determine historic average and baseline seasonality
 
-log_message( "Step 3: selected historic data")
+log_message( "Step 3: selected and combine historic data")
 
 # Select the source of historic data
-source("V1/Scripts/data_sourcing/01_Choosing_WHO_or_OpenDengue_data.R")
-
-log_message( "Step 3: combine data sources")
-
-# Define the combination of WHO and Opendengue data for historical data
-source("V1/Scripts/data_sourcing/02_Combining_WHO_and_OpenDengue_data.R")
+source("V1/Scripts/data_sourcing/01_select_historic_data.R")
 
 log_message( "Step 3: define average season")
 
@@ -206,6 +201,20 @@ if ("country.x" %in% names(data) && "country.y" %in% names(data)) {
   data <- data %>% dplyr::rename(country = country.y)
 }
 
+# If region names don't match, prefer the one from region_map
+if ("Region.x" %in% names(data) && "Region.y" %in% names(data)) {
+  data <- data %>%
+    dplyr::mutate(
+      Region = dplyr::coalesce(Region.x, Region.y)
+    ) %>%
+    dplyr::select(-Region.x, -Region.y)
+} else if ("Region.x" %in% names(data)) {
+  data <- data %>% dplyr::rename(Region = Region.x)
+} else if ("Region.y" %in% names(data)) {
+  data <- data %>% dplyr::rename(Region = Region.y)
+}
+
+
 # Check for countries without region assignments
 countries_without_region <- data %>%
   dplyr::filter(is.na(Region)) %>%
@@ -285,7 +294,80 @@ if (exists("record_countries_at_step")) {
 # 
 # log_message("Region summary rows: " %+% nrow(region_summary))
 
-#----- Step 7: Save outputs 
+#------ Step 7 : monthly severity ( based on nb distribution)
+
+# Calculate real-time severity based on cumulative cases to date
+# This updates monthly as the season progresses
+data_sev <- data %>%
+  group_by(country, iso3, season_nMonth) %>%
+  dplyr::mutate(
+    # Get NB parameters for cumulative cases at this season_nMonth
+    nb_size_cum_at_month = dplyr::first(nb_size_cum),
+    nb_mean_cum_at_month = dplyr::first(nb_mean_cum),
+    
+    # Calculate percentile of current cumulative cases vs. historical distribution
+    # at this same point in the season
+    percentile_cumulative = ifelse(
+      !is.na(cum_todate_cases_season) & 
+        !is.na(nb_size_cum_at_month) & 
+        !is.na(nb_mean_cum_at_month),
+      pnbinom(
+        q = cum_todate_cases_season,
+        size = nb_size_cum_at_month,
+        mu = nb_mean_cum_at_month
+      ) * 100,
+      NA_real_
+    ),
+    
+    # Classify severity based on percentile
+    severity = dplyr::case_when(
+      is.na(percentile_cumulative) ~ "Unknown",
+      percentile_cumulative <= 5 ~ "Extremely Low",
+      percentile_cumulative <= 25 ~ "Low",
+      percentile_cumulative < 75 ~ "Normal",
+      percentile_cumulative < 95 ~ "High",
+      percentile_cumulative >= 95 ~ "Extremely High",
+      TRUE ~ "Unknown"
+    ),
+    
+    severity_interpretation = dplyr::case_when(
+      severity == "Extremely Low" ~ "Rare good event - unusually low cases to date",
+      severity == "Low" ~ "Below average - fewer cases than typical at this point",
+      severity == "Normal" ~ "Average - typical case load at this point",
+      severity == "High" ~ "Above average - more cases than typical at this point",
+      severity == "Extremely High" ~ "Rare bad event - unusually high cases to date",
+      TRUE ~ "Cannot determine"
+    ),
+    
+    # Also calculate how many standard deviations from mean (alternative metric)
+    z_score_cumulative = ifelse(
+      !is.na(cum_todate_cases_season) & 
+        !is.na(nb_mean_cum_at_month) & 
+        !is.na(nb_size_cum_at_month),
+      # Approximate SD from NB parameters: sqrt(mu + mu^2/size)
+      (cum_todate_cases_season - nb_mean_cum_at_month) / 
+        sqrt(nb_mean_cum_at_month + (nb_mean_cum_at_month^2 / nb_size_cum_at_month)),
+      NA_real_
+    )
+  ) %>%
+  dplyr::ungroup()
+
+# For the most recent month, extract the current season severity
+data_sev <- data_sev %>%
+  group_by(country, iso3, Year) %>%
+  dplyr::mutate(
+    # Get most recent month's severity for this season
+    current_season_severity = dplyr::last(severity[!is.na(severity)]),
+    current_season_percentile = dplyr::last(percentile_cumulative[!is.na(percentile_cumulative)]),
+    current_season_interpretation = dplyr::last(severity_interpretation[!is.na(severity_interpretation)])
+  ) %>%
+  dplyr::ungroup() %>%
+  mutate(
+    Country = country
+  )
+
+
+#----- Step 8: Save outputs 
 # ------ Save output df 
 
 
@@ -295,9 +377,9 @@ season_path <- file.path(run_dir, "DENV_average_season.csv")
 tracking_path <- file.path(run_dir, "country_tracking.csv")
 
 log_message("Saving outputs to " %+% run_dir)
-write_csv(current_data, file = current_data_path)
+write.csv(current_data, file = current_data_path)
 log_message("Saved backfill output: " %+% current_data_path)
-write.csv(data, file = nowcast_path, row.names = FALSE)
+write.csv(data_sev, file = nowcast_path, row.names = FALSE)
 log_message("Saved nowcast output: " %+% nowcast_path)
 write.csv(full_data_average_season, file = season_path, row.names = FALSE)
 log_message("Saved average season output: " %+% season_path)
@@ -312,11 +394,3 @@ if (exists("export_country_tracking")) {
 }
 
 
-# ----- close log ----
-
-on.exit({
-  log_message("Pipeline run completed.")
-  sink(type = "message")
-  sink(type = "output")
-  close(log_con)
-})
