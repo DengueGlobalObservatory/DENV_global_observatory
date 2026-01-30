@@ -36,6 +36,53 @@ library(jsonlite)     # Parse JSON responses from GitHub API
 
 
 #' ───────────────────────────────────────────────────────────────
+#' GitHub API Helper Function
+#' ───────────────────────────────────────────────────────────────
+
+#' **github_api_request()**
+#' Makes authenticated GitHub API requests with proper error handling
+#' 
+#' @param url GitHub API URL to request
+#' @return httr response object
+#' @details Automatically uses GITHUB_TOKEN from environment if available.
+#'          Provides better error messages for rate limit issues.
+
+github_api_request <- function(url) {
+  # Get GitHub token from environment variable (optional but recommended)
+  token <- Sys.getenv("GITHUB_TOKEN", unset = "")
+  
+  # Build headers - User-Agent is required by GitHub
+  headers <- c("User-Agent" = "DENV-Observatory/1.0")
+  if (nchar(token) > 0) {
+    headers <- c(headers, "Authorization" = paste("token", token))
+  }
+  
+  res <- GET(url, add_headers(.headers = headers))
+  
+  # Check for rate limit errors and provide helpful message
+  if (status_code(res) == 403) {
+    rate_limit_remaining <- headers(res)$`x-ratelimit-remaining`
+    if (!is.null(rate_limit_remaining) && as.numeric(rate_limit_remaining) == 0) {
+      reset_timestamp <- headers(res)$`x-ratelimit-reset`
+      if (!is.null(reset_timestamp)) {
+        reset_time <- as.POSIXct(
+          as.numeric(reset_timestamp), 
+          origin = "1970-01-01"
+        )
+        stop(sprintf(
+          "GitHub API rate limit exceeded. Reset time: %s. Consider setting GITHUB_TOKEN environment variable for higher limits.",
+          format(reset_time, "%Y-%m-%d %H:%M:%S")
+        ))
+      }
+    }
+  }
+  
+  stop_for_status(res)
+  return(res)
+}
+
+
+#' ───────────────────────────────────────────────────────────────
 #' PAHO dengue dashboard functions
 #' ───────────────────────────────────────────────────────────────
 
@@ -321,8 +368,7 @@ compile_PAHO_github <- function(repo_owner = "DengueGlobalObservatory",
   log_message(paste("Querying GitHub API for data folders:", url))
   
   dirs <- tryCatch({
-    res <- GET(url)
-    stop_for_status(res)
+    res <- github_api_request(url)  # Changed from GET(url)
     fromJSON(content(res, "text"))
   }, error = function(e) {
     log_message(paste("GitHub API request failed:", conditionMessage(e)), level = "ERROR")
@@ -346,8 +392,7 @@ compile_PAHO_github <- function(repo_owner = "DengueGlobalObservatory",
                      repo_owner, repo_name, latest_dir)
 
   files <- tryCatch({
-    res_sub <- GET(url_sub)
-    stop_for_status(res_sub)
+    res_sub <- github_api_request(url_sub)  # Changed from GET(url_sub)
     fromJSON(content(res_sub, "text"))
   }, error = function(e) {
     log_message(paste("Error retrieving file list:", conditionMessage(e)), level = "ERROR")

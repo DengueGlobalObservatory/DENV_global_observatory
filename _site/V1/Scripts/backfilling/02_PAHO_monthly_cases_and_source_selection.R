@@ -4,8 +4,20 @@
 #' Note: This script is dependent on 01_this_season_dengue_data.R
 
 library(ggplot2)
+library(countrycode)
 # Functions: 
 source("V1/Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R")
+
+if (!exists("log_message")) {
+  source("V1/Scripts/utils/logging.R")
+  ensure_logger(console = TRUE)
+}
+
+if (!exists("record_countries_at_step")) {
+  source("V1/Scripts/utils/country_tracking.R")
+}
+
+log_message("Running 02_PAHO_monthly_cases_and_source_selection.")
 
 # ----- PAHO backfilling and monthly case calculation 
 
@@ -14,14 +26,38 @@ source("V1/Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R")
 # apply correction
 paho_correction <- apply_reporting_correction(df = paho, cases_col = "total_den",
                                              output_col = "total_corrected_cases")
+
+
+# Record countries after PAHO correction (Step 4a: PAHO After Correction)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    paho_correction_countries <- paho_correction %>%
+      dplyr::select(country) %>%
+      dplyr::distinct() %>%
+      dplyr::mutate(
+        iso3 = countrycode::countrycode(country, "country.name", "iso3c")
+      ) %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::filter(!is.na(iso3))
+    
+    record_countries_at_step(paho_correction_countries, "Step_4a_PAHO_After_Correction")
+    log_message("Recorded " %+% nrow(paho_correction_countries) %+% " countries after PAHO correction")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 4a PAHO Correction: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
+
+# move to monthly cases 
 # weekly cumm -> month cum -> monthly
 paho_month_cumm  <- compute_monthcumm_cases(df = paho_correction)
 # Calculate monthly cases:
 paho_monthly <-  PAHO_incid_monthly(paho_month_cumm)
+log_message("PAHO monthly rows after correction: " %+% nrow(paho_monthly))
 
 # handle negative values 
 ## -- room for improvement in future
- 
 
 paho_monthly <- paho_monthly %>%
   mutate( 
@@ -33,6 +69,64 @@ paho_monthly <- paho_monthly %>%
     computed_monthly_cases_corr = case_when(computed_monthly_cases_corr < 1 ~ NA, TRUE ~ computed_monthly_cases_corr)
   )
 
+# Log countries without data for current year
+if (exists("log_message")) {
+  current_year <- as.numeric(format(Sys.Date(), "%Y"))
+  
+  # Get all unique countries in PAHO data
+  all_paho_countries <- paho_monthly %>%
+    dplyr::select(country) %>%
+    dplyr::distinct() %>%
+    dplyr::mutate(
+      iso3 = countrycode::countrycode(country, "country.name", "iso3c")
+    ) %>%
+    dplyr::filter(!is.na(iso3))
+  
+  # Get countries with data for current year
+  countries_with_current_year <- paho_monthly %>%
+    dplyr::filter(year == current_year) %>%
+    dplyr::select(country) %>%
+    dplyr::distinct() %>%
+    dplyr::mutate(
+      iso3 = countrycode::countrycode(country, "country.name", "iso3c")
+    ) %>%
+    dplyr::filter(!is.na(iso3))
+  
+  # Identify countries without current year data
+  countries_without_current_year <- all_paho_countries %>%
+    dplyr::filter(!iso3 %in% countries_with_current_year$iso3)
+  
+  log_message("PAHO countries with data for " %+% current_year %+% ": " %+% 
+                nrow(countries_with_current_year) %+% "/" %+% nrow(all_paho_countries))
+  
+  if (nrow(countries_without_current_year) > 0) {
+    log_message("Warning: " %+% nrow(countries_without_current_year) %+% 
+                  " PAHO countries without data for current year (" %+% current_year %+% "): " %+% 
+                  paste(countries_without_current_year$iso3, collapse = ", "), level = "WARNING")
+  } else {
+    log_message("All PAHO countries have data for current year (" %+% current_year %+% ")")
+  }}
+
+# Record countries after PAHO negative value handling (Step 4b: PAHO After Negative Handling)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    paho_monthly_countries <- paho_monthly %>%
+      dplyr::select(country) %>%
+      dplyr::distinct() %>%
+      dplyr::mutate(
+        iso3 = countrycode::countrycode(country, "country.name", "iso3c")
+      ) %>%
+      dplyr::select(country, iso3) %>%
+      dplyr::filter(!is.na(iso3))
+    
+    record_countries_at_step(paho_monthly_countries, "Step_4b_PAHO_After_Negative_Handling")
+    log_message("Recorded " %+% nrow(paho_monthly_countries) %+% " countries after PAHO negative value handling")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 4b PAHO Negative Handling: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
 
 
 # ----- Selection of data sources for each country
@@ -59,7 +153,6 @@ all_countries <- full_join(paho_countries, who_countries, by = "country") %>%
     in_who = replace_na(in_who, FALSE),
     in_searo = replace_na(in_searo, FALSE)
   )
-
 
 
 # make combine df
@@ -137,51 +230,66 @@ who_add <- who %>%
 
 # Step 2: Combine all data
 combine <- bind_rows(paho_add, searo_add, who_add)
+log_message("Combined country-month rows across sources: " %+% nrow(combine))
 
 
 # Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
 final_cases <- combine %>%
-  group_by(country, iso3, date, Year, Month) %>% 
+  mutate( 
+    Month_num = match(Month, month.abb)
+  ) %>%
+  group_by(iso3, Year, Month_num) %>% 
   # order first by NA status (NA last), then by source preference
   arrange(is.na(cases), source == "WHO") %>% 
   # keep the first row in each group (non-NA, non-WHO prioritized)
   slice(1) %>% 
-  ungroup()
+  ungroup() %>%
+  mutate(
+    Month = month.name[Month_num],
+    country = countrycode(iso3, "iso3c", "country.name")
+  )
 
 # Step 4 : Selected needed time frame and columns
 current_year <- as.numeric(format(Sys.Date(), "%Y"))
-season_start <-current_year -2
+season_start <- current_year - 2
 
 current_data <- final_cases %>%
-  filter( Year > season_start) %>%
+  filter(Year > season_start) %>%
   dplyr::select(country,
-         iso3,
-         date,
-         Year,
-         Month,
-         cases,
-         source) %>%
+                iso3,
+                date,
+                Year,
+                Month,
+                cases,
+                source) %>%
   mutate(
-    Month = match(Month, month.abb)
+    # Convert Month to numeric more safely
+    Month = month(as.POSIXlt(date, format="%d/%m/%Y"))
   )
 
+# Log what years are present before completeness expansion
+if (exists("log_message")) {
+  years_present <- unique(current_data$Year)
+  log_message("Years present in data after filtering (Year > " %+% season_start %+% "): " %+% 
+                paste(sort(years_present), collapse = ", "))
+}
 
 
-# Step 5: ensure that all months are list ( even with NAs) for all year:countrys
-
+# Step 5: ensure that all months are listed (even with NAs) for all year:countries
+# Also ensure current year is always included even if no data exists
 current_data <- current_data %>%
-  # clean up Year/Month columns
   mutate(
     Year = as.integer(Year),
     Month = as.integer(Month)
   ) %>%
+  filter(!is.na(Year) & !is.na(Month)) %>%
   
-  # generate all combinations of country, iso3, and each year present in data
   group_by(country, iso3) %>%
   tidyr::complete(
-    Year = full_seq(unique(Year), 1),  # ensures all years in the dataset
-    Month = 1:12,                           # ensures months 1–12 for each year
-    fill = list(cases = NA)                 # only fill cases with NA
+    # Create explicit year sequence: from season_start+1 to current_year
+    Year = (season_start + 1):current_year,  # Explicit range that always includes current_year
+    Month = 1:12,         # ensures months 1–12 for each year
+    fill = list(cases = NA, source = NA)  # Fill both cases and source with NA for missing months
   ) %>%
   ungroup() %>%
   
@@ -190,3 +298,24 @@ current_data <- current_data %>%
   
   # reorder for clarity
   arrange(country, Year, Month)
+
+log_message("Current data rows after completeness expansion: " %+% nrow(current_data))
+
+# Verify current year is present for all countries
+if (exists("log_message")) {
+  all_countries <- current_data %>%
+    dplyr::select(country, iso3) %>%
+    dplyr::distinct()
+  
+  countries_with_current_year <- current_data %>%
+    dplyr::filter(Year == current_year) %>%
+    dplyr::select(country, iso3) %>%
+    dplyr::distinct()
+  
+  if (nrow(countries_with_current_year) == nrow(all_countries)) {
+    log_message("All " %+% nrow(all_countries) %+% " countries have current year (" %+% current_year %+% ") included")
+  } else {
+    log_message("Warning: Only " %+% nrow(countries_with_current_year) %+% "/" %+% nrow(all_countries) %+% 
+                  " countries have current year (" %+% current_year %+% ") data", level = "WARNING")
+  }
+}
