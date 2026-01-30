@@ -5,7 +5,7 @@ format:
     code-fold: false
 ---
 
-![](V1/Assets/logo_large.png)
+![](/Assets/Stable/logo_large.png)
 
 The Global Dengue Observatory is a project run by researchers at the [London School of Hygiene and Tropical Medicine](https://www.lshtm.ac.uk) that aims to monitor the current global dengue situation to enable faster outbreak response.
 

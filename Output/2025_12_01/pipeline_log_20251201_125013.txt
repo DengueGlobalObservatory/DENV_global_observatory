@@ -1,0 +1,23 @@
+[2025-12-01 12:50:13] INFO: Logging initialized.
+[2025-12-01 12:50:13] INFO: =============================================
+[2025-12-01 12:50:13] INFO: Run directory already existed: V1/Output/2025_12_01
+[2025-12-01 12:50:13] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_125013.txt
+[2025-12-01 12:50:13] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-01 12:50:13] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-01 12:50:13] INFO: =============================================
+[2025-12-01 12:50:13] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-01 12:50:13] INFO: Starting compile_PAHO_github()...
+[2025-12-01 12:50:13] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-01 12:50:13] ERROR: GitHub API request failed: Forbidden (HTTP 403).
+[2025-12-01 12:50:13] ERROR: Missing expected data objects: OD_national, paho, searo, who
+[2025-12-01 12:50:13] INFO: Step 3: selected historic data
+[2025-12-01 12:50:13] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-01 12:50:13] INFO: Step 3: combine data sources
+[2025-12-01 12:50:13] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-01 12:50:13] INFO: Step 3: define average season
+[2025-12-01 12:50:13] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-01 12:50:13] INFO: Step 4: select current season data and backfill
+[2025-12-01 12:50:13] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 12:50:13] INFO: Step 5: Nowcast missing recent months
+[2025-12-01 12:50:13] INFO: Running 03_proportion_nowcast.
+[2025-12-01 12:50:13] INFO: Step 6: post processing

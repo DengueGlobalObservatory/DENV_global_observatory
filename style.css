@@ -26,7 +26,7 @@ main.content {
 
 /* Page background image */
 body {
-  background-image: url('V1/Assets/background2.png');
+  background-image: url('Assets/Stable/background2.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

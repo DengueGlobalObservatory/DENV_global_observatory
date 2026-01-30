@@ -1,0 +1,1246 @@
+[2025-12-01 14:10:50] INFO: Logging initialized.
+[2025-12-01 14:10:50] INFO: =============================================
+[2025-12-01 14:10:50] INFO: Run directory already existed: V1/Output/2025_12_01
+[2025-12-01 14:10:50] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-01 14:10:50] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-01 14:10:50] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-01 14:10:50] INFO: =============================================
+[2025-12-01 14:10:50] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-01 14:10:50] INFO: Starting compile_PAHO_github()...
+[2025-12-01 14:10:50] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-01 14:10:50] INFO: Latest available folder: DL_20251201
+[2025-12-01 14:10:50] INFO: Found 53 CSV files in latest folder.
+[2025-12-01 14:10:50] INFO: Reading file: PAHO_2023_2025_W10_202512010839.csv
+[2025-12-01 14:10:51] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:10:51] INFO: PAHO_2023_2025_W10_202512010839.csv read successfully with 133 rows.
+[2025-12-01 14:10:51] INFO: Reading file: PAHO_2023_2025_W11_202512010839.csv
+[2025-12-01 14:10:51] INFO: PAHO_2023_2025_W11_202512010839.csv read successfully with 133 rows.
+[2025-12-01 14:10:51] INFO: Reading file: PAHO_2023_2025_W12_202512010839.csv
+[2025-12-01 14:10:51] INFO: PAHO_2023_2025_W12_202512010839.csv read successfully with 135 rows.
+[2025-12-01 14:10:51] INFO: Reading file: PAHO_2023_2025_W13_202512010839.csv
+[2025-12-01 14:10:51] INFO: PAHO_2023_2025_W13_202512010839.csv read successfully with 135 rows.
+[2025-12-01 14:10:51] INFO: Reading file: PAHO_2023_2025_W14_202512010839.csv
+[2025-12-01 14:10:51] INFO: PAHO_2023_2025_W14_202512010839.csv read successfully with 135 rows.
+[2025-12-01 14:10:51] INFO: Reading file: PAHO_2023_2025_W15_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W15_202512010839.csv read successfully with 135 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W16_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W16_202512010839.csv read successfully with 136 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W17_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W17_202512010839.csv read successfully with 136 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W18_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W18_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W19_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W19_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W1_202512010839.csv
+[2025-12-01 14:10:52] INFO: PAHO_2023_2025_W1_202512010839.csv read successfully with 126 rows.
+[2025-12-01 14:10:52] INFO: Reading file: PAHO_2023_2025_W20_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W20_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W21_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W21_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W22_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W22_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W23_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W23_202512010839.csv read successfully with 137 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W24_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W24_202512010839.csv read successfully with 138 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W25_202512010839.csv
+[2025-12-01 14:10:53] INFO: PAHO_2023_2025_W25_202512010839.csv read successfully with 138 rows.
+[2025-12-01 14:10:53] INFO: Reading file: PAHO_2023_2025_W26_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W26_202512010839.csv read successfully with 138 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W27_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W27_202512010839.csv read successfully with 138 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W28_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W28_202512010839.csv read successfully with 139 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W29_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W29_202512010839.csv read successfully with 139 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W2_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W2_202512010839.csv read successfully with 127 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W30_202512010839.csv
+[2025-12-01 14:10:54] INFO: PAHO_2023_2025_W30_202512010839.csv read successfully with 139 rows.
+[2025-12-01 14:10:54] INFO: Reading file: PAHO_2023_2025_W31_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W31_202512010839.csv read successfully with 140 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W32_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W32_202512010839.csv read successfully with 140 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W33_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W33_202512010839.csv read successfully with 140 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W34_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W34_202512010839.csv read successfully with 140 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W35_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W35_202512010839.csv read successfully with 140 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W36_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W36_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W37_202512010839.csv
+[2025-12-01 14:10:55] INFO: PAHO_2023_2025_W37_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:55] INFO: Reading file: PAHO_2023_2025_W38_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W38_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W39_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W39_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W3_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W3_202512010839.csv read successfully with 127 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W40_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W40_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W41_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W41_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W42_202512010839.csv
+[2025-12-01 14:10:56] INFO: PAHO_2023_2025_W42_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:56] INFO: Reading file: PAHO_2023_2025_W43_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W43_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W44_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W44_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W45_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W45_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W46_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W46_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W47_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W47_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W48_202512010839.csv
+[2025-12-01 14:10:57] INFO: PAHO_2023_2025_W48_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:57] INFO: Reading file: PAHO_2023_2025_W49_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W49_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W4_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W4_202512010839.csv read successfully with 131 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W50_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W50_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W51_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W51_202512010839.csv read successfully with 141 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W52_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W52_202512010839.csv read successfully with 142 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W53_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W53_202512010839.csv read successfully with 142 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W5_202512010839.csv
+[2025-12-01 14:10:58] INFO: PAHO_2023_2025_W5_202512010839.csv read successfully with 131 rows.
+[2025-12-01 14:10:58] INFO: Reading file: PAHO_2023_2025_W6_202512010839.csv
+[2025-12-01 14:10:59] INFO: PAHO_2023_2025_W6_202512010839.csv read successfully with 132 rows.
+[2025-12-01 14:10:59] INFO: Reading file: PAHO_2023_2025_W7_202512010839.csv
+[2025-12-01 14:10:59] INFO: PAHO_2023_2025_W7_202512010839.csv read successfully with 132 rows.
+[2025-12-01 14:10:59] INFO: Reading file: PAHO_2023_2025_W8_202512010839.csv
+[2025-12-01 14:10:59] INFO: PAHO_2023_2025_W8_202512010839.csv read successfully with 133 rows.
+[2025-12-01 14:10:59] INFO: Reading file: PAHO_2023_2025_W9_202512010839.csv
+[2025-12-01 14:10:59] INFO: PAHO_2023_2025_W9_202512010839.csv read successfully with 133 rows.
+[2025-12-01 14:10:59] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:10:59] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:10:59] INFO: ✅ PAHO compilation complete for week 20251201
+[2025-12-01 14:10:59] INFO: Rows: 7281 Cols: 19
+[2025-12-01 14:10:59] INFO: Total duration: 9.33 seconds
+[2025-12-01 14:10:59] INFO: Start WHO - API download...
+[2025-12-01 14:10:59] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-01 14:11:00] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:11:00] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:11:00] INFO: Start SEARO - API download...
+[2025-12-01 14:11:00] INFO: SEARO - Opening file:SEARO_National_data_20251130_0816.csv
+
+[2025-12-01 14:11:00] INFO: Open Open Dengue 
+[2025-12-01 14:11:00] INFO: Open Dengue complete
+[2025-12-01 14:11:00] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-01 14:11:00] INFO: Completed 01_dengue_data.R
+[2025-12-01 14:11:00] INFO: All expected data objects are present.
+[2025-12-01 14:11:00] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-01 14:11:00] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-01 14:11:00] INFO: Country tracking initialized with 340 countries
+[2025-12-01 14:11:00] INFO: Step 3: selected historic data
+[2025-12-01 14:11:00] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-01 14:11:01] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:11:01] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:11:01] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 14:11:01] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-01 14:11:01] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-01 14:11:01] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-01 14:11:01] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-01 14:11:01] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-01 14:11:01] INFO: Count - Countries only included in WHO database: 65
+[2025-12-01 14:11:01] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-01 14:11:04] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-01 14:11:04] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-01 14:11:04] INFO: Step 3: combine data sources
+[2025-12-01 14:11:04] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-01 14:11:04] INFO: Selected OpenDengue records: 60060
+[2025-12-01 14:11:04] INFO: Selected WHO records: 2621
+[2025-12-01 14:11:04] INFO: Combined dataset rows: 33183
+[2025-12-01 14:11:07] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-01 14:11:07] INFO: Filtered combined dataset rows: 13056
+[2025-12-01 14:11:07] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-01 14:11:07] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-01 14:11:07] INFO: Step 3: define average season
+[2025-12-01 14:11:07] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-01 14:11:07] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-01 14:11:07] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-01 14:11:08] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 14:11:08] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-01 14:11:08] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-01 14:11:08] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-01 14:11:08] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-01 14:11:08] INFO: Step 4: select current season data and backfill
+[2025-12-01 14:11:08] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 14:11:08] INFO: PAHO monthly rows after correction: 1535
+[2025-12-01 14:11:08] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 14:11:08] INFO: Combined country-month rows across sources: 12426
+[2025-12-01 14:11:08] INFO: Current data rows after completeness expansion: 4500
+[2025-12-01 14:11:08] INFO: Completed 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 14:11:08] INFO: Step Step_4_Current_Data: 191 countries present
+[2025-12-01 14:11:08] INFO: Step 5: Nowcast missing recent months
+[2025-12-01 14:11:08] INFO: Running 03_proportion_nowcast.
+[2025-12-01 14:11:08] INFO: Countries in seasonal baseline: 88
+[2025-12-01 14:11:08] INFO: Countries in current data: 191
+[2025-12-01 14:11:08] INFO: Countries in both: 81
+[2025-12-01 14:11:08] INFO: Countries only in seasonal: 7
+[2025-12-01 14:11:08] INFO: Countries only in current: 110
+[2025-12-01 14:11:08] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 14:11:08] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 14:11:08] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 14:11:08] INFO: Merged historic and current data rows: 4632
+[2025-12-01 14:11:08] INFO: Unique countries after merge: 198
+[2025-12-01 14:11:08] INFO: Target countries preserved after merge: 14/14
+[2025-12-01 14:11:08] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-01 14:11:08] INFO: Nowcasting completed; estimated rows: 161
+[2025-12-01 14:11:08] INFO: Completed 03_proportion_nowcast.
+[2025-12-01 14:11:08] INFO: Step Step_5_Nowcast_Merge: 198 countries present
+[2025-12-01 14:11:08] INFO: Step 6: post processing
+[2025-12-01 14:11:08] INFO: Step Step_6_Final: 198 countries present
+[2025-12-01 14:11:08] INFO: Saving outputs to V1/Output/2025_12_01
+[2025-12-01 14:11:08] INFO: Saved backfill output: V1/Output/2025_12_01/DENV_cases_backfill_output.csv
+[2025-12-01 14:11:09] INFO: Saved nowcast output: V1/Output/2025_12_01/DENV_cases_nowcast_output.csv
+[2025-12-01 14:11:09] INFO: Saved average season output: V1/Output/2025_12_01/DENV_average_season.csv
+[2025-12-01 14:11:09] INFO: Country tracking exported to: V1/Output/2025_12_01/country_tracking.csv
+[2025-12-01 14:11:09] INFO: Summary statistics exported to: V1/Output/2025_12_01/country_tracking_summary.csv
+[2025-12-01 16:45:04] INFO: =============================================
+[2025-12-01 16:45:04] INFO: Run directory already existed: V1/Output/2025_12_01
+[2025-12-01 16:45:04] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-01 16:45:04] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-01 16:45:04] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-01 16:45:04] INFO: =============================================
+[2025-12-01 16:45:04] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-01 16:45:04] INFO: Starting compile_PAHO_github()...
+[2025-12-01 16:45:04] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-01 16:45:04] INFO: Latest available folder: DL_20251201
+[2025-12-01 16:45:05] INFO: Found 53 CSV files in latest folder.
+[2025-12-01 16:45:05] INFO: Reading file: PAHO_2023_2025_W10_202512010839.csv
+[2025-12-01 16:45:05] INFO: PAHO_2023_2025_W10_202512010839.csv read successfully with 133 rows.
+[2025-12-01 16:45:05] INFO: Reading file: PAHO_2023_2025_W11_202512010839.csv
+[2025-12-01 16:45:05] INFO: PAHO_2023_2025_W11_202512010839.csv read successfully with 133 rows.
+[2025-12-01 16:45:05] INFO: Reading file: PAHO_2023_2025_W12_202512010839.csv
+[2025-12-01 16:45:05] INFO: PAHO_2023_2025_W12_202512010839.csv read successfully with 135 rows.
+[2025-12-01 16:45:05] INFO: Reading file: PAHO_2023_2025_W13_202512010839.csv
+[2025-12-01 16:45:06] INFO: PAHO_2023_2025_W13_202512010839.csv read successfully with 135 rows.
+[2025-12-01 16:45:06] INFO: Reading file: PAHO_2023_2025_W14_202512010839.csv
+[2025-12-01 16:45:06] INFO: PAHO_2023_2025_W14_202512010839.csv read successfully with 135 rows.
+[2025-12-01 16:45:06] INFO: Reading file: PAHO_2023_2025_W15_202512010839.csv
+[2025-12-01 16:45:06] INFO: PAHO_2023_2025_W15_202512010839.csv read successfully with 135 rows.
+[2025-12-01 16:45:06] INFO: Reading file: PAHO_2023_2025_W16_202512010839.csv
+[2025-12-01 16:45:06] INFO: PAHO_2023_2025_W16_202512010839.csv read successfully with 136 rows.
+[2025-12-01 16:45:06] INFO: Reading file: PAHO_2023_2025_W17_202512010839.csv
+[2025-12-01 16:45:06] INFO: PAHO_2023_2025_W17_202512010839.csv read successfully with 136 rows.
+[2025-12-01 16:45:06] INFO: Reading file: PAHO_2023_2025_W18_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W18_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W19_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W19_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W1_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W1_202512010839.csv read successfully with 126 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W20_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W20_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W21_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W21_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W22_202512010839.csv
+[2025-12-01 16:45:07] INFO: PAHO_2023_2025_W22_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:07] INFO: Reading file: PAHO_2023_2025_W23_202512010839.csv
+[2025-12-01 16:45:08] INFO: PAHO_2023_2025_W23_202512010839.csv read successfully with 137 rows.
+[2025-12-01 16:45:08] INFO: Reading file: PAHO_2023_2025_W24_202512010839.csv
+[2025-12-01 16:45:08] INFO: PAHO_2023_2025_W24_202512010839.csv read successfully with 138 rows.
+[2025-12-01 16:45:08] INFO: Reading file: PAHO_2023_2025_W25_202512010839.csv
+[2025-12-01 16:45:08] INFO: PAHO_2023_2025_W25_202512010839.csv read successfully with 138 rows.
+[2025-12-01 16:45:08] INFO: Reading file: PAHO_2023_2025_W26_202512010839.csv
+[2025-12-01 16:45:08] INFO: PAHO_2023_2025_W26_202512010839.csv read successfully with 138 rows.
+[2025-12-01 16:45:08] INFO: Reading file: PAHO_2023_2025_W27_202512010839.csv
+[2025-12-01 16:45:09] INFO: PAHO_2023_2025_W27_202512010839.csv read successfully with 138 rows.
+[2025-12-01 16:45:09] INFO: Reading file: PAHO_2023_2025_W28_202512010839.csv
+[2025-12-01 16:45:09] INFO: PAHO_2023_2025_W28_202512010839.csv read successfully with 139 rows.
+[2025-12-01 16:45:09] INFO: Reading file: PAHO_2023_2025_W29_202512010839.csv
+[2025-12-01 16:45:09] INFO: PAHO_2023_2025_W29_202512010839.csv read successfully with 139 rows.
+[2025-12-01 16:45:09] INFO: Reading file: PAHO_2023_2025_W2_202512010839.csv
+[2025-12-01 16:45:09] INFO: PAHO_2023_2025_W2_202512010839.csv read successfully with 127 rows.
+[2025-12-01 16:45:09] INFO: Reading file: PAHO_2023_2025_W30_202512010839.csv
+[2025-12-01 16:45:09] INFO: PAHO_2023_2025_W30_202512010839.csv read successfully with 139 rows.
+[2025-12-01 16:45:09] INFO: Reading file: PAHO_2023_2025_W31_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W31_202512010839.csv read successfully with 140 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W32_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W32_202512010839.csv read successfully with 140 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W33_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W33_202512010839.csv read successfully with 140 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W34_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W34_202512010839.csv read successfully with 140 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W35_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W35_202512010839.csv read successfully with 140 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W36_202512010839.csv
+[2025-12-01 16:45:10] INFO: PAHO_2023_2025_W36_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:10] INFO: Reading file: PAHO_2023_2025_W37_202512010839.csv
+[2025-12-01 16:45:11] INFO: PAHO_2023_2025_W37_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:11] INFO: Reading file: PAHO_2023_2025_W38_202512010839.csv
+[2025-12-01 16:45:11] INFO: PAHO_2023_2025_W38_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:11] INFO: Reading file: PAHO_2023_2025_W39_202512010839.csv
+[2025-12-01 16:45:11] INFO: PAHO_2023_2025_W39_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:11] INFO: Reading file: PAHO_2023_2025_W3_202512010839.csv
+[2025-12-01 16:45:11] INFO: PAHO_2023_2025_W3_202512010839.csv read successfully with 127 rows.
+[2025-12-01 16:45:11] INFO: Reading file: PAHO_2023_2025_W40_202512010839.csv
+[2025-12-01 16:45:11] INFO: PAHO_2023_2025_W40_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:11] INFO: Reading file: PAHO_2023_2025_W41_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W41_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W42_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W42_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W43_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W43_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W44_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W44_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W45_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W45_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W46_202512010839.csv
+[2025-12-01 16:45:12] INFO: PAHO_2023_2025_W46_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:12] INFO: Reading file: PAHO_2023_2025_W47_202512010839.csv
+[2025-12-01 16:45:13] INFO: PAHO_2023_2025_W47_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:13] INFO: Reading file: PAHO_2023_2025_W48_202512010839.csv
+[2025-12-01 16:45:13] INFO: PAHO_2023_2025_W48_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:13] INFO: Reading file: PAHO_2023_2025_W49_202512010839.csv
+[2025-12-01 16:45:13] INFO: PAHO_2023_2025_W49_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:13] INFO: Reading file: PAHO_2023_2025_W4_202512010839.csv
+[2025-12-01 16:45:13] INFO: PAHO_2023_2025_W4_202512010839.csv read successfully with 131 rows.
+[2025-12-01 16:45:13] INFO: Reading file: PAHO_2023_2025_W50_202512010839.csv
+[2025-12-01 16:45:13] INFO: PAHO_2023_2025_W50_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:13] INFO: Reading file: PAHO_2023_2025_W51_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W51_202512010839.csv read successfully with 141 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W52_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W52_202512010839.csv read successfully with 142 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W53_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W53_202512010839.csv read successfully with 142 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W5_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W5_202512010839.csv read successfully with 131 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W6_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W6_202512010839.csv read successfully with 132 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W7_202512010839.csv
+[2025-12-01 16:45:14] INFO: PAHO_2023_2025_W7_202512010839.csv read successfully with 132 rows.
+[2025-12-01 16:45:14] INFO: Reading file: PAHO_2023_2025_W8_202512010839.csv
+[2025-12-01 16:45:15] INFO: PAHO_2023_2025_W8_202512010839.csv read successfully with 133 rows.
+[2025-12-01 16:45:15] INFO: Reading file: PAHO_2023_2025_W9_202512010839.csv
+[2025-12-01 16:45:15] INFO: PAHO_2023_2025_W9_202512010839.csv read successfully with 133 rows.
+[2025-12-01 16:45:15] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:15] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:15] INFO: ✅ PAHO compilation complete for week 20251201
+[2025-12-01 16:45:15] INFO: Rows: 7281 Cols: 19
+[2025-12-01 16:45:15] INFO: Total duration: 11.01 seconds
+[2025-12-01 16:45:15] INFO: Start WHO - API download...
+[2025-12-01 16:45:15] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-01 16:45:16] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:16] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:16] INFO: Start SEARO - API download...
+[2025-12-01 16:45:16] INFO: SEARO - Opening file:SEARO_National_data_20251130_0816.csv
+
+[2025-12-01 16:45:16] INFO: Open Open Dengue 
+[2025-12-01 16:45:16] INFO: Open Dengue complete
+[2025-12-01 16:45:16] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-01 16:45:16] INFO: Completed 01_dengue_data.R
+[2025-12-01 16:45:16] INFO: All expected data objects are present.
+[2025-12-01 16:45:16] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-01 16:45:16] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-01 16:45:16] INFO: Country tracking initialized with 340 countries
+[2025-12-01 16:45:16] INFO: Step 3: selected historic data
+[2025-12-01 16:45:16] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-01 16:45:16] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:16] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:16] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 16:45:16] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-01 16:45:16] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-01 16:45:16] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-01 16:45:16] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-01 16:45:16] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-01 16:45:16] INFO: Count - Countries only included in WHO database: 65
+[2025-12-01 16:45:16] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-01 16:45:19] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-01 16:45:19] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-01 16:45:19] INFO: Step 3: combine data sources
+[2025-12-01 16:45:19] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-01 16:45:19] INFO: Selected OpenDengue records: 60060
+[2025-12-01 16:45:19] INFO: Selected WHO records: 2621
+[2025-12-01 16:45:19] INFO: Combined dataset rows: 33183
+[2025-12-01 16:45:22] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-01 16:45:22] INFO: Filtered combined dataset rows: 13056
+[2025-12-01 16:45:22] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-01 16:45:22] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-01 16:45:22] INFO: Step 3: define average season
+[2025-12-01 16:45:22] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-01 16:45:22] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-01 16:45:22] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-01 16:45:23] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 16:45:23] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-01 16:45:23] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-01 16:45:23] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-01 16:45:23] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-01 16:45:23] INFO: Step 4: select current season data and backfill
+[2025-12-01 16:45:23] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 16:45:23] INFO: PAHO monthly rows after correction: 1535
+[2025-12-01 16:45:23] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 16:45:23] INFO: Combined country-month rows across sources: 12426
+[2025-12-01 16:45:24] INFO: Current data rows after completeness expansion: 4500
+[2025-12-01 16:45:24] INFO: Completed 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 16:45:24] INFO: Step Step_4_Current_Data: 191 countries present
+[2025-12-01 16:45:24] INFO: Step 5: Nowcast missing recent months
+[2025-12-01 16:45:24] INFO: Running 03_proportion_nowcast.
+[2025-12-01 16:45:24] INFO: Countries in seasonal baseline: 88
+[2025-12-01 16:45:24] INFO: Countries in current data: 191
+[2025-12-01 16:45:24] INFO: Countries in both: 81
+[2025-12-01 16:45:24] INFO: Countries only in seasonal: 7
+[2025-12-01 16:45:24] INFO: Countries only in current: 110
+[2025-12-01 16:45:24] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 16:45:24] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 16:45:24] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 16:45:24] INFO: Merged historic and current data rows: 4632
+[2025-12-01 16:45:24] INFO: Unique countries after merge: 198
+[2025-12-01 16:45:24] INFO: Target countries preserved after merge: 14/14
+[2025-12-01 16:45:24] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-01 16:45:24] INFO: Nowcasting completed; estimated rows: 161
+[2025-12-01 16:45:24] INFO: Completed 03_proportion_nowcast.
+[2025-12-01 16:45:24] INFO: Step Step_5_Nowcast_Merge: 198 countries present
+[2025-12-01 16:45:24] INFO: Step 6: post processing
+[2025-12-01 16:47:16] INFO: Step Step_6_Final: 127 countries present
+[2025-12-01 16:47:37] INFO: Saving outputs to V1/Output/2025_12_01
+[2025-12-01 16:47:37] INFO: Saved backfill output: V1/Output/2025_12_01/DENV_cases_backfill_output.csv
+[2025-12-01 16:47:38] INFO: Saved nowcast output: V1/Output/2025_12_01/DENV_cases_nowcast_output.csv
+[2025-12-01 16:47:38] INFO: Saved average season output: V1/Output/2025_12_01/DENV_average_season.csv
+[2025-12-01 16:47:38] INFO: Country tracking exported to: V1/Output/2025_12_01/country_tracking.csv
+[2025-12-01 16:47:38] INFO: Summary statistics exported to: V1/Output/2025_12_01/country_tracking_summary.csv
+[2025-12-01 16:49:08] INFO: Country tracking exported to: V1/Output/2025_12_01/country_tracking.csv
+[2025-12-01 16:49:08] INFO: Summary statistics exported to: V1/Output/2025_12_01/country_tracking_summary.csv
+[2025-12-01 17:18:36] INFO: =============================================
+[2025-12-01 17:18:36] INFO: Run directory already existed: V1/Output/2025_12_01
+[2025-12-01 17:18:36] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-01 17:18:36] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-01 17:18:36] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-01 17:18:36] INFO: =============================================
+[2025-12-01 17:18:36] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-01 17:18:36] INFO: Starting compile_PAHO_github()...
+[2025-12-01 17:18:36] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-01 17:18:37] INFO: Latest available folder: DL_20251201
+[2025-12-01 17:18:37] INFO: Found 53 CSV files in latest folder.
+[2025-12-01 17:18:37] INFO: Reading file: PAHO_2023_2025_W10_202512010839.csv
+[2025-12-01 17:18:37] INFO: PAHO_2023_2025_W10_202512010839.csv read successfully with 133 rows.
+[2025-12-01 17:18:37] INFO: Reading file: PAHO_2023_2025_W11_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W11_202512010839.csv read successfully with 133 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W12_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W12_202512010839.csv read successfully with 135 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W13_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W13_202512010839.csv read successfully with 135 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W14_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W14_202512010839.csv read successfully with 135 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W15_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W15_202512010839.csv read successfully with 135 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W16_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W16_202512010839.csv read successfully with 136 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W17_202512010839.csv
+[2025-12-01 17:18:38] INFO: PAHO_2023_2025_W17_202512010839.csv read successfully with 136 rows.
+[2025-12-01 17:18:38] INFO: Reading file: PAHO_2023_2025_W18_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W18_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W19_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W19_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W1_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W1_202512010839.csv read successfully with 126 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W20_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W20_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W21_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W21_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W22_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W22_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W23_202512010839.csv
+[2025-12-01 17:18:39] INFO: PAHO_2023_2025_W23_202512010839.csv read successfully with 137 rows.
+[2025-12-01 17:18:39] INFO: Reading file: PAHO_2023_2025_W24_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W24_202512010839.csv read successfully with 138 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W25_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W25_202512010839.csv read successfully with 138 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W26_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W26_202512010839.csv read successfully with 138 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W27_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W27_202512010839.csv read successfully with 138 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W28_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W28_202512010839.csv read successfully with 139 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W29_202512010839.csv
+[2025-12-01 17:18:40] INFO: PAHO_2023_2025_W29_202512010839.csv read successfully with 139 rows.
+[2025-12-01 17:18:40] INFO: Reading file: PAHO_2023_2025_W2_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W2_202512010839.csv read successfully with 127 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W30_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W30_202512010839.csv read successfully with 139 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W31_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W31_202512010839.csv read successfully with 140 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W32_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W32_202512010839.csv read successfully with 140 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W33_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W33_202512010839.csv read successfully with 140 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W34_202512010839.csv
+[2025-12-01 17:18:41] INFO: PAHO_2023_2025_W34_202512010839.csv read successfully with 140 rows.
+[2025-12-01 17:18:41] INFO: Reading file: PAHO_2023_2025_W35_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W35_202512010839.csv read successfully with 140 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W36_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W36_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W37_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W37_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W38_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W38_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W39_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W39_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W3_202512010839.csv
+[2025-12-01 17:18:42] INFO: PAHO_2023_2025_W3_202512010839.csv read successfully with 127 rows.
+[2025-12-01 17:18:42] INFO: Reading file: PAHO_2023_2025_W40_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W40_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W41_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W41_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W42_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W42_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W43_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W43_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W44_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W44_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W45_202512010839.csv
+[2025-12-01 17:18:43] INFO: PAHO_2023_2025_W45_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:43] INFO: Reading file: PAHO_2023_2025_W46_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W46_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W47_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W47_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W48_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W48_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W49_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W49_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W4_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W4_202512010839.csv read successfully with 131 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W50_202512010839.csv
+[2025-12-01 17:18:44] INFO: PAHO_2023_2025_W50_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:44] INFO: Reading file: PAHO_2023_2025_W51_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W51_202512010839.csv read successfully with 141 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W52_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W52_202512010839.csv read successfully with 142 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W53_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W53_202512010839.csv read successfully with 142 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W5_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W5_202512010839.csv read successfully with 131 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W6_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W6_202512010839.csv read successfully with 132 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W7_202512010839.csv
+[2025-12-01 17:18:45] INFO: PAHO_2023_2025_W7_202512010839.csv read successfully with 132 rows.
+[2025-12-01 17:18:45] INFO: Reading file: PAHO_2023_2025_W8_202512010839.csv
+[2025-12-01 17:18:46] INFO: PAHO_2023_2025_W8_202512010839.csv read successfully with 133 rows.
+[2025-12-01 17:18:46] INFO: Reading file: PAHO_2023_2025_W9_202512010839.csv
+[2025-12-01 17:18:46] INFO: PAHO_2023_2025_W9_202512010839.csv read successfully with 133 rows.
+[2025-12-01 17:18:46] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:46] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:46] INFO: ✅ PAHO compilation complete for week 20251201
+[2025-12-01 17:18:46] INFO: Rows: 7281 Cols: 19
+[2025-12-01 17:18:46] INFO: Total duration: 9.29 seconds
+[2025-12-01 17:18:46] INFO: Start WHO - API download...
+[2025-12-01 17:18:46] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-01 17:18:46] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:46] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:46] INFO: Start SEARO - API download...
+[2025-12-01 17:18:47] INFO: SEARO - Opening file:SEARO_National_data_20251130_0816.csv
+
+[2025-12-01 17:18:47] INFO: Open Open Dengue 
+[2025-12-01 17:18:47] INFO: Open Dengue complete
+[2025-12-01 17:18:47] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-01 17:18:47] INFO: Completed 01_dengue_data.R
+[2025-12-01 17:18:47] INFO: All expected data objects are present.
+[2025-12-01 17:18:47] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-01 17:18:47] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-01 17:18:47] INFO: Country tracking initialized with 340 countries
+[2025-12-01 17:18:47] INFO: Step 3: selected historic data
+[2025-12-01 17:18:47] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-01 17:18:47] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:47] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:47] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-01 17:18:47] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-01 17:18:47] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-01 17:18:47] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-01 17:18:47] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-01 17:18:47] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-01 17:18:47] INFO: Count - Countries only included in WHO database: 65
+[2025-12-01 17:18:47] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-01 17:18:50] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-01 17:18:50] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-01 17:18:50] INFO: Step 3: combine data sources
+[2025-12-01 17:18:50] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-01 17:18:50] INFO: Selected OpenDengue records: 60060
+[2025-12-01 17:18:50] INFO: Selected WHO records: 2621
+[2025-12-01 17:18:50] INFO: Combined dataset rows: 33183
+[2025-12-01 17:18:53] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-01 17:18:53] INFO: Filtered combined dataset rows: 13056
+[2025-12-01 17:18:53] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-01 17:18:53] INFO: Created drop reasons for 28 countries dropped at step 3b filtering
+[2025-12-01 17:18:53] INFO: Using country-specific drop reasons for 28 countries at step 3b
+[2025-12-01 17:18:53] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-01 17:18:53] INFO: Step 3: define average season
+[2025-12-01 17:18:53] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-01 17:18:53] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-01 17:18:53] INFO: Step 3c Filter 1 (complete seasons): 125 countries before, 109 countries after, 13 dropped
+[2025-12-01 17:18:53] INFO: Step 3c Filter 2 (min cases): 109 countries before, 108 countries after, 1 dropped
+[2025-12-01 17:18:53] INFO: Step 3c Filter 3 (min seasons): 108 countries before, 90 countries after, 16 dropped
+[2025-12-01 17:18:53] WARNING: AFG dropped at min seasons filter
+[2025-12-01 17:18:53] INFO: AFG has 1 complete seasons after min cases filter
+[2025-12-01 17:18:53] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-01 17:18:54] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 17:18:54] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-01 17:18:54] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-01 17:18:54] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-01 17:18:54] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-01 17:18:54] INFO: Step 4: select current season data and backfill
+[2025-12-01 17:18:54] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 17:18:54] INFO: PAHO monthly rows after correction: 1535
+[2025-12-01 17:18:54] WARNING: missing value where TRUE/FALSE needed
+[2025-12-01 17:18:54] INFO: Combined country-month rows across sources: 12426
+[2025-12-01 17:18:55] INFO: Current data rows after completeness expansion: 4500
+[2025-12-01 17:18:55] INFO: Completed 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-01 17:18:55] INFO: Step Step_4_Current_Data: 193 countries present
+[2025-12-01 17:18:55] INFO: Step 5: Nowcast missing recent months
+[2025-12-01 17:18:55] INFO: Running 03_proportion_nowcast.
+[2025-12-01 17:18:55] INFO: Countries in seasonal baseline: 88
+[2025-12-01 17:18:55] INFO: Countries in current data: 191
+[2025-12-01 17:18:55] INFO: Countries in both: 81
+[2025-12-01 17:18:55] INFO: Countries only in seasonal: 7
+[2025-12-01 17:18:55] INFO: Countries only in current: 110
+[2025-12-01 17:18:55] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 17:18:55] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 17:18:55] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-01 17:18:55] INFO: Merged historic and current data rows: 4632
+[2025-12-01 17:18:55] INFO: Unique countries after merge: 198
+[2025-12-01 17:18:55] INFO: Target countries preserved after merge: 14/14
+[2025-12-01 17:18:55] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-01 17:18:55] INFO: Nowcasting completed; estimated rows: 161
+[2025-12-01 17:18:55] INFO: Completed 03_proportion_nowcast.
+[2025-12-01 17:18:55] INFO: Step Step_5_Nowcast_Merge: 200 countries present
+[2025-12-01 17:18:55] INFO: Excluded 111 countries without seasonal averages from final output
+[2025-12-01 17:18:55] INFO: Excluded countries: AFG, AGO, AIA, ALB, AND, ARM, AUT, AZE, BDI, BEL, BEN, BGR, BHS, BIH, BLR, BMU, CAF, CAN, CHE, CHL, CMR, COG, CPV, CYP, CZE, DEU, DNK, ESP, EST, ETH, FIN, FRA, GAB, GBR, GEO, GHA, GIN, GMB, GNB, GNQ, GRC, HRV, HUN, IRL, IRN, ISL, ISR, ITA, KAZ, KGZ, LBR, LIE, LTU, LUX, LVA, MCO, MDA, MDG, MKD, MLI, MLT, MNE, MNP, MOZ, MRT, MSR, MUS, MWI, MYT, NAM, NER, NIU, NLD, NOR, PCN, POL, PRT, ROU, RUS, RWA, SLE, SMR, SRB, SSD, STP, SVK, SVN, SWE, SYC, TCD, TGO, TJK, TKL, TKM, TUR, TZA, UGA, UKR, URY, UZB, VAT, VIR, VIR, ZMB, ZWE, NA, BWA, COM, GUM, MDR, NRU
+[2025-12-01 17:18:55] INFO: Step 6: post processing
+[2025-12-01 17:18:55] INFO: Step Step_6_Final: 88 countries present
+[2025-12-01 17:18:55] INFO: Saving outputs to V1/Output/2025_12_01
+[2025-12-01 17:18:55] INFO: Saved backfill output: V1/Output/2025_12_01/DENV_cases_backfill_output.csv
+[2025-12-01 17:18:55] INFO: Saved nowcast output: V1/Output/2025_12_01/DENV_cases_nowcast_output.csv
+[2025-12-01 17:18:55] INFO: Saved average season output: V1/Output/2025_12_01/DENV_average_season.csv
+[2025-12-01 17:18:55] INFO: Country tracking exported to: V1/Output/2025_12_01/country_tracking.csv
+[2025-12-01 17:18:55] INFO: Summary statistics exported to: V1/Output/2025_12_01/country_tracking_summary.csv
+[2025-12-02 11:54:06] INFO: =============================================
+[2025-12-02 11:54:06] INFO: Created run directory: V1/Output/2025_12_02
+[2025-12-02 11:54:06] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-02 11:54:06] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-02 11:54:06] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-02 11:54:06] INFO: =============================================
+[2025-12-02 11:54:06] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-02 11:54:06] INFO: Starting compile_PAHO_github()...
+[2025-12-02 11:54:06] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-02 11:54:07] INFO: Latest available folder: DL_20251202
+[2025-12-02 11:54:07] INFO: Found 53 CSV files in latest folder.
+[2025-12-02 11:54:07] INFO: Reading file: PAHO_2023_2025_W10_202512020838.csv
+[2025-12-02 11:54:07] INFO: PAHO_2023_2025_W10_202512020838.csv read successfully with 133 rows.
+[2025-12-02 11:54:07] INFO: Reading file: PAHO_2023_2025_W11_202512020838.csv
+[2025-12-02 11:54:08] INFO: PAHO_2023_2025_W11_202512020838.csv read successfully with 133 rows.
+[2025-12-02 11:54:08] INFO: Reading file: PAHO_2023_2025_W12_202512020838.csv
+[2025-12-02 11:54:08] INFO: PAHO_2023_2025_W12_202512020838.csv read successfully with 135 rows.
+[2025-12-02 11:54:08] INFO: Reading file: PAHO_2023_2025_W13_202512020838.csv
+[2025-12-02 11:54:08] INFO: PAHO_2023_2025_W13_202512020838.csv read successfully with 135 rows.
+[2025-12-02 11:54:08] INFO: Reading file: PAHO_2023_2025_W14_202512020838.csv
+[2025-12-02 11:54:08] INFO: PAHO_2023_2025_W14_202512020838.csv read successfully with 135 rows.
+[2025-12-02 11:54:08] INFO: Reading file: PAHO_2023_2025_W15_202512020838.csv
+[2025-12-02 11:54:08] INFO: PAHO_2023_2025_W15_202512020838.csv read successfully with 135 rows.
+[2025-12-02 11:54:08] INFO: Reading file: PAHO_2023_2025_W16_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W16_202512020838.csv read successfully with 136 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W17_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W17_202512020838.csv read successfully with 136 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W18_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W18_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W19_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W19_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W1_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W1_202512020838.csv read successfully with 126 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W20_202512020838.csv
+[2025-12-02 11:54:09] INFO: PAHO_2023_2025_W20_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:09] INFO: Reading file: PAHO_2023_2025_W21_202512020838.csv
+[2025-12-02 11:54:10] INFO: PAHO_2023_2025_W21_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:10] INFO: Reading file: PAHO_2023_2025_W22_202512020838.csv
+[2025-12-02 11:54:10] INFO: PAHO_2023_2025_W22_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:10] INFO: Reading file: PAHO_2023_2025_W23_202512020838.csv
+[2025-12-02 11:54:10] INFO: PAHO_2023_2025_W23_202512020838.csv read successfully with 137 rows.
+[2025-12-02 11:54:10] INFO: Reading file: PAHO_2023_2025_W24_202512020838.csv
+[2025-12-02 11:54:10] INFO: PAHO_2023_2025_W24_202512020838.csv read successfully with 138 rows.
+[2025-12-02 11:54:10] INFO: Reading file: PAHO_2023_2025_W25_202512020838.csv
+[2025-12-02 11:54:10] INFO: PAHO_2023_2025_W25_202512020838.csv read successfully with 138 rows.
+[2025-12-02 11:54:10] INFO: Reading file: PAHO_2023_2025_W26_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W26_202512020838.csv read successfully with 138 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W27_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W27_202512020838.csv read successfully with 138 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W28_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W28_202512020838.csv read successfully with 139 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W29_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W29_202512020838.csv read successfully with 139 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W2_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W2_202512020838.csv read successfully with 127 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W30_202512020838.csv
+[2025-12-02 11:54:11] INFO: PAHO_2023_2025_W30_202512020838.csv read successfully with 139 rows.
+[2025-12-02 11:54:11] INFO: Reading file: PAHO_2023_2025_W31_202512020838.csv
+[2025-12-02 11:54:12] INFO: PAHO_2023_2025_W31_202512020838.csv read successfully with 140 rows.
+[2025-12-02 11:54:12] INFO: Reading file: PAHO_2023_2025_W32_202512020838.csv
+[2025-12-02 11:54:12] INFO: PAHO_2023_2025_W32_202512020838.csv read successfully with 140 rows.
+[2025-12-02 11:54:12] INFO: Reading file: PAHO_2023_2025_W33_202512020838.csv
+[2025-12-02 11:54:12] INFO: PAHO_2023_2025_W33_202512020838.csv read successfully with 140 rows.
+[2025-12-02 11:54:12] INFO: Reading file: PAHO_2023_2025_W34_202512020838.csv
+[2025-12-02 11:54:12] INFO: PAHO_2023_2025_W34_202512020838.csv read successfully with 140 rows.
+[2025-12-02 11:54:12] INFO: Reading file: PAHO_2023_2025_W35_202512020838.csv
+[2025-12-02 11:54:12] INFO: PAHO_2023_2025_W35_202512020838.csv read successfully with 140 rows.
+[2025-12-02 11:54:12] INFO: Reading file: PAHO_2023_2025_W36_202512020838.csv
+[2025-12-02 11:54:13] INFO: PAHO_2023_2025_W36_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:13] INFO: Reading file: PAHO_2023_2025_W37_202512020838.csv
+[2025-12-02 11:54:13] INFO: PAHO_2023_2025_W37_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:13] INFO: Reading file: PAHO_2023_2025_W38_202512020838.csv
+[2025-12-02 11:54:13] INFO: PAHO_2023_2025_W38_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:13] INFO: Reading file: PAHO_2023_2025_W39_202512020838.csv
+[2025-12-02 11:54:13] INFO: PAHO_2023_2025_W39_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:13] INFO: Reading file: PAHO_2023_2025_W3_202512020838.csv
+[2025-12-02 11:54:13] INFO: PAHO_2023_2025_W3_202512020838.csv read successfully with 127 rows.
+[2025-12-02 11:54:13] INFO: Reading file: PAHO_2023_2025_W40_202512020838.csv
+[2025-12-02 11:54:14] INFO: PAHO_2023_2025_W40_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:14] INFO: Reading file: PAHO_2023_2025_W41_202512020838.csv
+[2025-12-02 11:54:14] INFO: PAHO_2023_2025_W41_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:14] INFO: Reading file: PAHO_2023_2025_W42_202512020838.csv
+[2025-12-02 11:54:14] INFO: PAHO_2023_2025_W42_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:14] INFO: Reading file: PAHO_2023_2025_W43_202512020838.csv
+[2025-12-02 11:54:14] INFO: PAHO_2023_2025_W43_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:14] INFO: Reading file: PAHO_2023_2025_W44_202512020838.csv
+[2025-12-02 11:54:14] INFO: PAHO_2023_2025_W44_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:14] INFO: Reading file: PAHO_2023_2025_W45_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W45_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W46_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W46_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W47_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W47_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W48_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W48_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W49_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W49_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W4_202512020838.csv
+[2025-12-02 11:54:15] INFO: PAHO_2023_2025_W4_202512020838.csv read successfully with 131 rows.
+[2025-12-02 11:54:15] INFO: Reading file: PAHO_2023_2025_W50_202512020838.csv
+[2025-12-02 11:54:16] INFO: PAHO_2023_2025_W50_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:16] INFO: Reading file: PAHO_2023_2025_W51_202512020838.csv
+[2025-12-02 11:54:16] INFO: PAHO_2023_2025_W51_202512020838.csv read successfully with 141 rows.
+[2025-12-02 11:54:16] INFO: Reading file: PAHO_2023_2025_W52_202512020838.csv
+[2025-12-02 11:54:16] INFO: PAHO_2023_2025_W52_202512020838.csv read successfully with 142 rows.
+[2025-12-02 11:54:16] INFO: Reading file: PAHO_2023_2025_W53_202512020838.csv
+[2025-12-02 11:54:16] INFO: PAHO_2023_2025_W53_202512020838.csv read successfully with 142 rows.
+[2025-12-02 11:54:16] INFO: Reading file: PAHO_2023_2025_W5_202512020838.csv
+[2025-12-02 11:54:16] INFO: PAHO_2023_2025_W5_202512020838.csv read successfully with 131 rows.
+[2025-12-02 11:54:16] INFO: Reading file: PAHO_2023_2025_W6_202512020838.csv
+[2025-12-02 11:54:17] INFO: PAHO_2023_2025_W6_202512020838.csv read successfully with 132 rows.
+[2025-12-02 11:54:17] INFO: Reading file: PAHO_2023_2025_W7_202512020838.csv
+[2025-12-02 11:54:17] INFO: PAHO_2023_2025_W7_202512020838.csv read successfully with 132 rows.
+[2025-12-02 11:54:17] INFO: Reading file: PAHO_2023_2025_W8_202512020838.csv
+[2025-12-02 11:54:17] INFO: PAHO_2023_2025_W8_202512020838.csv read successfully with 133 rows.
+[2025-12-02 11:54:17] INFO: Reading file: PAHO_2023_2025_W9_202512020838.csv
+[2025-12-02 11:54:17] INFO: PAHO_2023_2025_W9_202512020838.csv read successfully with 133 rows.
+[2025-12-02 11:54:17] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:17] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:17] INFO: ✅ PAHO compilation complete for week 20251202
+[2025-12-02 11:54:17] INFO: Rows: 7281 Cols: 19
+[2025-12-02 11:54:17] INFO: Total duration: 11.06 seconds
+[2025-12-02 11:54:17] INFO: Start WHO - API download...
+[2025-12-02 11:54:17] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-02 11:54:18] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:18] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:18] INFO: Start SEARO - API download...
+[2025-12-02 11:54:18] INFO: SEARO - Opening file:SEARO_National_data_20251202_0819.csv
+
+[2025-12-02 11:54:18] INFO: Open Open Dengue 
+[2025-12-02 11:54:18] INFO: Open Dengue complete
+[2025-12-02 11:54:18] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-02 11:54:18] INFO: Completed 01_dengue_data.R
+[2025-12-02 11:54:18] INFO: All expected data objects are present.
+[2025-12-02 11:54:18] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-02 11:54:18] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-02 11:54:18] INFO: Country tracking initialized with 340 countries
+[2025-12-02 11:54:18] INFO: Step 3: selected historic data
+[2025-12-02 11:54:18] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-02 11:54:19] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:19] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:19] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-02 11:54:19] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-02 11:54:19] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-02 11:54:19] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-02 11:54:19] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-02 11:54:19] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-02 11:54:19] INFO: Count - Countries only included in WHO database: 65
+[2025-12-02 11:54:19] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-02 11:54:21] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-02 11:54:21] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-02 11:54:21] INFO: Step 3: combine data sources
+[2025-12-02 11:54:21] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-02 11:54:22] INFO: Selected OpenDengue records: 60060
+[2025-12-02 11:54:22] INFO: Selected WHO records: 2621
+[2025-12-02 11:54:22] INFO: Combined dataset rows: 33183
+[2025-12-02 11:54:24] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-02 11:54:24] INFO: Filtered combined dataset rows: 13056
+[2025-12-02 11:54:24] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-02 11:54:24] INFO: Created drop reasons for 28 countries dropped at step 3b filtering
+[2025-12-02 11:54:24] INFO: Using country-specific drop reasons for 28 countries at step 3b
+[2025-12-02 11:54:24] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-02 11:54:24] INFO: Step 3: define average season
+[2025-12-02 11:54:24] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-02 11:54:24] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-02 11:54:24] INFO: Step 3c Filter 1 (complete seasons): 125 countries before, 109 countries after, 13 dropped
+[2025-12-02 11:54:24] INFO: Step 3c Filter 2 (min cases): 109 countries before, 108 countries after, 1 dropped
+[2025-12-02 11:54:25] INFO: Step 3c Filter 3 (min seasons): 108 countries before, 90 countries after, 16 dropped
+[2025-12-02 11:54:25] WARNING: AFG dropped at min seasons filter
+[2025-12-02 11:54:25] INFO: AFG has 1 complete seasons after min cases filter
+[2025-12-02 11:54:25] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-02 11:54:25] WARNING: missing value where TRUE/FALSE needed
+[2025-12-02 11:54:25] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-02 11:54:25] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-02 11:54:25] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-02 11:54:25] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-02 11:54:25] INFO: Step 4: select current season data and backfill
+[2025-12-02 11:54:25] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-02 11:54:25] INFO: PAHO monthly rows after correction: 1537
+[2025-12-02 11:54:25] WARNING: missing value where TRUE/FALSE needed
+[2025-12-02 11:54:25] INFO: Combined country-month rows across sources: 12428
+[2025-12-02 11:54:26] INFO: Current data rows after completeness expansion: 4500
+[2025-12-02 11:54:26] INFO: Completed 02_PAHO_monthly_cases_and_source_selection.
+[2025-12-02 11:54:26] INFO: Step Step_4_Current_Data: 193 countries present
+[2025-12-02 11:54:26] INFO: Step 5: Nowcast missing recent months
+[2025-12-02 11:54:26] INFO: Running 03_proportion_nowcast.
+[2025-12-02 11:54:26] INFO: Countries in seasonal baseline: 88
+[2025-12-02 11:54:26] INFO: Countries in current data: 191
+[2025-12-02 11:54:26] INFO: Countries in both: 81
+[2025-12-02 11:54:26] INFO: Countries only in seasonal: 7
+[2025-12-02 11:54:26] INFO: Countries only in current: 110
+[2025-12-02 11:54:26] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-02 11:54:26] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-02 11:54:26] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-02 11:54:26] INFO: Merged historic and current data rows: 4632
+[2025-12-02 11:54:26] INFO: Unique countries after merge: 198
+[2025-12-02 11:54:26] INFO: Target countries preserved after merge: 14/14
+[2025-12-02 11:54:26] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-02 11:54:26] INFO: Nowcasting completed; estimated rows: 160
+[2025-12-02 11:54:26] INFO: Completed 03_proportion_nowcast.
+[2025-12-02 11:54:26] INFO: Step Step_5_Nowcast_Merge: 200 countries present
+[2025-12-02 11:54:26] INFO: Excluded 111 countries without seasonal averages from final output
+[2025-12-02 11:54:26] INFO: Excluded countries: AFG, AGO, AIA, ALB, AND, ARM, AUT, AZE, BDI, BEL, BEN, BGR, BHS, BIH, BLR, BMU, CAF, CAN, CHE, CHL, CMR, COG, CPV, CYP, CZE, DEU, DNK, ESP, EST, ETH, FIN, FRA, GAB, GBR, GEO, GHA, GIN, GMB, GNB, GNQ, GRC, HRV, HUN, IRL, IRN, ISL, ISR, ITA, KAZ, KGZ, LBR, LIE, LTU, LUX, LVA, MCO, MDA, MDG, MKD, MLI, MLT, MNE, MNP, MOZ, MRT, MSR, MUS, MWI, MYT, NAM, NER, NIU, NLD, NOR, PCN, POL, PRT, ROU, RUS, RWA, SLE, SMR, SRB, SSD, STP, SVK, SVN, SWE, SYC, TCD, TGO, TJK, TKL, TKM, TUR, TZA, UGA, UKR, URY, UZB, VAT, VIR, VIR, ZMB, ZWE, NA, BWA, COM, GUM, MDR, NRU
+[2025-12-02 11:54:26] INFO: Step 6: post processing
+[2025-12-02 11:54:26] INFO: Step Step_6_Final: 88 countries present
+[2025-12-02 11:54:26] INFO: Saving outputs to V1/Output/2025_12_02
+[2025-12-02 11:54:26] INFO: Saved backfill output: V1/Output/2025_12_02/DENV_cases_backfill_output.csv
+[2025-12-02 11:54:26] INFO: Saved nowcast output: V1/Output/2025_12_02/DENV_cases_nowcast_output.csv
+[2025-12-02 11:54:26] INFO: Saved average season output: V1/Output/2025_12_02/DENV_average_season.csv
+[2025-12-02 11:54:26] INFO: Country tracking exported to: V1/Output/2025_12_02/country_tracking.csv
+[2025-12-02 11:54:26] INFO: Summary statistics exported to: V1/Output/2025_12_02/country_tracking_summary.csv
+[2025-12-04 10:04:32] WARNING: argument "e" is missing, with no default
+[2025-12-04 10:04:32] WARNING: argument "e" is missing, with no default
+[2025-12-09 12:10:42] INFO: =============================================
+[2025-12-09 12:10:42] INFO: Created run directory: V1/Output/2025_12_09
+[2025-12-09 12:10:42] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-09 12:10:42] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-09 12:10:42] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-09 12:10:42] INFO: =============================================
+[2025-12-09 12:10:42] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-09 12:10:42] INFO: Starting compile_PAHO_github()...
+[2025-12-09 12:10:42] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-09 12:10:42] INFO: Latest available folder: DL_20251209
+[2025-12-09 12:10:43] INFO: Found 53 CSV files in latest folder.
+[2025-12-09 12:10:43] INFO: Reading file: PAHO_2023_2025_W10_202512090838.csv
+[2025-12-09 12:10:43] INFO: PAHO_2023_2025_W10_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:10:43] INFO: Reading file: PAHO_2023_2025_W11_202512090838.csv
+[2025-12-09 12:10:43] INFO: PAHO_2023_2025_W11_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:10:43] INFO: Reading file: PAHO_2023_2025_W12_202512090838.csv
+[2025-12-09 12:10:43] INFO: PAHO_2023_2025_W12_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:10:43] INFO: Reading file: PAHO_2023_2025_W13_202512090838.csv
+[2025-12-09 12:10:44] INFO: PAHO_2023_2025_W13_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:10:44] INFO: Reading file: PAHO_2023_2025_W14_202512090838.csv
+[2025-12-09 12:10:44] INFO: PAHO_2023_2025_W14_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:10:44] INFO: Reading file: PAHO_2023_2025_W15_202512090838.csv
+[2025-12-09 12:10:44] INFO: PAHO_2023_2025_W15_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:10:44] INFO: Reading file: PAHO_2023_2025_W16_202512090838.csv
+[2025-12-09 12:10:44] INFO: PAHO_2023_2025_W16_202512090838.csv read successfully with 136 rows.
+[2025-12-09 12:10:44] INFO: Reading file: PAHO_2023_2025_W17_202512090838.csv
+[2025-12-09 12:10:44] INFO: PAHO_2023_2025_W17_202512090838.csv read successfully with 136 rows.
+[2025-12-09 12:10:44] INFO: Reading file: PAHO_2023_2025_W18_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W18_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W19_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W19_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W1_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W1_202512090838.csv read successfully with 126 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W20_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W20_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W21_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W21_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W22_202512090838.csv
+[2025-12-09 12:10:45] INFO: PAHO_2023_2025_W22_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:45] INFO: Reading file: PAHO_2023_2025_W23_202512090838.csv
+[2025-12-09 12:10:46] INFO: PAHO_2023_2025_W23_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:10:46] INFO: Reading file: PAHO_2023_2025_W24_202512090838.csv
+[2025-12-09 12:10:46] INFO: PAHO_2023_2025_W24_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:10:46] INFO: Reading file: PAHO_2023_2025_W25_202512090838.csv
+[2025-12-09 12:10:46] INFO: PAHO_2023_2025_W25_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:10:46] INFO: Reading file: PAHO_2023_2025_W26_202512090838.csv
+[2025-12-09 12:10:46] INFO: PAHO_2023_2025_W26_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:10:46] INFO: Reading file: PAHO_2023_2025_W27_202512090838.csv
+[2025-12-09 12:10:46] INFO: PAHO_2023_2025_W27_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:10:46] INFO: Reading file: PAHO_2023_2025_W28_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W28_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W29_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W29_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W2_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W2_202512090838.csv read successfully with 127 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W30_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W30_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W31_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W31_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W32_202512090838.csv
+[2025-12-09 12:10:47] INFO: PAHO_2023_2025_W32_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:10:47] INFO: Reading file: PAHO_2023_2025_W33_202512090838.csv
+[2025-12-09 12:10:48] INFO: PAHO_2023_2025_W33_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:10:48] INFO: Reading file: PAHO_2023_2025_W34_202512090838.csv
+[2025-12-09 12:10:48] INFO: PAHO_2023_2025_W34_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:10:48] INFO: Reading file: PAHO_2023_2025_W35_202512090838.csv
+[2025-12-09 12:10:48] INFO: PAHO_2023_2025_W35_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:10:48] INFO: Reading file: PAHO_2023_2025_W36_202512090838.csv
+[2025-12-09 12:10:48] INFO: PAHO_2023_2025_W36_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:48] INFO: Reading file: PAHO_2023_2025_W37_202512090838.csv
+[2025-12-09 12:10:48] INFO: PAHO_2023_2025_W37_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:48] INFO: Reading file: PAHO_2023_2025_W38_202512090838.csv
+[2025-12-09 12:10:49] INFO: PAHO_2023_2025_W38_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:49] INFO: Reading file: PAHO_2023_2025_W39_202512090838.csv
+[2025-12-09 12:10:49] INFO: PAHO_2023_2025_W39_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:49] INFO: Reading file: PAHO_2023_2025_W3_202512090838.csv
+[2025-12-09 12:10:49] INFO: PAHO_2023_2025_W3_202512090838.csv read successfully with 127 rows.
+[2025-12-09 12:10:49] INFO: Reading file: PAHO_2023_2025_W40_202512090838.csv
+[2025-12-09 12:10:49] INFO: PAHO_2023_2025_W40_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:49] INFO: Reading file: PAHO_2023_2025_W41_202512090838.csv
+[2025-12-09 12:10:49] INFO: PAHO_2023_2025_W41_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:49] INFO: Reading file: PAHO_2023_2025_W42_202512090838.csv
+[2025-12-09 12:10:50] INFO: PAHO_2023_2025_W42_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:50] INFO: Reading file: PAHO_2023_2025_W43_202512090838.csv
+[2025-12-09 12:10:50] INFO: PAHO_2023_2025_W43_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:50] INFO: Reading file: PAHO_2023_2025_W44_202512090838.csv
+[2025-12-09 12:10:50] INFO: PAHO_2023_2025_W44_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:50] INFO: Reading file: PAHO_2023_2025_W45_202512090838.csv
+[2025-12-09 12:10:50] INFO: PAHO_2023_2025_W45_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:50] INFO: Reading file: PAHO_2023_2025_W46_202512090838.csv
+[2025-12-09 12:10:50] INFO: PAHO_2023_2025_W46_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:50] INFO: Reading file: PAHO_2023_2025_W47_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W47_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W48_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W48_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W49_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W49_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W4_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W4_202512090838.csv read successfully with 131 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W50_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W50_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W51_202512090838.csv
+[2025-12-09 12:10:51] INFO: PAHO_2023_2025_W51_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:10:51] INFO: Reading file: PAHO_2023_2025_W52_202512090838.csv
+[2025-12-09 12:10:52] INFO: PAHO_2023_2025_W52_202512090838.csv read successfully with 142 rows.
+[2025-12-09 12:10:52] INFO: Reading file: PAHO_2023_2025_W53_202512090838.csv
+[2025-12-09 12:10:52] INFO: PAHO_2023_2025_W53_202512090838.csv read successfully with 142 rows.
+[2025-12-09 12:10:52] INFO: Reading file: PAHO_2023_2025_W5_202512090838.csv
+[2025-12-09 12:10:52] INFO: PAHO_2023_2025_W5_202512090838.csv read successfully with 131 rows.
+[2025-12-09 12:10:52] INFO: Reading file: PAHO_2023_2025_W6_202512090838.csv
+[2025-12-09 12:10:52] INFO: PAHO_2023_2025_W6_202512090838.csv read successfully with 132 rows.
+[2025-12-09 12:10:52] INFO: Reading file: PAHO_2023_2025_W7_202512090838.csv
+[2025-12-09 12:10:52] INFO: PAHO_2023_2025_W7_202512090838.csv read successfully with 132 rows.
+[2025-12-09 12:10:52] INFO: Reading file: PAHO_2023_2025_W8_202512090838.csv
+[2025-12-09 12:10:53] INFO: PAHO_2023_2025_W8_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:10:53] INFO: Reading file: PAHO_2023_2025_W9_202512090838.csv
+[2025-12-09 12:10:53] INFO: PAHO_2023_2025_W9_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:10:53] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:53] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:53] INFO: ✅ PAHO compilation complete for week 20251209
+[2025-12-09 12:10:53] INFO: Rows: 7281 Cols: 19
+[2025-12-09 12:10:53] INFO: Total duration: 10.98 seconds
+[2025-12-09 12:10:53] INFO: Start WHO - API download...
+[2025-12-09 12:10:53] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-09 12:10:53] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:53] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:53] INFO: Start SEARO - API download...
+[2025-12-09 12:10:54] INFO: SEARO - Opening file:SEARO_National_data_20251209_0821.csv
+
+[2025-12-09 12:10:54] INFO: Open Open Dengue 
+[2025-12-09 12:10:54] INFO: Open Dengue complete
+[2025-12-09 12:10:54] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-09 12:10:54] INFO: Completed 01_dengue_data.R
+[2025-12-09 12:10:54] INFO: All expected data objects are present.
+[2025-12-09 12:10:54] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-09 12:10:54] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-09 12:10:54] INFO: Country tracking initialized with 340 countries
+[2025-12-09 12:10:54] INFO: Step 3: selected historic data
+[2025-12-09 12:10:54] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-09 12:10:54] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:54] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:54] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:10:54] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-09 12:10:54] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-09 12:10:54] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-09 12:10:54] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-09 12:10:54] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-09 12:10:54] INFO: Count - Countries only included in WHO database: 65
+[2025-12-09 12:10:54] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-09 12:10:57] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-09 12:10:57] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-09 12:10:57] INFO: Step 3: combine data sources
+[2025-12-09 12:10:57] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-09 12:10:57] INFO: Selected OpenDengue records: 60060
+[2025-12-09 12:10:57] INFO: Selected WHO records: 2621
+[2025-12-09 12:10:57] INFO: Combined dataset rows: 33183
+[2025-12-09 12:11:00] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-09 12:11:00] INFO: Filtered combined dataset rows: 13056
+[2025-12-09 12:11:00] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-09 12:11:00] INFO: Created drop reasons for 28 countries dropped at step 3b filtering
+[2025-12-09 12:11:00] INFO: Using country-specific drop reasons for 28 countries at step 3b
+[2025-12-09 12:11:00] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-09 12:11:00] INFO: Step 3: define average season
+[2025-12-09 12:11:00] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-09 12:11:01] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-09 12:11:01] INFO: Step 3c Filter 1 (complete seasons): 125 countries before, 109 countries after, 13 dropped
+[2025-12-09 12:11:01] INFO: Step 3c Filter 2 (min cases): 109 countries before, 108 countries after, 1 dropped
+[2025-12-09 12:11:01] INFO: Step 3c Filter 3 (min seasons): 108 countries before, 90 countries after, 16 dropped
+[2025-12-09 12:11:01] WARNING: AFG dropped at min seasons filter
+[2025-12-09 12:11:01] INFO: AFG has 1 complete seasons after min cases filter
+[2025-12-09 12:11:01] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-09 12:11:02] WARNING: missing value where TRUE/FALSE needed
+[2025-12-09 12:11:02] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-09 12:11:02] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-09 12:11:02] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-09 12:11:02] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-09 12:11:02] INFO: Step 4: select current season data and backfill
+[2025-12-09 12:11:02] INFO: Step 5: Nowcast missing recent months
+[2025-12-09 12:11:02] INFO: Running 03_proportion_nowcast.
+[2025-12-09 12:11:02] INFO: Countries in seasonal baseline: 88
+[2025-12-09 12:11:02] INFO: Countries in current data: 191
+[2025-12-09 12:11:02] INFO: Countries in both: 81
+[2025-12-09 12:11:02] INFO: Countries only in seasonal: 7
+[2025-12-09 12:11:02] INFO: Countries only in current: 110
+[2025-12-09 12:11:02] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:11:02] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:11:02] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:11:02] INFO: Merged historic and current data rows: 4632
+[2025-12-09 12:11:02] INFO: Unique countries after merge: 198
+[2025-12-09 12:11:02] INFO: Target countries preserved after merge: 14/14
+[2025-12-09 12:11:02] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-09 12:11:02] INFO: Nowcasting completed; estimated rows: 160
+[2025-12-09 12:11:02] INFO: Completed 03_proportion_nowcast.
+[2025-12-09 12:11:02] INFO: Step Step_5_Nowcast_Merge: 200 countries present
+[2025-12-09 12:11:02] INFO: Excluded 111 countries without seasonal averages from final output
+[2025-12-09 12:11:02] INFO: Excluded countries: AFG, AGO, AIA, ALB, AND, ARM, AUT, AZE, BDI, BEL, BEN, BGR, BHS, BIH, BLR, BMU, CAF, CAN, CHE, CHL, CMR, COG, CPV, CYP, CZE, DEU, DNK, ESP, EST, ETH, FIN, FRA, GAB, GBR, GEO, GHA, GIN, GMB, GNB, GNQ, GRC, HRV, HUN, IRL, IRN, ISL, ISR, ITA, KAZ, KGZ, LBR, LIE, LTU, LUX, LVA, MCO, MDA, MDG, MKD, MLI, MLT, MNE, MNP, MOZ, MRT, MSR, MUS, MWI, MYT, NAM, NER, NIU, NLD, NOR, PCN, POL, PRT, ROU, RUS, RWA, SLE, SMR, SRB, SSD, STP, SVK, SVN, SWE, SYC, TCD, TGO, TJK, TKL, TKM, TUR, TZA, UGA, UKR, URY, UZB, VAT, VIR, VIR, ZMB, ZWE, NA, BWA, COM, GUM, MDR, NRU
+[2025-12-09 12:11:02] INFO: Step 6: post processing
+[2025-12-09 12:11:02] INFO: Step Step_6_Final: 88 countries present
+[2025-12-09 12:11:02] INFO: Saving outputs to V1/Output/2025_12_09
+[2025-12-09 12:11:02] INFO: Saved backfill output: V1/Output/2025_12_09/DENV_cases_backfill_output.csv
+[2025-12-09 12:11:02] INFO: Saved nowcast output: V1/Output/2025_12_09/DENV_cases_nowcast_output.csv
+[2025-12-09 12:11:02] INFO: Saved average season output: V1/Output/2025_12_09/DENV_average_season.csv
+[2025-12-09 12:11:02] INFO: Country tracking exported to: V1/Output/2025_12_09/country_tracking.csv
+[2025-12-09 12:11:02] INFO: Summary statistics exported to: V1/Output/2025_12_09/country_tracking_summary.csv
+[2025-12-09 12:19:12] INFO: =============================================
+[2025-12-09 12:19:12] INFO: Run directory already existed: V1/Output/2025_12_09
+[2025-12-09 12:19:12] INFO: Log file: V1/Output/2025_12_01/pipeline_log_20251201_141050.txt
+[2025-12-09 12:19:12] INFO: R version: R version 4.4.1 (2024-06-14)
+[2025-12-09 12:19:12] INFO: Working directory: /Users/lshks26/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory
+[2025-12-09 12:19:12] INFO: =============================================
+[2025-12-09 12:19:12] INFO: Step 2: Opening dengue-related data sources...
+[2025-12-09 12:19:12] INFO: Starting compile_PAHO_github()...
+[2025-12-09 12:19:12] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2025-12-09 12:19:13] INFO: Latest available folder: DL_20251209
+[2025-12-09 12:19:13] INFO: Found 53 CSV files in latest folder.
+[2025-12-09 12:19:13] INFO: Reading file: PAHO_2023_2025_W10_202512090838.csv
+[2025-12-09 12:19:13] INFO: PAHO_2023_2025_W10_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:19:13] INFO: Reading file: PAHO_2023_2025_W11_202512090838.csv
+[2025-12-09 12:19:13] INFO: PAHO_2023_2025_W11_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:19:13] INFO: Reading file: PAHO_2023_2025_W12_202512090838.csv
+[2025-12-09 12:19:13] INFO: PAHO_2023_2025_W12_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:19:13] INFO: Reading file: PAHO_2023_2025_W13_202512090838.csv
+[2025-12-09 12:19:13] INFO: PAHO_2023_2025_W13_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:19:13] INFO: Reading file: PAHO_2023_2025_W14_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W14_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W15_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W15_202512090838.csv read successfully with 135 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W16_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W16_202512090838.csv read successfully with 136 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W17_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W17_202512090838.csv read successfully with 136 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W18_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W18_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W19_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W19_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W1_202512090838.csv
+[2025-12-09 12:19:14] INFO: PAHO_2023_2025_W1_202512090838.csv read successfully with 126 rows.
+[2025-12-09 12:19:14] INFO: Reading file: PAHO_2023_2025_W20_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W20_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W21_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W21_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W22_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W22_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W23_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W23_202512090838.csv read successfully with 137 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W24_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W24_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W25_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W25_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W26_202512090838.csv
+[2025-12-09 12:19:15] INFO: PAHO_2023_2025_W26_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:19:15] INFO: Reading file: PAHO_2023_2025_W27_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W27_202512090838.csv read successfully with 138 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W28_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W28_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W29_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W29_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W2_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W2_202512090838.csv read successfully with 127 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W30_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W30_202512090838.csv read successfully with 139 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W31_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W31_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W32_202512090838.csv
+[2025-12-09 12:19:16] INFO: PAHO_2023_2025_W32_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:19:16] INFO: Reading file: PAHO_2023_2025_W33_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W33_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W34_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W34_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W35_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W35_202512090838.csv read successfully with 140 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W36_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W36_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W37_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W37_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W38_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W38_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W39_202512090838.csv
+[2025-12-09 12:19:17] INFO: PAHO_2023_2025_W39_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:17] INFO: Reading file: PAHO_2023_2025_W3_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W3_202512090838.csv read successfully with 127 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W40_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W40_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W41_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W41_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W42_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W42_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W43_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W43_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W44_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W44_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W45_202512090838.csv
+[2025-12-09 12:19:18] INFO: PAHO_2023_2025_W45_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:18] INFO: Reading file: PAHO_2023_2025_W46_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W46_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W47_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W47_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W48_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W48_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W49_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W49_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W4_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W4_202512090838.csv read successfully with 131 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W50_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W50_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W51_202512090838.csv
+[2025-12-09 12:19:19] INFO: PAHO_2023_2025_W51_202512090838.csv read successfully with 141 rows.
+[2025-12-09 12:19:19] INFO: Reading file: PAHO_2023_2025_W52_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W52_202512090838.csv read successfully with 142 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W53_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W53_202512090838.csv read successfully with 142 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W5_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W5_202512090838.csv read successfully with 131 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W6_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W6_202512090838.csv read successfully with 132 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W7_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W7_202512090838.csv read successfully with 132 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W8_202512090838.csv
+[2025-12-09 12:19:20] INFO: PAHO_2023_2025_W8_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:19:20] INFO: Reading file: PAHO_2023_2025_W9_202512090838.csv
+[2025-12-09 12:19:21] INFO: PAHO_2023_2025_W9_202512090838.csv read successfully with 133 rows.
+[2025-12-09 12:19:21] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:21] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:21] INFO: ✅ PAHO compilation complete for week 20251209
+[2025-12-09 12:19:21] INFO: Rows: 7281 Cols: 19
+[2025-12-09 12:19:21] INFO: Total duration: 8.41 seconds
+[2025-12-09 12:19:21] INFO: Start WHO - API download...
+[2025-12-09 12:19:21] INFO: WHO - Opening file:dengue-global-data-2025-11-18.xlsx
+
+[2025-12-09 12:19:21] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:21] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:21] INFO: Start SEARO - API download...
+[2025-12-09 12:19:21] INFO: SEARO - Opening file:SEARO_National_data_20251209_0821.csv
+
+[2025-12-09 12:19:21] INFO: Open Open Dengue 
+[2025-12-09 12:19:22] INFO: Open Dengue complete
+[2025-12-09 12:19:22] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7281 rows, SEARO: 780 rows, WHO: 10111 rows
+[2025-12-09 12:19:22] INFO: Completed 01_dengue_data.R
+[2025-12-09 12:19:22] INFO: All expected data objects are present.
+[2025-12-09 12:19:22] INFO: Object sizes — OD_national: 60060 rows, paho: 7281 rows, searo: 780 rows, who: 10111 rows
+[2025-12-09 12:19:22] INFO: Country tracking initialized with 208 unique countries (by iso3)
+[2025-12-09 12:19:22] INFO: Country tracking initialized with 340 countries
+[2025-12-09 12:19:22] INFO: Step 3: selected historic data
+[2025-12-09 12:19:22] INFO: Running 01_Choosing_WHO_or_OpenDengue_data.
+[2025-12-09 12:19:22] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:22] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:22] WARNING: invalid non-character version specification 'x' (type: integer)
+[2025-12-09 12:19:22] INFO: Countries in both WHO and OpenDengue databases: Afghanistan, Angola, Anguilla, Antigua and barbuda, Argentina, Aruba, Australia, Bahamas, Bangladesh, Barbados, Belize, Benin, Bermuda, Bolivia, Bonaire, saint eustatius and saba, Brazil, Burkina faso, Cabo verde, Cambodia, Cameroon, Cayman islands, Central african republic, Chad, Chile, China, Colombia, Comoros, Cook islands, Costa rica, Cote d'ivoire, Croatia, Cuba, Curacao, Dominica, Dominican republic, Ecuador, El salvador, Eritrea, Ethiopia, Fiji, France, French guiana, French polynesia, Gabon, Ghana, Grenada, Guadeloupe, Guam, Guatemala, Guinea, Guyana, Haiti, Honduras, India, Iran (islamic republic of), Italy, Jamaica, Kenya, Kiribati, Lao people's democratic republic, Liberia, Madagascar, Malaysia, Maldives, Mali, Marshall islands, Martinique, Mauritania, Mauritius, Mayotte, Mexico, Micronesia (federated states of), Montserrat, Mozambique, Myanmar, Nauru, Nepal, New caledonia, Nicaragua, Niger, Niue, Northern mariana islands, Pakistan, Palau, Panama, Paraguay, Peru, Portugal, Puerto rico, Reunion, Saint barthelemy, Saint kitts and nevis, Saint lucia, Saint martin, Saint vincent and the grenadines, Samoa, Sao tome and principe, Saudi arabia, Senegal, Seychelles, Sierra leone, Singapore, Sint maarten, Solomon islands, South sudan, Spain, Sri lanka, Sudan, Suriname, Thailand, Togo, Tokelau, Tonga, Trinidad and tobago, Turks and caicos islands, Tuvalu, United republic of tanzania, United states of america, Uruguay, Vanuatu, Venezuela, Viet nam, Virgin islands (uk), Virgin islands (us), Wallis and futuna
+[2025-12-09 12:19:22] INFO: Count - Countries in both WHO and OpenDengue databases: 125
+[2025-12-09 12:19:22] INFO: Countries only included in OpenDengue: American samoa, Bhutan, Brunei darussalam, Democratic republic of congo, Djibouti, Egypt, Hong kong, Indonesia, Japan, Macau, Nigeria, Oman, Papua new guinea, Philippines, Somalia, Taiwan, Timor-leste, Yemen
+[2025-12-09 12:19:22] INFO: Count - Countries only included in OpenDengue: 18
+[2025-12-09 12:19:22] INFO: Countries only included in WHO database: Canada, Burundi, Congo - Brazzaville, Gambia, Guinea-Bissau, Malawi, Namibia, Rwanda, Uganda, Zambia, Zimbabwe, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia & Herzegovina, Bulgaria, Cyprus, Czechia, Denmark, Estonia, Finland, Georgia, Germany, Greece, Vatican City, Hungary, Iceland, Ireland, Israel, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Moldova, Romania, Russia, San Marino, Serbia, Slovakia, Slovenia, Sweden, Switzerland, Tajikistan, Turkmenistan, Turkey, Ukraine, United Kingdom, Uzbekistan, Pitcairn Islands, Equatorial Guinea, Autonomous Region of Madeira, Botswana
+[2025-12-09 12:19:22] INFO: Count - Countries only included in WHO database: 65
+[2025-12-09 12:19:22] INFO: Step Step_3a_WHO_OD_Clean: 208 countries present
+[2025-12-09 12:19:25] INFO: Finished running 01_Choosing_WHO_or_OpenDengue_data script.
+[2025-12-09 12:19:25] INFO: Step Step_3a_WHO_OD_Selection: 124 countries present
+[2025-12-09 12:19:25] INFO: Step 3: combine data sources
+[2025-12-09 12:19:25] INFO: Running 02_Combining_WHO_and_OpenDengue_data.
+[2025-12-09 12:19:25] INFO: Selected OpenDengue records: 60060
+[2025-12-09 12:19:25] INFO: Selected WHO records: 2621
+[2025-12-09 12:19:25] INFO: Combined dataset rows: 33183
+[2025-12-09 12:19:28] INFO: Step Step_3b_Combined_Before_Filter: 143 countries present
+[2025-12-09 12:19:28] INFO: Filtered combined dataset rows: 13056
+[2025-12-09 12:19:28] INFO: Finished combining OpenDengue and WHO data in 02_Combining_WHO_and_OpenDengue_data script.
+[2025-12-09 12:19:28] INFO: Created drop reasons for 28 countries dropped at step 3b filtering
+[2025-12-09 12:19:28] INFO: Using country-specific drop reasons for 28 countries at step 3b
+[2025-12-09 12:19:28] INFO: Step Step_3b_Combined_After_Filter: 117 countries present
+[2025-12-09 12:19:28] INFO: Step 3: define average season
+[2025-12-09 12:19:28] INFO: Running 02_identify_seasonal_baseline.
+[2025-12-09 12:19:28] INFO: Step Step_3c_Seasonal_Before_Filter: 117 countries present
+[2025-12-09 12:19:28] INFO: Step 3c Filter 1 (complete seasons): 125 countries before, 109 countries after, 13 dropped
+[2025-12-09 12:19:28] INFO: Step 3c Filter 2 (min cases): 109 countries before, 108 countries after, 1 dropped
+[2025-12-09 12:19:28] INFO: Step 3c Filter 3 (min seasons): 108 countries before, 90 countries after, 16 dropped
+[2025-12-09 12:19:28] WARNING: AFG dropped at min seasons filter
+[2025-12-09 12:19:28] INFO: AFG has 1 complete seasons after min cases filter
+[2025-12-09 12:19:28] INFO: Created drop reasons for 30 countries dropped at seasonal filtering
+[2025-12-09 12:19:29] WARNING: missing value where TRUE/FALSE needed
+[2025-12-09 12:19:29] INFO: Seasonal baseline identified for 88 locations.
+[2025-12-09 12:19:29] INFO: Completed 02_identify_seasonal_baseline.
+[2025-12-09 12:19:29] INFO: Using country-specific drop reasons for 30 countries
+[2025-12-09 12:19:29] INFO: Step Step_3c_Seasonal_After_Filter: 88 countries present
+[2025-12-09 12:19:29] INFO: Step 4: select current season data and backfill
+[2025-12-09 12:19:29] INFO: Step 5: Nowcast missing recent months
+[2025-12-09 12:19:29] INFO: Running 03_proportion_nowcast.
+[2025-12-09 12:19:29] INFO: Countries in seasonal baseline: 88
+[2025-12-09 12:19:29] INFO: Countries in current data: 191
+[2025-12-09 12:19:29] INFO: Countries in both: 81
+[2025-12-09 12:19:29] INFO: Countries only in seasonal: 7
+[2025-12-09 12:19:29] INFO: Countries only in current: 110
+[2025-12-09 12:19:29] INFO: Target countries (14) in seasonal: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:19:29] INFO: Target countries (14) in current: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:19:29] INFO: Target countries (14) in both: 14 (ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF)
+[2025-12-09 12:19:29] INFO: Merged historic and current data rows: 4632
+[2025-12-09 12:19:29] INFO: Unique countries after merge: 198
+[2025-12-09 12:19:29] INFO: Target countries preserved after merge: 14/14
+[2025-12-09 12:19:29] INFO:   Preserved: ATG, BES, CUW, CIV, FSM, REU, KNA, MAF, VCT, TTO, TCA, USA, VGB, WLF
+[2025-12-09 12:19:29] INFO: Nowcasting completed; estimated rows: 160
+[2025-12-09 12:19:29] INFO: Completed 03_proportion_nowcast.
+[2025-12-09 12:19:29] INFO: Step Step_5_Nowcast_Merge: 200 countries present
+[2025-12-09 12:19:29] INFO: Excluded 111 countries without seasonal averages from final output
+[2025-12-09 12:19:29] INFO: Excluded countries: AFG, AGO, AIA, ALB, AND, ARM, AUT, AZE, BDI, BEL, BEN, BGR, BHS, BIH, BLR, BMU, CAF, CAN, CHE, CHL, CMR, COG, CPV, CYP, CZE, DEU, DNK, ESP, EST, ETH, FIN, FRA, GAB, GBR, GEO, GHA, GIN, GMB, GNB, GNQ, GRC, HRV, HUN, IRL, IRN, ISL, ISR, ITA, KAZ, KGZ, LBR, LIE, LTU, LUX, LVA, MCO, MDA, MDG, MKD, MLI, MLT, MNE, MNP, MOZ, MRT, MSR, MUS, MWI, MYT, NAM, NER, NIU, NLD, NOR, PCN, POL, PRT, ROU, RUS, RWA, SLE, SMR, SRB, SSD, STP, SVK, SVN, SWE, SYC, TCD, TGO, TJK, TKL, TKM, TUR, TZA, UGA, UKR, URY, UZB, VAT, VIR, VIR, ZMB, ZWE, NA, BWA, COM, GUM, MDR, NRU
+[2025-12-09 12:19:29] INFO: Step 6: post processing
+[2025-12-09 12:19:29] INFO: Step Step_6_Final: 88 countries present
+[2025-12-09 12:19:29] INFO: Saving outputs to V1/Output/2025_12_09
+[2025-12-09 12:19:29] INFO: Saved backfill output: V1/Output/2025_12_09/DENV_cases_backfill_output.csv
+[2025-12-09 12:19:29] INFO: Saved nowcast output: V1/Output/2025_12_09/DENV_cases_nowcast_output.csv
+[2025-12-09 12:19:29] INFO: Saved average season output: V1/Output/2025_12_09/DENV_average_season.csv
+[2025-12-09 12:19:29] INFO: Country tracking exported to: V1/Output/2025_12_09/country_tracking.csv
+[2025-12-09 12:19:29] INFO: Summary statistics exported to: V1/Output/2025_12_09/country_tracking_summary.csv
