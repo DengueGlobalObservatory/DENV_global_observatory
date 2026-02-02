@@ -2,9 +2,8 @@ project:
   type: website
   output-dir: _site
   resources:
-    - V1/Assets/          # include only these assets in the final site
-    - V1/Scripts/
-    - OD_maps/temp_maps/
+    - Assets/
+    - Scripts/
   render: 
     - index.qmd
     - pages/country-index.qmd
@@ -23,7 +22,7 @@ project:
   
 website:
   navbar:
-    logo: V1/Assets/logo.png
+    logo: Assets/Stable/logo.png
     title: "Global Dengue Observatory"
     right:
       - text: "Home"

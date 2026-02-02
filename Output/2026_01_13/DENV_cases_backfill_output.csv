@@ -1,0 +1,3896 @@
+"","country","iso3","Year","Month","date","cases","source"
+"1","Afghanistan","AFG",2025,1,2025-01-01,NA,NA
+"2","Afghanistan","AFG",2025,2,2025-02-01,NA,NA
+"3","Afghanistan","AFG",2025,3,2025-03-01,NA,NA
+"4","Afghanistan","AFG",2025,4,2025-04-01,NA,NA
+"5","Afghanistan","AFG",2025,5,2025-05-01,216,"WHO"
+"6","Afghanistan","AFG",2025,6,2025-06-01,NA,NA
+"7","Afghanistan","AFG",2025,7,2025-07-01,NA,NA
+"8","Afghanistan","AFG",2025,8,2025-08-01,NA,NA
+"9","Afghanistan","AFG",2025,9,2025-09-01,NA,NA
+"10","Afghanistan","AFG",2025,10,2025-10-01,NA,NA
+"11","Afghanistan","AFG",2025,11,2025-11-01,NA,NA
+"12","Afghanistan","AFG",2025,12,2025-12-01,NA,NA
+"13","Afghanistan","AFG",2025,NA,NA,71,"WHO"
+"14","Afghanistan","AFG",2025,NA,NA,26,"WHO"
+"15","Afghanistan","AFG",2025,NA,NA,18,"WHO"
+"16","Afghanistan","AFG",2025,NA,NA,131,"WHO"
+"17","Afghanistan","AFG",2025,NA,NA,166,"WHO"
+"18","Afghanistan","AFG",2025,NA,NA,339,"WHO"
+"19","Afghanistan","AFG",2025,NA,NA,273,"WHO"
+"20","Afghanistan","AFG",2025,NA,NA,297,"WHO"
+"21","Afghanistan","AFG",2025,NA,NA,1826,"WHO"
+"22","Afghanistan","AFG",2025,NA,NA,1021,"WHO"
+"23","Albania","ALB",2025,1,2025-01-01,NA,NA
+"24","Albania","ALB",2025,2,2025-02-01,NA,NA
+"25","Albania","ALB",2025,3,2025-03-01,NA,NA
+"26","Albania","ALB",2025,4,2025-04-01,NA,NA
+"27","Albania","ALB",2025,5,2025-05-01,0,"WHO"
+"28","Albania","ALB",2025,6,2025-06-01,NA,NA
+"29","Albania","ALB",2025,7,2025-07-01,NA,NA
+"30","Albania","ALB",2025,8,2025-08-01,NA,NA
+"31","Albania","ALB",2025,9,2025-09-01,NA,NA
+"32","Albania","ALB",2025,10,2025-10-01,NA,NA
+"33","Albania","ALB",2025,11,2025-11-01,NA,NA
+"34","Albania","ALB",2025,12,2025-12-01,NA,NA
+"35","Albania","ALB",2025,NA,NA,0,"WHO"
+"36","Albania","ALB",2025,NA,NA,0,"WHO"
+"37","Albania","ALB",2025,NA,NA,0,"WHO"
+"38","Albania","ALB",2025,NA,NA,0,"WHO"
+"39","Albania","ALB",2025,NA,NA,0,"WHO"
+"40","Albania","ALB",2025,NA,NA,0,"WHO"
+"41","Albania","ALB",2025,NA,NA,0,"WHO"
+"42","Albania","ALB",2025,NA,NA,0,"WHO"
+"43","Albania","ALB",2025,NA,NA,0,"WHO"
+"44","Andorra","AND",2025,1,2025-01-01,NA,NA
+"45","Andorra","AND",2025,2,2025-02-01,NA,NA
+"46","Andorra","AND",2025,3,2025-03-01,NA,NA
+"47","Andorra","AND",2025,4,2025-04-01,NA,NA
+"48","Andorra","AND",2025,5,2025-05-01,0,"WHO"
+"49","Andorra","AND",2025,6,2025-06-01,NA,NA
+"50","Andorra","AND",2025,7,2025-07-01,NA,NA
+"51","Andorra","AND",2025,8,2025-08-01,NA,NA
+"52","Andorra","AND",2025,9,2025-09-01,NA,NA
+"53","Andorra","AND",2025,10,2025-10-01,NA,NA
+"54","Andorra","AND",2025,11,2025-11-01,NA,NA
+"55","Andorra","AND",2025,12,2025-12-01,NA,NA
+"56","Andorra","AND",2025,NA,NA,0,"WHO"
+"57","Andorra","AND",2025,NA,NA,0,"WHO"
+"58","Andorra","AND",2025,NA,NA,0,"WHO"
+"59","Andorra","AND",2025,NA,NA,0,"WHO"
+"60","Andorra","AND",2025,NA,NA,0,"WHO"
+"61","Andorra","AND",2025,NA,NA,0,"WHO"
+"62","Andorra","AND",2025,NA,NA,0,"WHO"
+"63","Andorra","AND",2025,NA,NA,0,"WHO"
+"64","Andorra","AND",2025,NA,NA,0,"WHO"
+"65","Angola","AGO",2025,1,2025-01-01,NA,NA
+"66","Angola","AGO",2025,2,2025-02-01,NA,NA
+"67","Angola","AGO",2025,3,2025-03-01,NA,NA
+"68","Angola","AGO",2025,4,2025-04-01,NA,NA
+"69","Angola","AGO",2025,5,2025-05-01,NA,NA
+"70","Angola","AGO",2025,6,2025-06-01,NA,NA
+"71","Angola","AGO",2025,7,2025-07-01,NA,NA
+"72","Angola","AGO",2025,8,2025-08-01,NA,NA
+"73","Angola","AGO",2025,9,2025-09-01,NA,NA
+"74","Angola","AGO",2025,10,2025-10-01,NA,NA
+"75","Angola","AGO",2025,11,2025-11-01,NA,NA
+"76","Angola","AGO",2025,12,2025-12-01,NA,NA
+"77","Angola","AGO",2025,NA,NA,60,"WHO"
+"78","Angola","AGO",2025,NA,NA,34,"WHO"
+"79","Angola","AGO",2025,NA,NA,58,"WHO"
+"80","Angola","AGO",2025,NA,NA,15,"WHO"
+"81","Angola","AGO",2025,NA,NA,43,"WHO"
+"82","Angola","AGO",2025,NA,NA,7,"WHO"
+"83","Anguilla","AIA",2025,1,2025-01-01,NA,NA
+"84","Anguilla","AIA",2025,2,2025-02-01,NA,NA
+"85","Anguilla","AIA",2025,3,2025-03-01,NA,NA
+"86","Anguilla","AIA",2025,4,2025-04-01,NA,NA
+"87","Anguilla","AIA",2025,5,2025-05-01,0,"WHO"
+"88","Anguilla","AIA",2025,6,2025-06-01,NA,NA
+"89","Anguilla","AIA",2025,7,2025-07-01,NA,NA
+"90","Anguilla","AIA",2025,8,2025-08-01,NA,NA
+"91","Anguilla","AIA",2025,9,2025-09-01,NA,NA
+"92","Anguilla","AIA",2025,10,2025-10-01,NA,NA
+"93","Anguilla","AIA",2025,11,2025-11-01,NA,NA
+"94","Anguilla","AIA",2025,12,2025-12-01,NA,NA
+"95","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"96","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"97","Anguilla","AIA",2025,NA,NA,1,"PAHO"
+"98","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"99","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"100","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"101","Anguilla","AIA",2025,NA,NA,0,"WHO"
+"102","Anguilla","AIA",2025,NA,NA,2,"PAHO"
+"103","Anguilla","AIA",2025,NA,NA,1,"WHO"
+"104","Anguilla","AIA",2025,NA,NA,NA,"WHO"
+"105","Antigua & Barbuda","ATG",2025,1,2025-01-01,NA,NA
+"106","Antigua & Barbuda","ATG",2025,2,2025-02-01,NA,NA
+"107","Antigua & Barbuda","ATG",2025,3,2025-03-01,NA,NA
+"108","Antigua & Barbuda","ATG",2025,4,2025-04-01,NA,NA
+"109","Antigua & Barbuda","ATG",2025,5,2025-05-01,1,"PAHO"
+"110","Antigua & Barbuda","ATG",2025,6,2025-06-01,NA,NA
+"111","Antigua & Barbuda","ATG",2025,7,2025-07-01,NA,NA
+"112","Antigua & Barbuda","ATG",2025,8,2025-08-01,NA,NA
+"113","Antigua & Barbuda","ATG",2025,9,2025-09-01,NA,NA
+"114","Antigua & Barbuda","ATG",2025,10,2025-10-01,NA,NA
+"115","Antigua & Barbuda","ATG",2025,11,2025-11-01,NA,NA
+"116","Antigua & Barbuda","ATG",2025,12,2025-12-01,NA,NA
+"117","Antigua & Barbuda","ATG",2025,NA,NA,0,"WHO"
+"118","Antigua & Barbuda","ATG",2025,NA,NA,0,"WHO"
+"119","Antigua & Barbuda","ATG",2025,NA,NA,2,"PAHO"
+"120","Antigua & Barbuda","ATG",2025,NA,NA,1,"PAHO"
+"121","Antigua & Barbuda","ATG",2025,NA,NA,2,"PAHO"
+"122","Antigua & Barbuda","ATG",2025,NA,NA,2,"PAHO"
+"123","Antigua & Barbuda","ATG",2025,NA,NA,2,"PAHO"
+"124","Antigua & Barbuda","ATG",2025,NA,NA,4,"PAHO"
+"125","Antigua & Barbuda","ATG",2025,NA,NA,1,"PAHO"
+"126","Antigua & Barbuda","ATG",2025,NA,NA,NA,"WHO"
+"127","Argentina","ARG",2025,1,2025-01-01,NA,NA
+"128","Argentina","ARG",2025,2,2025-02-01,NA,NA
+"129","Argentina","ARG",2025,3,2025-03-01,NA,NA
+"130","Argentina","ARG",2025,4,2025-04-01,NA,NA
+"131","Argentina","ARG",2025,5,2025-05-01,1972,"PAHO"
+"132","Argentina","ARG",2025,6,2025-06-01,NA,NA
+"133","Argentina","ARG",2025,7,2025-07-01,NA,NA
+"134","Argentina","ARG",2025,8,2025-08-01,NA,NA
+"135","Argentina","ARG",2025,9,2025-09-01,NA,NA
+"136","Argentina","ARG",2025,10,2025-10-01,NA,NA
+"137","Argentina","ARG",2025,11,2025-11-01,NA,NA
+"138","Argentina","ARG",2025,12,2025-12-01,NA,NA
+"139","Argentina","ARG",2025,NA,NA,275,"PAHO"
+"140","Argentina","ARG",2025,NA,NA,1340,"PAHO"
+"141","Argentina","ARG",2025,NA,NA,8515,"PAHO"
+"142","Argentina","ARG",2025,NA,NA,5427,"PAHO"
+"143","Argentina","ARG",2025,NA,NA,86,"PAHO"
+"144","Argentina","ARG",2025,NA,NA,16,"PAHO"
+"145","Argentina","ARG",2025,NA,NA,4,"PAHO"
+"146","Argentina","ARG",2025,NA,NA,4465,"PAHO"
+"147","Argentina","ARG",2025,NA,NA,3,"PAHO"
+"148","Argentina","ARG",2025,NA,NA,3,"PAHO"
+"149","Argentina","ARG",2025,NA,NA,1,"PAHO"
+"150","Armenia","ARM",2025,1,2025-01-01,NA,NA
+"151","Armenia","ARM",2025,2,2025-02-01,NA,NA
+"152","Armenia","ARM",2025,3,2025-03-01,NA,NA
+"153","Armenia","ARM",2025,4,2025-04-01,NA,NA
+"154","Armenia","ARM",2025,5,2025-05-01,0,"WHO"
+"155","Armenia","ARM",2025,6,2025-06-01,NA,NA
+"156","Armenia","ARM",2025,7,2025-07-01,NA,NA
+"157","Armenia","ARM",2025,8,2025-08-01,NA,NA
+"158","Armenia","ARM",2025,9,2025-09-01,NA,NA
+"159","Armenia","ARM",2025,10,2025-10-01,NA,NA
+"160","Armenia","ARM",2025,11,2025-11-01,NA,NA
+"161","Armenia","ARM",2025,12,2025-12-01,NA,NA
+"162","Armenia","ARM",2025,NA,NA,0,"WHO"
+"163","Armenia","ARM",2025,NA,NA,0,"WHO"
+"164","Armenia","ARM",2025,NA,NA,0,"WHO"
+"165","Armenia","ARM",2025,NA,NA,0,"WHO"
+"166","Armenia","ARM",2025,NA,NA,0,"WHO"
+"167","Armenia","ARM",2025,NA,NA,0,"WHO"
+"168","Armenia","ARM",2025,NA,NA,0,"WHO"
+"169","Armenia","ARM",2025,NA,NA,0,"WHO"
+"170","Armenia","ARM",2025,NA,NA,0,"WHO"
+"171","Aruba","ABW",2025,1,2025-01-01,NA,NA
+"172","Aruba","ABW",2025,2,2025-02-01,NA,NA
+"173","Aruba","ABW",2025,3,2025-03-01,NA,NA
+"174","Aruba","ABW",2025,4,2025-04-01,NA,NA
+"175","Aruba","ABW",2025,5,2025-05-01,2,"PAHO"
+"176","Aruba","ABW",2025,6,2025-06-01,NA,NA
+"177","Aruba","ABW",2025,7,2025-07-01,NA,NA
+"178","Aruba","ABW",2025,8,2025-08-01,NA,NA
+"179","Aruba","ABW",2025,9,2025-09-01,NA,NA
+"180","Aruba","ABW",2025,10,2025-10-01,NA,NA
+"181","Aruba","ABW",2025,11,2025-11-01,NA,NA
+"182","Aruba","ABW",2025,12,2025-12-01,NA,NA
+"183","Aruba","ABW",2025,NA,NA,0,"WHO"
+"184","Aruba","ABW",2025,NA,NA,2,"PAHO"
+"185","Aruba","ABW",2025,NA,NA,0,"WHO"
+"186","Aruba","ABW",2025,NA,NA,2,"PAHO"
+"187","Aruba","ABW",2025,NA,NA,4,"PAHO"
+"188","Aruba","ABW",2025,NA,NA,2,"PAHO"
+"189","Aruba","ABW",2025,NA,NA,2,"PAHO"
+"190","Aruba","ABW",2025,NA,NA,NA,"PAHO"
+"191","Aruba","ABW",2025,NA,NA,NA,"PAHO"
+"192","Aruba","ABW",2025,NA,NA,NA,"WHO"
+"193","Australia","AUS",2025,1,2025-01-01,NA,NA
+"194","Australia","AUS",2025,2,2025-02-01,NA,NA
+"195","Australia","AUS",2025,3,2025-03-01,NA,NA
+"196","Australia","AUS",2025,4,2025-04-01,NA,NA
+"197","Australia","AUS",2025,5,2025-05-01,135,"WHO"
+"198","Australia","AUS",2025,6,2025-06-01,NA,NA
+"199","Australia","AUS",2025,7,2025-07-01,NA,NA
+"200","Australia","AUS",2025,8,2025-08-01,NA,NA
+"201","Australia","AUS",2025,9,2025-09-01,NA,NA
+"202","Australia","AUS",2025,10,2025-10-01,NA,NA
+"203","Australia","AUS",2025,11,2025-11-01,NA,NA
+"204","Australia","AUS",2025,12,2025-12-01,NA,NA
+"205","Australia","AUS",2025,NA,NA,284,"WHO"
+"206","Australia","AUS",2025,NA,NA,220,"WHO"
+"207","Australia","AUS",2025,NA,NA,220,"WHO"
+"208","Australia","AUS",2025,NA,NA,195,"WHO"
+"209","Australia","AUS",2025,NA,NA,120,"WHO"
+"210","Australia","AUS",2025,NA,NA,160,"WHO"
+"211","Australia","AUS",2025,NA,NA,126,"WHO"
+"212","Australia","AUS",2025,NA,NA,86,"WHO"
+"213","Australia","AUS",2025,NA,NA,139,"WHO"
+"214","Australia","AUS",2025,NA,NA,85,"WHO"
+"215","Austria","AUT",2025,1,2025-01-01,NA,NA
+"216","Austria","AUT",2025,2,2025-02-01,NA,NA
+"217","Austria","AUT",2025,3,2025-03-01,NA,NA
+"218","Austria","AUT",2025,4,2025-04-01,NA,NA
+"219","Austria","AUT",2025,5,2025-05-01,0,"WHO"
+"220","Austria","AUT",2025,6,2025-06-01,NA,NA
+"221","Austria","AUT",2025,7,2025-07-01,NA,NA
+"222","Austria","AUT",2025,8,2025-08-01,NA,NA
+"223","Austria","AUT",2025,9,2025-09-01,NA,NA
+"224","Austria","AUT",2025,10,2025-10-01,NA,NA
+"225","Austria","AUT",2025,11,2025-11-01,NA,NA
+"226","Austria","AUT",2025,12,2025-12-01,NA,NA
+"227","Austria","AUT",2025,NA,NA,0,"WHO"
+"228","Austria","AUT",2025,NA,NA,0,"WHO"
+"229","Austria","AUT",2025,NA,NA,0,"WHO"
+"230","Austria","AUT",2025,NA,NA,0,"WHO"
+"231","Austria","AUT",2025,NA,NA,0,"WHO"
+"232","Austria","AUT",2025,NA,NA,0,"WHO"
+"233","Austria","AUT",2025,NA,NA,0,"WHO"
+"234","Austria","AUT",2025,NA,NA,0,"WHO"
+"235","Austria","AUT",2025,NA,NA,0,"WHO"
+"236","Azerbaijan","AZE",2025,1,2025-01-01,NA,NA
+"237","Azerbaijan","AZE",2025,2,2025-02-01,NA,NA
+"238","Azerbaijan","AZE",2025,3,2025-03-01,NA,NA
+"239","Azerbaijan","AZE",2025,4,2025-04-01,NA,NA
+"240","Azerbaijan","AZE",2025,5,2025-05-01,0,"WHO"
+"241","Azerbaijan","AZE",2025,6,2025-06-01,NA,NA
+"242","Azerbaijan","AZE",2025,7,2025-07-01,NA,NA
+"243","Azerbaijan","AZE",2025,8,2025-08-01,NA,NA
+"244","Azerbaijan","AZE",2025,9,2025-09-01,NA,NA
+"245","Azerbaijan","AZE",2025,10,2025-10-01,NA,NA
+"246","Azerbaijan","AZE",2025,11,2025-11-01,NA,NA
+"247","Azerbaijan","AZE",2025,12,2025-12-01,NA,NA
+"248","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"249","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"250","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"251","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"252","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"253","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"254","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"255","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"256","Azerbaijan","AZE",2025,NA,NA,0,"WHO"
+"257","Bahamas","BHS",2025,1,2025-01-01,NA,NA
+"258","Bahamas","BHS",2025,2,2025-02-01,NA,NA
+"259","Bahamas","BHS",2025,3,2025-03-01,NA,NA
+"260","Bahamas","BHS",2025,4,2025-04-01,NA,NA
+"261","Bahamas","BHS",2025,5,2025-05-01,NA,"WHO"
+"262","Bahamas","BHS",2025,6,2025-06-01,NA,NA
+"263","Bahamas","BHS",2025,7,2025-07-01,NA,NA
+"264","Bahamas","BHS",2025,8,2025-08-01,NA,NA
+"265","Bahamas","BHS",2025,9,2025-09-01,NA,NA
+"266","Bahamas","BHS",2025,10,2025-10-01,NA,NA
+"267","Bahamas","BHS",2025,11,2025-11-01,NA,NA
+"268","Bahamas","BHS",2025,12,2025-12-01,NA,NA
+"269","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"270","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"271","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"272","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"273","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"274","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"275","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"276","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"277","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"278","Bahamas","BHS",2025,NA,NA,NA,"WHO"
+"279","Bangladesh","BGD",2025,1,2025-01-01,NA,NA
+"280","Bangladesh","BGD",2025,2,2025-02-01,NA,NA
+"281","Bangladesh","BGD",2025,3,2025-03-01,NA,NA
+"282","Bangladesh","BGD",2025,4,2025-04-01,NA,NA
+"283","Bangladesh","BGD",2025,5,2025-05-01,1773,"SEARO"
+"284","Bangladesh","BGD",2025,6,2025-06-01,NA,NA
+"285","Bangladesh","BGD",2025,7,2025-07-01,NA,NA
+"286","Bangladesh","BGD",2025,8,2025-08-01,NA,NA
+"287","Bangladesh","BGD",2025,9,2025-09-01,NA,NA
+"288","Bangladesh","BGD",2025,10,2025-10-01,NA,NA
+"289","Bangladesh","BGD",2025,11,2025-11-01,NA,NA
+"290","Bangladesh","BGD",2025,12,2025-12-01,NA,NA
+"291","Bangladesh","BGD",2025,NA,NA,1161,"SEARO"
+"292","Bangladesh","BGD",2025,NA,NA,374,"SEARO"
+"293","Bangladesh","BGD",2025,NA,NA,336,"SEARO"
+"294","Bangladesh","BGD",2025,NA,NA,701,"SEARO"
+"295","Bangladesh","BGD",2025,NA,NA,5951,"SEARO"
+"296","Bangladesh","BGD",2025,NA,NA,10684,"SEARO"
+"297","Bangladesh","BGD",2025,NA,NA,10496,"SEARO"
+"298","Bangladesh","BGD",2025,NA,NA,15866,"SEARO"
+"299","Bangladesh","BGD",2025,NA,NA,22520,"SEARO"
+"300","Bangladesh","BGD",2025,NA,NA,24540,"SEARO"
+"301","Bangladesh","BGD",2025,NA,NA,8465,"SEARO"
+"302","Barbados","BRB",2025,1,2025-01-01,NA,NA
+"303","Barbados","BRB",2025,2,2025-02-01,NA,NA
+"304","Barbados","BRB",2025,3,2025-03-01,NA,NA
+"305","Barbados","BRB",2025,4,2025-04-01,NA,NA
+"306","Barbados","BRB",2025,5,2025-05-01,10,"PAHO"
+"307","Barbados","BRB",2025,6,2025-06-01,NA,NA
+"308","Barbados","BRB",2025,7,2025-07-01,NA,NA
+"309","Barbados","BRB",2025,8,2025-08-01,NA,NA
+"310","Barbados","BRB",2025,9,2025-09-01,NA,NA
+"311","Barbados","BRB",2025,10,2025-10-01,NA,NA
+"312","Barbados","BRB",2025,11,2025-11-01,NA,NA
+"313","Barbados","BRB",2025,12,2025-12-01,NA,NA
+"314","Barbados","BRB",2025,NA,NA,28,"PAHO"
+"315","Barbados","BRB",2025,NA,NA,16,"PAHO"
+"316","Barbados","BRB",2025,NA,NA,12,"PAHO"
+"317","Barbados","BRB",2025,NA,NA,18,"PAHO"
+"318","Barbados","BRB",2025,NA,NA,11,"PAHO"
+"319","Barbados","BRB",2025,NA,NA,134,"PAHO"
+"320","Barbados","BRB",2025,NA,NA,101,"PAHO"
+"321","Barbados","BRB",2025,NA,NA,17,"PAHO"
+"322","Barbados","BRB",2025,NA,NA,12,"PAHO"
+"323","Barbados","BRB",2025,NA,NA,14,"PAHO"
+"324","Belarus","BLR",2025,1,2025-01-01,NA,NA
+"325","Belarus","BLR",2025,2,2025-02-01,NA,NA
+"326","Belarus","BLR",2025,3,2025-03-01,NA,NA
+"327","Belarus","BLR",2025,4,2025-04-01,NA,NA
+"328","Belarus","BLR",2025,5,2025-05-01,0,"WHO"
+"329","Belarus","BLR",2025,6,2025-06-01,NA,NA
+"330","Belarus","BLR",2025,7,2025-07-01,NA,NA
+"331","Belarus","BLR",2025,8,2025-08-01,NA,NA
+"332","Belarus","BLR",2025,9,2025-09-01,NA,NA
+"333","Belarus","BLR",2025,10,2025-10-01,NA,NA
+"334","Belarus","BLR",2025,11,2025-11-01,NA,NA
+"335","Belarus","BLR",2025,12,2025-12-01,NA,NA
+"336","Belarus","BLR",2025,NA,NA,0,"WHO"
+"337","Belarus","BLR",2025,NA,NA,0,"WHO"
+"338","Belarus","BLR",2025,NA,NA,0,"WHO"
+"339","Belarus","BLR",2025,NA,NA,0,"WHO"
+"340","Belarus","BLR",2025,NA,NA,0,"WHO"
+"341","Belarus","BLR",2025,NA,NA,0,"WHO"
+"342","Belarus","BLR",2025,NA,NA,0,"WHO"
+"343","Belarus","BLR",2025,NA,NA,0,"WHO"
+"344","Belarus","BLR",2025,NA,NA,0,"WHO"
+"345","Belgium","BEL",2025,1,2025-01-01,NA,NA
+"346","Belgium","BEL",2025,2,2025-02-01,NA,NA
+"347","Belgium","BEL",2025,3,2025-03-01,NA,NA
+"348","Belgium","BEL",2025,4,2025-04-01,NA,NA
+"349","Belgium","BEL",2025,5,2025-05-01,0,"WHO"
+"350","Belgium","BEL",2025,6,2025-06-01,NA,NA
+"351","Belgium","BEL",2025,7,2025-07-01,NA,NA
+"352","Belgium","BEL",2025,8,2025-08-01,NA,NA
+"353","Belgium","BEL",2025,9,2025-09-01,NA,NA
+"354","Belgium","BEL",2025,10,2025-10-01,NA,NA
+"355","Belgium","BEL",2025,11,2025-11-01,NA,NA
+"356","Belgium","BEL",2025,12,2025-12-01,NA,NA
+"357","Belgium","BEL",2025,NA,NA,0,"WHO"
+"358","Belgium","BEL",2025,NA,NA,0,"WHO"
+"359","Belgium","BEL",2025,NA,NA,0,"WHO"
+"360","Belgium","BEL",2025,NA,NA,0,"WHO"
+"361","Belgium","BEL",2025,NA,NA,0,"WHO"
+"362","Belgium","BEL",2025,NA,NA,0,"WHO"
+"363","Belgium","BEL",2025,NA,NA,0,"WHO"
+"364","Belgium","BEL",2025,NA,NA,0,"WHO"
+"365","Belgium","BEL",2025,NA,NA,0,"WHO"
+"366","Belize","BLZ",2025,1,2025-01-01,NA,NA
+"367","Belize","BLZ",2025,2,2025-02-01,NA,NA
+"368","Belize","BLZ",2025,3,2025-03-01,NA,NA
+"369","Belize","BLZ",2025,4,2025-04-01,NA,NA
+"370","Belize","BLZ",2025,5,2025-05-01,71,"PAHO"
+"371","Belize","BLZ",2025,6,2025-06-01,NA,NA
+"372","Belize","BLZ",2025,7,2025-07-01,NA,NA
+"373","Belize","BLZ",2025,8,2025-08-01,NA,NA
+"374","Belize","BLZ",2025,9,2025-09-01,NA,NA
+"375","Belize","BLZ",2025,10,2025-10-01,NA,NA
+"376","Belize","BLZ",2025,11,2025-11-01,NA,NA
+"377","Belize","BLZ",2025,12,2025-12-01,NA,NA
+"378","Belize","BLZ",2025,NA,NA,54,"PAHO"
+"379","Belize","BLZ",2025,NA,NA,57,"PAHO"
+"380","Belize","BLZ",2025,NA,NA,99,"PAHO"
+"381","Belize","BLZ",2025,NA,NA,57,"PAHO"
+"382","Belize","BLZ",2025,NA,NA,129,"PAHO"
+"383","Belize","BLZ",2025,NA,NA,299,"PAHO"
+"384","Belize","BLZ",2025,NA,NA,575,"PAHO"
+"385","Belize","BLZ",2025,NA,NA,625,"PAHO"
+"386","Belize","BLZ",2025,NA,NA,402,"PAHO"
+"387","Belize","BLZ",2025,NA,NA,167,"PAHO"
+"388","Benin","BEN",2025,1,2025-01-01,NA,NA
+"389","Benin","BEN",2025,2,2025-02-01,NA,NA
+"390","Benin","BEN",2025,3,2025-03-01,NA,NA
+"391","Benin","BEN",2025,4,2025-04-01,NA,NA
+"392","Benin","BEN",2025,5,2025-05-01,3,"WHO"
+"393","Benin","BEN",2025,6,2025-06-01,NA,NA
+"394","Benin","BEN",2025,7,2025-07-01,NA,NA
+"395","Benin","BEN",2025,8,2025-08-01,NA,NA
+"396","Benin","BEN",2025,9,2025-09-01,NA,NA
+"397","Benin","BEN",2025,10,2025-10-01,NA,NA
+"398","Benin","BEN",2025,11,2025-11-01,NA,NA
+"399","Benin","BEN",2025,12,2025-12-01,NA,NA
+"400","Benin","BEN",2025,NA,NA,0,"WHO"
+"401","Benin","BEN",2025,NA,NA,3,"WHO"
+"402","Benin","BEN",2025,NA,NA,1,"WHO"
+"403","Benin","BEN",2025,NA,NA,0,"WHO"
+"404","Benin","BEN",2025,NA,NA,13,"WHO"
+"405","Benin","BEN",2025,NA,NA,28,"WHO"
+"406","Benin","BEN",2025,NA,NA,17,"WHO"
+"407","Benin","BEN",2025,NA,NA,3,"WHO"
+"408","Benin","BEN",2025,NA,NA,4,"WHO"
+"409","Benin","BEN",2025,NA,NA,3,"WHO"
+"410","Bermuda","BMU",2025,1,2025-01-01,NA,NA
+"411","Bermuda","BMU",2025,2,2025-02-01,NA,NA
+"412","Bermuda","BMU",2025,3,2025-03-01,NA,NA
+"413","Bermuda","BMU",2025,4,2025-04-01,NA,NA
+"414","Bermuda","BMU",2025,5,2025-05-01,0,"WHO"
+"415","Bermuda","BMU",2025,6,2025-06-01,NA,NA
+"416","Bermuda","BMU",2025,7,2025-07-01,NA,NA
+"417","Bermuda","BMU",2025,8,2025-08-01,NA,NA
+"418","Bermuda","BMU",2025,9,2025-09-01,NA,NA
+"419","Bermuda","BMU",2025,10,2025-10-01,NA,NA
+"420","Bermuda","BMU",2025,11,2025-11-01,NA,NA
+"421","Bermuda","BMU",2025,12,2025-12-01,NA,NA
+"422","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"423","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"424","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"425","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"426","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"427","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"428","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"429","Bermuda","BMU",2025,NA,NA,0,"WHO"
+"430","Bermuda","BMU",2025,NA,NA,1,"PAHO"
+"431","Bermuda","BMU",2025,NA,NA,NA,"WHO"
+"432","Bhutan","BTN",2025,1,2025-01-01,NA,NA
+"433","Bhutan","BTN",2025,2,2025-02-01,NA,NA
+"434","Bhutan","BTN",2025,3,2025-03-01,NA,NA
+"435","Bhutan","BTN",2025,4,2025-04-01,NA,NA
+"436","Bhutan","BTN",2025,5,2025-05-01,1,"SEARO"
+"437","Bhutan","BTN",2025,6,2025-06-01,NA,NA
+"438","Bhutan","BTN",2025,7,2025-07-01,NA,NA
+"439","Bhutan","BTN",2025,8,2025-08-01,NA,NA
+"440","Bhutan","BTN",2025,9,2025-09-01,NA,NA
+"441","Bhutan","BTN",2025,10,2025-10-01,NA,NA
+"442","Bhutan","BTN",2025,11,2025-11-01,NA,NA
+"443","Bhutan","BTN",2025,12,2025-12-01,NA,NA
+"444","Bhutan","BTN",2025,NA,NA,2,"SEARO"
+"445","Bhutan","BTN",2025,NA,NA,0,"SEARO"
+"446","Bhutan","BTN",2025,NA,NA,1,"SEARO"
+"447","Bhutan","BTN",2025,NA,NA,0,"SEARO"
+"448","Bhutan","BTN",2025,NA,NA,0,"SEARO"
+"449","Bhutan","BTN",2025,NA,NA,3,"SEARO"
+"450","Bhutan","BTN",2025,NA,NA,22,"SEARO"
+"451","Bhutan","BTN",2025,NA,NA,5,"SEARO"
+"452","Bhutan","BTN",2025,NA,NA,1,"SEARO"
+"453","Bhutan","BTN",2025,NA,NA,0,"SEARO"
+"454","Bhutan","BTN",2025,NA,NA,0,"SEARO"
+"455","Bolivia","BOL",2025,1,2025-01-01,NA,NA
+"456","Bolivia","BOL",2025,2,2025-02-01,NA,NA
+"457","Bolivia","BOL",2025,3,2025-03-01,NA,NA
+"458","Bolivia","BOL",2025,4,2025-04-01,NA,NA
+"459","Bolivia","BOL",2025,5,2025-05-01,5762,"PAHO"
+"460","Bolivia","BOL",2025,6,2025-06-01,NA,NA
+"461","Bolivia","BOL",2025,7,2025-07-01,NA,NA
+"462","Bolivia","BOL",2025,8,2025-08-01,NA,NA
+"463","Bolivia","BOL",2025,9,2025-09-01,NA,NA
+"464","Bolivia","BOL",2025,10,2025-10-01,NA,NA
+"465","Bolivia","BOL",2025,11,2025-11-01,NA,NA
+"466","Bolivia","BOL",2025,12,2025-12-01,NA,NA
+"467","Bolivia","BOL",2025,NA,NA,4204,"PAHO"
+"468","Bolivia","BOL",2025,NA,NA,3443,"PAHO"
+"469","Bolivia","BOL",2025,NA,NA,5848,"PAHO"
+"470","Bolivia","BOL",2025,NA,NA,4561,"PAHO"
+"471","Bolivia","BOL",2025,NA,NA,4063,"PAHO"
+"472","Bolivia","BOL",2025,NA,NA,1144,"PAHO"
+"473","Bolivia","BOL",2025,NA,NA,842,"PAHO"
+"474","Bolivia","BOL",2025,NA,NA,1172,"PAHO"
+"475","Bolivia","BOL",2025,NA,NA,1154,"PAHO"
+"476","Bolivia","BOL",2025,NA,NA,2123,"PAHO"
+"477","Bolivia","BOL",2025,NA,NA,6054,"PAHO"
+"478","Bosnia & Herzegovina","BIH",2025,1,2025-01-01,NA,NA
+"479","Bosnia & Herzegovina","BIH",2025,2,2025-02-01,NA,NA
+"480","Bosnia & Herzegovina","BIH",2025,3,2025-03-01,NA,NA
+"481","Bosnia & Herzegovina","BIH",2025,4,2025-04-01,NA,NA
+"482","Bosnia & Herzegovina","BIH",2025,5,2025-05-01,0,"WHO"
+"483","Bosnia & Herzegovina","BIH",2025,6,2025-06-01,NA,NA
+"484","Bosnia & Herzegovina","BIH",2025,7,2025-07-01,NA,NA
+"485","Bosnia & Herzegovina","BIH",2025,8,2025-08-01,NA,NA
+"486","Bosnia & Herzegovina","BIH",2025,9,2025-09-01,NA,NA
+"487","Bosnia & Herzegovina","BIH",2025,10,2025-10-01,NA,NA
+"488","Bosnia & Herzegovina","BIH",2025,11,2025-11-01,NA,NA
+"489","Bosnia & Herzegovina","BIH",2025,12,2025-12-01,NA,NA
+"490","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"491","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"492","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"493","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"494","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"495","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"496","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"497","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"498","Bosnia & Herzegovina","BIH",2025,NA,NA,0,"WHO"
+"499","Botswana","BWA",2025,1,2025-01-01,NA,NA
+"500","Botswana","BWA",2025,2,2025-02-01,NA,NA
+"501","Botswana","BWA",2025,3,2025-03-01,NA,NA
+"502","Botswana","BWA",2025,4,2025-04-01,NA,NA
+"503","Botswana","BWA",2025,5,2025-05-01,0,"WHO"
+"504","Botswana","BWA",2025,6,2025-06-01,NA,NA
+"505","Botswana","BWA",2025,7,2025-07-01,NA,NA
+"506","Botswana","BWA",2025,8,2025-08-01,NA,NA
+"507","Botswana","BWA",2025,9,2025-09-01,NA,NA
+"508","Botswana","BWA",2025,10,2025-10-01,NA,NA
+"509","Botswana","BWA",2025,11,2025-11-01,NA,NA
+"510","Botswana","BWA",2025,12,2025-12-01,NA,NA
+"511","Botswana","BWA",2025,NA,NA,0,"WHO"
+"512","Botswana","BWA",2025,NA,NA,0,"WHO"
+"513","Botswana","BWA",2025,NA,NA,0,"WHO"
+"514","Botswana","BWA",2025,NA,NA,0,"WHO"
+"515","Botswana","BWA",2025,NA,NA,0,"WHO"
+"516","Botswana","BWA",2025,NA,NA,0,"WHO"
+"517","Botswana","BWA",2025,NA,NA,0,"WHO"
+"518","Botswana","BWA",2025,NA,NA,0,"WHO"
+"519","Botswana","BWA",2025,NA,NA,0,"WHO"
+"520","Brazil","BRA",2025,1,2025-01-01,NA,NA
+"521","Brazil","BRA",2025,2,2025-02-01,NA,NA
+"522","Brazil","BRA",2025,3,2025-03-01,NA,NA
+"523","Brazil","BRA",2025,4,2025-04-01,NA,NA
+"524","Brazil","BRA",2025,5,2025-05-01,465009,"PAHO"
+"525","Brazil","BRA",2025,6,2025-06-01,NA,NA
+"526","Brazil","BRA",2025,7,2025-07-01,NA,NA
+"527","Brazil","BRA",2025,8,2025-08-01,NA,NA
+"528","Brazil","BRA",2025,9,2025-09-01,NA,NA
+"529","Brazil","BRA",2025,10,2025-10-01,NA,NA
+"530","Brazil","BRA",2025,11,2025-11-01,NA,NA
+"531","Brazil","BRA",2025,12,2025-12-01,NA,NA
+"532","Brazil","BRA",2025,NA,NA,460611,"PAHO"
+"533","Brazil","BRA",2025,NA,NA,568294,"PAHO"
+"534","Brazil","BRA",2025,NA,NA,866947,"PAHO"
+"535","Brazil","BRA",2025,NA,NA,612965,"PAHO"
+"536","Brazil","BRA",2025,NA,NA,208865,"PAHO"
+"537","Brazil","BRA",2025,NA,NA,97161,"PAHO"
+"538","Brazil","BRA",2025,NA,NA,89359,"PAHO"
+"539","Brazil","BRA",2025,NA,NA,140700,"PAHO"
+"540","Brazil","BRA",2025,NA,NA,124840,"PAHO"
+"541","Brazil","BRA",2025,NA,NA,150705,"PAHO"
+"542","Brazil","BRA",2025,NA,NA,336537,"PAHO"
+"543","British Virgin Islands","VGB",2025,1,2025-01-01,NA,NA
+"544","British Virgin Islands","VGB",2025,2,2025-02-01,NA,NA
+"545","British Virgin Islands","VGB",2025,3,2025-03-01,NA,NA
+"546","British Virgin Islands","VGB",2025,4,2025-04-01,NA,NA
+"547","British Virgin Islands","VGB",2025,5,2025-05-01,1,"PAHO"
+"548","British Virgin Islands","VGB",2025,6,2025-06-01,NA,NA
+"549","British Virgin Islands","VGB",2025,7,2025-07-01,NA,NA
+"550","British Virgin Islands","VGB",2025,8,2025-08-01,NA,NA
+"551","British Virgin Islands","VGB",2025,9,2025-09-01,NA,NA
+"552","British Virgin Islands","VGB",2025,10,2025-10-01,NA,NA
+"553","British Virgin Islands","VGB",2025,11,2025-11-01,NA,NA
+"554","British Virgin Islands","VGB",2025,12,2025-12-01,NA,NA
+"555","British Virgin Islands","VGB",2025,NA,NA,11,"PAHO"
+"556","British Virgin Islands","VGB",2025,NA,NA,4,"PAHO"
+"557","British Virgin Islands","VGB",2025,NA,NA,6,"PAHO"
+"558","British Virgin Islands","VGB",2025,NA,NA,4,"PAHO"
+"559","British Virgin Islands","VGB",2025,NA,NA,1,"PAHO"
+"560","British Virgin Islands","VGB",2025,NA,NA,1,"PAHO"
+"561","British Virgin Islands","VGB",2025,NA,NA,0,"WHO"
+"562","British Virgin Islands","VGB",2025,NA,NA,8,"PAHO"
+"563","British Virgin Islands","VGB",2025,NA,NA,7,"WHO"
+"564","British Virgin Islands","VGB",2025,NA,NA,NA,"WHO"
+"565","Bulgaria","BGR",2025,1,2025-01-01,NA,NA
+"566","Bulgaria","BGR",2025,2,2025-02-01,NA,NA
+"567","Bulgaria","BGR",2025,3,2025-03-01,NA,NA
+"568","Bulgaria","BGR",2025,4,2025-04-01,NA,NA
+"569","Bulgaria","BGR",2025,5,2025-05-01,0,"WHO"
+"570","Bulgaria","BGR",2025,6,2025-06-01,NA,NA
+"571","Bulgaria","BGR",2025,7,2025-07-01,NA,NA
+"572","Bulgaria","BGR",2025,8,2025-08-01,NA,NA
+"573","Bulgaria","BGR",2025,9,2025-09-01,NA,NA
+"574","Bulgaria","BGR",2025,10,2025-10-01,NA,NA
+"575","Bulgaria","BGR",2025,11,2025-11-01,NA,NA
+"576","Bulgaria","BGR",2025,12,2025-12-01,NA,NA
+"577","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"578","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"579","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"580","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"581","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"582","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"583","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"584","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"585","Bulgaria","BGR",2025,NA,NA,0,"WHO"
+"586","Burkina Faso","BFA",2025,1,2025-01-01,NA,NA
+"587","Burkina Faso","BFA",2025,2,2025-02-01,NA,NA
+"588","Burkina Faso","BFA",2025,3,2025-03-01,NA,NA
+"589","Burkina Faso","BFA",2025,4,2025-04-01,NA,NA
+"590","Burkina Faso","BFA",2025,5,2025-05-01,1981,"WHO"
+"591","Burkina Faso","BFA",2025,6,2025-06-01,NA,NA
+"592","Burkina Faso","BFA",2025,7,2025-07-01,NA,NA
+"593","Burkina Faso","BFA",2025,8,2025-08-01,NA,NA
+"594","Burkina Faso","BFA",2025,9,2025-09-01,NA,NA
+"595","Burkina Faso","BFA",2025,10,2025-10-01,NA,NA
+"596","Burkina Faso","BFA",2025,11,2025-11-01,NA,NA
+"597","Burkina Faso","BFA",2025,12,2025-12-01,NA,NA
+"598","Burkina Faso","BFA",2025,NA,NA,4242,"WHO"
+"599","Burkina Faso","BFA",2025,NA,NA,2543,"WHO"
+"600","Burkina Faso","BFA",2025,NA,NA,2130,"WHO"
+"601","Burkina Faso","BFA",2025,NA,NA,2026,"WHO"
+"602","Burkina Faso","BFA",2025,NA,NA,1894,"WHO"
+"603","Burkina Faso","BFA",2025,NA,NA,3584,"WHO"
+"604","Burkina Faso","BFA",2025,NA,NA,3123,"WHO"
+"605","Burkina Faso","BFA",2025,NA,NA,6374,"WHO"
+"606","Burkina Faso","BFA",2025,NA,NA,11453,"WHO"
+"607","Burkina Faso","BFA",2025,NA,NA,9011,"WHO"
+"608","Cambodia","KHM",2025,1,2025-01-01,NA,NA
+"609","Cambodia","KHM",2025,2,2025-02-01,NA,NA
+"610","Cambodia","KHM",2025,3,2025-03-01,NA,NA
+"611","Cambodia","KHM",2025,4,2025-04-01,NA,NA
+"612","Cambodia","KHM",2025,5,2025-05-01,3233,"WHO"
+"613","Cambodia","KHM",2025,6,2025-06-01,NA,NA
+"614","Cambodia","KHM",2025,7,2025-07-01,NA,NA
+"615","Cambodia","KHM",2025,8,2025-08-01,NA,NA
+"616","Cambodia","KHM",2025,9,2025-09-01,NA,NA
+"617","Cambodia","KHM",2025,10,2025-10-01,NA,NA
+"618","Cambodia","KHM",2025,11,2025-11-01,NA,NA
+"619","Cambodia","KHM",2025,12,2025-12-01,NA,NA
+"620","Cambodia","KHM",2025,NA,NA,761,"WHO"
+"621","Cambodia","KHM",2025,NA,NA,498,"WHO"
+"622","Cambodia","KHM",2025,NA,NA,600,"WHO"
+"623","Cambodia","KHM",2025,NA,NA,935,"WHO"
+"624","Cambodia","KHM",2025,NA,NA,6602,"WHO"
+"625","Cambodia","KHM",2025,NA,NA,14728,"WHO"
+"626","Cambodia","KHM",2025,NA,NA,9938,"WHO"
+"627","Cambodia","KHM",2025,NA,NA,7408,"WHO"
+"628","Cambodia","KHM",2025,NA,NA,8655,"WHO"
+"629","Cameroon","CMR",2025,1,2025-01-01,NA,NA
+"630","Cameroon","CMR",2025,2,2025-02-01,NA,NA
+"631","Cameroon","CMR",2025,3,2025-03-01,NA,NA
+"632","Cameroon","CMR",2025,4,2025-04-01,NA,NA
+"633","Cameroon","CMR",2025,5,2025-05-01,1,"WHO"
+"634","Cameroon","CMR",2025,6,2025-06-01,NA,NA
+"635","Cameroon","CMR",2025,7,2025-07-01,NA,NA
+"636","Cameroon","CMR",2025,8,2025-08-01,NA,NA
+"637","Cameroon","CMR",2025,9,2025-09-01,NA,NA
+"638","Cameroon","CMR",2025,10,2025-10-01,NA,NA
+"639","Cameroon","CMR",2025,11,2025-11-01,NA,NA
+"640","Cameroon","CMR",2025,12,2025-12-01,NA,NA
+"641","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"642","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"643","Cameroon","CMR",2025,NA,NA,60,"WHO"
+"644","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"645","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"646","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"647","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"648","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"649","Cameroon","CMR",2025,NA,NA,0,"WHO"
+"650","Cameroon","CMR",2025,NA,NA,3,"WHO"
+"651","Canada","CAN",2025,1,2025-01-01,NA,NA
+"652","Canada","CAN",2025,2,2025-02-01,NA,NA
+"653","Canada","CAN",2025,3,2025-03-01,NA,NA
+"654","Canada","CAN",2025,4,2025-04-01,NA,NA
+"655","Canada","CAN",2025,5,2025-05-01,0,"WHO"
+"656","Canada","CAN",2025,6,2025-06-01,NA,NA
+"657","Canada","CAN",2025,7,2025-07-01,NA,NA
+"658","Canada","CAN",2025,8,2025-08-01,NA,NA
+"659","Canada","CAN",2025,9,2025-09-01,NA,NA
+"660","Canada","CAN",2025,10,2025-10-01,NA,NA
+"661","Canada","CAN",2025,11,2025-11-01,NA,NA
+"662","Canada","CAN",2025,12,2025-12-01,NA,NA
+"663","Canada","CAN",2025,NA,NA,0,"WHO"
+"664","Canada","CAN",2025,NA,NA,0,"WHO"
+"665","Canada","CAN",2025,NA,NA,0,"WHO"
+"666","Canada","CAN",2025,NA,NA,0,"WHO"
+"667","Canada","CAN",2025,NA,NA,0,"WHO"
+"668","Canada","CAN",2025,NA,NA,0,"WHO"
+"669","Canada","CAN",2025,NA,NA,0,"WHO"
+"670","Canada","CAN",2025,NA,NA,0,"WHO"
+"671","Canada","CAN",2025,NA,NA,NA,"PAHO"
+"672","Canada","CAN",2025,NA,NA,NA,"PAHO"
+"673","Canada","CAN",2025,NA,NA,NA,"PAHO"
+"674","Cape Verde","CPV",2025,1,2025-01-01,NA,NA
+"675","Cape Verde","CPV",2025,2,2025-02-01,NA,NA
+"676","Cape Verde","CPV",2025,3,2025-03-01,NA,NA
+"677","Cape Verde","CPV",2025,4,2025-04-01,NA,NA
+"678","Cape Verde","CPV",2025,5,2025-05-01,83,"WHO"
+"679","Cape Verde","CPV",2025,6,2025-06-01,NA,NA
+"680","Cape Verde","CPV",2025,7,2025-07-01,NA,NA
+"681","Cape Verde","CPV",2025,8,2025-08-01,NA,NA
+"682","Cape Verde","CPV",2025,9,2025-09-01,NA,NA
+"683","Cape Verde","CPV",2025,10,2025-10-01,NA,NA
+"684","Cape Verde","CPV",2025,11,2025-11-01,NA,NA
+"685","Cape Verde","CPV",2025,12,2025-12-01,NA,NA
+"686","Cape Verde","CPV",2025,NA,NA,340,"WHO"
+"687","Cape Verde","CPV",2025,NA,NA,162,"WHO"
+"688","Cape Verde","CPV",2025,NA,NA,27,"WHO"
+"689","Cape Verde","CPV",2025,NA,NA,14,"WHO"
+"690","Cape Verde","CPV",2025,NA,NA,58,"WHO"
+"691","Cape Verde","CPV",2025,NA,NA,43,"WHO"
+"692","Cape Verde","CPV",2025,NA,NA,44,"WHO"
+"693","Cape Verde","CPV",2025,NA,NA,12,"WHO"
+"694","Caribbean Netherlands","BES",2025,1,2025-01-01,NA,NA
+"695","Caribbean Netherlands","BES",2025,2,2025-02-01,NA,NA
+"696","Caribbean Netherlands","BES",2025,3,2025-03-01,NA,NA
+"697","Caribbean Netherlands","BES",2025,4,2025-04-01,NA,NA
+"698","Caribbean Netherlands","BES",2025,5,2025-05-01,NA,"WHO"
+"699","Caribbean Netherlands","BES",2025,6,2025-06-01,NA,NA
+"700","Caribbean Netherlands","BES",2025,7,2025-07-01,NA,NA
+"701","Caribbean Netherlands","BES",2025,8,2025-08-01,NA,NA
+"702","Caribbean Netherlands","BES",2025,9,2025-09-01,NA,NA
+"703","Caribbean Netherlands","BES",2025,10,2025-10-01,NA,NA
+"704","Caribbean Netherlands","BES",2025,11,2025-11-01,NA,NA
+"705","Caribbean Netherlands","BES",2025,12,2025-12-01,NA,NA
+"706","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"707","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"708","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"709","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"710","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"711","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"712","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"713","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"714","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"715","Caribbean Netherlands","BES",2025,NA,NA,NA,"WHO"
+"716","Cayman Islands","CYM",2025,1,2025-01-01,NA,NA
+"717","Cayman Islands","CYM",2025,2,2025-02-01,NA,NA
+"718","Cayman Islands","CYM",2025,3,2025-03-01,NA,NA
+"719","Cayman Islands","CYM",2025,4,2025-04-01,NA,NA
+"720","Cayman Islands","CYM",2025,5,2025-05-01,0,"WHO"
+"721","Cayman Islands","CYM",2025,6,2025-06-01,NA,NA
+"722","Cayman Islands","CYM",2025,7,2025-07-01,NA,NA
+"723","Cayman Islands","CYM",2025,8,2025-08-01,NA,NA
+"724","Cayman Islands","CYM",2025,9,2025-09-01,NA,NA
+"725","Cayman Islands","CYM",2025,10,2025-10-01,NA,NA
+"726","Cayman Islands","CYM",2025,11,2025-11-01,NA,NA
+"727","Cayman Islands","CYM",2025,12,2025-12-01,NA,NA
+"728","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"729","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"730","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"731","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"732","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"733","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"734","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"735","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"736","Cayman Islands","CYM",2025,NA,NA,0,"WHO"
+"737","Cayman Islands","CYM",2025,NA,NA,NA,"WHO"
+"738","Chad","TCD",2025,1,2025-01-01,NA,NA
+"739","Chad","TCD",2025,2,2025-02-01,NA,NA
+"740","Chad","TCD",2025,3,2025-03-01,NA,NA
+"741","Chad","TCD",2025,4,2025-04-01,NA,NA
+"742","Chad","TCD",2025,5,2025-05-01,6,"WHO"
+"743","Chad","TCD",2025,6,2025-06-01,NA,NA
+"744","Chad","TCD",2025,7,2025-07-01,NA,NA
+"745","Chad","TCD",2025,8,2025-08-01,NA,NA
+"746","Chad","TCD",2025,9,2025-09-01,NA,NA
+"747","Chad","TCD",2025,10,2025-10-01,NA,NA
+"748","Chad","TCD",2025,11,2025-11-01,NA,NA
+"749","Chad","TCD",2025,12,2025-12-01,NA,NA
+"750","Chad","TCD",2025,NA,NA,11,"WHO"
+"751","Chad","TCD",2025,NA,NA,0,"WHO"
+"752","Chad","TCD",2025,NA,NA,0,"WHO"
+"753","Chad","TCD",2025,NA,NA,0,"WHO"
+"754","Chad","TCD",2025,NA,NA,0,"WHO"
+"755","Chad","TCD",2025,NA,NA,0,"WHO"
+"756","Chad","TCD",2025,NA,NA,0,"WHO"
+"757","Chad","TCD",2025,NA,NA,0,"WHO"
+"758","Chad","TCD",2025,NA,NA,0,"WHO"
+"759","Chad","TCD",2025,NA,NA,0,"WHO"
+"760","Chile","CHL",2025,1,2025-01-01,NA,NA
+"761","Chile","CHL",2025,2,2025-02-01,NA,NA
+"762","Chile","CHL",2025,3,2025-03-01,NA,NA
+"763","Chile","CHL",2025,4,2025-04-01,NA,NA
+"764","Chile","CHL",2025,5,2025-05-01,0,"WHO"
+"765","Chile","CHL",2025,6,2025-06-01,NA,NA
+"766","Chile","CHL",2025,7,2025-07-01,NA,NA
+"767","Chile","CHL",2025,8,2025-08-01,NA,NA
+"768","Chile","CHL",2025,9,2025-09-01,NA,NA
+"769","Chile","CHL",2025,10,2025-10-01,NA,NA
+"770","Chile","CHL",2025,11,2025-11-01,NA,NA
+"771","Chile","CHL",2025,12,2025-12-01,NA,NA
+"772","Chile","CHL",2025,NA,NA,0,"WHO"
+"773","Chile","CHL",2025,NA,NA,0,"WHO"
+"774","Chile","CHL",2025,NA,NA,0,"WHO"
+"775","Chile","CHL",2025,NA,NA,0,"WHO"
+"776","Chile","CHL",2025,NA,NA,0,"WHO"
+"777","Chile","CHL",2025,NA,NA,0,"WHO"
+"778","Chile","CHL",2025,NA,NA,0,"WHO"
+"779","Chile","CHL",2025,NA,NA,0,"WHO"
+"780","Chile","CHL",2025,NA,NA,0,"WHO"
+"781","Chile","CHL",2025,NA,NA,NA,"PAHO"
+"782","China","CHN",2025,1,2025-01-01,NA,NA
+"783","China","CHN",2025,2,2025-02-01,NA,NA
+"784","China","CHN",2025,3,2025-03-01,NA,NA
+"785","China","CHN",2025,4,2025-04-01,NA,NA
+"786","China","CHN",2025,5,2025-05-01,126,"WHO"
+"787","China","CHN",2025,6,2025-06-01,NA,NA
+"788","China","CHN",2025,7,2025-07-01,NA,NA
+"789","China","CHN",2025,8,2025-08-01,NA,NA
+"790","China","CHN",2025,9,2025-09-01,NA,NA
+"791","China","CHN",2025,10,2025-10-01,NA,NA
+"792","China","CHN",2025,11,2025-11-01,NA,NA
+"793","China","CHN",2025,12,2025-12-01,NA,NA
+"794","China","CHN",2025,NA,NA,49,"WHO"
+"795","China","CHN",2025,NA,NA,51,"WHO"
+"796","China","CHN",2025,NA,NA,38,"WHO"
+"797","China","CHN",2025,NA,NA,74,"WHO"
+"798","China","CHN",2025,NA,NA,225,"WHO"
+"799","China","CHN",2025,NA,NA,694,"WHO"
+"800","China","CHN",2025,NA,NA,1702,"WHO"
+"801","China","CHN",2025,NA,NA,2321,"WHO"
+"802","China","CHN",2025,NA,NA,3727,"WHO"
+"803","China","CHN",2025,NA,NA,849,"WHO"
+"804","Colombia","COL",2025,1,2025-01-01,NA,NA
+"805","Colombia","COL",2025,2,2025-02-01,NA,NA
+"806","Colombia","COL",2025,3,2025-03-01,NA,NA
+"807","Colombia","COL",2025,4,2025-04-01,NA,NA
+"808","Colombia","COL",2025,5,2025-05-01,11614,"PAHO"
+"809","Colombia","COL",2025,6,2025-06-01,NA,NA
+"810","Colombia","COL",2025,7,2025-07-01,NA,NA
+"811","Colombia","COL",2025,8,2025-08-01,NA,NA
+"812","Colombia","COL",2025,9,2025-09-01,NA,NA
+"813","Colombia","COL",2025,10,2025-10-01,NA,NA
+"814","Colombia","COL",2025,11,2025-11-01,NA,NA
+"815","Colombia","COL",2025,12,2025-12-01,NA,NA
+"816","Colombia","COL",2025,NA,NA,19794,"PAHO"
+"817","Colombia","COL",2025,NA,NA,14705,"PAHO"
+"818","Colombia","COL",2025,NA,NA,16984,"PAHO"
+"819","Colombia","COL",2025,NA,NA,13301,"PAHO"
+"820","Colombia","COL",2025,NA,NA,11049,"PAHO"
+"821","Colombia","COL",2025,NA,NA,7429,"PAHO"
+"822","Colombia","COL",2025,NA,NA,5159,"PAHO"
+"823","Colombia","COL",2025,NA,NA,6506,"PAHO"
+"824","Colombia","COL",2025,NA,NA,4615,"PAHO"
+"825","Colombia","COL",2025,NA,NA,6554,"PAHO"
+"826","Colombia","COL",2025,NA,NA,13277,"PAHO"
+"827","Comoros","COM",2025,1,2025-01-01,NA,NA
+"828","Comoros","COM",2025,2,2025-02-01,NA,NA
+"829","Comoros","COM",2025,3,2025-03-01,NA,NA
+"830","Comoros","COM",2025,4,2025-04-01,NA,NA
+"831","Comoros","COM",2025,5,2025-05-01,NA,NA
+"832","Comoros","COM",2025,6,2025-06-01,NA,NA
+"833","Comoros","COM",2025,7,2025-07-01,NA,NA
+"834","Comoros","COM",2025,8,2025-08-01,NA,NA
+"835","Comoros","COM",2025,9,2025-09-01,NA,NA
+"836","Comoros","COM",2025,10,2025-10-01,NA,NA
+"837","Comoros","COM",2025,11,2025-11-01,NA,NA
+"838","Comoros","COM",2025,12,2025-12-01,NA,NA
+"839","Comoros","COM",2025,NA,NA,41,"WHO"
+"840","Cook Islands","COK",2025,1,2025-01-01,NA,NA
+"841","Cook Islands","COK",2025,2,2025-02-01,NA,NA
+"842","Cook Islands","COK",2025,3,2025-03-01,NA,NA
+"843","Cook Islands","COK",2025,4,2025-04-01,NA,NA
+"844","Cook Islands","COK",2025,5,2025-05-01,12,"WHO"
+"845","Cook Islands","COK",2025,6,2025-06-01,NA,NA
+"846","Cook Islands","COK",2025,7,2025-07-01,NA,NA
+"847","Cook Islands","COK",2025,8,2025-08-01,NA,NA
+"848","Cook Islands","COK",2025,9,2025-09-01,NA,NA
+"849","Cook Islands","COK",2025,10,2025-10-01,NA,NA
+"850","Cook Islands","COK",2025,11,2025-11-01,NA,NA
+"851","Cook Islands","COK",2025,12,2025-12-01,NA,NA
+"852","Cook Islands","COK",2025,NA,NA,0,"WHO"
+"853","Cook Islands","COK",2025,NA,NA,1,"WHO"
+"854","Cook Islands","COK",2025,NA,NA,0,"WHO"
+"855","Cook Islands","COK",2025,NA,NA,1,"WHO"
+"856","Cook Islands","COK",2025,NA,NA,23,"WHO"
+"857","Cook Islands","COK",2025,NA,NA,34,"WHO"
+"858","Cook Islands","COK",2025,NA,NA,18,"WHO"
+"859","Cook Islands","COK",2025,NA,NA,40,"WHO"
+"860","Cook Islands","COK",2025,NA,NA,34,"WHO"
+"861","Cook Islands","COK",2025,NA,NA,36,"WHO"
+"862","Costa Rica","CRI",2025,1,2025-01-01,NA,NA
+"863","Costa Rica","CRI",2025,2,2025-02-01,NA,NA
+"864","Costa Rica","CRI",2025,3,2025-03-01,NA,NA
+"865","Costa Rica","CRI",2025,4,2025-04-01,NA,NA
+"866","Costa Rica","CRI",2025,5,2025-05-01,186,"PAHO"
+"867","Costa Rica","CRI",2025,6,2025-06-01,NA,NA
+"868","Costa Rica","CRI",2025,7,2025-07-01,NA,NA
+"869","Costa Rica","CRI",2025,8,2025-08-01,NA,NA
+"870","Costa Rica","CRI",2025,9,2025-09-01,NA,NA
+"871","Costa Rica","CRI",2025,10,2025-10-01,NA,NA
+"872","Costa Rica","CRI",2025,11,2025-11-01,NA,NA
+"873","Costa Rica","CRI",2025,12,2025-12-01,NA,NA
+"874","Costa Rica","CRI",2025,NA,NA,537,"PAHO"
+"875","Costa Rica","CRI",2025,NA,NA,261,"PAHO"
+"876","Costa Rica","CRI",2025,NA,NA,287,"PAHO"
+"877","Costa Rica","CRI",2025,NA,NA,164,"PAHO"
+"878","Costa Rica","CRI",2025,NA,NA,326,"PAHO"
+"879","Costa Rica","CRI",2025,NA,NA,481,"PAHO"
+"880","Costa Rica","CRI",2025,NA,NA,689,"PAHO"
+"881","Costa Rica","CRI",2025,NA,NA,932,"PAHO"
+"882","Costa Rica","CRI",2025,NA,NA,779,"PAHO"
+"883","Costa Rica","CRI",2025,NA,NA,959,"PAHO"
+"884","Costa Rica","CRI",2025,NA,NA,168,"PAHO"
+"885","Côte d’Ivoire","CIV",2025,1,2025-01-01,NA,NA
+"886","Côte d’Ivoire","CIV",2025,2,2025-02-01,NA,NA
+"887","Côte d’Ivoire","CIV",2025,3,2025-03-01,NA,NA
+"888","Côte d’Ivoire","CIV",2025,4,2025-04-01,NA,NA
+"889","Côte d’Ivoire","CIV",2025,5,2025-05-01,28,"WHO"
+"890","Côte d’Ivoire","CIV",2025,6,2025-06-01,NA,NA
+"891","Côte d’Ivoire","CIV",2025,7,2025-07-01,NA,NA
+"892","Côte d’Ivoire","CIV",2025,8,2025-08-01,NA,NA
+"893","Côte d’Ivoire","CIV",2025,9,2025-09-01,NA,NA
+"894","Côte d’Ivoire","CIV",2025,10,2025-10-01,NA,NA
+"895","Côte d’Ivoire","CIV",2025,11,2025-11-01,NA,NA
+"896","Côte d’Ivoire","CIV",2025,12,2025-12-01,NA,NA
+"897","Côte d’Ivoire","CIV",2025,NA,NA,23,"WHO"
+"898","Côte d’Ivoire","CIV",2025,NA,NA,5,"WHO"
+"899","Côte d’Ivoire","CIV",2025,NA,NA,15,"WHO"
+"900","Côte d’Ivoire","CIV",2025,NA,NA,15,"WHO"
+"901","Côte d’Ivoire","CIV",2025,NA,NA,78,"WHO"
+"902","Côte d’Ivoire","CIV",2025,NA,NA,106,"WHO"
+"903","Côte d’Ivoire","CIV",2025,NA,NA,39,"WHO"
+"904","Côte d’Ivoire","CIV",2025,NA,NA,28,"WHO"
+"905","Côte d’Ivoire","CIV",2025,NA,NA,0,"WHO"
+"906","Côte d’Ivoire","CIV",2025,NA,NA,19,"WHO"
+"907","Croatia","HRV",2025,1,2025-01-01,NA,NA
+"908","Croatia","HRV",2025,2,2025-02-01,NA,NA
+"909","Croatia","HRV",2025,3,2025-03-01,NA,NA
+"910","Croatia","HRV",2025,4,2025-04-01,NA,NA
+"911","Croatia","HRV",2025,5,2025-05-01,0,"WHO"
+"912","Croatia","HRV",2025,6,2025-06-01,NA,NA
+"913","Croatia","HRV",2025,7,2025-07-01,NA,NA
+"914","Croatia","HRV",2025,8,2025-08-01,NA,NA
+"915","Croatia","HRV",2025,9,2025-09-01,NA,NA
+"916","Croatia","HRV",2025,10,2025-10-01,NA,NA
+"917","Croatia","HRV",2025,11,2025-11-01,NA,NA
+"918","Croatia","HRV",2025,12,2025-12-01,NA,NA
+"919","Croatia","HRV",2025,NA,NA,0,"WHO"
+"920","Croatia","HRV",2025,NA,NA,0,"WHO"
+"921","Croatia","HRV",2025,NA,NA,0,"WHO"
+"922","Croatia","HRV",2025,NA,NA,0,"WHO"
+"923","Croatia","HRV",2025,NA,NA,0,"WHO"
+"924","Croatia","HRV",2025,NA,NA,0,"WHO"
+"925","Croatia","HRV",2025,NA,NA,0,"WHO"
+"926","Croatia","HRV",2025,NA,NA,0,"WHO"
+"927","Croatia","HRV",2025,NA,NA,0,"WHO"
+"928","Cuba","CUB",2025,1,2025-01-01,NA,NA
+"929","Cuba","CUB",2025,2,2025-02-01,NA,NA
+"930","Cuba","CUB",2025,3,2025-03-01,NA,NA
+"931","Cuba","CUB",2025,4,2025-04-01,NA,NA
+"932","Cuba","CUB",2025,5,2025-05-01,NA,"PAHO"
+"933","Cuba","CUB",2025,6,2025-06-01,NA,NA
+"934","Cuba","CUB",2025,7,2025-07-01,NA,NA
+"935","Cuba","CUB",2025,8,2025-08-01,NA,NA
+"936","Cuba","CUB",2025,9,2025-09-01,NA,NA
+"937","Cuba","CUB",2025,10,2025-10-01,NA,NA
+"938","Cuba","CUB",2025,11,2025-11-01,NA,NA
+"939","Cuba","CUB",2025,12,2025-12-01,NA,NA
+"940","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"941","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"942","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"943","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"944","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"945","Cuba","CUB",2025,NA,NA,3945,"WHO"
+"946","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"947","Cuba","CUB",2025,NA,NA,2574,"WHO"
+"948","Cuba","CUB",2025,NA,NA,NA,"PAHO"
+"949","Cuba","CUB",2025,NA,NA,3083,"WHO"
+"950","Cuba","CUB",2025,NA,NA,7446,"PAHO"
+"951","Curaçao","CUW",2025,1,2025-01-01,NA,NA
+"952","Curaçao","CUW",2025,2,2025-02-01,NA,NA
+"953","Curaçao","CUW",2025,3,2025-03-01,NA,NA
+"954","Curaçao","CUW",2025,4,2025-04-01,NA,NA
+"955","Curaçao","CUW",2025,5,2025-05-01,NA,"WHO"
+"956","Curaçao","CUW",2025,6,2025-06-01,NA,NA
+"957","Curaçao","CUW",2025,7,2025-07-01,NA,NA
+"958","Curaçao","CUW",2025,8,2025-08-01,NA,NA
+"959","Curaçao","CUW",2025,9,2025-09-01,NA,NA
+"960","Curaçao","CUW",2025,10,2025-10-01,NA,NA
+"961","Curaçao","CUW",2025,11,2025-11-01,NA,NA
+"962","Curaçao","CUW",2025,12,2025-12-01,NA,NA
+"963","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"964","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"965","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"966","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"967","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"968","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"969","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"970","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"971","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"972","Curaçao","CUW",2025,NA,NA,NA,"WHO"
+"973","Cyprus","CYP",2025,1,2025-01-01,NA,NA
+"974","Cyprus","CYP",2025,2,2025-02-01,NA,NA
+"975","Cyprus","CYP",2025,3,2025-03-01,NA,NA
+"976","Cyprus","CYP",2025,4,2025-04-01,NA,NA
+"977","Cyprus","CYP",2025,5,2025-05-01,0,"WHO"
+"978","Cyprus","CYP",2025,6,2025-06-01,NA,NA
+"979","Cyprus","CYP",2025,7,2025-07-01,NA,NA
+"980","Cyprus","CYP",2025,8,2025-08-01,NA,NA
+"981","Cyprus","CYP",2025,9,2025-09-01,NA,NA
+"982","Cyprus","CYP",2025,10,2025-10-01,NA,NA
+"983","Cyprus","CYP",2025,11,2025-11-01,NA,NA
+"984","Cyprus","CYP",2025,12,2025-12-01,NA,NA
+"985","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"986","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"987","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"988","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"989","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"990","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"991","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"992","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"993","Cyprus","CYP",2025,NA,NA,0,"WHO"
+"994","Czechia","CZE",2025,1,2025-01-01,NA,NA
+"995","Czechia","CZE",2025,2,2025-02-01,NA,NA
+"996","Czechia","CZE",2025,3,2025-03-01,NA,NA
+"997","Czechia","CZE",2025,4,2025-04-01,NA,NA
+"998","Czechia","CZE",2025,5,2025-05-01,0,"WHO"
+"999","Czechia","CZE",2025,6,2025-06-01,NA,NA
+"1000","Czechia","CZE",2025,7,2025-07-01,NA,NA
+"1001","Czechia","CZE",2025,8,2025-08-01,NA,NA
+"1002","Czechia","CZE",2025,9,2025-09-01,NA,NA
+"1003","Czechia","CZE",2025,10,2025-10-01,NA,NA
+"1004","Czechia","CZE",2025,11,2025-11-01,NA,NA
+"1005","Czechia","CZE",2025,12,2025-12-01,NA,NA
+"1006","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1007","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1008","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1009","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1010","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1011","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1012","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1013","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1014","Czechia","CZE",2025,NA,NA,0,"WHO"
+"1015","Denmark","DNK",2025,1,2025-01-01,NA,NA
+"1016","Denmark","DNK",2025,2,2025-02-01,NA,NA
+"1017","Denmark","DNK",2025,3,2025-03-01,NA,NA
+"1018","Denmark","DNK",2025,4,2025-04-01,NA,NA
+"1019","Denmark","DNK",2025,5,2025-05-01,0,"WHO"
+"1020","Denmark","DNK",2025,6,2025-06-01,NA,NA
+"1021","Denmark","DNK",2025,7,2025-07-01,NA,NA
+"1022","Denmark","DNK",2025,8,2025-08-01,NA,NA
+"1023","Denmark","DNK",2025,9,2025-09-01,NA,NA
+"1024","Denmark","DNK",2025,10,2025-10-01,NA,NA
+"1025","Denmark","DNK",2025,11,2025-11-01,NA,NA
+"1026","Denmark","DNK",2025,12,2025-12-01,NA,NA
+"1027","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1028","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1029","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1030","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1031","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1032","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1033","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1034","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1035","Denmark","DNK",2025,NA,NA,0,"WHO"
+"1036","Dominican Republic","DOM",2025,1,2025-01-01,NA,NA
+"1037","Dominican Republic","DOM",2025,2,2025-02-01,NA,NA
+"1038","Dominican Republic","DOM",2025,3,2025-03-01,NA,NA
+"1039","Dominican Republic","DOM",2025,4,2025-04-01,NA,NA
+"1040","Dominican Republic","DOM",2025,5,2025-05-01,166,"PAHO"
+"1041","Dominican Republic","DOM",2025,6,2025-06-01,NA,NA
+"1042","Dominican Republic","DOM",2025,7,2025-07-01,NA,NA
+"1043","Dominican Republic","DOM",2025,8,2025-08-01,NA,NA
+"1044","Dominican Republic","DOM",2025,9,2025-09-01,NA,NA
+"1045","Dominican Republic","DOM",2025,10,2025-10-01,NA,NA
+"1046","Dominican Republic","DOM",2025,11,2025-11-01,NA,NA
+"1047","Dominican Republic","DOM",2025,12,2025-12-01,NA,NA
+"1048","Dominican Republic","DOM",2025,NA,NA,201,"PAHO"
+"1049","Dominican Republic","DOM",2025,NA,NA,166,"PAHO"
+"1050","Dominican Republic","DOM",2025,NA,NA,239,"PAHO"
+"1051","Dominican Republic","DOM",2025,NA,NA,126,"PAHO"
+"1052","Dominican Republic","DOM",2025,NA,NA,178,"PAHO"
+"1053","Dominican Republic","DOM",2025,NA,NA,139,"PAHO"
+"1054","Dominican Republic","DOM",2025,NA,NA,117,"PAHO"
+"1055","Dominican Republic","DOM",2025,NA,NA,168,"PAHO"
+"1056","Dominican Republic","DOM",2025,NA,NA,172,"PAHO"
+"1057","Dominican Republic","DOM",2025,NA,NA,204,"PAHO"
+"1058","Dominican Republic","DOM",2025,NA,NA,397,"PAHO"
+"1059","Ecuador","ECU",2025,1,2025-01-01,NA,NA
+"1060","Ecuador","ECU",2025,2,2025-02-01,NA,NA
+"1061","Ecuador","ECU",2025,3,2025-03-01,NA,NA
+"1062","Ecuador","ECU",2025,4,2025-04-01,NA,NA
+"1063","Ecuador","ECU",2025,5,2025-05-01,5324,"PAHO"
+"1064","Ecuador","ECU",2025,6,2025-06-01,NA,NA
+"1065","Ecuador","ECU",2025,7,2025-07-01,NA,NA
+"1066","Ecuador","ECU",2025,8,2025-08-01,NA,NA
+"1067","Ecuador","ECU",2025,9,2025-09-01,NA,NA
+"1068","Ecuador","ECU",2025,10,2025-10-01,NA,NA
+"1069","Ecuador","ECU",2025,11,2025-11-01,NA,NA
+"1070","Ecuador","ECU",2025,12,2025-12-01,NA,NA
+"1071","Ecuador","ECU",2025,NA,NA,4513,"PAHO"
+"1072","Ecuador","ECU",2025,NA,NA,4122,"PAHO"
+"1073","Ecuador","ECU",2025,NA,NA,5770,"PAHO"
+"1074","Ecuador","ECU",2025,NA,NA,4985,"PAHO"
+"1075","Ecuador","ECU",2025,NA,NA,4741,"PAHO"
+"1076","Ecuador","ECU",2025,NA,NA,2406,"PAHO"
+"1077","Ecuador","ECU",2025,NA,NA,1308,"PAHO"
+"1078","Ecuador","ECU",2025,NA,NA,1367,"PAHO"
+"1079","Ecuador","ECU",2025,NA,NA,1013,"PAHO"
+"1080","Ecuador","ECU",2025,NA,NA,1144,"PAHO"
+"1081","Ecuador","ECU",2025,NA,NA,2925,"PAHO"
+"1082","El Salvador","SLV",2025,1,2025-01-01,NA,NA
+"1083","El Salvador","SLV",2025,2,2025-02-01,NA,NA
+"1084","El Salvador","SLV",2025,3,2025-03-01,NA,NA
+"1085","El Salvador","SLV",2025,4,2025-04-01,NA,NA
+"1086","El Salvador","SLV",2025,5,2025-05-01,391,"PAHO"
+"1087","El Salvador","SLV",2025,6,2025-06-01,NA,NA
+"1088","El Salvador","SLV",2025,7,2025-07-01,NA,NA
+"1089","El Salvador","SLV",2025,8,2025-08-01,NA,NA
+"1090","El Salvador","SLV",2025,9,2025-09-01,NA,NA
+"1091","El Salvador","SLV",2025,10,2025-10-01,NA,NA
+"1092","El Salvador","SLV",2025,11,2025-11-01,NA,NA
+"1093","El Salvador","SLV",2025,12,2025-12-01,NA,NA
+"1094","El Salvador","SLV",2025,NA,NA,411,"PAHO"
+"1095","El Salvador","SLV",2025,NA,NA,358,"PAHO"
+"1096","El Salvador","SLV",2025,NA,NA,492,"PAHO"
+"1097","El Salvador","SLV",2025,NA,NA,379,"PAHO"
+"1098","El Salvador","SLV",2025,NA,NA,616,"PAHO"
+"1099","El Salvador","SLV",2025,NA,NA,732,"PAHO"
+"1100","El Salvador","SLV",2025,NA,NA,690,"PAHO"
+"1101","El Salvador","SLV",2025,NA,NA,811,"PAHO"
+"1102","El Salvador","SLV",2025,NA,NA,458,"PAHO"
+"1103","El Salvador","SLV",2025,NA,NA,298,"PAHO"
+"1104","El Salvador","SLV",2025,NA,NA,328,"PAHO"
+"1105","Equatorial Guinea","GNQ",2025,1,2025-01-01,NA,NA
+"1106","Equatorial Guinea","GNQ",2025,2,2025-02-01,NA,NA
+"1107","Equatorial Guinea","GNQ",2025,3,2025-03-01,NA,NA
+"1108","Equatorial Guinea","GNQ",2025,4,2025-04-01,NA,NA
+"1109","Equatorial Guinea","GNQ",2025,5,2025-05-01,0,"WHO"
+"1110","Equatorial Guinea","GNQ",2025,6,2025-06-01,NA,NA
+"1111","Equatorial Guinea","GNQ",2025,7,2025-07-01,NA,NA
+"1112","Equatorial Guinea","GNQ",2025,8,2025-08-01,NA,NA
+"1113","Equatorial Guinea","GNQ",2025,9,2025-09-01,NA,NA
+"1114","Equatorial Guinea","GNQ",2025,10,2025-10-01,NA,NA
+"1115","Equatorial Guinea","GNQ",2025,11,2025-11-01,NA,NA
+"1116","Equatorial Guinea","GNQ",2025,12,2025-12-01,NA,NA
+"1117","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1118","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1119","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1120","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1121","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1122","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1123","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1124","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1125","Equatorial Guinea","GNQ",2025,NA,NA,0,"WHO"
+"1126","Eritrea","ERI",2025,1,2025-01-01,NA,NA
+"1127","Eritrea","ERI",2025,2,2025-02-01,NA,NA
+"1128","Eritrea","ERI",2025,3,2025-03-01,NA,NA
+"1129","Eritrea","ERI",2025,4,2025-04-01,NA,NA
+"1130","Eritrea","ERI",2025,5,2025-05-01,NA,NA
+"1131","Eritrea","ERI",2025,6,2025-06-01,NA,NA
+"1132","Eritrea","ERI",2025,7,2025-07-01,NA,NA
+"1133","Eritrea","ERI",2025,8,2025-08-01,NA,NA
+"1134","Eritrea","ERI",2025,9,2025-09-01,NA,NA
+"1135","Eritrea","ERI",2025,10,2025-10-01,NA,NA
+"1136","Eritrea","ERI",2025,11,2025-11-01,NA,NA
+"1137","Eritrea","ERI",2025,12,2025-12-01,NA,NA
+"1138","Eritrea","ERI",2025,NA,NA,18,"WHO"
+"1139","Eritrea","ERI",2025,NA,NA,48,"WHO"
+"1140","Eritrea","ERI",2025,NA,NA,9,"WHO"
+"1141","Eritrea","ERI",2025,NA,NA,3493,"WHO"
+"1142","Eritrea","ERI",2025,NA,NA,39,"WHO"
+"1143","Eritrea","ERI",2025,NA,NA,465,"WHO"
+"1144","Estonia","EST",2025,1,2025-01-01,NA,NA
+"1145","Estonia","EST",2025,2,2025-02-01,NA,NA
+"1146","Estonia","EST",2025,3,2025-03-01,NA,NA
+"1147","Estonia","EST",2025,4,2025-04-01,NA,NA
+"1148","Estonia","EST",2025,5,2025-05-01,0,"WHO"
+"1149","Estonia","EST",2025,6,2025-06-01,NA,NA
+"1150","Estonia","EST",2025,7,2025-07-01,NA,NA
+"1151","Estonia","EST",2025,8,2025-08-01,NA,NA
+"1152","Estonia","EST",2025,9,2025-09-01,NA,NA
+"1153","Estonia","EST",2025,10,2025-10-01,NA,NA
+"1154","Estonia","EST",2025,11,2025-11-01,NA,NA
+"1155","Estonia","EST",2025,12,2025-12-01,NA,NA
+"1156","Estonia","EST",2025,NA,NA,0,"WHO"
+"1157","Estonia","EST",2025,NA,NA,0,"WHO"
+"1158","Estonia","EST",2025,NA,NA,0,"WHO"
+"1159","Estonia","EST",2025,NA,NA,0,"WHO"
+"1160","Estonia","EST",2025,NA,NA,0,"WHO"
+"1161","Estonia","EST",2025,NA,NA,0,"WHO"
+"1162","Estonia","EST",2025,NA,NA,0,"WHO"
+"1163","Estonia","EST",2025,NA,NA,0,"WHO"
+"1164","Estonia","EST",2025,NA,NA,0,"WHO"
+"1165","Ethiopia","ETH",2025,1,2025-01-01,NA,NA
+"1166","Ethiopia","ETH",2025,2,2025-02-01,NA,NA
+"1167","Ethiopia","ETH",2025,3,2025-03-01,NA,NA
+"1168","Ethiopia","ETH",2025,4,2025-04-01,NA,NA
+"1169","Ethiopia","ETH",2025,5,2025-05-01,344,"WHO"
+"1170","Ethiopia","ETH",2025,6,2025-06-01,NA,NA
+"1171","Ethiopia","ETH",2025,7,2025-07-01,NA,NA
+"1172","Ethiopia","ETH",2025,8,2025-08-01,NA,NA
+"1173","Ethiopia","ETH",2025,9,2025-09-01,NA,NA
+"1174","Ethiopia","ETH",2025,10,2025-10-01,NA,NA
+"1175","Ethiopia","ETH",2025,11,2025-11-01,NA,NA
+"1176","Ethiopia","ETH",2025,12,2025-12-01,NA,NA
+"1177","Ethiopia","ETH",2025,NA,NA,114,"WHO"
+"1178","Ethiopia","ETH",2025,NA,NA,140,"WHO"
+"1179","Ethiopia","ETH",2025,NA,NA,1625,"WHO"
+"1180","Ethiopia","ETH",2025,NA,NA,80,"WHO"
+"1181","Ethiopia","ETH",2025,NA,NA,98,"WHO"
+"1182","Ethiopia","ETH",2025,NA,NA,32,"WHO"
+"1183","Ethiopia","ETH",2025,NA,NA,62,"WHO"
+"1184","Ethiopia","ETH",2025,NA,NA,438,"WHO"
+"1185","Ethiopia","ETH",2025,NA,NA,686,"WHO"
+"1186","Fiji","FJI",2025,1,2025-01-01,NA,NA
+"1187","Fiji","FJI",2025,2,2025-02-01,NA,NA
+"1188","Fiji","FJI",2025,3,2025-03-01,NA,NA
+"1189","Fiji","FJI",2025,4,2025-04-01,NA,NA
+"1190","Fiji","FJI",2025,5,2025-05-01,3696,"WHO"
+"1191","Fiji","FJI",2025,6,2025-06-01,NA,NA
+"1192","Fiji","FJI",2025,7,2025-07-01,NA,NA
+"1193","Fiji","FJI",2025,8,2025-08-01,NA,NA
+"1194","Fiji","FJI",2025,9,2025-09-01,NA,NA
+"1195","Fiji","FJI",2025,10,2025-10-01,NA,NA
+"1196","Fiji","FJI",2025,11,2025-11-01,NA,NA
+"1197","Fiji","FJI",2025,12,2025-12-01,NA,NA
+"1198","Fiji","FJI",2025,NA,NA,1629,"WHO"
+"1199","Fiji","FJI",2025,NA,NA,3394,"WHO"
+"1200","Fiji","FJI",2025,NA,NA,4509,"WHO"
+"1201","Fiji","FJI",2025,NA,NA,4703,"WHO"
+"1202","Fiji","FJI",2025,NA,NA,1894,"WHO"
+"1203","Fiji","FJI",2025,NA,NA,1502,"WHO"
+"1204","Fiji","FJI",2025,NA,NA,822,"WHO"
+"1205","Fiji","FJI",2025,NA,NA,741,"WHO"
+"1206","Fiji","FJI",2025,NA,NA,1286,"WHO"
+"1207","Fiji","FJI",2025,NA,NA,494,"WHO"
+"1208","Finland","FIN",2025,1,2025-01-01,NA,NA
+"1209","Finland","FIN",2025,2,2025-02-01,NA,NA
+"1210","Finland","FIN",2025,3,2025-03-01,NA,NA
+"1211","Finland","FIN",2025,4,2025-04-01,NA,NA
+"1212","Finland","FIN",2025,5,2025-05-01,0,"WHO"
+"1213","Finland","FIN",2025,6,2025-06-01,NA,NA
+"1214","Finland","FIN",2025,7,2025-07-01,NA,NA
+"1215","Finland","FIN",2025,8,2025-08-01,NA,NA
+"1216","Finland","FIN",2025,9,2025-09-01,NA,NA
+"1217","Finland","FIN",2025,10,2025-10-01,NA,NA
+"1218","Finland","FIN",2025,11,2025-11-01,NA,NA
+"1219","Finland","FIN",2025,12,2025-12-01,NA,NA
+"1220","Finland","FIN",2025,NA,NA,0,"WHO"
+"1221","Finland","FIN",2025,NA,NA,0,"WHO"
+"1222","Finland","FIN",2025,NA,NA,0,"WHO"
+"1223","Finland","FIN",2025,NA,NA,0,"WHO"
+"1224","Finland","FIN",2025,NA,NA,0,"WHO"
+"1225","Finland","FIN",2025,NA,NA,0,"WHO"
+"1226","Finland","FIN",2025,NA,NA,0,"WHO"
+"1227","Finland","FIN",2025,NA,NA,0,"WHO"
+"1228","Finland","FIN",2025,NA,NA,0,"WHO"
+"1229","France","FRA",2025,1,2025-01-01,NA,NA
+"1230","France","FRA",2025,2,2025-02-01,NA,NA
+"1231","France","FRA",2025,3,2025-03-01,NA,NA
+"1232","France","FRA",2025,4,2025-04-01,NA,NA
+"1233","France","FRA",2025,5,2025-05-01,0,"WHO"
+"1234","France","FRA",2025,6,2025-06-01,NA,NA
+"1235","France","FRA",2025,7,2025-07-01,NA,NA
+"1236","France","FRA",2025,8,2025-08-01,NA,NA
+"1237","France","FRA",2025,9,2025-09-01,NA,NA
+"1238","France","FRA",2025,10,2025-10-01,NA,NA
+"1239","France","FRA",2025,11,2025-11-01,NA,NA
+"1240","France","FRA",2025,12,2025-12-01,NA,NA
+"1241","France","FRA",2025,NA,NA,0,"WHO"
+"1242","France","FRA",2025,NA,NA,0,"WHO"
+"1243","France","FRA",2025,NA,NA,0,"WHO"
+"1244","France","FRA",2025,NA,NA,0,"WHO"
+"1245","France","FRA",2025,NA,NA,10,"WHO"
+"1246","France","FRA",2025,NA,NA,15,"WHO"
+"1247","France","FRA",2025,NA,NA,3,"WHO"
+"1248","France","FRA",2025,NA,NA,1,"WHO"
+"1249","France","FRA",2025,NA,NA,0,"WHO"
+"1250","French Guiana","GUF",2025,1,2025-01-01,NA,NA
+"1251","French Guiana","GUF",2025,2,2025-02-01,NA,NA
+"1252","French Guiana","GUF",2025,3,2025-03-01,NA,NA
+"1253","French Guiana","GUF",2025,4,2025-04-01,NA,NA
+"1254","French Guiana","GUF",2025,5,2025-05-01,33,"PAHO"
+"1255","French Guiana","GUF",2025,6,2025-06-01,NA,NA
+"1256","French Guiana","GUF",2025,7,2025-07-01,NA,NA
+"1257","French Guiana","GUF",2025,8,2025-08-01,NA,NA
+"1258","French Guiana","GUF",2025,9,2025-09-01,NA,NA
+"1259","French Guiana","GUF",2025,10,2025-10-01,NA,NA
+"1260","French Guiana","GUF",2025,11,2025-11-01,NA,NA
+"1261","French Guiana","GUF",2025,12,2025-12-01,NA,NA
+"1262","French Guiana","GUF",2025,NA,NA,NA,"PAHO"
+"1263","French Guiana","GUF",2025,NA,NA,NA,"PAHO"
+"1264","French Guiana","GUF",2025,NA,NA,NA,"PAHO"
+"1265","French Guiana","GUF",2025,NA,NA,175,"WHO"
+"1266","French Guiana","GUF",2025,NA,NA,24,"PAHO"
+"1267","French Guiana","GUF",2025,NA,NA,12,"PAHO"
+"1268","French Guiana","GUF",2025,NA,NA,18,"PAHO"
+"1269","French Guiana","GUF",2025,NA,NA,17,"PAHO"
+"1270","French Guiana","GUF",2025,NA,NA,14,"PAHO"
+"1271","French Guiana","GUF",2025,NA,NA,11,"PAHO"
+"1272","French Polynesia","PYF",2025,1,2025-01-01,NA,NA
+"1273","French Polynesia","PYF",2025,2,2025-02-01,NA,NA
+"1274","French Polynesia","PYF",2025,3,2025-03-01,NA,NA
+"1275","French Polynesia","PYF",2025,4,2025-04-01,NA,NA
+"1276","French Polynesia","PYF",2025,5,2025-05-01,203,"WHO"
+"1277","French Polynesia","PYF",2025,6,2025-06-01,NA,NA
+"1278","French Polynesia","PYF",2025,7,2025-07-01,NA,NA
+"1279","French Polynesia","PYF",2025,8,2025-08-01,NA,NA
+"1280","French Polynesia","PYF",2025,9,2025-09-01,NA,NA
+"1281","French Polynesia","PYF",2025,10,2025-10-01,NA,NA
+"1282","French Polynesia","PYF",2025,11,2025-11-01,NA,NA
+"1283","French Polynesia","PYF",2025,12,2025-12-01,NA,NA
+"1284","French Polynesia","PYF",2025,NA,NA,223,"WHO"
+"1285","French Polynesia","PYF",2025,NA,NA,131,"WHO"
+"1286","French Polynesia","PYF",2025,NA,NA,240,"WHO"
+"1287","French Polynesia","PYF",2025,NA,NA,168,"WHO"
+"1288","French Polynesia","PYF",2025,NA,NA,84,"WHO"
+"1289","French Polynesia","PYF",2025,NA,NA,0,"WHO"
+"1290","French Polynesia","PYF",2025,NA,NA,0,"WHO"
+"1291","French Polynesia","PYF",2025,NA,NA,0,"WHO"
+"1292","French Polynesia","PYF",2025,NA,NA,0,"WHO"
+"1293","French Polynesia","PYF",2025,NA,NA,0,"WHO"
+"1294","Gabon","GAB",2025,1,2025-01-01,NA,NA
+"1295","Gabon","GAB",2025,2,2025-02-01,NA,NA
+"1296","Gabon","GAB",2025,3,2025-03-01,NA,NA
+"1297","Gabon","GAB",2025,4,2025-04-01,NA,NA
+"1298","Gabon","GAB",2025,5,2025-05-01,0,"WHO"
+"1299","Gabon","GAB",2025,6,2025-06-01,NA,NA
+"1300","Gabon","GAB",2025,7,2025-07-01,NA,NA
+"1301","Gabon","GAB",2025,8,2025-08-01,NA,NA
+"1302","Gabon","GAB",2025,9,2025-09-01,NA,NA
+"1303","Gabon","GAB",2025,10,2025-10-01,NA,NA
+"1304","Gabon","GAB",2025,11,2025-11-01,NA,NA
+"1305","Gabon","GAB",2025,12,2025-12-01,NA,NA
+"1306","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1307","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1308","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1309","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1310","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1311","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1312","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1313","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1314","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1315","Gabon","GAB",2025,NA,NA,0,"WHO"
+"1316","Gambia","GMB",2025,1,2025-01-01,NA,NA
+"1317","Gambia","GMB",2025,2,2025-02-01,NA,NA
+"1318","Gambia","GMB",2025,3,2025-03-01,NA,NA
+"1319","Gambia","GMB",2025,4,2025-04-01,NA,NA
+"1320","Gambia","GMB",2025,5,2025-05-01,0,"WHO"
+"1321","Gambia","GMB",2025,6,2025-06-01,NA,NA
+"1322","Gambia","GMB",2025,7,2025-07-01,NA,NA
+"1323","Gambia","GMB",2025,8,2025-08-01,NA,NA
+"1324","Gambia","GMB",2025,9,2025-09-01,NA,NA
+"1325","Gambia","GMB",2025,10,2025-10-01,NA,NA
+"1326","Gambia","GMB",2025,11,2025-11-01,NA,NA
+"1327","Gambia","GMB",2025,12,2025-12-01,NA,NA
+"1328","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1329","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1330","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1331","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1332","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1333","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1334","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1335","Gambia","GMB",2025,NA,NA,0,"WHO"
+"1336","Georgia","GEO",2025,1,2025-01-01,NA,NA
+"1337","Georgia","GEO",2025,2,2025-02-01,NA,NA
+"1338","Georgia","GEO",2025,3,2025-03-01,NA,NA
+"1339","Georgia","GEO",2025,4,2025-04-01,NA,NA
+"1340","Georgia","GEO",2025,5,2025-05-01,0,"WHO"
+"1341","Georgia","GEO",2025,6,2025-06-01,NA,NA
+"1342","Georgia","GEO",2025,7,2025-07-01,NA,NA
+"1343","Georgia","GEO",2025,8,2025-08-01,NA,NA
+"1344","Georgia","GEO",2025,9,2025-09-01,NA,NA
+"1345","Georgia","GEO",2025,10,2025-10-01,NA,NA
+"1346","Georgia","GEO",2025,11,2025-11-01,NA,NA
+"1347","Georgia","GEO",2025,12,2025-12-01,NA,NA
+"1348","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1349","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1350","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1351","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1352","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1353","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1354","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1355","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1356","Georgia","GEO",2025,NA,NA,0,"WHO"
+"1357","Germany","DEU",2025,1,2025-01-01,NA,NA
+"1358","Germany","DEU",2025,2,2025-02-01,NA,NA
+"1359","Germany","DEU",2025,3,2025-03-01,NA,NA
+"1360","Germany","DEU",2025,4,2025-04-01,NA,NA
+"1361","Germany","DEU",2025,5,2025-05-01,0,"WHO"
+"1362","Germany","DEU",2025,6,2025-06-01,NA,NA
+"1363","Germany","DEU",2025,7,2025-07-01,NA,NA
+"1364","Germany","DEU",2025,8,2025-08-01,NA,NA
+"1365","Germany","DEU",2025,9,2025-09-01,NA,NA
+"1366","Germany","DEU",2025,10,2025-10-01,NA,NA
+"1367","Germany","DEU",2025,11,2025-11-01,NA,NA
+"1368","Germany","DEU",2025,12,2025-12-01,NA,NA
+"1369","Germany","DEU",2025,NA,NA,0,"WHO"
+"1370","Germany","DEU",2025,NA,NA,0,"WHO"
+"1371","Germany","DEU",2025,NA,NA,0,"WHO"
+"1372","Germany","DEU",2025,NA,NA,0,"WHO"
+"1373","Germany","DEU",2025,NA,NA,0,"WHO"
+"1374","Germany","DEU",2025,NA,NA,0,"WHO"
+"1375","Germany","DEU",2025,NA,NA,0,"WHO"
+"1376","Germany","DEU",2025,NA,NA,0,"WHO"
+"1377","Germany","DEU",2025,NA,NA,0,"WHO"
+"1378","Ghana","GHA",2025,1,2025-01-01,NA,NA
+"1379","Ghana","GHA",2025,2,2025-02-01,NA,NA
+"1380","Ghana","GHA",2025,3,2025-03-01,NA,NA
+"1381","Ghana","GHA",2025,4,2025-04-01,NA,NA
+"1382","Ghana","GHA",2025,5,2025-05-01,0,"WHO"
+"1383","Ghana","GHA",2025,6,2025-06-01,NA,NA
+"1384","Ghana","GHA",2025,7,2025-07-01,NA,NA
+"1385","Ghana","GHA",2025,8,2025-08-01,NA,NA
+"1386","Ghana","GHA",2025,9,2025-09-01,NA,NA
+"1387","Ghana","GHA",2025,10,2025-10-01,NA,NA
+"1388","Ghana","GHA",2025,11,2025-11-01,NA,NA
+"1389","Ghana","GHA",2025,12,2025-12-01,NA,NA
+"1390","Ghana","GHA",2025,NA,NA,0,"WHO"
+"1391","Ghana","GHA",2025,NA,NA,2,"WHO"
+"1392","Ghana","GHA",2025,NA,NA,0,"WHO"
+"1393","Ghana","GHA",2025,NA,NA,0,"WHO"
+"1394","Ghana","GHA",2025,NA,NA,4,"WHO"
+"1395","Ghana","GHA",2025,NA,NA,2,"WHO"
+"1396","Ghana","GHA",2025,NA,NA,3,"WHO"
+"1397","Ghana","GHA",2025,NA,NA,0,"WHO"
+"1398","Ghana","GHA",2025,NA,NA,4,"WHO"
+"1399","Ghana","GHA",2025,NA,NA,0,"WHO"
+"1400","Greece","GRC",2025,1,2025-01-01,NA,NA
+"1401","Greece","GRC",2025,2,2025-02-01,NA,NA
+"1402","Greece","GRC",2025,3,2025-03-01,NA,NA
+"1403","Greece","GRC",2025,4,2025-04-01,NA,NA
+"1404","Greece","GRC",2025,5,2025-05-01,0,"WHO"
+"1405","Greece","GRC",2025,6,2025-06-01,NA,NA
+"1406","Greece","GRC",2025,7,2025-07-01,NA,NA
+"1407","Greece","GRC",2025,8,2025-08-01,NA,NA
+"1408","Greece","GRC",2025,9,2025-09-01,NA,NA
+"1409","Greece","GRC",2025,10,2025-10-01,NA,NA
+"1410","Greece","GRC",2025,11,2025-11-01,NA,NA
+"1411","Greece","GRC",2025,12,2025-12-01,NA,NA
+"1412","Greece","GRC",2025,NA,NA,0,"WHO"
+"1413","Greece","GRC",2025,NA,NA,0,"WHO"
+"1414","Greece","GRC",2025,NA,NA,0,"WHO"
+"1415","Greece","GRC",2025,NA,NA,0,"WHO"
+"1416","Greece","GRC",2025,NA,NA,0,"WHO"
+"1417","Greece","GRC",2025,NA,NA,0,"WHO"
+"1418","Greece","GRC",2025,NA,NA,0,"WHO"
+"1419","Greece","GRC",2025,NA,NA,0,"WHO"
+"1420","Greece","GRC",2025,NA,NA,0,"WHO"
+"1421","Grenada","GRD",2025,1,2025-01-01,NA,NA
+"1422","Grenada","GRD",2025,2,2025-02-01,NA,NA
+"1423","Grenada","GRD",2025,3,2025-03-01,NA,NA
+"1424","Grenada","GRD",2025,4,2025-04-01,NA,NA
+"1425","Grenada","GRD",2025,5,2025-05-01,7,"PAHO"
+"1426","Grenada","GRD",2025,6,2025-06-01,NA,NA
+"1427","Grenada","GRD",2025,7,2025-07-01,NA,NA
+"1428","Grenada","GRD",2025,8,2025-08-01,NA,NA
+"1429","Grenada","GRD",2025,9,2025-09-01,NA,NA
+"1430","Grenada","GRD",2025,10,2025-10-01,NA,NA
+"1431","Grenada","GRD",2025,11,2025-11-01,NA,NA
+"1432","Grenada","GRD",2025,12,2025-12-01,NA,NA
+"1433","Grenada","GRD",2025,NA,NA,16,"PAHO"
+"1434","Grenada","GRD",2025,NA,NA,16,"PAHO"
+"1435","Grenada","GRD",2025,NA,NA,24,"PAHO"
+"1436","Grenada","GRD",2025,NA,NA,16,"PAHO"
+"1437","Grenada","GRD",2025,NA,NA,12,"PAHO"
+"1438","Grenada","GRD",2025,NA,NA,15,"PAHO"
+"1439","Grenada","GRD",2025,NA,NA,21,"PAHO"
+"1440","Grenada","GRD",2025,NA,NA,34,"PAHO"
+"1441","Grenada","GRD",2025,NA,NA,26,"PAHO"
+"1442","Grenada","GRD",2025,NA,NA,34,"PAHO"
+"1443","Grenada","GRD",2025,NA,NA,73,"PAHO"
+"1444","Guadeloupe","GLP",2025,1,2025-01-01,NA,NA
+"1445","Guadeloupe","GLP",2025,2,2025-02-01,NA,NA
+"1446","Guadeloupe","GLP",2025,3,2025-03-01,NA,NA
+"1447","Guadeloupe","GLP",2025,4,2025-04-01,NA,NA
+"1448","Guadeloupe","GLP",2025,5,2025-05-01,210,"PAHO"
+"1449","Guadeloupe","GLP",2025,6,2025-06-01,NA,NA
+"1450","Guadeloupe","GLP",2025,7,2025-07-01,NA,NA
+"1451","Guadeloupe","GLP",2025,8,2025-08-01,NA,NA
+"1452","Guadeloupe","GLP",2025,9,2025-09-01,NA,NA
+"1453","Guadeloupe","GLP",2025,10,2025-10-01,NA,NA
+"1454","Guadeloupe","GLP",2025,11,2025-11-01,NA,NA
+"1455","Guadeloupe","GLP",2025,12,2025-12-01,NA,NA
+"1456","Guadeloupe","GLP",2025,NA,NA,2220,"PAHO"
+"1457","Guadeloupe","GLP",2025,NA,NA,970,"PAHO"
+"1458","Guadeloupe","GLP",2025,NA,NA,970,"PAHO"
+"1459","Guadeloupe","GLP",2025,NA,NA,0,"WHO"
+"1460","Guadeloupe","GLP",2025,NA,NA,265,"PAHO"
+"1461","Guadeloupe","GLP",2025,NA,NA,NA,"PAHO"
+"1462","Guadeloupe","GLP",2025,NA,NA,NA,"PAHO"
+"1463","Guadeloupe","GLP",2025,NA,NA,155,"WHO"
+"1464","Guadeloupe","GLP",2025,NA,NA,NA,"PAHO"
+"1465","Guadeloupe","GLP",2025,NA,NA,NA,"PAHO"
+"1466","Guadeloupe","GLP",2025,NA,NA,40,"PAHO"
+"1467","Guam","GUM",2025,1,2025-01-01,NA,NA
+"1468","Guam","GUM",2025,2,2025-02-01,NA,NA
+"1469","Guam","GUM",2025,3,2025-03-01,NA,NA
+"1470","Guam","GUM",2025,4,2025-04-01,NA,NA
+"1471","Guam","GUM",2025,5,2025-05-01,0,"WHO"
+"1472","Guam","GUM",2025,6,2025-06-01,NA,NA
+"1473","Guam","GUM",2025,7,2025-07-01,NA,NA
+"1474","Guam","GUM",2025,8,2025-08-01,NA,NA
+"1475","Guam","GUM",2025,9,2025-09-01,NA,NA
+"1476","Guam","GUM",2025,10,2025-10-01,NA,NA
+"1477","Guam","GUM",2025,11,2025-11-01,NA,NA
+"1478","Guam","GUM",2025,12,2025-12-01,NA,NA
+"1479","Guam","GUM",2025,NA,NA,0,"WHO"
+"1480","Guam","GUM",2025,NA,NA,0,"WHO"
+"1481","Guam","GUM",2025,NA,NA,1,"WHO"
+"1482","Guam","GUM",2025,NA,NA,0,"WHO"
+"1483","Guam","GUM",2025,NA,NA,0,"WHO"
+"1484","Guam","GUM",2025,NA,NA,0,"WHO"
+"1485","Guam","GUM",2025,NA,NA,1,"WHO"
+"1486","Guam","GUM",2025,NA,NA,0,"WHO"
+"1487","Guam","GUM",2025,NA,NA,0,"WHO"
+"1488","Guam","GUM",2025,NA,NA,0,"WHO"
+"1489","Guatemala","GTM",2025,1,2025-01-01,NA,NA
+"1490","Guatemala","GTM",2025,2,2025-02-01,NA,NA
+"1491","Guatemala","GTM",2025,3,2025-03-01,NA,NA
+"1492","Guatemala","GTM",2025,4,2025-04-01,NA,NA
+"1493","Guatemala","GTM",2025,5,2025-05-01,4925,"PAHO"
+"1494","Guatemala","GTM",2025,6,2025-06-01,NA,NA
+"1495","Guatemala","GTM",2025,7,2025-07-01,NA,NA
+"1496","Guatemala","GTM",2025,8,2025-08-01,NA,NA
+"1497","Guatemala","GTM",2025,9,2025-09-01,NA,NA
+"1498","Guatemala","GTM",2025,10,2025-10-01,NA,NA
+"1499","Guatemala","GTM",2025,11,2025-11-01,NA,NA
+"1500","Guatemala","GTM",2025,12,2025-12-01,NA,NA
+"1501","Guatemala","GTM",2025,NA,NA,4342,"PAHO"
+"1502","Guatemala","GTM",2025,NA,NA,3502,"PAHO"
+"1503","Guatemala","GTM",2025,NA,NA,5449,"PAHO"
+"1504","Guatemala","GTM",2025,NA,NA,3995,"PAHO"
+"1505","Guatemala","GTM",2025,NA,NA,5885,"PAHO"
+"1506","Guatemala","GTM",2025,NA,NA,4267,"PAHO"
+"1507","Guatemala","GTM",2025,NA,NA,3829,"PAHO"
+"1508","Guatemala","GTM",2025,NA,NA,4229,"PAHO"
+"1509","Guatemala","GTM",2025,NA,NA,3485,"PAHO"
+"1510","Guatemala","GTM",2025,NA,NA,2135,"PAHO"
+"1511","Guinea-Bissau","GNB",2025,1,2025-01-01,NA,NA
+"1512","Guinea-Bissau","GNB",2025,2,2025-02-01,NA,NA
+"1513","Guinea-Bissau","GNB",2025,3,2025-03-01,NA,NA
+"1514","Guinea-Bissau","GNB",2025,4,2025-04-01,NA,NA
+"1515","Guinea-Bissau","GNB",2025,5,2025-05-01,0,"WHO"
+"1516","Guinea-Bissau","GNB",2025,6,2025-06-01,NA,NA
+"1517","Guinea-Bissau","GNB",2025,7,2025-07-01,NA,NA
+"1518","Guinea-Bissau","GNB",2025,8,2025-08-01,NA,NA
+"1519","Guinea-Bissau","GNB",2025,9,2025-09-01,NA,NA
+"1520","Guinea-Bissau","GNB",2025,10,2025-10-01,NA,NA
+"1521","Guinea-Bissau","GNB",2025,11,2025-11-01,NA,NA
+"1522","Guinea-Bissau","GNB",2025,12,2025-12-01,NA,NA
+"1523","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1524","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1525","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1526","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1527","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1528","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1529","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1530","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1531","Guinea-Bissau","GNB",2025,NA,NA,0,"WHO"
+"1532","Guyana","GUY",2025,1,2025-01-01,NA,NA
+"1533","Guyana","GUY",2025,2,2025-02-01,NA,NA
+"1534","Guyana","GUY",2025,3,2025-03-01,NA,NA
+"1535","Guyana","GUY",2025,4,2025-04-01,NA,NA
+"1536","Guyana","GUY",2025,5,2025-05-01,8267,"PAHO"
+"1537","Guyana","GUY",2025,6,2025-06-01,NA,NA
+"1538","Guyana","GUY",2025,7,2025-07-01,NA,NA
+"1539","Guyana","GUY",2025,8,2025-08-01,NA,NA
+"1540","Guyana","GUY",2025,9,2025-09-01,NA,NA
+"1541","Guyana","GUY",2025,10,2025-10-01,NA,NA
+"1542","Guyana","GUY",2025,11,2025-11-01,NA,NA
+"1543","Guyana","GUY",2025,12,2025-12-01,NA,NA
+"1544","Guyana","GUY",2025,NA,NA,6024,"PAHO"
+"1545","Guyana","GUY",2025,NA,NA,4199,"PAHO"
+"1546","Guyana","GUY",2025,NA,NA,6796,"PAHO"
+"1547","Guyana","GUY",2025,NA,NA,3794,"PAHO"
+"1548","Guyana","GUY",2025,NA,NA,10554,"PAHO"
+"1549","Guyana","GUY",2025,NA,NA,5342,"PAHO"
+"1550","Guyana","GUY",2025,NA,NA,4563,"PAHO"
+"1551","Guyana","GUY",2025,NA,NA,10637,"PAHO"
+"1552","Guyana","GUY",2025,NA,NA,19127,"PAHO"
+"1553","Guyana","GUY",2025,NA,NA,5293,"PAHO"
+"1554","Haiti","HTI",2025,1,2025-01-01,NA,NA
+"1555","Haiti","HTI",2025,2,2025-02-01,NA,NA
+"1556","Haiti","HTI",2025,3,2025-03-01,NA,NA
+"1557","Haiti","HTI",2025,4,2025-04-01,NA,NA
+"1558","Haiti","HTI",2025,5,2025-05-01,NA,"WHO"
+"1559","Haiti","HTI",2025,6,2025-06-01,NA,NA
+"1560","Haiti","HTI",2025,7,2025-07-01,NA,NA
+"1561","Haiti","HTI",2025,8,2025-08-01,NA,NA
+"1562","Haiti","HTI",2025,9,2025-09-01,NA,NA
+"1563","Haiti","HTI",2025,10,2025-10-01,NA,NA
+"1564","Haiti","HTI",2025,11,2025-11-01,NA,NA
+"1565","Haiti","HTI",2025,12,2025-12-01,NA,NA
+"1566","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1567","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1568","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1569","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1570","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1571","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1572","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1573","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1574","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1575","Haiti","HTI",2025,NA,NA,NA,"WHO"
+"1576","Honduras","HND",2025,1,2025-01-01,NA,NA
+"1577","Honduras","HND",2025,2,2025-02-01,NA,NA
+"1578","Honduras","HND",2025,3,2025-03-01,NA,NA
+"1579","Honduras","HND",2025,4,2025-04-01,NA,NA
+"1580","Honduras","HND",2025,5,2025-05-01,1678,"PAHO"
+"1581","Honduras","HND",2025,6,2025-06-01,NA,NA
+"1582","Honduras","HND",2025,7,2025-07-01,NA,NA
+"1583","Honduras","HND",2025,8,2025-08-01,NA,NA
+"1584","Honduras","HND",2025,9,2025-09-01,NA,NA
+"1585","Honduras","HND",2025,10,2025-10-01,NA,NA
+"1586","Honduras","HND",2025,11,2025-11-01,NA,NA
+"1587","Honduras","HND",2025,12,2025-12-01,NA,NA
+"1588","Honduras","HND",2025,NA,NA,1434,"PAHO"
+"1589","Honduras","HND",2025,NA,NA,1274,"PAHO"
+"1590","Honduras","HND",2025,NA,NA,2134,"PAHO"
+"1591","Honduras","HND",2025,NA,NA,1467,"PAHO"
+"1592","Honduras","HND",2025,NA,NA,1835,"PAHO"
+"1593","Honduras","HND",2025,NA,NA,1424,"PAHO"
+"1594","Honduras","HND",2025,NA,NA,1222,"PAHO"
+"1595","Honduras","HND",2025,NA,NA,1176,"PAHO"
+"1596","Honduras","HND",2025,NA,NA,1216,"PAHO"
+"1597","Honduras","HND",2025,NA,NA,1435,"PAHO"
+"1598","Honduras","HND",2025,NA,NA,2676,"PAHO"
+"1599","Hungary","HUN",2025,1,2025-01-01,NA,NA
+"1600","Hungary","HUN",2025,2,2025-02-01,NA,NA
+"1601","Hungary","HUN",2025,3,2025-03-01,NA,NA
+"1602","Hungary","HUN",2025,4,2025-04-01,NA,NA
+"1603","Hungary","HUN",2025,5,2025-05-01,0,"WHO"
+"1604","Hungary","HUN",2025,6,2025-06-01,NA,NA
+"1605","Hungary","HUN",2025,7,2025-07-01,NA,NA
+"1606","Hungary","HUN",2025,8,2025-08-01,NA,NA
+"1607","Hungary","HUN",2025,9,2025-09-01,NA,NA
+"1608","Hungary","HUN",2025,10,2025-10-01,NA,NA
+"1609","Hungary","HUN",2025,11,2025-11-01,NA,NA
+"1610","Hungary","HUN",2025,12,2025-12-01,NA,NA
+"1611","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1612","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1613","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1614","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1615","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1616","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1617","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1618","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1619","Hungary","HUN",2025,NA,NA,0,"WHO"
+"1620","Iceland","ISL",2025,1,2025-01-01,NA,NA
+"1621","Iceland","ISL",2025,2,2025-02-01,NA,NA
+"1622","Iceland","ISL",2025,3,2025-03-01,NA,NA
+"1623","Iceland","ISL",2025,4,2025-04-01,NA,NA
+"1624","Iceland","ISL",2025,5,2025-05-01,0,"WHO"
+"1625","Iceland","ISL",2025,6,2025-06-01,NA,NA
+"1626","Iceland","ISL",2025,7,2025-07-01,NA,NA
+"1627","Iceland","ISL",2025,8,2025-08-01,NA,NA
+"1628","Iceland","ISL",2025,9,2025-09-01,NA,NA
+"1629","Iceland","ISL",2025,10,2025-10-01,NA,NA
+"1630","Iceland","ISL",2025,11,2025-11-01,NA,NA
+"1631","Iceland","ISL",2025,12,2025-12-01,NA,NA
+"1632","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1633","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1634","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1635","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1636","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1637","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1638","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1639","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1640","Iceland","ISL",2025,NA,NA,0,"WHO"
+"1641","India","IND",2025,1,2025-01-01,NA,NA
+"1642","India","IND",2025,2,2025-02-01,NA,NA
+"1643","India","IND",2025,3,2025-03-01,NA,NA
+"1644","India","IND",2025,4,2025-04-01,NA,NA
+"1645","India","IND",2025,5,2025-05-01,3766,"SEARO"
+"1646","India","IND",2025,6,2025-06-01,NA,NA
+"1647","India","IND",2025,7,2025-07-01,NA,NA
+"1648","India","IND",2025,8,2025-08-01,NA,NA
+"1649","India","IND",2025,9,2025-09-01,NA,NA
+"1650","India","IND",2025,10,2025-10-01,NA,NA
+"1651","India","IND",2025,11,2025-11-01,NA,NA
+"1652","India","IND",2025,12,2025-12-01,NA,NA
+"1653","India","IND",2025,NA,NA,4700,"SEARO"
+"1654","India","IND",2025,NA,NA,3806,"SEARO"
+"1655","India","IND",2025,NA,NA,3517,"SEARO"
+"1656","India","IND",2025,NA,NA,2700,"SEARO"
+"1657","India","IND",2025,NA,NA,6459,"SEARO"
+"1658","India","IND",2025,NA,NA,10302,"SEARO"
+"1659","India","IND",2025,NA,NA,14303,"SEARO"
+"1660","India","IND",2025,NA,NA,18803,"SEARO"
+"1661","India","IND",2025,NA,NA,22659,"SEARO"
+"1662","India","IND",2025,NA,NA,22175,"SEARO"
+"1663","India","IND",2025,NA,NA,7539,"SEARO"
+"1664","Indonesia","IDN",2025,1,2025-01-01,NA,NA
+"1665","Indonesia","IDN",2025,2,2025-02-01,NA,NA
+"1666","Indonesia","IDN",2025,3,2025-03-01,NA,NA
+"1667","Indonesia","IDN",2025,4,2025-04-01,NA,NA
+"1668","Indonesia","IDN",2025,5,2025-05-01,157,"SEARO"
+"1669","Indonesia","IDN",2025,6,2025-06-01,NA,NA
+"1670","Indonesia","IDN",2025,7,2025-07-01,NA,NA
+"1671","Indonesia","IDN",2025,8,2025-08-01,NA,NA
+"1672","Indonesia","IDN",2025,9,2025-09-01,NA,NA
+"1673","Indonesia","IDN",2025,10,2025-10-01,NA,NA
+"1674","Indonesia","IDN",2025,11,2025-11-01,NA,NA
+"1675","Indonesia","IDN",2025,12,2025-12-01,NA,NA
+"1676","Indonesia","IDN",2025,NA,NA,21417,"SEARO"
+"1677","Indonesia","IDN",2025,NA,NA,17160,"SEARO"
+"1678","Indonesia","IDN",2025,NA,NA,11795,"SEARO"
+"1679","Indonesia","IDN",2025,NA,NA,5750,"SEARO"
+"1680","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1681","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1682","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1683","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1684","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1685","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1686","Indonesia","IDN",2025,NA,NA,0,"SEARO"
+"1687","Iran","IRN",2025,1,2025-01-01,NA,NA
+"1688","Iran","IRN",2025,2,2025-02-01,NA,NA
+"1689","Iran","IRN",2025,3,2025-03-01,NA,NA
+"1690","Iran","IRN",2025,4,2025-04-01,NA,NA
+"1691","Iran","IRN",2025,5,2025-05-01,57,"WHO"
+"1692","Iran","IRN",2025,6,2025-06-01,NA,NA
+"1693","Iran","IRN",2025,7,2025-07-01,NA,NA
+"1694","Iran","IRN",2025,8,2025-08-01,NA,NA
+"1695","Iran","IRN",2025,9,2025-09-01,NA,NA
+"1696","Iran","IRN",2025,10,2025-10-01,NA,NA
+"1697","Iran","IRN",2025,11,2025-11-01,NA,NA
+"1698","Iran","IRN",2025,12,2025-12-01,NA,NA
+"1699","Iran","IRN",2025,NA,NA,93,"WHO"
+"1700","Iran","IRN",2025,NA,NA,22,"WHO"
+"1701","Iran","IRN",2025,NA,NA,10,"WHO"
+"1702","Iran","IRN",2025,NA,NA,12,"WHO"
+"1703","Iran","IRN",2025,NA,NA,128,"WHO"
+"1704","Iran","IRN",2025,NA,NA,84,"WHO"
+"1705","Iran","IRN",2025,NA,NA,42,"WHO"
+"1706","Ireland","IRL",2025,1,2025-01-01,NA,NA
+"1707","Ireland","IRL",2025,2,2025-02-01,NA,NA
+"1708","Ireland","IRL",2025,3,2025-03-01,NA,NA
+"1709","Ireland","IRL",2025,4,2025-04-01,NA,NA
+"1710","Ireland","IRL",2025,5,2025-05-01,0,"WHO"
+"1711","Ireland","IRL",2025,6,2025-06-01,NA,NA
+"1712","Ireland","IRL",2025,7,2025-07-01,NA,NA
+"1713","Ireland","IRL",2025,8,2025-08-01,NA,NA
+"1714","Ireland","IRL",2025,9,2025-09-01,NA,NA
+"1715","Ireland","IRL",2025,10,2025-10-01,NA,NA
+"1716","Ireland","IRL",2025,11,2025-11-01,NA,NA
+"1717","Ireland","IRL",2025,12,2025-12-01,NA,NA
+"1718","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1719","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1720","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1721","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1722","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1723","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1724","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1725","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1726","Ireland","IRL",2025,NA,NA,0,"WHO"
+"1727","Israel","ISR",2025,1,2025-01-01,NA,NA
+"1728","Israel","ISR",2025,2,2025-02-01,NA,NA
+"1729","Israel","ISR",2025,3,2025-03-01,NA,NA
+"1730","Israel","ISR",2025,4,2025-04-01,NA,NA
+"1731","Israel","ISR",2025,5,2025-05-01,0,"WHO"
+"1732","Israel","ISR",2025,6,2025-06-01,NA,NA
+"1733","Israel","ISR",2025,7,2025-07-01,NA,NA
+"1734","Israel","ISR",2025,8,2025-08-01,NA,NA
+"1735","Israel","ISR",2025,9,2025-09-01,NA,NA
+"1736","Israel","ISR",2025,10,2025-10-01,NA,NA
+"1737","Israel","ISR",2025,11,2025-11-01,NA,NA
+"1738","Israel","ISR",2025,12,2025-12-01,NA,NA
+"1739","Israel","ISR",2025,NA,NA,0,"WHO"
+"1740","Israel","ISR",2025,NA,NA,0,"WHO"
+"1741","Israel","ISR",2025,NA,NA,0,"WHO"
+"1742","Israel","ISR",2025,NA,NA,0,"WHO"
+"1743","Israel","ISR",2025,NA,NA,0,"WHO"
+"1744","Israel","ISR",2025,NA,NA,0,"WHO"
+"1745","Israel","ISR",2025,NA,NA,0,"WHO"
+"1746","Israel","ISR",2025,NA,NA,0,"WHO"
+"1747","Israel","ISR",2025,NA,NA,0,"WHO"
+"1748","Italy","ITA",2025,1,2025-01-01,NA,NA
+"1749","Italy","ITA",2025,2,2025-02-01,NA,NA
+"1750","Italy","ITA",2025,3,2025-03-01,NA,NA
+"1751","Italy","ITA",2025,4,2025-04-01,NA,NA
+"1752","Italy","ITA",2025,5,2025-05-01,0,"WHO"
+"1753","Italy","ITA",2025,6,2025-06-01,NA,NA
+"1754","Italy","ITA",2025,7,2025-07-01,NA,NA
+"1755","Italy","ITA",2025,8,2025-08-01,NA,NA
+"1756","Italy","ITA",2025,9,2025-09-01,NA,NA
+"1757","Italy","ITA",2025,10,2025-10-01,NA,NA
+"1758","Italy","ITA",2025,11,2025-11-01,NA,NA
+"1759","Italy","ITA",2025,12,2025-12-01,NA,NA
+"1760","Italy","ITA",2025,NA,NA,0,"WHO"
+"1761","Italy","ITA",2025,NA,NA,0,"WHO"
+"1762","Italy","ITA",2025,NA,NA,0,"WHO"
+"1763","Italy","ITA",2025,NA,NA,0,"WHO"
+"1764","Italy","ITA",2025,NA,NA,0,"WHO"
+"1765","Italy","ITA",2025,NA,NA,4,"WHO"
+"1766","Italy","ITA",2025,NA,NA,0,"WHO"
+"1767","Italy","ITA",2025,NA,NA,0,"WHO"
+"1768","Italy","ITA",2025,NA,NA,0,"WHO"
+"1769","Jamaica","JAM",2025,1,2025-01-01,NA,NA
+"1770","Jamaica","JAM",2025,2,2025-02-01,NA,NA
+"1771","Jamaica","JAM",2025,3,2025-03-01,NA,NA
+"1772","Jamaica","JAM",2025,4,2025-04-01,NA,NA
+"1773","Jamaica","JAM",2025,5,2025-05-01,30,"PAHO"
+"1774","Jamaica","JAM",2025,6,2025-06-01,NA,NA
+"1775","Jamaica","JAM",2025,7,2025-07-01,NA,NA
+"1776","Jamaica","JAM",2025,8,2025-08-01,NA,NA
+"1777","Jamaica","JAM",2025,9,2025-09-01,NA,NA
+"1778","Jamaica","JAM",2025,10,2025-10-01,NA,NA
+"1779","Jamaica","JAM",2025,11,2025-11-01,NA,NA
+"1780","Jamaica","JAM",2025,12,2025-12-01,NA,NA
+"1781","Jamaica","JAM",2025,NA,NA,46,"PAHO"
+"1782","Jamaica","JAM",2025,NA,NA,38,"PAHO"
+"1783","Jamaica","JAM",2025,NA,NA,37,"PAHO"
+"1784","Jamaica","JAM",2025,NA,NA,44,"PAHO"
+"1785","Jamaica","JAM",2025,NA,NA,65,"PAHO"
+"1786","Jamaica","JAM",2025,NA,NA,48,"PAHO"
+"1787","Jamaica","JAM",2025,NA,NA,17,"PAHO"
+"1788","Jamaica","JAM",2025,NA,NA,54,"PAHO"
+"1789","Jamaica","JAM",2025,NA,NA,33,"PAHO"
+"1790","Jamaica","JAM",2025,NA,NA,117,"PAHO"
+"1791","Jamaica","JAM",2025,NA,NA,117,"PAHO"
+"1792","Kazakhstan","KAZ",2025,1,2025-01-01,NA,NA
+"1793","Kazakhstan","KAZ",2025,2,2025-02-01,NA,NA
+"1794","Kazakhstan","KAZ",2025,3,2025-03-01,NA,NA
+"1795","Kazakhstan","KAZ",2025,4,2025-04-01,NA,NA
+"1796","Kazakhstan","KAZ",2025,5,2025-05-01,0,"WHO"
+"1797","Kazakhstan","KAZ",2025,6,2025-06-01,NA,NA
+"1798","Kazakhstan","KAZ",2025,7,2025-07-01,NA,NA
+"1799","Kazakhstan","KAZ",2025,8,2025-08-01,NA,NA
+"1800","Kazakhstan","KAZ",2025,9,2025-09-01,NA,NA
+"1801","Kazakhstan","KAZ",2025,10,2025-10-01,NA,NA
+"1802","Kazakhstan","KAZ",2025,11,2025-11-01,NA,NA
+"1803","Kazakhstan","KAZ",2025,12,2025-12-01,NA,NA
+"1804","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1805","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1806","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1807","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1808","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1809","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1810","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1811","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1812","Kazakhstan","KAZ",2025,NA,NA,0,"WHO"
+"1813","Kenya","KEN",2025,1,2025-01-01,NA,NA
+"1814","Kenya","KEN",2025,2,2025-02-01,NA,NA
+"1815","Kenya","KEN",2025,3,2025-03-01,NA,NA
+"1816","Kenya","KEN",2025,4,2025-04-01,NA,NA
+"1817","Kenya","KEN",2025,5,2025-05-01,816,"WHO"
+"1818","Kenya","KEN",2025,6,2025-06-01,NA,NA
+"1819","Kenya","KEN",2025,7,2025-07-01,NA,NA
+"1820","Kenya","KEN",2025,8,2025-08-01,NA,NA
+"1821","Kenya","KEN",2025,9,2025-09-01,NA,NA
+"1822","Kenya","KEN",2025,10,2025-10-01,NA,NA
+"1823","Kenya","KEN",2025,11,2025-11-01,NA,NA
+"1824","Kenya","KEN",2025,12,2025-12-01,NA,NA
+"1825","Kenya","KEN",2025,NA,NA,855,"WHO"
+"1826","Kenya","KEN",2025,NA,NA,673,"WHO"
+"1827","Kenya","KEN",2025,NA,NA,64,"WHO"
+"1828","Kenya","KEN",2025,NA,NA,1241,"WHO"
+"1829","Kenya","KEN",2025,NA,NA,740,"WHO"
+"1830","Kenya","KEN",2025,NA,NA,650,"WHO"
+"1831","Kenya","KEN",2025,NA,NA,932,"WHO"
+"1832","Kenya","KEN",2025,NA,NA,313,"WHO"
+"1833","Kiribati","KIR",2025,1,2025-01-01,NA,NA
+"1834","Kiribati","KIR",2025,2,2025-02-01,NA,NA
+"1835","Kiribati","KIR",2025,3,2025-03-01,NA,NA
+"1836","Kiribati","KIR",2025,4,2025-04-01,NA,NA
+"1837","Kiribati","KIR",2025,5,2025-05-01,95,"WHO"
+"1838","Kiribati","KIR",2025,6,2025-06-01,NA,NA
+"1839","Kiribati","KIR",2025,7,2025-07-01,NA,NA
+"1840","Kiribati","KIR",2025,8,2025-08-01,NA,NA
+"1841","Kiribati","KIR",2025,9,2025-09-01,NA,NA
+"1842","Kiribati","KIR",2025,10,2025-10-01,NA,NA
+"1843","Kiribati","KIR",2025,11,2025-11-01,NA,NA
+"1844","Kiribati","KIR",2025,12,2025-12-01,NA,NA
+"1845","Kiribati","KIR",2025,NA,NA,0,"WHO"
+"1846","Kiribati","KIR",2025,NA,NA,0,"WHO"
+"1847","Kiribati","KIR",2025,NA,NA,5,"WHO"
+"1848","Kiribati","KIR",2025,NA,NA,21,"WHO"
+"1849","Kiribati","KIR",2025,NA,NA,380,"WHO"
+"1850","Kiribati","KIR",2025,NA,NA,494,"WHO"
+"1851","Kiribati","KIR",2025,NA,NA,163,"WHO"
+"1852","Kiribati","KIR",2025,NA,NA,198,"WHO"
+"1853","Kiribati","KIR",2025,NA,NA,40,"WHO"
+"1854","Kiribati","KIR",2025,NA,NA,12,"WHO"
+"1855","Kyrgyzstan","KGZ",2025,1,2025-01-01,NA,NA
+"1856","Kyrgyzstan","KGZ",2025,2,2025-02-01,NA,NA
+"1857","Kyrgyzstan","KGZ",2025,3,2025-03-01,NA,NA
+"1858","Kyrgyzstan","KGZ",2025,4,2025-04-01,NA,NA
+"1859","Kyrgyzstan","KGZ",2025,5,2025-05-01,0,"WHO"
+"1860","Kyrgyzstan","KGZ",2025,6,2025-06-01,NA,NA
+"1861","Kyrgyzstan","KGZ",2025,7,2025-07-01,NA,NA
+"1862","Kyrgyzstan","KGZ",2025,8,2025-08-01,NA,NA
+"1863","Kyrgyzstan","KGZ",2025,9,2025-09-01,NA,NA
+"1864","Kyrgyzstan","KGZ",2025,10,2025-10-01,NA,NA
+"1865","Kyrgyzstan","KGZ",2025,11,2025-11-01,NA,NA
+"1866","Kyrgyzstan","KGZ",2025,12,2025-12-01,NA,NA
+"1867","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1868","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1869","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1870","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1871","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1872","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1873","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1874","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1875","Kyrgyzstan","KGZ",2025,NA,NA,0,"WHO"
+"1876","Laos","LAO",2025,1,2025-01-01,NA,NA
+"1877","Laos","LAO",2025,2,2025-02-01,NA,NA
+"1878","Laos","LAO",2025,3,2025-03-01,NA,NA
+"1879","Laos","LAO",2025,4,2025-04-01,NA,NA
+"1880","Laos","LAO",2025,5,2025-05-01,614,"WHO"
+"1881","Laos","LAO",2025,6,2025-06-01,NA,NA
+"1882","Laos","LAO",2025,7,2025-07-01,NA,NA
+"1883","Laos","LAO",2025,8,2025-08-01,NA,NA
+"1884","Laos","LAO",2025,9,2025-09-01,NA,NA
+"1885","Laos","LAO",2025,10,2025-10-01,NA,NA
+"1886","Laos","LAO",2025,11,2025-11-01,NA,NA
+"1887","Laos","LAO",2025,12,2025-12-01,NA,NA
+"1888","Laos","LAO",2025,NA,NA,253,"WHO"
+"1889","Laos","LAO",2025,NA,NA,165,"WHO"
+"1890","Laos","LAO",2025,NA,NA,138,"WHO"
+"1891","Laos","LAO",2025,NA,NA,173,"WHO"
+"1892","Laos","LAO",2025,NA,NA,1271,"WHO"
+"1893","Laos","LAO",2025,NA,NA,2741,"WHO"
+"1894","Laos","LAO",2025,NA,NA,2506,"WHO"
+"1895","Laos","LAO",2025,NA,NA,1369,"WHO"
+"1896","Laos","LAO",2025,NA,NA,1552,"WHO"
+"1897","Laos","LAO",2025,NA,NA,890,"WHO"
+"1898","Latvia","LVA",2025,1,2025-01-01,NA,NA
+"1899","Latvia","LVA",2025,2,2025-02-01,NA,NA
+"1900","Latvia","LVA",2025,3,2025-03-01,NA,NA
+"1901","Latvia","LVA",2025,4,2025-04-01,NA,NA
+"1902","Latvia","LVA",2025,5,2025-05-01,0,"WHO"
+"1903","Latvia","LVA",2025,6,2025-06-01,NA,NA
+"1904","Latvia","LVA",2025,7,2025-07-01,NA,NA
+"1905","Latvia","LVA",2025,8,2025-08-01,NA,NA
+"1906","Latvia","LVA",2025,9,2025-09-01,NA,NA
+"1907","Latvia","LVA",2025,10,2025-10-01,NA,NA
+"1908","Latvia","LVA",2025,11,2025-11-01,NA,NA
+"1909","Latvia","LVA",2025,12,2025-12-01,NA,NA
+"1910","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1911","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1912","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1913","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1914","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1915","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1916","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1917","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1918","Latvia","LVA",2025,NA,NA,0,"WHO"
+"1919","Liberia","LBR",2025,1,2025-01-01,NA,NA
+"1920","Liberia","LBR",2025,2,2025-02-01,NA,NA
+"1921","Liberia","LBR",2025,3,2025-03-01,NA,NA
+"1922","Liberia","LBR",2025,4,2025-04-01,NA,NA
+"1923","Liberia","LBR",2025,5,2025-05-01,0,"WHO"
+"1924","Liberia","LBR",2025,6,2025-06-01,NA,NA
+"1925","Liberia","LBR",2025,7,2025-07-01,NA,NA
+"1926","Liberia","LBR",2025,8,2025-08-01,NA,NA
+"1927","Liberia","LBR",2025,9,2025-09-01,NA,NA
+"1928","Liberia","LBR",2025,10,2025-10-01,NA,NA
+"1929","Liberia","LBR",2025,11,2025-11-01,NA,NA
+"1930","Liberia","LBR",2025,12,2025-12-01,NA,NA
+"1931","Liberia","LBR",2025,NA,NA,3,"WHO"
+"1932","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1933","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1934","Liberia","LBR",2025,NA,NA,1,"WHO"
+"1935","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1936","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1937","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1938","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1939","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1940","Liberia","LBR",2025,NA,NA,0,"WHO"
+"1941","Liechtenstein","LIE",2025,1,2025-01-01,NA,NA
+"1942","Liechtenstein","LIE",2025,2,2025-02-01,NA,NA
+"1943","Liechtenstein","LIE",2025,3,2025-03-01,NA,NA
+"1944","Liechtenstein","LIE",2025,4,2025-04-01,NA,NA
+"1945","Liechtenstein","LIE",2025,5,2025-05-01,0,"WHO"
+"1946","Liechtenstein","LIE",2025,6,2025-06-01,NA,NA
+"1947","Liechtenstein","LIE",2025,7,2025-07-01,NA,NA
+"1948","Liechtenstein","LIE",2025,8,2025-08-01,NA,NA
+"1949","Liechtenstein","LIE",2025,9,2025-09-01,NA,NA
+"1950","Liechtenstein","LIE",2025,10,2025-10-01,NA,NA
+"1951","Liechtenstein","LIE",2025,11,2025-11-01,NA,NA
+"1952","Liechtenstein","LIE",2025,12,2025-12-01,NA,NA
+"1953","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1954","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1955","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1956","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1957","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1958","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1959","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1960","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1961","Liechtenstein","LIE",2025,NA,NA,0,"WHO"
+"1962","Lithuania","LTU",2025,1,2025-01-01,NA,NA
+"1963","Lithuania","LTU",2025,2,2025-02-01,NA,NA
+"1964","Lithuania","LTU",2025,3,2025-03-01,NA,NA
+"1965","Lithuania","LTU",2025,4,2025-04-01,NA,NA
+"1966","Lithuania","LTU",2025,5,2025-05-01,0,"WHO"
+"1967","Lithuania","LTU",2025,6,2025-06-01,NA,NA
+"1968","Lithuania","LTU",2025,7,2025-07-01,NA,NA
+"1969","Lithuania","LTU",2025,8,2025-08-01,NA,NA
+"1970","Lithuania","LTU",2025,9,2025-09-01,NA,NA
+"1971","Lithuania","LTU",2025,10,2025-10-01,NA,NA
+"1972","Lithuania","LTU",2025,11,2025-11-01,NA,NA
+"1973","Lithuania","LTU",2025,12,2025-12-01,NA,NA
+"1974","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1975","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1976","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1977","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1978","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1979","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1980","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1981","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1982","Lithuania","LTU",2025,NA,NA,0,"WHO"
+"1983","Luxembourg","LUX",2025,1,2025-01-01,NA,NA
+"1984","Luxembourg","LUX",2025,2,2025-02-01,NA,NA
+"1985","Luxembourg","LUX",2025,3,2025-03-01,NA,NA
+"1986","Luxembourg","LUX",2025,4,2025-04-01,NA,NA
+"1987","Luxembourg","LUX",2025,5,2025-05-01,0,"WHO"
+"1988","Luxembourg","LUX",2025,6,2025-06-01,NA,NA
+"1989","Luxembourg","LUX",2025,7,2025-07-01,NA,NA
+"1990","Luxembourg","LUX",2025,8,2025-08-01,NA,NA
+"1991","Luxembourg","LUX",2025,9,2025-09-01,NA,NA
+"1992","Luxembourg","LUX",2025,10,2025-10-01,NA,NA
+"1993","Luxembourg","LUX",2025,11,2025-11-01,NA,NA
+"1994","Luxembourg","LUX",2025,12,2025-12-01,NA,NA
+"1995","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"1996","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"1997","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"1998","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"1999","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"2000","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"2001","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"2002","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"2003","Luxembourg","LUX",2025,NA,NA,0,"WHO"
+"2004","Malawi","MWI",2025,1,2025-01-01,NA,NA
+"2005","Malawi","MWI",2025,2,2025-02-01,NA,NA
+"2006","Malawi","MWI",2025,3,2025-03-01,NA,NA
+"2007","Malawi","MWI",2025,4,2025-04-01,NA,NA
+"2008","Malawi","MWI",2025,5,2025-05-01,0,"WHO"
+"2009","Malawi","MWI",2025,6,2025-06-01,NA,NA
+"2010","Malawi","MWI",2025,7,2025-07-01,NA,NA
+"2011","Malawi","MWI",2025,8,2025-08-01,NA,NA
+"2012","Malawi","MWI",2025,9,2025-09-01,NA,NA
+"2013","Malawi","MWI",2025,10,2025-10-01,NA,NA
+"2014","Malawi","MWI",2025,11,2025-11-01,NA,NA
+"2015","Malawi","MWI",2025,12,2025-12-01,NA,NA
+"2016","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2017","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2018","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2019","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2020","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2021","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2022","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2023","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2024","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2025","Malawi","MWI",2025,NA,NA,0,"WHO"
+"2026","Malaysia","MYS",2025,1,2025-01-01,NA,NA
+"2027","Malaysia","MYS",2025,2,2025-02-01,NA,NA
+"2028","Malaysia","MYS",2025,3,2025-03-01,NA,NA
+"2029","Malaysia","MYS",2025,4,2025-04-01,NA,NA
+"2030","Malaysia","MYS",2025,5,2025-05-01,4877,"WHO"
+"2031","Malaysia","MYS",2025,6,2025-06-01,NA,NA
+"2032","Malaysia","MYS",2025,7,2025-07-01,NA,NA
+"2033","Malaysia","MYS",2025,8,2025-08-01,NA,NA
+"2034","Malaysia","MYS",2025,9,2025-09-01,NA,NA
+"2035","Malaysia","MYS",2025,10,2025-10-01,NA,NA
+"2036","Malaysia","MYS",2025,11,2025-11-01,NA,NA
+"2037","Malaysia","MYS",2025,12,2025-12-01,NA,NA
+"2038","Malaysia","MYS",2025,NA,NA,6676,"WHO"
+"2039","Malaysia","MYS",2025,NA,NA,5049,"WHO"
+"2040","Malaysia","MYS",2025,NA,NA,4571,"WHO"
+"2041","Malaysia","MYS",2025,NA,NA,5383,"WHO"
+"2042","Malaysia","MYS",2025,NA,NA,4657,"WHO"
+"2043","Malaysia","MYS",2025,NA,NA,5065,"WHO"
+"2044","Malaysia","MYS",2025,NA,NA,3338,"WHO"
+"2045","Malaysia","MYS",2025,NA,NA,2969,"WHO"
+"2046","Malaysia","MYS",2025,NA,NA,4398,"WHO"
+"2047","Malaysia","MYS",2025,NA,NA,2627,"WHO"
+"2048","Maldives","MDV",2025,1,2025-01-01,NA,NA
+"2049","Maldives","MDV",2025,2,2025-02-01,NA,NA
+"2050","Maldives","MDV",2025,3,2025-03-01,NA,NA
+"2051","Maldives","MDV",2025,4,2025-04-01,NA,NA
+"2052","Maldives","MDV",2025,5,2025-05-01,116,"SEARO"
+"2053","Maldives","MDV",2025,6,2025-06-01,NA,NA
+"2054","Maldives","MDV",2025,7,2025-07-01,NA,NA
+"2055","Maldives","MDV",2025,8,2025-08-01,NA,NA
+"2056","Maldives","MDV",2025,9,2025-09-01,NA,NA
+"2057","Maldives","MDV",2025,10,2025-10-01,NA,NA
+"2058","Maldives","MDV",2025,11,2025-11-01,NA,NA
+"2059","Maldives","MDV",2025,12,2025-12-01,NA,NA
+"2060","Maldives","MDV",2025,NA,NA,72,"SEARO"
+"2061","Maldives","MDV",2025,NA,NA,74,"SEARO"
+"2062","Maldives","MDV",2025,NA,NA,69,"SEARO"
+"2063","Maldives","MDV",2025,NA,NA,120,"SEARO"
+"2064","Maldives","MDV",2025,NA,NA,165,"SEARO"
+"2065","Maldives","MDV",2025,NA,NA,168,"SEARO"
+"2066","Maldives","MDV",2025,NA,NA,256,"SEARO"
+"2067","Maldives","MDV",2025,NA,NA,252,"SEARO"
+"2068","Maldives","MDV",2025,NA,NA,373,"SEARO"
+"2069","Maldives","MDV",2025,NA,NA,376,"SEARO"
+"2070","Maldives","MDV",2025,NA,NA,411,"SEARO"
+"2071","Mali","MLI",2025,1,2025-01-01,NA,NA
+"2072","Mali","MLI",2025,2,2025-02-01,NA,NA
+"2073","Mali","MLI",2025,3,2025-03-01,NA,NA
+"2074","Mali","MLI",2025,4,2025-04-01,NA,NA
+"2075","Mali","MLI",2025,5,2025-05-01,242,"WHO"
+"2076","Mali","MLI",2025,6,2025-06-01,NA,NA
+"2077","Mali","MLI",2025,7,2025-07-01,NA,NA
+"2078","Mali","MLI",2025,8,2025-08-01,NA,NA
+"2079","Mali","MLI",2025,9,2025-09-01,NA,NA
+"2080","Mali","MLI",2025,10,2025-10-01,NA,NA
+"2081","Mali","MLI",2025,11,2025-11-01,NA,NA
+"2082","Mali","MLI",2025,12,2025-12-01,NA,NA
+"2083","Mali","MLI",2025,NA,NA,511,"WHO"
+"2084","Mali","MLI",2025,NA,NA,453,"WHO"
+"2085","Mali","MLI",2025,NA,NA,332,"WHO"
+"2086","Mali","MLI",2025,NA,NA,186,"WHO"
+"2087","Mali","MLI",2025,NA,NA,233,"WHO"
+"2088","Mali","MLI",2025,NA,NA,384,"WHO"
+"2089","Mali","MLI",2025,NA,NA,361,"WHO"
+"2090","Mali","MLI",2025,NA,NA,272,"WHO"
+"2091","Mali","MLI",2025,NA,NA,490,"WHO"
+"2092","Mali","MLI",2025,NA,NA,506,"WHO"
+"2093","Malta","MLT",2025,1,2025-01-01,NA,NA
+"2094","Malta","MLT",2025,2,2025-02-01,NA,NA
+"2095","Malta","MLT",2025,3,2025-03-01,NA,NA
+"2096","Malta","MLT",2025,4,2025-04-01,NA,NA
+"2097","Malta","MLT",2025,5,2025-05-01,0,"WHO"
+"2098","Malta","MLT",2025,6,2025-06-01,NA,NA
+"2099","Malta","MLT",2025,7,2025-07-01,NA,NA
+"2100","Malta","MLT",2025,8,2025-08-01,NA,NA
+"2101","Malta","MLT",2025,9,2025-09-01,NA,NA
+"2102","Malta","MLT",2025,10,2025-10-01,NA,NA
+"2103","Malta","MLT",2025,11,2025-11-01,NA,NA
+"2104","Malta","MLT",2025,12,2025-12-01,NA,NA
+"2105","Malta","MLT",2025,NA,NA,0,"WHO"
+"2106","Malta","MLT",2025,NA,NA,0,"WHO"
+"2107","Malta","MLT",2025,NA,NA,0,"WHO"
+"2108","Malta","MLT",2025,NA,NA,0,"WHO"
+"2109","Malta","MLT",2025,NA,NA,0,"WHO"
+"2110","Malta","MLT",2025,NA,NA,0,"WHO"
+"2111","Malta","MLT",2025,NA,NA,0,"WHO"
+"2112","Malta","MLT",2025,NA,NA,0,"WHO"
+"2113","Malta","MLT",2025,NA,NA,0,"WHO"
+"2114","Marshall Islands","MHL",2025,1,2025-01-01,NA,NA
+"2115","Marshall Islands","MHL",2025,2,2025-02-01,NA,NA
+"2116","Marshall Islands","MHL",2025,3,2025-03-01,NA,NA
+"2117","Marshall Islands","MHL",2025,4,2025-04-01,NA,NA
+"2118","Marshall Islands","MHL",2025,5,2025-05-01,0,"WHO"
+"2119","Marshall Islands","MHL",2025,6,2025-06-01,NA,NA
+"2120","Marshall Islands","MHL",2025,7,2025-07-01,NA,NA
+"2121","Marshall Islands","MHL",2025,8,2025-08-01,NA,NA
+"2122","Marshall Islands","MHL",2025,9,2025-09-01,NA,NA
+"2123","Marshall Islands","MHL",2025,10,2025-10-01,NA,NA
+"2124","Marshall Islands","MHL",2025,11,2025-11-01,NA,NA
+"2125","Marshall Islands","MHL",2025,12,2025-12-01,NA,NA
+"2126","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2127","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2128","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2129","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2130","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2131","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2132","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2133","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2134","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2135","Marshall Islands","MHL",2025,NA,NA,0,"WHO"
+"2136","Martinique","MTQ",2025,1,2025-01-01,NA,NA
+"2137","Martinique","MTQ",2025,2,2025-02-01,NA,NA
+"2138","Martinique","MTQ",2025,3,2025-03-01,NA,NA
+"2139","Martinique","MTQ",2025,4,2025-04-01,NA,NA
+"2140","Martinique","MTQ",2025,5,2025-05-01,130,"PAHO"
+"2141","Martinique","MTQ",2025,6,2025-06-01,NA,NA
+"2142","Martinique","MTQ",2025,7,2025-07-01,NA,NA
+"2143","Martinique","MTQ",2025,8,2025-08-01,NA,NA
+"2144","Martinique","MTQ",2025,9,2025-09-01,NA,NA
+"2145","Martinique","MTQ",2025,10,2025-10-01,NA,NA
+"2146","Martinique","MTQ",2025,11,2025-11-01,NA,NA
+"2147","Martinique","MTQ",2025,12,2025-12-01,NA,NA
+"2148","Martinique","MTQ",2025,NA,NA,293,"PAHO"
+"2149","Martinique","MTQ",2025,NA,NA,100,"PAHO"
+"2150","Martinique","MTQ",2025,NA,NA,282,"PAHO"
+"2151","Martinique","MTQ",2025,NA,NA,100,"PAHO"
+"2152","Martinique","MTQ",2025,NA,NA,90,"PAHO"
+"2153","Martinique","MTQ",2025,NA,NA,NA,"PAHO"
+"2154","Martinique","MTQ",2025,NA,NA,NA,"PAHO"
+"2155","Martinique","MTQ",2025,NA,NA,105,"WHO"
+"2156","Martinique","MTQ",2025,NA,NA,NA,"PAHO"
+"2157","Martinique","MTQ",2025,NA,NA,NA,"PAHO"
+"2158","Martinique","MTQ",2025,NA,NA,45,"PAHO"
+"2159","Mauritania","MRT",2025,1,2025-01-01,NA,NA
+"2160","Mauritania","MRT",2025,2,2025-02-01,NA,NA
+"2161","Mauritania","MRT",2025,3,2025-03-01,NA,NA
+"2162","Mauritania","MRT",2025,4,2025-04-01,NA,NA
+"2163","Mauritania","MRT",2025,5,2025-05-01,3,"WHO"
+"2164","Mauritania","MRT",2025,6,2025-06-01,NA,NA
+"2165","Mauritania","MRT",2025,7,2025-07-01,NA,NA
+"2166","Mauritania","MRT",2025,8,2025-08-01,NA,NA
+"2167","Mauritania","MRT",2025,9,2025-09-01,NA,NA
+"2168","Mauritania","MRT",2025,10,2025-10-01,NA,NA
+"2169","Mauritania","MRT",2025,11,2025-11-01,NA,NA
+"2170","Mauritania","MRT",2025,12,2025-12-01,NA,NA
+"2171","Mauritania","MRT",2025,NA,NA,102,"WHO"
+"2172","Mauritania","MRT",2025,NA,NA,66,"WHO"
+"2173","Mauritania","MRT",2025,NA,NA,35,"WHO"
+"2174","Mauritania","MRT",2025,NA,NA,41,"WHO"
+"2175","Mauritania","MRT",2025,NA,NA,179,"WHO"
+"2176","Mauritania","MRT",2025,NA,NA,82,"WHO"
+"2177","Mauritania","MRT",2025,NA,NA,37,"WHO"
+"2178","Mauritania","MRT",2025,NA,NA,37,"WHO"
+"2179","Mauritania","MRT",2025,NA,NA,3135,"WHO"
+"2180","Mauritania","MRT",2025,NA,NA,1923,"WHO"
+"2181","Mauritius","MUS",2025,1,2025-01-01,NA,NA
+"2182","Mauritius","MUS",2025,2,2025-02-01,NA,NA
+"2183","Mauritius","MUS",2025,3,2025-03-01,NA,NA
+"2184","Mauritius","MUS",2025,4,2025-04-01,NA,NA
+"2185","Mauritius","MUS",2025,5,2025-05-01,544,"WHO"
+"2186","Mauritius","MUS",2025,6,2025-06-01,NA,NA
+"2187","Mauritius","MUS",2025,7,2025-07-01,NA,NA
+"2188","Mauritius","MUS",2025,8,2025-08-01,NA,NA
+"2189","Mauritius","MUS",2025,9,2025-09-01,NA,NA
+"2190","Mauritius","MUS",2025,10,2025-10-01,NA,NA
+"2191","Mauritius","MUS",2025,11,2025-11-01,NA,NA
+"2192","Mauritius","MUS",2025,12,2025-12-01,NA,NA
+"2193","Mauritius","MUS",2025,NA,NA,79,"WHO"
+"2194","Mauritius","MUS",2025,NA,NA,32,"WHO"
+"2195","Mauritius","MUS",2025,NA,NA,145,"WHO"
+"2196","Mauritius","MUS",2025,NA,NA,361,"WHO"
+"2197","Mauritius","MUS",2025,NA,NA,255,"WHO"
+"2198","Mauritius","MUS",2025,NA,NA,143,"WHO"
+"2199","Mauritius","MUS",2025,NA,NA,82,"WHO"
+"2200","Mauritius","MUS",2025,NA,NA,81,"WHO"
+"2201","Mayotte","MYT",2025,1,2025-01-01,NA,NA
+"2202","Mayotte","MYT",2025,2,2025-02-01,NA,NA
+"2203","Mayotte","MYT",2025,3,2025-03-01,NA,NA
+"2204","Mayotte","MYT",2025,4,2025-04-01,NA,NA
+"2205","Mayotte","MYT",2025,5,2025-05-01,16,"WHO"
+"2206","Mayotte","MYT",2025,6,2025-06-01,NA,NA
+"2207","Mayotte","MYT",2025,7,2025-07-01,NA,NA
+"2208","Mayotte","MYT",2025,8,2025-08-01,NA,NA
+"2209","Mayotte","MYT",2025,9,2025-09-01,NA,NA
+"2210","Mayotte","MYT",2025,10,2025-10-01,NA,NA
+"2211","Mayotte","MYT",2025,11,2025-11-01,NA,NA
+"2212","Mayotte","MYT",2025,12,2025-12-01,NA,NA
+"2213","Mayotte","MYT",2025,NA,NA,0,"WHO"
+"2214","Mayotte","MYT",2025,NA,NA,3,"WHO"
+"2215","Mayotte","MYT",2025,NA,NA,2,"WHO"
+"2216","Mayotte","MYT",2025,NA,NA,4,"WHO"
+"2217","Mayotte","MYT",2025,NA,NA,2,"WHO"
+"2218","Mayotte","MYT",2025,NA,NA,2,"WHO"
+"2219","Mayotte","MYT",2025,NA,NA,0,"WHO"
+"2220","Mayotte","MYT",2025,NA,NA,0,"WHO"
+"2221","Mayotte","MYT",2025,NA,NA,0,"WHO"
+"2222","Mayotte","MYT",2025,NA,NA,0,"WHO"
+"2223","Mexico","MEX",2025,1,2025-01-01,NA,NA
+"2224","Mexico","MEX",2025,2,2025-02-01,NA,NA
+"2225","Mexico","MEX",2025,3,2025-03-01,NA,NA
+"2226","Mexico","MEX",2025,4,2025-04-01,NA,NA
+"2227","Mexico","MEX",2025,5,2025-05-01,7905,"PAHO"
+"2228","Mexico","MEX",2025,6,2025-06-01,NA,NA
+"2229","Mexico","MEX",2025,7,2025-07-01,NA,NA
+"2230","Mexico","MEX",2025,8,2025-08-01,NA,NA
+"2231","Mexico","MEX",2025,9,2025-09-01,NA,NA
+"2232","Mexico","MEX",2025,10,2025-10-01,NA,NA
+"2233","Mexico","MEX",2025,11,2025-11-01,NA,NA
+"2234","Mexico","MEX",2025,12,2025-12-01,NA,NA
+"2235","Mexico","MEX",2025,NA,NA,11125,"PAHO"
+"2236","Mexico","MEX",2025,NA,NA,8287,"PAHO"
+"2237","Mexico","MEX",2025,NA,NA,9680,"PAHO"
+"2238","Mexico","MEX",2025,NA,NA,6002,"PAHO"
+"2239","Mexico","MEX",2025,NA,NA,12409,"PAHO"
+"2240","Mexico","MEX",2025,NA,NA,11822,"PAHO"
+"2241","Mexico","MEX",2025,NA,NA,13638,"PAHO"
+"2242","Mexico","MEX",2025,NA,NA,21031,"PAHO"
+"2243","Mexico","MEX",2025,NA,NA,21250,"PAHO"
+"2244","Mexico","MEX",2025,NA,NA,14725,"PAHO"
+"2245","Mexico","MEX",2025,NA,NA,19136,"PAHO"
+"2246","Micronesia (Federated States of)","FSM",2025,1,2025-01-01,NA,NA
+"2247","Micronesia (Federated States of)","FSM",2025,2,2025-02-01,NA,NA
+"2248","Micronesia (Federated States of)","FSM",2025,3,2025-03-01,NA,NA
+"2249","Micronesia (Federated States of)","FSM",2025,4,2025-04-01,NA,NA
+"2250","Micronesia (Federated States of)","FSM",2025,5,2025-05-01,1,"WHO"
+"2251","Micronesia (Federated States of)","FSM",2025,6,2025-06-01,NA,NA
+"2252","Micronesia (Federated States of)","FSM",2025,7,2025-07-01,NA,NA
+"2253","Micronesia (Federated States of)","FSM",2025,8,2025-08-01,NA,NA
+"2254","Micronesia (Federated States of)","FSM",2025,9,2025-09-01,NA,NA
+"2255","Micronesia (Federated States of)","FSM",2025,10,2025-10-01,NA,NA
+"2256","Micronesia (Federated States of)","FSM",2025,11,2025-11-01,NA,NA
+"2257","Micronesia (Federated States of)","FSM",2025,12,2025-12-01,NA,NA
+"2258","Micronesia (Federated States of)","FSM",2025,NA,NA,5,"WHO"
+"2259","Micronesia (Federated States of)","FSM",2025,NA,NA,9,"WHO"
+"2260","Micronesia (Federated States of)","FSM",2025,NA,NA,1,"WHO"
+"2261","Micronesia (Federated States of)","FSM",2025,NA,NA,3,"WHO"
+"2262","Micronesia (Federated States of)","FSM",2025,NA,NA,2,"WHO"
+"2263","Micronesia (Federated States of)","FSM",2025,NA,NA,6,"WHO"
+"2264","Micronesia (Federated States of)","FSM",2025,NA,NA,4,"WHO"
+"2265","Micronesia (Federated States of)","FSM",2025,NA,NA,2,"WHO"
+"2266","Micronesia (Federated States of)","FSM",2025,NA,NA,6,"WHO"
+"2267","Micronesia (Federated States of)","FSM",2025,NA,NA,0,"WHO"
+"2268","Moldova","MDA",2025,1,2025-01-01,NA,NA
+"2269","Moldova","MDA",2025,2,2025-02-01,NA,NA
+"2270","Moldova","MDA",2025,3,2025-03-01,NA,NA
+"2271","Moldova","MDA",2025,4,2025-04-01,NA,NA
+"2272","Moldova","MDA",2025,5,2025-05-01,0,"WHO"
+"2273","Moldova","MDA",2025,6,2025-06-01,NA,NA
+"2274","Moldova","MDA",2025,7,2025-07-01,NA,NA
+"2275","Moldova","MDA",2025,8,2025-08-01,NA,NA
+"2276","Moldova","MDA",2025,9,2025-09-01,NA,NA
+"2277","Moldova","MDA",2025,10,2025-10-01,NA,NA
+"2278","Moldova","MDA",2025,11,2025-11-01,NA,NA
+"2279","Moldova","MDA",2025,12,2025-12-01,NA,NA
+"2280","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2281","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2282","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2283","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2284","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2285","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2286","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2287","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2288","Moldova","MDA",2025,NA,NA,0,"WHO"
+"2289","Monaco","MCO",2025,1,2025-01-01,NA,NA
+"2290","Monaco","MCO",2025,2,2025-02-01,NA,NA
+"2291","Monaco","MCO",2025,3,2025-03-01,NA,NA
+"2292","Monaco","MCO",2025,4,2025-04-01,NA,NA
+"2293","Monaco","MCO",2025,5,2025-05-01,0,"WHO"
+"2294","Monaco","MCO",2025,6,2025-06-01,NA,NA
+"2295","Monaco","MCO",2025,7,2025-07-01,NA,NA
+"2296","Monaco","MCO",2025,8,2025-08-01,NA,NA
+"2297","Monaco","MCO",2025,9,2025-09-01,NA,NA
+"2298","Monaco","MCO",2025,10,2025-10-01,NA,NA
+"2299","Monaco","MCO",2025,11,2025-11-01,NA,NA
+"2300","Monaco","MCO",2025,12,2025-12-01,NA,NA
+"2301","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2302","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2303","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2304","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2305","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2306","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2307","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2308","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2309","Monaco","MCO",2025,NA,NA,0,"WHO"
+"2310","Montenegro","MNE",2025,1,2025-01-01,NA,NA
+"2311","Montenegro","MNE",2025,2,2025-02-01,NA,NA
+"2312","Montenegro","MNE",2025,3,2025-03-01,NA,NA
+"2313","Montenegro","MNE",2025,4,2025-04-01,NA,NA
+"2314","Montenegro","MNE",2025,5,2025-05-01,0,"WHO"
+"2315","Montenegro","MNE",2025,6,2025-06-01,NA,NA
+"2316","Montenegro","MNE",2025,7,2025-07-01,NA,NA
+"2317","Montenegro","MNE",2025,8,2025-08-01,NA,NA
+"2318","Montenegro","MNE",2025,9,2025-09-01,NA,NA
+"2319","Montenegro","MNE",2025,10,2025-10-01,NA,NA
+"2320","Montenegro","MNE",2025,11,2025-11-01,NA,NA
+"2321","Montenegro","MNE",2025,12,2025-12-01,NA,NA
+"2322","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2323","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2324","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2325","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2326","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2327","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2328","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2329","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2330","Montenegro","MNE",2025,NA,NA,0,"WHO"
+"2331","Montserrat","MSR",2025,1,2025-01-01,NA,NA
+"2332","Montserrat","MSR",2025,2,2025-02-01,NA,NA
+"2333","Montserrat","MSR",2025,3,2025-03-01,NA,NA
+"2334","Montserrat","MSR",2025,4,2025-04-01,NA,NA
+"2335","Montserrat","MSR",2025,5,2025-05-01,0,"WHO"
+"2336","Montserrat","MSR",2025,6,2025-06-01,NA,NA
+"2337","Montserrat","MSR",2025,7,2025-07-01,NA,NA
+"2338","Montserrat","MSR",2025,8,2025-08-01,NA,NA
+"2339","Montserrat","MSR",2025,9,2025-09-01,NA,NA
+"2340","Montserrat","MSR",2025,10,2025-10-01,NA,NA
+"2341","Montserrat","MSR",2025,11,2025-11-01,NA,NA
+"2342","Montserrat","MSR",2025,12,2025-12-01,NA,NA
+"2343","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2344","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2345","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2346","Montserrat","MSR",2025,NA,NA,1,"PAHO"
+"2347","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2348","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2349","Montserrat","MSR",2025,NA,NA,0,"WHO"
+"2350","Montserrat","MSR",2025,NA,NA,2,"PAHO"
+"2351","Montserrat","MSR",2025,NA,NA,2,"WHO"
+"2352","Montserrat","MSR",2025,NA,NA,NA,"WHO"
+"2353","Myanmar (Burma)","MMR",2025,1,2025-01-01,NA,NA
+"2354","Myanmar (Burma)","MMR",2025,2,2025-02-01,NA,NA
+"2355","Myanmar (Burma)","MMR",2025,3,2025-03-01,NA,NA
+"2356","Myanmar (Burma)","MMR",2025,4,2025-04-01,NA,NA
+"2357","Myanmar (Burma)","MMR",2025,5,2025-05-01,699,"SEARO"
+"2358","Myanmar (Burma)","MMR",2025,6,2025-06-01,NA,NA
+"2359","Myanmar (Burma)","MMR",2025,7,2025-07-01,NA,NA
+"2360","Myanmar (Burma)","MMR",2025,8,2025-08-01,NA,NA
+"2361","Myanmar (Burma)","MMR",2025,9,2025-09-01,NA,NA
+"2362","Myanmar (Burma)","MMR",2025,10,2025-10-01,NA,NA
+"2363","Myanmar (Burma)","MMR",2025,11,2025-11-01,NA,NA
+"2364","Myanmar (Burma)","MMR",2025,12,2025-12-01,NA,NA
+"2365","Myanmar (Burma)","MMR",2025,NA,NA,172,"SEARO"
+"2366","Myanmar (Burma)","MMR",2025,NA,NA,120,"SEARO"
+"2367","Myanmar (Burma)","MMR",2025,NA,NA,167,"SEARO"
+"2368","Myanmar (Burma)","MMR",2025,NA,NA,235,"SEARO"
+"2369","Myanmar (Burma)","MMR",2025,NA,NA,1744,"SEARO"
+"2370","Myanmar (Burma)","MMR",2025,NA,NA,3065,"SEARO"
+"2371","Myanmar (Burma)","MMR",2025,NA,NA,2415,"SEARO"
+"2372","Myanmar (Burma)","MMR",2025,NA,NA,1576,"SEARO"
+"2373","Myanmar (Burma)","MMR",2025,NA,NA,943,"SEARO"
+"2374","Myanmar (Burma)","MMR",2025,NA,NA,0,"SEARO"
+"2375","Myanmar (Burma)","MMR",2025,NA,NA,0,"SEARO"
+"2376","Nauru","NRU",2025,1,2025-01-01,NA,NA
+"2377","Nauru","NRU",2025,2,2025-02-01,NA,NA
+"2378","Nauru","NRU",2025,3,2025-03-01,NA,NA
+"2379","Nauru","NRU",2025,4,2025-04-01,NA,NA
+"2380","Nauru","NRU",2025,5,2025-05-01,0,"WHO"
+"2381","Nauru","NRU",2025,6,2025-06-01,NA,NA
+"2382","Nauru","NRU",2025,7,2025-07-01,NA,NA
+"2383","Nauru","NRU",2025,8,2025-08-01,NA,NA
+"2384","Nauru","NRU",2025,9,2025-09-01,NA,NA
+"2385","Nauru","NRU",2025,10,2025-10-01,NA,NA
+"2386","Nauru","NRU",2025,11,2025-11-01,NA,NA
+"2387","Nauru","NRU",2025,12,2025-12-01,NA,NA
+"2388","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2389","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2390","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2391","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2392","Nauru","NRU",2025,NA,NA,1,"WHO"
+"2393","Nauru","NRU",2025,NA,NA,313,"WHO"
+"2394","Nauru","NRU",2025,NA,NA,120,"WHO"
+"2395","Nauru","NRU",2025,NA,NA,17,"WHO"
+"2396","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2397","Nauru","NRU",2025,NA,NA,0,"WHO"
+"2398","Nepal","NPL",2025,1,2025-01-01,NA,NA
+"2399","Nepal","NPL",2025,2,2025-02-01,NA,NA
+"2400","Nepal","NPL",2025,3,2025-03-01,NA,NA
+"2401","Nepal","NPL",2025,4,2025-04-01,NA,NA
+"2402","Nepal","NPL",2025,5,2025-05-01,314,"SEARO"
+"2403","Nepal","NPL",2025,6,2025-06-01,NA,NA
+"2404","Nepal","NPL",2025,7,2025-07-01,NA,NA
+"2405","Nepal","NPL",2025,8,2025-08-01,NA,NA
+"2406","Nepal","NPL",2025,9,2025-09-01,NA,NA
+"2407","Nepal","NPL",2025,10,2025-10-01,NA,NA
+"2408","Nepal","NPL",2025,11,2025-11-01,NA,NA
+"2409","Nepal","NPL",2025,12,2025-12-01,NA,NA
+"2410","Nepal","NPL",2025,NA,NA,259,"SEARO"
+"2411","Nepal","NPL",2025,NA,NA,252,"SEARO"
+"2412","Nepal","NPL",2025,NA,NA,254,"SEARO"
+"2413","Nepal","NPL",2025,NA,NA,224,"SEARO"
+"2414","Nepal","NPL",2025,NA,NA,530,"SEARO"
+"2415","Nepal","NPL",2025,NA,NA,830,"SEARO"
+"2416","Nepal","NPL",2025,NA,NA,1197,"SEARO"
+"2417","Nepal","NPL",2025,NA,NA,1631,"SEARO"
+"2418","Nepal","NPL",2025,NA,NA,1869,"SEARO"
+"2419","Nepal","NPL",2025,NA,NA,890,"SEARO"
+"2420","Nepal","NPL",2025,NA,NA,313,"SEARO"
+"2421","Netherlands","NLD",2025,1,2025-01-01,NA,NA
+"2422","Netherlands","NLD",2025,2,2025-02-01,NA,NA
+"2423","Netherlands","NLD",2025,3,2025-03-01,NA,NA
+"2424","Netherlands","NLD",2025,4,2025-04-01,NA,NA
+"2425","Netherlands","NLD",2025,5,2025-05-01,0,"WHO"
+"2426","Netherlands","NLD",2025,6,2025-06-01,NA,NA
+"2427","Netherlands","NLD",2025,7,2025-07-01,NA,NA
+"2428","Netherlands","NLD",2025,8,2025-08-01,NA,NA
+"2429","Netherlands","NLD",2025,9,2025-09-01,NA,NA
+"2430","Netherlands","NLD",2025,10,2025-10-01,NA,NA
+"2431","Netherlands","NLD",2025,11,2025-11-01,NA,NA
+"2432","Netherlands","NLD",2025,12,2025-12-01,NA,NA
+"2433","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2434","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2435","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2436","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2437","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2438","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2439","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2440","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2441","Netherlands","NLD",2025,NA,NA,0,"WHO"
+"2442","New Caledonia","NCL",2025,1,2025-01-01,NA,NA
+"2443","New Caledonia","NCL",2025,2,2025-02-01,NA,NA
+"2444","New Caledonia","NCL",2025,3,2025-03-01,NA,NA
+"2445","New Caledonia","NCL",2025,4,2025-04-01,NA,NA
+"2446","New Caledonia","NCL",2025,5,2025-05-01,1,"WHO"
+"2447","New Caledonia","NCL",2025,6,2025-06-01,NA,NA
+"2448","New Caledonia","NCL",2025,7,2025-07-01,NA,NA
+"2449","New Caledonia","NCL",2025,8,2025-08-01,NA,NA
+"2450","New Caledonia","NCL",2025,9,2025-09-01,NA,NA
+"2451","New Caledonia","NCL",2025,10,2025-10-01,NA,NA
+"2452","New Caledonia","NCL",2025,11,2025-11-01,NA,NA
+"2453","New Caledonia","NCL",2025,12,2025-12-01,NA,NA
+"2454","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2455","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2456","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2457","New Caledonia","NCL",2025,NA,NA,2,"WHO"
+"2458","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2459","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2460","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2461","New Caledonia","NCL",2025,NA,NA,2,"WHO"
+"2462","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2463","New Caledonia","NCL",2025,NA,NA,0,"WHO"
+"2464","Nicaragua","NIC",2025,1,2025-01-01,NA,NA
+"2465","Nicaragua","NIC",2025,2,2025-02-01,NA,NA
+"2466","Nicaragua","NIC",2025,3,2025-03-01,NA,NA
+"2467","Nicaragua","NIC",2025,4,2025-04-01,NA,NA
+"2468","Nicaragua","NIC",2025,5,2025-05-01,NA,"WHO"
+"2469","Nicaragua","NIC",2025,6,2025-06-01,NA,NA
+"2470","Nicaragua","NIC",2025,7,2025-07-01,NA,NA
+"2471","Nicaragua","NIC",2025,8,2025-08-01,NA,NA
+"2472","Nicaragua","NIC",2025,9,2025-09-01,NA,NA
+"2473","Nicaragua","NIC",2025,10,2025-10-01,NA,NA
+"2474","Nicaragua","NIC",2025,11,2025-11-01,NA,NA
+"2475","Nicaragua","NIC",2025,12,2025-12-01,NA,NA
+"2476","Nicaragua","NIC",2025,NA,NA,5702,"PAHO"
+"2477","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2478","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2479","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2480","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2481","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2482","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2483","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2484","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2485","Nicaragua","NIC",2025,NA,NA,NA,"WHO"
+"2486","Niger","NER",2025,1,2025-01-01,NA,NA
+"2487","Niger","NER",2025,2,2025-02-01,NA,NA
+"2488","Niger","NER",2025,3,2025-03-01,NA,NA
+"2489","Niger","NER",2025,4,2025-04-01,NA,NA
+"2490","Niger","NER",2025,5,2025-05-01,0,"WHO"
+"2491","Niger","NER",2025,6,2025-06-01,NA,NA
+"2492","Niger","NER",2025,7,2025-07-01,NA,NA
+"2493","Niger","NER",2025,8,2025-08-01,NA,NA
+"2494","Niger","NER",2025,9,2025-09-01,NA,NA
+"2495","Niger","NER",2025,10,2025-10-01,NA,NA
+"2496","Niger","NER",2025,11,2025-11-01,NA,NA
+"2497","Niger","NER",2025,12,2025-12-01,NA,NA
+"2498","Niger","NER",2025,NA,NA,0,"WHO"
+"2499","Niger","NER",2025,NA,NA,0,"WHO"
+"2500","Niger","NER",2025,NA,NA,0,"WHO"
+"2501","Niger","NER",2025,NA,NA,0,"WHO"
+"2502","Niger","NER",2025,NA,NA,0,"WHO"
+"2503","Niger","NER",2025,NA,NA,0,"WHO"
+"2504","Niger","NER",2025,NA,NA,0,"WHO"
+"2505","Niger","NER",2025,NA,NA,0,"WHO"
+"2506","Niger","NER",2025,NA,NA,0,"WHO"
+"2507","Niger","NER",2025,NA,NA,0,"WHO"
+"2508","Niue","NIU",2025,1,2025-01-01,NA,NA
+"2509","Niue","NIU",2025,2,2025-02-01,NA,NA
+"2510","Niue","NIU",2025,3,2025-03-01,NA,NA
+"2511","Niue","NIU",2025,4,2025-04-01,NA,NA
+"2512","Niue","NIU",2025,5,2025-05-01,0,"WHO"
+"2513","Niue","NIU",2025,6,2025-06-01,NA,NA
+"2514","Niue","NIU",2025,7,2025-07-01,NA,NA
+"2515","Niue","NIU",2025,8,2025-08-01,NA,NA
+"2516","Niue","NIU",2025,9,2025-09-01,NA,NA
+"2517","Niue","NIU",2025,10,2025-10-01,NA,NA
+"2518","Niue","NIU",2025,11,2025-11-01,NA,NA
+"2519","Niue","NIU",2025,12,2025-12-01,NA,NA
+"2520","Niue","NIU",2025,NA,NA,0,"WHO"
+"2521","Niue","NIU",2025,NA,NA,0,"WHO"
+"2522","Niue","NIU",2025,NA,NA,0,"WHO"
+"2523","Niue","NIU",2025,NA,NA,0,"WHO"
+"2524","Niue","NIU",2025,NA,NA,0,"WHO"
+"2525","Niue","NIU",2025,NA,NA,0,"WHO"
+"2526","Niue","NIU",2025,NA,NA,0,"WHO"
+"2527","Niue","NIU",2025,NA,NA,0,"WHO"
+"2528","Niue","NIU",2025,NA,NA,0,"WHO"
+"2529","Niue","NIU",2025,NA,NA,0,"WHO"
+"2530","North Macedonia","MKD",2025,1,2025-01-01,NA,NA
+"2531","North Macedonia","MKD",2025,2,2025-02-01,NA,NA
+"2532","North Macedonia","MKD",2025,3,2025-03-01,NA,NA
+"2533","North Macedonia","MKD",2025,4,2025-04-01,NA,NA
+"2534","North Macedonia","MKD",2025,5,2025-05-01,0,"WHO"
+"2535","North Macedonia","MKD",2025,6,2025-06-01,NA,NA
+"2536","North Macedonia","MKD",2025,7,2025-07-01,NA,NA
+"2537","North Macedonia","MKD",2025,8,2025-08-01,NA,NA
+"2538","North Macedonia","MKD",2025,9,2025-09-01,NA,NA
+"2539","North Macedonia","MKD",2025,10,2025-10-01,NA,NA
+"2540","North Macedonia","MKD",2025,11,2025-11-01,NA,NA
+"2541","North Macedonia","MKD",2025,12,2025-12-01,NA,NA
+"2542","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2543","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2544","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2545","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2546","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2547","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2548","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2549","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2550","North Macedonia","MKD",2025,NA,NA,0,"WHO"
+"2551","Northern Mariana Islands","MNP",2025,1,2025-01-01,NA,NA
+"2552","Northern Mariana Islands","MNP",2025,2,2025-02-01,NA,NA
+"2553","Northern Mariana Islands","MNP",2025,3,2025-03-01,NA,NA
+"2554","Northern Mariana Islands","MNP",2025,4,2025-04-01,NA,NA
+"2555","Northern Mariana Islands","MNP",2025,5,2025-05-01,0,"WHO"
+"2556","Northern Mariana Islands","MNP",2025,6,2025-06-01,NA,NA
+"2557","Northern Mariana Islands","MNP",2025,7,2025-07-01,NA,NA
+"2558","Northern Mariana Islands","MNP",2025,8,2025-08-01,NA,NA
+"2559","Northern Mariana Islands","MNP",2025,9,2025-09-01,NA,NA
+"2560","Northern Mariana Islands","MNP",2025,10,2025-10-01,NA,NA
+"2561","Northern Mariana Islands","MNP",2025,11,2025-11-01,NA,NA
+"2562","Northern Mariana Islands","MNP",2025,12,2025-12-01,NA,NA
+"2563","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2564","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2565","Northern Mariana Islands","MNP",2025,NA,NA,1,"WHO"
+"2566","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2567","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2568","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2569","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2570","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2571","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2572","Northern Mariana Islands","MNP",2025,NA,NA,0,"WHO"
+"2573","Norway","NOR",2025,1,2025-01-01,NA,NA
+"2574","Norway","NOR",2025,2,2025-02-01,NA,NA
+"2575","Norway","NOR",2025,3,2025-03-01,NA,NA
+"2576","Norway","NOR",2025,4,2025-04-01,NA,NA
+"2577","Norway","NOR",2025,5,2025-05-01,0,"WHO"
+"2578","Norway","NOR",2025,6,2025-06-01,NA,NA
+"2579","Norway","NOR",2025,7,2025-07-01,NA,NA
+"2580","Norway","NOR",2025,8,2025-08-01,NA,NA
+"2581","Norway","NOR",2025,9,2025-09-01,NA,NA
+"2582","Norway","NOR",2025,10,2025-10-01,NA,NA
+"2583","Norway","NOR",2025,11,2025-11-01,NA,NA
+"2584","Norway","NOR",2025,12,2025-12-01,NA,NA
+"2585","Norway","NOR",2025,NA,NA,0,"WHO"
+"2586","Norway","NOR",2025,NA,NA,0,"WHO"
+"2587","Norway","NOR",2025,NA,NA,0,"WHO"
+"2588","Norway","NOR",2025,NA,NA,0,"WHO"
+"2589","Norway","NOR",2025,NA,NA,0,"WHO"
+"2590","Norway","NOR",2025,NA,NA,0,"WHO"
+"2591","Norway","NOR",2025,NA,NA,0,"WHO"
+"2592","Norway","NOR",2025,NA,NA,0,"WHO"
+"2593","Norway","NOR",2025,NA,NA,0,"WHO"
+"2594","Pakistan","PAK",2025,1,2025-01-01,NA,NA
+"2595","Pakistan","PAK",2025,2,2025-02-01,NA,NA
+"2596","Pakistan","PAK",2025,3,2025-03-01,NA,NA
+"2597","Pakistan","PAK",2025,4,2025-04-01,NA,NA
+"2598","Pakistan","PAK",2025,5,2025-05-01,499,"WHO"
+"2599","Pakistan","PAK",2025,6,2025-06-01,NA,NA
+"2600","Pakistan","PAK",2025,7,2025-07-01,NA,NA
+"2601","Pakistan","PAK",2025,8,2025-08-01,NA,NA
+"2602","Pakistan","PAK",2025,9,2025-09-01,NA,NA
+"2603","Pakistan","PAK",2025,10,2025-10-01,NA,NA
+"2604","Pakistan","PAK",2025,11,2025-11-01,NA,NA
+"2605","Pakistan","PAK",2025,12,2025-12-01,NA,NA
+"2606","Pakistan","PAK",2025,NA,NA,3743,"WHO"
+"2607","Pakistan","PAK",2025,NA,NA,2496,"WHO"
+"2608","Pakistan","PAK",2025,NA,NA,615,"WHO"
+"2609","Pakistan","PAK",2025,NA,NA,431,"WHO"
+"2610","Pakistan","PAK",2025,NA,NA,598,"WHO"
+"2611","Pakistan","PAK",2025,NA,NA,1029,"WHO"
+"2612","Pakistan","PAK",2025,NA,NA,1015,"WHO"
+"2613","Pakistan","PAK",2025,NA,NA,3275,"WHO"
+"2614","Pakistan","PAK",2025,NA,NA,5753,"WHO"
+"2615","Palau","PLW",2025,1,2025-01-01,NA,NA
+"2616","Palau","PLW",2025,2,2025-02-01,NA,NA
+"2617","Palau","PLW",2025,3,2025-03-01,NA,NA
+"2618","Palau","PLW",2025,4,2025-04-01,NA,NA
+"2619","Palau","PLW",2025,5,2025-05-01,0,"WHO"
+"2620","Palau","PLW",2025,6,2025-06-01,NA,NA
+"2621","Palau","PLW",2025,7,2025-07-01,NA,NA
+"2622","Palau","PLW",2025,8,2025-08-01,NA,NA
+"2623","Palau","PLW",2025,9,2025-09-01,NA,NA
+"2624","Palau","PLW",2025,10,2025-10-01,NA,NA
+"2625","Palau","PLW",2025,11,2025-11-01,NA,NA
+"2626","Palau","PLW",2025,12,2025-12-01,NA,NA
+"2627","Palau","PLW",2025,NA,NA,0,"WHO"
+"2628","Palau","PLW",2025,NA,NA,0,"WHO"
+"2629","Palau","PLW",2025,NA,NA,0,"WHO"
+"2630","Palau","PLW",2025,NA,NA,0,"WHO"
+"2631","Palau","PLW",2025,NA,NA,1,"WHO"
+"2632","Palau","PLW",2025,NA,NA,6,"WHO"
+"2633","Palau","PLW",2025,NA,NA,9,"WHO"
+"2634","Palau","PLW",2025,NA,NA,10,"WHO"
+"2635","Palau","PLW",2025,NA,NA,20,"WHO"
+"2636","Palau","PLW",2025,NA,NA,1,"WHO"
+"2637","Panama","PAN",2025,1,2025-01-01,NA,NA
+"2638","Panama","PAN",2025,2,2025-02-01,NA,NA
+"2639","Panama","PAN",2025,3,2025-03-01,NA,NA
+"2640","Panama","PAN",2025,4,2025-04-01,NA,NA
+"2641","Panama","PAN",2025,5,2025-05-01,1038,"PAHO"
+"2642","Panama","PAN",2025,6,2025-06-01,NA,NA
+"2643","Panama","PAN",2025,7,2025-07-01,NA,NA
+"2644","Panama","PAN",2025,8,2025-08-01,NA,NA
+"2645","Panama","PAN",2025,9,2025-09-01,NA,NA
+"2646","Panama","PAN",2025,10,2025-10-01,NA,NA
+"2647","Panama","PAN",2025,11,2025-11-01,NA,NA
+"2648","Panama","PAN",2025,12,2025-12-01,NA,NA
+"2649","Panama","PAN",2025,NA,NA,2387,"PAHO"
+"2650","Panama","PAN",2025,NA,NA,1366,"PAHO"
+"2651","Panama","PAN",2025,NA,NA,1329,"PAHO"
+"2652","Panama","PAN",2025,NA,NA,900,"PAHO"
+"2653","Panama","PAN",2025,NA,NA,1876,"PAHO"
+"2654","Panama","PAN",2025,NA,NA,2322,"PAHO"
+"2655","Panama","PAN",2025,NA,NA,1988,"PAHO"
+"2656","Panama","PAN",2025,NA,NA,2189,"PAHO"
+"2657","Panama","PAN",2025,NA,NA,1632,"PAHO"
+"2658","Panama","PAN",2025,NA,NA,1359,"PAHO"
+"2659","Paraguay","PRY",2025,1,2025-01-01,NA,NA
+"2660","Paraguay","PRY",2025,2,2025-02-01,NA,NA
+"2661","Paraguay","PRY",2025,3,2025-03-01,NA,NA
+"2662","Paraguay","PRY",2025,4,2025-04-01,NA,NA
+"2663","Paraguay","PRY",2025,5,2025-05-01,3701,"PAHO"
+"2664","Paraguay","PRY",2025,6,2025-06-01,NA,NA
+"2665","Paraguay","PRY",2025,7,2025-07-01,NA,NA
+"2666","Paraguay","PRY",2025,8,2025-08-01,NA,NA
+"2667","Paraguay","PRY",2025,9,2025-09-01,NA,NA
+"2668","Paraguay","PRY",2025,10,2025-10-01,NA,NA
+"2669","Paraguay","PRY",2025,11,2025-11-01,NA,NA
+"2670","Paraguay","PRY",2025,12,2025-12-01,NA,NA
+"2671","Paraguay","PRY",2025,NA,NA,4664,"PAHO"
+"2672","Paraguay","PRY",2025,NA,NA,3832,"PAHO"
+"2673","Paraguay","PRY",2025,NA,NA,4747,"PAHO"
+"2674","Paraguay","PRY",2025,NA,NA,2923,"PAHO"
+"2675","Paraguay","PRY",2025,NA,NA,1971,"PAHO"
+"2676","Paraguay","PRY",2025,NA,NA,870,"PAHO"
+"2677","Paraguay","PRY",2025,NA,NA,877,"PAHO"
+"2678","Paraguay","PRY",2025,NA,NA,1338,"PAHO"
+"2679","Paraguay","PRY",2025,NA,NA,1750,"PAHO"
+"2680","Paraguay","PRY",2025,NA,NA,2523,"PAHO"
+"2681","Paraguay","PRY",2025,NA,NA,2460,"PAHO"
+"2682","Peru","PER",2025,1,2025-01-01,NA,NA
+"2683","Peru","PER",2025,2,2025-02-01,NA,NA
+"2684","Peru","PER",2025,3,2025-03-01,NA,NA
+"2685","Peru","PER",2025,4,2025-04-01,NA,NA
+"2686","Peru","PER",2025,5,2025-05-01,3608,"PAHO"
+"2687","Peru","PER",2025,6,2025-06-01,NA,NA
+"2688","Peru","PER",2025,7,2025-07-01,NA,NA
+"2689","Peru","PER",2025,8,2025-08-01,NA,NA
+"2690","Peru","PER",2025,9,2025-09-01,NA,NA
+"2691","Peru","PER",2025,10,2025-10-01,NA,NA
+"2692","Peru","PER",2025,11,2025-11-01,NA,NA
+"2693","Peru","PER",2025,12,2025-12-01,NA,NA
+"2694","Peru","PER",2025,NA,NA,6194,"PAHO"
+"2695","Peru","PER",2025,NA,NA,4538,"PAHO"
+"2696","Peru","PER",2025,NA,NA,7133,"PAHO"
+"2697","Peru","PER",2025,NA,NA,6271,"PAHO"
+"2698","Peru","PER",2025,NA,NA,2500,"PAHO"
+"2699","Peru","PER",2025,NA,NA,998,"PAHO"
+"2700","Peru","PER",2025,NA,NA,933,"PAHO"
+"2701","Peru","PER",2025,NA,NA,1230,"PAHO"
+"2702","Peru","PER",2025,NA,NA,1054,"PAHO"
+"2703","Peru","PER",2025,NA,NA,2423,"PAHO"
+"2704","Peru","PER",2025,NA,NA,571,"PAHO"
+"2705","Pitcairn Islands","PCN",2025,1,2025-01-01,NA,NA
+"2706","Pitcairn Islands","PCN",2025,2,2025-02-01,NA,NA
+"2707","Pitcairn Islands","PCN",2025,3,2025-03-01,NA,NA
+"2708","Pitcairn Islands","PCN",2025,4,2025-04-01,NA,NA
+"2709","Pitcairn Islands","PCN",2025,5,2025-05-01,0,"WHO"
+"2710","Pitcairn Islands","PCN",2025,6,2025-06-01,NA,NA
+"2711","Pitcairn Islands","PCN",2025,7,2025-07-01,NA,NA
+"2712","Pitcairn Islands","PCN",2025,8,2025-08-01,NA,NA
+"2713","Pitcairn Islands","PCN",2025,9,2025-09-01,NA,NA
+"2714","Pitcairn Islands","PCN",2025,10,2025-10-01,NA,NA
+"2715","Pitcairn Islands","PCN",2025,11,2025-11-01,NA,NA
+"2716","Pitcairn Islands","PCN",2025,12,2025-12-01,NA,NA
+"2717","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2718","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2719","Pitcairn Islands","PCN",2025,NA,NA,1,"WHO"
+"2720","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2721","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2722","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2723","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2724","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2725","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2726","Pitcairn Islands","PCN",2025,NA,NA,0,"WHO"
+"2727","Poland","POL",2025,1,2025-01-01,NA,NA
+"2728","Poland","POL",2025,2,2025-02-01,NA,NA
+"2729","Poland","POL",2025,3,2025-03-01,NA,NA
+"2730","Poland","POL",2025,4,2025-04-01,NA,NA
+"2731","Poland","POL",2025,5,2025-05-01,0,"WHO"
+"2732","Poland","POL",2025,6,2025-06-01,NA,NA
+"2733","Poland","POL",2025,7,2025-07-01,NA,NA
+"2734","Poland","POL",2025,8,2025-08-01,NA,NA
+"2735","Poland","POL",2025,9,2025-09-01,NA,NA
+"2736","Poland","POL",2025,10,2025-10-01,NA,NA
+"2737","Poland","POL",2025,11,2025-11-01,NA,NA
+"2738","Poland","POL",2025,12,2025-12-01,NA,NA
+"2739","Poland","POL",2025,NA,NA,0,"WHO"
+"2740","Poland","POL",2025,NA,NA,0,"WHO"
+"2741","Poland","POL",2025,NA,NA,0,"WHO"
+"2742","Poland","POL",2025,NA,NA,0,"WHO"
+"2743","Poland","POL",2025,NA,NA,0,"WHO"
+"2744","Poland","POL",2025,NA,NA,0,"WHO"
+"2745","Poland","POL",2025,NA,NA,0,"WHO"
+"2746","Poland","POL",2025,NA,NA,0,"WHO"
+"2747","Poland","POL",2025,NA,NA,0,"WHO"
+"2748","Portugal","PRT",2025,1,2025-01-01,NA,NA
+"2749","Portugal","PRT",2025,2,2025-02-01,NA,NA
+"2750","Portugal","PRT",2025,3,2025-03-01,NA,NA
+"2751","Portugal","PRT",2025,4,2025-04-01,NA,NA
+"2752","Portugal","PRT",2025,5,2025-05-01,0,"WHO"
+"2753","Portugal","PRT",2025,6,2025-06-01,NA,NA
+"2754","Portugal","PRT",2025,7,2025-07-01,NA,NA
+"2755","Portugal","PRT",2025,8,2025-08-01,NA,NA
+"2756","Portugal","PRT",2025,9,2025-09-01,NA,NA
+"2757","Portugal","PRT",2025,10,2025-10-01,NA,NA
+"2758","Portugal","PRT",2025,11,2025-11-01,NA,NA
+"2759","Portugal","PRT",2025,12,2025-12-01,NA,NA
+"2760","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2761","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2762","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2763","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2764","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2765","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2766","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2767","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2768","Portugal","PRT",2025,NA,NA,0,"WHO"
+"2769","Puerto Rico","PRI",2025,1,2025-01-01,NA,NA
+"2770","Puerto Rico","PRI",2025,2,2025-02-01,NA,NA
+"2771","Puerto Rico","PRI",2025,3,2025-03-01,NA,NA
+"2772","Puerto Rico","PRI",2025,4,2025-04-01,NA,NA
+"2773","Puerto Rico","PRI",2025,5,2025-05-01,191,"PAHO"
+"2774","Puerto Rico","PRI",2025,6,2025-06-01,NA,NA
+"2775","Puerto Rico","PRI",2025,7,2025-07-01,NA,NA
+"2776","Puerto Rico","PRI",2025,8,2025-08-01,NA,NA
+"2777","Puerto Rico","PRI",2025,9,2025-09-01,NA,NA
+"2778","Puerto Rico","PRI",2025,10,2025-10-01,NA,NA
+"2779","Puerto Rico","PRI",2025,11,2025-11-01,NA,NA
+"2780","Puerto Rico","PRI",2025,12,2025-12-01,NA,NA
+"2781","Puerto Rico","PRI",2025,NA,NA,662,"PAHO"
+"2782","Puerto Rico","PRI",2025,NA,NA,389,"PAHO"
+"2783","Puerto Rico","PRI",2025,NA,NA,327,"PAHO"
+"2784","Puerto Rico","PRI",2025,NA,NA,193,"PAHO"
+"2785","Puerto Rico","PRI",2025,NA,NA,295,"PAHO"
+"2786","Puerto Rico","PRI",2025,NA,NA,208,"PAHO"
+"2787","Puerto Rico","PRI",2025,NA,NA,193,"PAHO"
+"2788","Puerto Rico","PRI",2025,NA,NA,229,"PAHO"
+"2789","Puerto Rico","PRI",2025,NA,NA,270,"PAHO"
+"2790","Puerto Rico","PRI",2025,NA,NA,172,"PAHO"
+"2791","Réunion","REU",2025,1,2025-01-01,NA,NA
+"2792","Réunion","REU",2025,2,2025-02-01,NA,NA
+"2793","Réunion","REU",2025,3,2025-03-01,NA,NA
+"2794","Réunion","REU",2025,4,2025-04-01,NA,NA
+"2795","Réunion","REU",2025,5,2025-05-01,0,"WHO"
+"2796","Réunion","REU",2025,6,2025-06-01,NA,NA
+"2797","Réunion","REU",2025,7,2025-07-01,NA,NA
+"2798","Réunion","REU",2025,8,2025-08-01,NA,NA
+"2799","Réunion","REU",2025,9,2025-09-01,NA,NA
+"2800","Réunion","REU",2025,10,2025-10-01,NA,NA
+"2801","Réunion","REU",2025,11,2025-11-01,NA,NA
+"2802","Réunion","REU",2025,12,2025-12-01,NA,NA
+"2803","Réunion","REU",2025,NA,NA,10,"WHO"
+"2804","Réunion","REU",2025,NA,NA,0,"WHO"
+"2805","Réunion","REU",2025,NA,NA,2,"WHO"
+"2806","Réunion","REU",2025,NA,NA,5,"WHO"
+"2807","Réunion","REU",2025,NA,NA,0,"WHO"
+"2808","Réunion","REU",2025,NA,NA,0,"WHO"
+"2809","Réunion","REU",2025,NA,NA,0,"WHO"
+"2810","Réunion","REU",2025,NA,NA,0,"WHO"
+"2811","Réunion","REU",2025,NA,NA,0,"WHO"
+"2812","Réunion","REU",2025,NA,NA,0,"WHO"
+"2813","Romania","ROU",2025,1,2025-01-01,NA,NA
+"2814","Romania","ROU",2025,2,2025-02-01,NA,NA
+"2815","Romania","ROU",2025,3,2025-03-01,NA,NA
+"2816","Romania","ROU",2025,4,2025-04-01,NA,NA
+"2817","Romania","ROU",2025,5,2025-05-01,0,"WHO"
+"2818","Romania","ROU",2025,6,2025-06-01,NA,NA
+"2819","Romania","ROU",2025,7,2025-07-01,NA,NA
+"2820","Romania","ROU",2025,8,2025-08-01,NA,NA
+"2821","Romania","ROU",2025,9,2025-09-01,NA,NA
+"2822","Romania","ROU",2025,10,2025-10-01,NA,NA
+"2823","Romania","ROU",2025,11,2025-11-01,NA,NA
+"2824","Romania","ROU",2025,12,2025-12-01,NA,NA
+"2825","Romania","ROU",2025,NA,NA,0,"WHO"
+"2826","Romania","ROU",2025,NA,NA,0,"WHO"
+"2827","Romania","ROU",2025,NA,NA,0,"WHO"
+"2828","Romania","ROU",2025,NA,NA,0,"WHO"
+"2829","Romania","ROU",2025,NA,NA,0,"WHO"
+"2830","Romania","ROU",2025,NA,NA,0,"WHO"
+"2831","Romania","ROU",2025,NA,NA,0,"WHO"
+"2832","Romania","ROU",2025,NA,NA,0,"WHO"
+"2833","Romania","ROU",2025,NA,NA,0,"WHO"
+"2834","Russia","RUS",2025,1,2025-01-01,NA,NA
+"2835","Russia","RUS",2025,2,2025-02-01,NA,NA
+"2836","Russia","RUS",2025,3,2025-03-01,NA,NA
+"2837","Russia","RUS",2025,4,2025-04-01,NA,NA
+"2838","Russia","RUS",2025,5,2025-05-01,0,"WHO"
+"2839","Russia","RUS",2025,6,2025-06-01,NA,NA
+"2840","Russia","RUS",2025,7,2025-07-01,NA,NA
+"2841","Russia","RUS",2025,8,2025-08-01,NA,NA
+"2842","Russia","RUS",2025,9,2025-09-01,NA,NA
+"2843","Russia","RUS",2025,10,2025-10-01,NA,NA
+"2844","Russia","RUS",2025,11,2025-11-01,NA,NA
+"2845","Russia","RUS",2025,12,2025-12-01,NA,NA
+"2846","Russia","RUS",2025,NA,NA,0,"WHO"
+"2847","Russia","RUS",2025,NA,NA,0,"WHO"
+"2848","Russia","RUS",2025,NA,NA,0,"WHO"
+"2849","Russia","RUS",2025,NA,NA,0,"WHO"
+"2850","Russia","RUS",2025,NA,NA,0,"WHO"
+"2851","Russia","RUS",2025,NA,NA,0,"WHO"
+"2852","Russia","RUS",2025,NA,NA,0,"WHO"
+"2853","Russia","RUS",2025,NA,NA,0,"WHO"
+"2854","Russia","RUS",2025,NA,NA,0,"WHO"
+"2855","Rwanda","RWA",2025,1,2025-01-01,NA,NA
+"2856","Rwanda","RWA",2025,2,2025-02-01,NA,NA
+"2857","Rwanda","RWA",2025,3,2025-03-01,NA,NA
+"2858","Rwanda","RWA",2025,4,2025-04-01,NA,NA
+"2859","Rwanda","RWA",2025,5,2025-05-01,0,"WHO"
+"2860","Rwanda","RWA",2025,6,2025-06-01,NA,NA
+"2861","Rwanda","RWA",2025,7,2025-07-01,NA,NA
+"2862","Rwanda","RWA",2025,8,2025-08-01,NA,NA
+"2863","Rwanda","RWA",2025,9,2025-09-01,NA,NA
+"2864","Rwanda","RWA",2025,10,2025-10-01,NA,NA
+"2865","Rwanda","RWA",2025,11,2025-11-01,NA,NA
+"2866","Rwanda","RWA",2025,12,2025-12-01,NA,NA
+"2867","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2868","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2869","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2870","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2871","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2872","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2873","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2874","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2875","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2876","Rwanda","RWA",2025,NA,NA,0,"WHO"
+"2877","Saint Martin (French part)","MAF",2025,1,2025-01-01,NA,NA
+"2878","Saint Martin (French part)","MAF",2025,2,2025-02-01,NA,NA
+"2879","Saint Martin (French part)","MAF",2025,3,2025-03-01,NA,NA
+"2880","Saint Martin (French part)","MAF",2025,4,2025-04-01,NA,NA
+"2881","Saint Martin (French part)","MAF",2025,5,2025-05-01,34,"WHO"
+"2882","Saint Martin (French part)","MAF",2025,6,2025-06-01,NA,NA
+"2883","Saint Martin (French part)","MAF",2025,7,2025-07-01,NA,NA
+"2884","Saint Martin (French part)","MAF",2025,8,2025-08-01,NA,NA
+"2885","Saint Martin (French part)","MAF",2025,9,2025-09-01,NA,NA
+"2886","Saint Martin (French part)","MAF",2025,10,2025-10-01,NA,NA
+"2887","Saint Martin (French part)","MAF",2025,11,2025-11-01,NA,NA
+"2888","Saint Martin (French part)","MAF",2025,12,2025-12-01,NA,NA
+"2889","Saint Martin (French part)","MAF",2025,NA,NA,53,"WHO"
+"2890","Saint Martin (French part)","MAF",2025,NA,NA,17,"WHO"
+"2891","Saint Martin (French part)","MAF",2025,NA,NA,10,"WHO"
+"2892","Saint Martin (French part)","MAF",2025,NA,NA,40,"WHO"
+"2893","Saint Martin (French part)","MAF",2025,NA,NA,30,"WHO"
+"2894","Saint Martin (French part)","MAF",2025,NA,NA,NA,"WHO"
+"2895","Saint Martin (French part)","MAF",2025,NA,NA,NA,"WHO"
+"2896","Saint Martin (French part)","MAF",2025,NA,NA,20,"WHO"
+"2897","Saint Martin (French part)","MAF",2025,NA,NA,NA,"WHO"
+"2898","Saint Martin (French part)","MAF",2025,NA,NA,NA,"WHO"
+"2899","Samoa","WSM",2025,1,2025-01-01,NA,NA
+"2900","Samoa","WSM",2025,2,2025-02-01,NA,NA
+"2901","Samoa","WSM",2025,3,2025-03-01,NA,NA
+"2902","Samoa","WSM",2025,4,2025-04-01,NA,NA
+"2903","Samoa","WSM",2025,5,2025-05-01,227,"WHO"
+"2904","Samoa","WSM",2025,6,2025-06-01,NA,NA
+"2905","Samoa","WSM",2025,7,2025-07-01,NA,NA
+"2906","Samoa","WSM",2025,8,2025-08-01,NA,NA
+"2907","Samoa","WSM",2025,9,2025-09-01,NA,NA
+"2908","Samoa","WSM",2025,10,2025-10-01,NA,NA
+"2909","Samoa","WSM",2025,11,2025-11-01,NA,NA
+"2910","Samoa","WSM",2025,12,2025-12-01,NA,NA
+"2911","Samoa","WSM",2025,NA,NA,4,"WHO"
+"2912","Samoa","WSM",2025,NA,NA,1,"WHO"
+"2913","Samoa","WSM",2025,NA,NA,0,"WHO"
+"2914","Samoa","WSM",2025,NA,NA,40,"WHO"
+"2915","Samoa","WSM",2025,NA,NA,569,"WHO"
+"2916","Samoa","WSM",2025,NA,NA,5099,"WHO"
+"2917","Samoa","WSM",2025,NA,NA,5925,"WHO"
+"2918","Samoa","WSM",2025,NA,NA,2410,"WHO"
+"2919","Samoa","WSM",2025,NA,NA,1241,"WHO"
+"2920","Samoa","WSM",2025,NA,NA,0,"WHO"
+"2921","San Marino","SMR",2025,1,2025-01-01,NA,NA
+"2922","San Marino","SMR",2025,2,2025-02-01,NA,NA
+"2923","San Marino","SMR",2025,3,2025-03-01,NA,NA
+"2924","San Marino","SMR",2025,4,2025-04-01,NA,NA
+"2925","San Marino","SMR",2025,5,2025-05-01,0,"WHO"
+"2926","San Marino","SMR",2025,6,2025-06-01,NA,NA
+"2927","San Marino","SMR",2025,7,2025-07-01,NA,NA
+"2928","San Marino","SMR",2025,8,2025-08-01,NA,NA
+"2929","San Marino","SMR",2025,9,2025-09-01,NA,NA
+"2930","San Marino","SMR",2025,10,2025-10-01,NA,NA
+"2931","San Marino","SMR",2025,11,2025-11-01,NA,NA
+"2932","San Marino","SMR",2025,12,2025-12-01,NA,NA
+"2933","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2934","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2935","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2936","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2937","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2938","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2939","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2940","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2941","San Marino","SMR",2025,NA,NA,0,"WHO"
+"2942","São Tomé & Príncipe","STP",2025,1,2025-01-01,NA,NA
+"2943","São Tomé & Príncipe","STP",2025,2,2025-02-01,NA,NA
+"2944","São Tomé & Príncipe","STP",2025,3,2025-03-01,NA,NA
+"2945","São Tomé & Príncipe","STP",2025,4,2025-04-01,NA,NA
+"2946","São Tomé & Príncipe","STP",2025,5,2025-05-01,0,"WHO"
+"2947","São Tomé & Príncipe","STP",2025,6,2025-06-01,NA,NA
+"2948","São Tomé & Príncipe","STP",2025,7,2025-07-01,NA,NA
+"2949","São Tomé & Príncipe","STP",2025,8,2025-08-01,NA,NA
+"2950","São Tomé & Príncipe","STP",2025,9,2025-09-01,NA,NA
+"2951","São Tomé & Príncipe","STP",2025,10,2025-10-01,NA,NA
+"2952","São Tomé & Príncipe","STP",2025,11,2025-11-01,NA,NA
+"2953","São Tomé & Príncipe","STP",2025,12,2025-12-01,NA,NA
+"2954","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2955","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2956","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2957","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2958","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2959","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2960","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2961","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2962","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2963","São Tomé & Príncipe","STP",2025,NA,NA,0,"WHO"
+"2964","Senegal","SEN",2025,1,2025-01-01,NA,NA
+"2965","Senegal","SEN",2025,2,2025-02-01,NA,NA
+"2966","Senegal","SEN",2025,3,2025-03-01,NA,NA
+"2967","Senegal","SEN",2025,4,2025-04-01,NA,NA
+"2968","Senegal","SEN",2025,5,2025-05-01,201,"WHO"
+"2969","Senegal","SEN",2025,6,2025-06-01,NA,NA
+"2970","Senegal","SEN",2025,7,2025-07-01,NA,NA
+"2971","Senegal","SEN",2025,8,2025-08-01,NA,NA
+"2972","Senegal","SEN",2025,9,2025-09-01,NA,NA
+"2973","Senegal","SEN",2025,10,2025-10-01,NA,NA
+"2974","Senegal","SEN",2025,11,2025-11-01,NA,NA
+"2975","Senegal","SEN",2025,12,2025-12-01,NA,NA
+"2976","Senegal","SEN",2025,NA,NA,92,"WHO"
+"2977","Senegal","SEN",2025,NA,NA,140,"WHO"
+"2978","Senegal","SEN",2025,NA,NA,89,"WHO"
+"2979","Senegal","SEN",2025,NA,NA,130,"WHO"
+"2980","Senegal","SEN",2025,NA,NA,225,"WHO"
+"2981","Senegal","SEN",2025,NA,NA,304,"WHO"
+"2982","Senegal","SEN",2025,NA,NA,356,"WHO"
+"2983","Senegal","SEN",2025,NA,NA,878,"WHO"
+"2984","Senegal","SEN",2025,NA,NA,3616,"WHO"
+"2985","Senegal","SEN",2025,NA,NA,4923,"WHO"
+"2986","Serbia","SRB",2025,1,2025-01-01,NA,NA
+"2987","Serbia","SRB",2025,2,2025-02-01,NA,NA
+"2988","Serbia","SRB",2025,3,2025-03-01,NA,NA
+"2989","Serbia","SRB",2025,4,2025-04-01,NA,NA
+"2990","Serbia","SRB",2025,5,2025-05-01,0,"WHO"
+"2991","Serbia","SRB",2025,6,2025-06-01,NA,NA
+"2992","Serbia","SRB",2025,7,2025-07-01,NA,NA
+"2993","Serbia","SRB",2025,8,2025-08-01,NA,NA
+"2994","Serbia","SRB",2025,9,2025-09-01,NA,NA
+"2995","Serbia","SRB",2025,10,2025-10-01,NA,NA
+"2996","Serbia","SRB",2025,11,2025-11-01,NA,NA
+"2997","Serbia","SRB",2025,12,2025-12-01,NA,NA
+"2998","Serbia","SRB",2025,NA,NA,0,"WHO"
+"2999","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3000","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3001","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3002","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3003","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3004","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3005","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3006","Serbia","SRB",2025,NA,NA,0,"WHO"
+"3007","Seychelles","SYC",2025,1,2025-01-01,NA,NA
+"3008","Seychelles","SYC",2025,2,2025-02-01,NA,NA
+"3009","Seychelles","SYC",2025,3,2025-03-01,NA,NA
+"3010","Seychelles","SYC",2025,4,2025-04-01,NA,NA
+"3011","Seychelles","SYC",2025,5,2025-05-01,1,"WHO"
+"3012","Seychelles","SYC",2025,6,2025-06-01,NA,NA
+"3013","Seychelles","SYC",2025,7,2025-07-01,NA,NA
+"3014","Seychelles","SYC",2025,8,2025-08-01,NA,NA
+"3015","Seychelles","SYC",2025,9,2025-09-01,NA,NA
+"3016","Seychelles","SYC",2025,10,2025-10-01,NA,NA
+"3017","Seychelles","SYC",2025,11,2025-11-01,NA,NA
+"3018","Seychelles","SYC",2025,12,2025-12-01,NA,NA
+"3019","Seychelles","SYC",2025,NA,NA,1,"WHO"
+"3020","Seychelles","SYC",2025,NA,NA,0,"WHO"
+"3021","Seychelles","SYC",2025,NA,NA,0,"WHO"
+"3022","Seychelles","SYC",2025,NA,NA,10,"WHO"
+"3023","Seychelles","SYC",2025,NA,NA,0,"WHO"
+"3024","Seychelles","SYC",2025,NA,NA,7,"WHO"
+"3025","Seychelles","SYC",2025,NA,NA,5,"WHO"
+"3026","Seychelles","SYC",2025,NA,NA,7,"WHO"
+"3027","Seychelles","SYC",2025,NA,NA,14,"WHO"
+"3028","Sierra Leone","SLE",2025,1,2025-01-01,NA,NA
+"3029","Sierra Leone","SLE",2025,2,2025-02-01,NA,NA
+"3030","Sierra Leone","SLE",2025,3,2025-03-01,NA,NA
+"3031","Sierra Leone","SLE",2025,4,2025-04-01,NA,NA
+"3032","Sierra Leone","SLE",2025,5,2025-05-01,0,"WHO"
+"3033","Sierra Leone","SLE",2025,6,2025-06-01,NA,NA
+"3034","Sierra Leone","SLE",2025,7,2025-07-01,NA,NA
+"3035","Sierra Leone","SLE",2025,8,2025-08-01,NA,NA
+"3036","Sierra Leone","SLE",2025,9,2025-09-01,NA,NA
+"3037","Sierra Leone","SLE",2025,10,2025-10-01,NA,NA
+"3038","Sierra Leone","SLE",2025,11,2025-11-01,NA,NA
+"3039","Sierra Leone","SLE",2025,12,2025-12-01,NA,NA
+"3040","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3041","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3042","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3043","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3044","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3045","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3046","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3047","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3048","Sierra Leone","SLE",2025,NA,NA,29,"WHO"
+"3049","Sierra Leone","SLE",2025,NA,NA,0,"WHO"
+"3050","Singapore","SGP",2025,1,2025-01-01,NA,NA
+"3051","Singapore","SGP",2025,2,2025-02-01,NA,NA
+"3052","Singapore","SGP",2025,3,2025-03-01,NA,NA
+"3053","Singapore","SGP",2025,4,2025-04-01,NA,NA
+"3054","Singapore","SGP",2025,5,2025-05-01,532,"WHO"
+"3055","Singapore","SGP",2025,6,2025-06-01,NA,NA
+"3056","Singapore","SGP",2025,7,2025-07-01,NA,NA
+"3057","Singapore","SGP",2025,8,2025-08-01,NA,NA
+"3058","Singapore","SGP",2025,9,2025-09-01,NA,NA
+"3059","Singapore","SGP",2025,10,2025-10-01,NA,NA
+"3060","Singapore","SGP",2025,11,2025-11-01,NA,NA
+"3061","Singapore","SGP",2025,12,2025-12-01,NA,NA
+"3062","Singapore","SGP",2025,NA,NA,486,"WHO"
+"3063","Singapore","SGP",2025,NA,NA,380,"WHO"
+"3064","Singapore","SGP",2025,NA,NA,356,"WHO"
+"3065","Singapore","SGP",2025,NA,NA,380,"WHO"
+"3066","Singapore","SGP",2025,NA,NA,449,"WHO"
+"3067","Singapore","SGP",2025,NA,NA,465,"WHO"
+"3068","Singapore","SGP",2025,NA,NA,233,"WHO"
+"3069","Singapore","SGP",2025,NA,NA,176,"WHO"
+"3070","Singapore","SGP",2025,NA,NA,224,"WHO"
+"3071","Singapore","SGP",2025,NA,NA,160,"WHO"
+"3072","Sint Maarten","SXM",2025,1,2025-01-01,NA,NA
+"3073","Sint Maarten","SXM",2025,2,2025-02-01,NA,NA
+"3074","Sint Maarten","SXM",2025,3,2025-03-01,NA,NA
+"3075","Sint Maarten","SXM",2025,4,2025-04-01,NA,NA
+"3076","Sint Maarten","SXM",2025,5,2025-05-01,6,"PAHO"
+"3077","Sint Maarten","SXM",2025,6,2025-06-01,NA,NA
+"3078","Sint Maarten","SXM",2025,7,2025-07-01,NA,NA
+"3079","Sint Maarten","SXM",2025,8,2025-08-01,NA,NA
+"3080","Sint Maarten","SXM",2025,9,2025-09-01,NA,NA
+"3081","Sint Maarten","SXM",2025,10,2025-10-01,NA,NA
+"3082","Sint Maarten","SXM",2025,11,2025-11-01,NA,NA
+"3083","Sint Maarten","SXM",2025,12,2025-12-01,NA,NA
+"3084","Sint Maarten","SXM",2025,NA,NA,0,"WHO"
+"3085","Sint Maarten","SXM",2025,NA,NA,0,"WHO"
+"3086","Sint Maarten","SXM",2025,NA,NA,0,"WHO"
+"3087","Sint Maarten","SXM",2025,NA,NA,0,"WHO"
+"3088","Sint Maarten","SXM",2025,NA,NA,0,"WHO"
+"3089","Sint Maarten","SXM",2025,NA,NA,2,"PAHO"
+"3090","Sint Maarten","SXM",2025,NA,NA,NA,"WHO"
+"3091","Sint Maarten","SXM",2025,NA,NA,NA,"WHO"
+"3092","Sint Maarten","SXM",2025,NA,NA,NA,"WHO"
+"3093","Sint Maarten","SXM",2025,NA,NA,NA,"WHO"
+"3094","Slovakia","SVK",2025,1,2025-01-01,NA,NA
+"3095","Slovakia","SVK",2025,2,2025-02-01,NA,NA
+"3096","Slovakia","SVK",2025,3,2025-03-01,NA,NA
+"3097","Slovakia","SVK",2025,4,2025-04-01,NA,NA
+"3098","Slovakia","SVK",2025,5,2025-05-01,0,"WHO"
+"3099","Slovakia","SVK",2025,6,2025-06-01,NA,NA
+"3100","Slovakia","SVK",2025,7,2025-07-01,NA,NA
+"3101","Slovakia","SVK",2025,8,2025-08-01,NA,NA
+"3102","Slovakia","SVK",2025,9,2025-09-01,NA,NA
+"3103","Slovakia","SVK",2025,10,2025-10-01,NA,NA
+"3104","Slovakia","SVK",2025,11,2025-11-01,NA,NA
+"3105","Slovakia","SVK",2025,12,2025-12-01,NA,NA
+"3106","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3107","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3108","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3109","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3110","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3111","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3112","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3113","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3114","Slovakia","SVK",2025,NA,NA,0,"WHO"
+"3115","Slovenia","SVN",2025,1,2025-01-01,NA,NA
+"3116","Slovenia","SVN",2025,2,2025-02-01,NA,NA
+"3117","Slovenia","SVN",2025,3,2025-03-01,NA,NA
+"3118","Slovenia","SVN",2025,4,2025-04-01,NA,NA
+"3119","Slovenia","SVN",2025,5,2025-05-01,0,"WHO"
+"3120","Slovenia","SVN",2025,6,2025-06-01,NA,NA
+"3121","Slovenia","SVN",2025,7,2025-07-01,NA,NA
+"3122","Slovenia","SVN",2025,8,2025-08-01,NA,NA
+"3123","Slovenia","SVN",2025,9,2025-09-01,NA,NA
+"3124","Slovenia","SVN",2025,10,2025-10-01,NA,NA
+"3125","Slovenia","SVN",2025,11,2025-11-01,NA,NA
+"3126","Slovenia","SVN",2025,12,2025-12-01,NA,NA
+"3127","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3128","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3129","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3130","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3131","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3132","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3133","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3134","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3135","Slovenia","SVN",2025,NA,NA,0,"WHO"
+"3136","Solomon Islands","SLB",2025,1,2025-01-01,NA,NA
+"3137","Solomon Islands","SLB",2025,2,2025-02-01,NA,NA
+"3138","Solomon Islands","SLB",2025,3,2025-03-01,NA,NA
+"3139","Solomon Islands","SLB",2025,4,2025-04-01,NA,NA
+"3140","Solomon Islands","SLB",2025,5,2025-05-01,28,"WHO"
+"3141","Solomon Islands","SLB",2025,6,2025-06-01,NA,NA
+"3142","Solomon Islands","SLB",2025,7,2025-07-01,NA,NA
+"3143","Solomon Islands","SLB",2025,8,2025-08-01,NA,NA
+"3144","Solomon Islands","SLB",2025,9,2025-09-01,NA,NA
+"3145","Solomon Islands","SLB",2025,10,2025-10-01,NA,NA
+"3146","Solomon Islands","SLB",2025,11,2025-11-01,NA,NA
+"3147","Solomon Islands","SLB",2025,12,2025-12-01,NA,NA
+"3148","Solomon Islands","SLB",2025,NA,NA,47,"WHO"
+"3149","Solomon Islands","SLB",2025,NA,NA,34,"WHO"
+"3150","Solomon Islands","SLB",2025,NA,NA,30,"WHO"
+"3151","Solomon Islands","SLB",2025,NA,NA,30,"WHO"
+"3152","Solomon Islands","SLB",2025,NA,NA,13,"WHO"
+"3153","Solomon Islands","SLB",2025,NA,NA,5,"WHO"
+"3154","Solomon Islands","SLB",2025,NA,NA,23,"WHO"
+"3155","Solomon Islands","SLB",2025,NA,NA,20,"WHO"
+"3156","Solomon Islands","SLB",2025,NA,NA,30,"WHO"
+"3157","Solomon Islands","SLB",2025,NA,NA,2,"WHO"
+"3158","Spain","ESP",2025,1,2025-01-01,NA,NA
+"3159","Spain","ESP",2025,2,2025-02-01,NA,NA
+"3160","Spain","ESP",2025,3,2025-03-01,NA,NA
+"3161","Spain","ESP",2025,4,2025-04-01,NA,NA
+"3162","Spain","ESP",2025,5,2025-05-01,0,"WHO"
+"3163","Spain","ESP",2025,6,2025-06-01,NA,NA
+"3164","Spain","ESP",2025,7,2025-07-01,NA,NA
+"3165","Spain","ESP",2025,8,2025-08-01,NA,NA
+"3166","Spain","ESP",2025,9,2025-09-01,NA,NA
+"3167","Spain","ESP",2025,10,2025-10-01,NA,NA
+"3168","Spain","ESP",2025,11,2025-11-01,NA,NA
+"3169","Spain","ESP",2025,12,2025-12-01,NA,NA
+"3170","Spain","ESP",2025,NA,NA,0,"WHO"
+"3171","Spain","ESP",2025,NA,NA,0,"WHO"
+"3172","Spain","ESP",2025,NA,NA,0,"WHO"
+"3173","Spain","ESP",2025,NA,NA,0,"WHO"
+"3174","Spain","ESP",2025,NA,NA,0,"WHO"
+"3175","Spain","ESP",2025,NA,NA,0,"WHO"
+"3176","Spain","ESP",2025,NA,NA,0,"WHO"
+"3177","Spain","ESP",2025,NA,NA,0,"WHO"
+"3178","Spain","ESP",2025,NA,NA,0,"WHO"
+"3179","Sri Lanka","LKA",2025,1,2025-01-01,NA,NA
+"3180","Sri Lanka","LKA",2025,2,2025-02-01,NA,NA
+"3181","Sri Lanka","LKA",2025,3,2025-03-01,NA,NA
+"3182","Sri Lanka","LKA",2025,4,2025-04-01,NA,NA
+"3183","Sri Lanka","LKA",2025,5,2025-05-01,6035,"SEARO"
+"3184","Sri Lanka","LKA",2025,6,2025-06-01,NA,NA
+"3185","Sri Lanka","LKA",2025,7,2025-07-01,NA,NA
+"3186","Sri Lanka","LKA",2025,8,2025-08-01,NA,NA
+"3187","Sri Lanka","LKA",2025,9,2025-09-01,NA,NA
+"3188","Sri Lanka","LKA",2025,10,2025-10-01,NA,NA
+"3189","Sri Lanka","LKA",2025,11,2025-11-01,NA,NA
+"3190","Sri Lanka","LKA",2025,12,2025-12-01,NA,NA
+"3191","Sri Lanka","LKA",2025,NA,NA,4942,"SEARO"
+"3192","Sri Lanka","LKA",2025,NA,NA,3666,"SEARO"
+"3193","Sri Lanka","LKA",2025,NA,NA,3771,"SEARO"
+"3194","Sri Lanka","LKA",2025,NA,NA,5171,"SEARO"
+"3195","Sri Lanka","LKA",2025,NA,NA,5468,"SEARO"
+"3196","Sri Lanka","LKA",2025,NA,NA,4838,"SEARO"
+"3197","Sri Lanka","LKA",2025,NA,NA,2746,"SEARO"
+"3198","Sri Lanka","LKA",2025,NA,NA,2403,"SEARO"
+"3199","Sri Lanka","LKA",2025,NA,NA,2717,"SEARO"
+"3200","Sri Lanka","LKA",2025,NA,NA,3806,"SEARO"
+"3201","Sri Lanka","LKA",2025,NA,NA,0,"SEARO"
+"3202","St. Barthélemy","BLM",2025,1,2025-01-01,NA,NA
+"3203","St. Barthélemy","BLM",2025,2,2025-02-01,NA,NA
+"3204","St. Barthélemy","BLM",2025,3,2025-03-01,NA,NA
+"3205","St. Barthélemy","BLM",2025,4,2025-04-01,NA,NA
+"3206","St. Barthélemy","BLM",2025,5,2025-05-01,0,"WHO"
+"3207","St. Barthélemy","BLM",2025,6,2025-06-01,NA,NA
+"3208","St. Barthélemy","BLM",2025,7,2025-07-01,NA,NA
+"3209","St. Barthélemy","BLM",2025,8,2025-08-01,NA,NA
+"3210","St. Barthélemy","BLM",2025,9,2025-09-01,NA,NA
+"3211","St. Barthélemy","BLM",2025,10,2025-10-01,NA,NA
+"3212","St. Barthélemy","BLM",2025,11,2025-11-01,NA,NA
+"3213","St. Barthélemy","BLM",2025,12,2025-12-01,NA,NA
+"3214","St. Barthélemy","BLM",2025,NA,NA,17,"PAHO"
+"3215","St. Barthélemy","BLM",2025,NA,NA,1,"PAHO"
+"3216","St. Barthélemy","BLM",2025,NA,NA,2,"PAHO"
+"3217","St. Barthélemy","BLM",2025,NA,NA,0,"WHO"
+"3218","St. Barthélemy","BLM",2025,NA,NA,0,"WHO"
+"3219","St. Barthélemy","BLM",2025,NA,NA,NA,"PAHO"
+"3220","St. Barthélemy","BLM",2025,NA,NA,NA,"PAHO"
+"3221","St. Barthélemy","BLM",2025,NA,NA,0,"WHO"
+"3222","St. Barthélemy","BLM",2025,NA,NA,NA,"PAHO"
+"3223","St. Barthélemy","BLM",2025,NA,NA,NA,"PAHO"
+"3224","St. Barthélemy","BLM",2025,NA,NA,NA,"PAHO"
+"3225","St. Kitts & Nevis","KNA",2025,1,2025-01-01,NA,NA
+"3226","St. Kitts & Nevis","KNA",2025,2,2025-02-01,NA,NA
+"3227","St. Kitts & Nevis","KNA",2025,3,2025-03-01,NA,NA
+"3228","St. Kitts & Nevis","KNA",2025,4,2025-04-01,NA,NA
+"3229","St. Kitts & Nevis","KNA",2025,5,2025-05-01,0,"WHO"
+"3230","St. Kitts & Nevis","KNA",2025,6,2025-06-01,NA,NA
+"3231","St. Kitts & Nevis","KNA",2025,7,2025-07-01,NA,NA
+"3232","St. Kitts & Nevis","KNA",2025,8,2025-08-01,NA,NA
+"3233","St. Kitts & Nevis","KNA",2025,9,2025-09-01,NA,NA
+"3234","St. Kitts & Nevis","KNA",2025,10,2025-10-01,NA,NA
+"3235","St. Kitts & Nevis","KNA",2025,11,2025-11-01,NA,NA
+"3236","St. Kitts & Nevis","KNA",2025,12,2025-12-01,NA,NA
+"3237","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3238","St. Kitts & Nevis","KNA",2025,NA,NA,4,"PAHO"
+"3239","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3240","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3241","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3242","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3243","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3244","St. Kitts & Nevis","KNA",2025,NA,NA,3,"PAHO"
+"3245","St. Kitts & Nevis","KNA",2025,NA,NA,2,"PAHO"
+"3246","St. Kitts & Nevis","KNA",2025,NA,NA,0,"WHO"
+"3247","St. Kitts & Nevis","KNA",2025,NA,NA,NA,"PAHO"
+"3248","St. Lucia","LCA",2025,1,2025-01-01,NA,NA
+"3249","St. Lucia","LCA",2025,2,2025-02-01,NA,NA
+"3250","St. Lucia","LCA",2025,3,2025-03-01,NA,NA
+"3251","St. Lucia","LCA",2025,4,2025-04-01,NA,NA
+"3252","St. Lucia","LCA",2025,5,2025-05-01,1,"PAHO"
+"3253","St. Lucia","LCA",2025,6,2025-06-01,NA,NA
+"3254","St. Lucia","LCA",2025,7,2025-07-01,NA,NA
+"3255","St. Lucia","LCA",2025,8,2025-08-01,NA,NA
+"3256","St. Lucia","LCA",2025,9,2025-09-01,NA,NA
+"3257","St. Lucia","LCA",2025,10,2025-10-01,NA,NA
+"3258","St. Lucia","LCA",2025,11,2025-11-01,NA,NA
+"3259","St. Lucia","LCA",2025,12,2025-12-01,NA,NA
+"3260","St. Lucia","LCA",2025,NA,NA,8,"PAHO"
+"3261","St. Lucia","LCA",2025,NA,NA,10,"PAHO"
+"3262","St. Lucia","LCA",2025,NA,NA,6,"PAHO"
+"3263","St. Lucia","LCA",2025,NA,NA,6,"PAHO"
+"3264","St. Lucia","LCA",2025,NA,NA,8,"PAHO"
+"3265","St. Lucia","LCA",2025,NA,NA,3,"PAHO"
+"3266","St. Lucia","LCA",2025,NA,NA,1,"PAHO"
+"3267","St. Lucia","LCA",2025,NA,NA,2,"PAHO"
+"3268","St. Lucia","LCA",2025,NA,NA,3,"PAHO"
+"3269","St. Lucia","LCA",2025,NA,NA,1,"PAHO"
+"3270","St. Lucia","LCA",2025,NA,NA,NA,"PAHO"
+"3271","St. Vincent & Grenadines","VCT",2025,1,2025-01-01,NA,NA
+"3272","St. Vincent & Grenadines","VCT",2025,2,2025-02-01,NA,NA
+"3273","St. Vincent & Grenadines","VCT",2025,3,2025-03-01,NA,NA
+"3274","St. Vincent & Grenadines","VCT",2025,4,2025-04-01,NA,NA
+"3275","St. Vincent & Grenadines","VCT",2025,5,2025-05-01,0,"WHO"
+"3276","St. Vincent & Grenadines","VCT",2025,6,2025-06-01,NA,NA
+"3277","St. Vincent & Grenadines","VCT",2025,7,2025-07-01,NA,NA
+"3278","St. Vincent & Grenadines","VCT",2025,8,2025-08-01,NA,NA
+"3279","St. Vincent & Grenadines","VCT",2025,9,2025-09-01,NA,NA
+"3280","St. Vincent & Grenadines","VCT",2025,10,2025-10-01,NA,NA
+"3281","St. Vincent & Grenadines","VCT",2025,11,2025-11-01,NA,NA
+"3282","St. Vincent & Grenadines","VCT",2025,12,2025-12-01,NA,NA
+"3283","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3284","St. Vincent & Grenadines","VCT",2025,NA,NA,2,"PAHO"
+"3285","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3286","St. Vincent & Grenadines","VCT",2025,NA,NA,1,"PAHO"
+"3287","St. Vincent & Grenadines","VCT",2025,NA,NA,2,"PAHO"
+"3288","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3289","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3290","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3291","St. Vincent & Grenadines","VCT",2025,NA,NA,1,"PAHO"
+"3292","St. Vincent & Grenadines","VCT",2025,NA,NA,0,"WHO"
+"3293","St. Vincent & Grenadines","VCT",2025,NA,NA,3,"PAHO"
+"3294","Sudan","SDN",2025,1,2025-01-01,NA,NA
+"3295","Sudan","SDN",2025,2,2025-02-01,NA,NA
+"3296","Sudan","SDN",2025,3,2025-03-01,NA,NA
+"3297","Sudan","SDN",2025,4,2025-04-01,NA,NA
+"3298","Sudan","SDN",2025,5,2025-05-01,853,"WHO"
+"3299","Sudan","SDN",2025,6,2025-06-01,NA,NA
+"3300","Sudan","SDN",2025,7,2025-07-01,NA,NA
+"3301","Sudan","SDN",2025,8,2025-08-01,NA,NA
+"3302","Sudan","SDN",2025,9,2025-09-01,NA,NA
+"3303","Sudan","SDN",2025,10,2025-10-01,NA,NA
+"3304","Sudan","SDN",2025,11,2025-11-01,NA,NA
+"3305","Sudan","SDN",2025,12,2025-12-01,NA,NA
+"3306","Sudan","SDN",2025,NA,NA,822,"WHO"
+"3307","Sudan","SDN",2025,NA,NA,816,"WHO"
+"3308","Sudan","SDN",2025,NA,NA,669,"WHO"
+"3309","Sudan","SDN",2025,NA,NA,838,"WHO"
+"3310","Sudan","SDN",2025,NA,NA,326,"WHO"
+"3311","Sudan","SDN",2025,NA,NA,746,"WHO"
+"3312","Sudan","SDN",2025,NA,NA,3776,"WHO"
+"3313","Sudan","SDN",2025,NA,NA,12280,"WHO"
+"3314","Sudan","SDN",2025,NA,NA,13075,"WHO"
+"3315","Suriname","SUR",2025,1,2025-01-01,NA,NA
+"3316","Suriname","SUR",2025,2,2025-02-01,NA,NA
+"3317","Suriname","SUR",2025,3,2025-03-01,NA,NA
+"3318","Suriname","SUR",2025,4,2025-04-01,NA,NA
+"3319","Suriname","SUR",2025,5,2025-05-01,204,"PAHO"
+"3320","Suriname","SUR",2025,6,2025-06-01,NA,NA
+"3321","Suriname","SUR",2025,7,2025-07-01,NA,NA
+"3322","Suriname","SUR",2025,8,2025-08-01,NA,NA
+"3323","Suriname","SUR",2025,9,2025-09-01,NA,NA
+"3324","Suriname","SUR",2025,10,2025-10-01,NA,NA
+"3325","Suriname","SUR",2025,11,2025-11-01,NA,NA
+"3326","Suriname","SUR",2025,12,2025-12-01,NA,NA
+"3327","Suriname","SUR",2025,NA,NA,75,"PAHO"
+"3328","Suriname","SUR",2025,NA,NA,162,"PAHO"
+"3329","Suriname","SUR",2025,NA,NA,289,"PAHO"
+"3330","Suriname","SUR",2025,NA,NA,98,"PAHO"
+"3331","Suriname","SUR",2025,NA,NA,119,"PAHO"
+"3332","Suriname","SUR",2025,NA,NA,115,"PAHO"
+"3333","Suriname","SUR",2025,NA,NA,133,"PAHO"
+"3334","Suriname","SUR",2025,NA,NA,67,"PAHO"
+"3335","Suriname","SUR",2025,NA,NA,40,"PAHO"
+"3336","Suriname","SUR",2025,NA,NA,163,"PAHO"
+"3337","Suriname","SUR",2025,NA,NA,94,"PAHO"
+"3338","Sweden","SWE",2025,1,2025-01-01,NA,NA
+"3339","Sweden","SWE",2025,2,2025-02-01,NA,NA
+"3340","Sweden","SWE",2025,3,2025-03-01,NA,NA
+"3341","Sweden","SWE",2025,4,2025-04-01,NA,NA
+"3342","Sweden","SWE",2025,5,2025-05-01,0,"WHO"
+"3343","Sweden","SWE",2025,6,2025-06-01,NA,NA
+"3344","Sweden","SWE",2025,7,2025-07-01,NA,NA
+"3345","Sweden","SWE",2025,8,2025-08-01,NA,NA
+"3346","Sweden","SWE",2025,9,2025-09-01,NA,NA
+"3347","Sweden","SWE",2025,10,2025-10-01,NA,NA
+"3348","Sweden","SWE",2025,11,2025-11-01,NA,NA
+"3349","Sweden","SWE",2025,12,2025-12-01,NA,NA
+"3350","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3351","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3352","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3353","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3354","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3355","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3356","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3357","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3358","Sweden","SWE",2025,NA,NA,0,"WHO"
+"3359","Switzerland","CHE",2025,1,2025-01-01,NA,NA
+"3360","Switzerland","CHE",2025,2,2025-02-01,NA,NA
+"3361","Switzerland","CHE",2025,3,2025-03-01,NA,NA
+"3362","Switzerland","CHE",2025,4,2025-04-01,NA,NA
+"3363","Switzerland","CHE",2025,5,2025-05-01,0,"WHO"
+"3364","Switzerland","CHE",2025,6,2025-06-01,NA,NA
+"3365","Switzerland","CHE",2025,7,2025-07-01,NA,NA
+"3366","Switzerland","CHE",2025,8,2025-08-01,NA,NA
+"3367","Switzerland","CHE",2025,9,2025-09-01,NA,NA
+"3368","Switzerland","CHE",2025,10,2025-10-01,NA,NA
+"3369","Switzerland","CHE",2025,11,2025-11-01,NA,NA
+"3370","Switzerland","CHE",2025,12,2025-12-01,NA,NA
+"3371","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3372","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3373","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3374","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3375","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3376","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3377","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3378","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3379","Switzerland","CHE",2025,NA,NA,0,"WHO"
+"3380","Tajikistan","TJK",2025,1,2025-01-01,NA,NA
+"3381","Tajikistan","TJK",2025,2,2025-02-01,NA,NA
+"3382","Tajikistan","TJK",2025,3,2025-03-01,NA,NA
+"3383","Tajikistan","TJK",2025,4,2025-04-01,NA,NA
+"3384","Tajikistan","TJK",2025,5,2025-05-01,0,"WHO"
+"3385","Tajikistan","TJK",2025,6,2025-06-01,NA,NA
+"3386","Tajikistan","TJK",2025,7,2025-07-01,NA,NA
+"3387","Tajikistan","TJK",2025,8,2025-08-01,NA,NA
+"3388","Tajikistan","TJK",2025,9,2025-09-01,NA,NA
+"3389","Tajikistan","TJK",2025,10,2025-10-01,NA,NA
+"3390","Tajikistan","TJK",2025,11,2025-11-01,NA,NA
+"3391","Tajikistan","TJK",2025,12,2025-12-01,NA,NA
+"3392","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3393","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3394","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3395","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3396","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3397","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3398","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3399","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3400","Tajikistan","TJK",2025,NA,NA,0,"WHO"
+"3401","Tanzania","TZA",2025,1,2025-01-01,NA,NA
+"3402","Tanzania","TZA",2025,2,2025-02-01,NA,NA
+"3403","Tanzania","TZA",2025,3,2025-03-01,NA,NA
+"3404","Tanzania","TZA",2025,4,2025-04-01,NA,NA
+"3405","Tanzania","TZA",2025,5,2025-05-01,10,"WHO"
+"3406","Tanzania","TZA",2025,6,2025-06-01,NA,NA
+"3407","Tanzania","TZA",2025,7,2025-07-01,NA,NA
+"3408","Tanzania","TZA",2025,8,2025-08-01,NA,NA
+"3409","Tanzania","TZA",2025,9,2025-09-01,NA,NA
+"3410","Tanzania","TZA",2025,10,2025-10-01,NA,NA
+"3411","Tanzania","TZA",2025,11,2025-11-01,NA,NA
+"3412","Tanzania","TZA",2025,12,2025-12-01,NA,NA
+"3413","Tanzania","TZA",2025,NA,NA,1,"WHO"
+"3414","Tanzania","TZA",2025,NA,NA,3,"WHO"
+"3415","Tanzania","TZA",2025,NA,NA,0,"WHO"
+"3416","Tanzania","TZA",2025,NA,NA,3,"WHO"
+"3417","Tanzania","TZA",2025,NA,NA,62,"WHO"
+"3418","Tanzania","TZA",2025,NA,NA,76,"WHO"
+"3419","Tanzania","TZA",2025,NA,NA,2,"WHO"
+"3420","Tanzania","TZA",2025,NA,NA,2,"WHO"
+"3421","Tanzania","TZA",2025,NA,NA,0,"WHO"
+"3422","Tanzania","TZA",2025,NA,NA,0,"WHO"
+"3423","Thailand","THA",2025,1,2025-01-01,NA,NA
+"3424","Thailand","THA",2025,2,2025-02-01,NA,NA
+"3425","Thailand","THA",2025,3,2025-03-01,NA,NA
+"3426","Thailand","THA",2025,4,2025-04-01,NA,NA
+"3427","Thailand","THA",2025,5,2025-05-01,4683,"SEARO"
+"3428","Thailand","THA",2025,6,2025-06-01,NA,NA
+"3429","Thailand","THA",2025,7,2025-07-01,NA,NA
+"3430","Thailand","THA",2025,8,2025-08-01,NA,NA
+"3431","Thailand","THA",2025,9,2025-09-01,NA,NA
+"3432","Thailand","THA",2025,10,2025-10-01,NA,NA
+"3433","Thailand","THA",2025,11,2025-11-01,NA,NA
+"3434","Thailand","THA",2025,12,2025-12-01,NA,NA
+"3435","Thailand","THA",2025,NA,NA,4005,"SEARO"
+"3436","Thailand","THA",2025,NA,NA,2269,"SEARO"
+"3437","Thailand","THA",2025,NA,NA,2447,"SEARO"
+"3438","Thailand","THA",2025,NA,NA,2271,"SEARO"
+"3439","Thailand","THA",2025,NA,NA,8697,"SEARO"
+"3440","Thailand","THA",2025,NA,NA,10987,"SEARO"
+"3441","Thailand","THA",2025,NA,NA,8610,"SEARO"
+"3442","Thailand","THA",2025,NA,NA,4012,"SEARO"
+"3443","Thailand","THA",2025,NA,NA,3814,"SEARO"
+"3444","Thailand","THA",2025,NA,NA,3218,"SEARO"
+"3445","Thailand","THA",2025,NA,NA,2427,"SEARO"
+"3446","Timor-Leste","TLS",2025,1,2025-01-01,NA,NA
+"3447","Timor-Leste","TLS",2025,2,2025-02-01,NA,NA
+"3448","Timor-Leste","TLS",2025,3,2025-03-01,NA,NA
+"3449","Timor-Leste","TLS",2025,4,2025-04-01,NA,NA
+"3450","Timor-Leste","TLS",2025,5,2025-05-01,102,"SEARO"
+"3451","Timor-Leste","TLS",2025,6,2025-06-01,NA,NA
+"3452","Timor-Leste","TLS",2025,7,2025-07-01,NA,NA
+"3453","Timor-Leste","TLS",2025,8,2025-08-01,NA,NA
+"3454","Timor-Leste","TLS",2025,9,2025-09-01,NA,NA
+"3455","Timor-Leste","TLS",2025,10,2025-10-01,NA,NA
+"3456","Timor-Leste","TLS",2025,11,2025-11-01,NA,NA
+"3457","Timor-Leste","TLS",2025,12,2025-12-01,NA,NA
+"3458","Timor-Leste","TLS",2025,NA,NA,129,"SEARO"
+"3459","Timor-Leste","TLS",2025,NA,NA,185,"SEARO"
+"3460","Timor-Leste","TLS",2025,NA,NA,188,"SEARO"
+"3461","Timor-Leste","TLS",2025,NA,NA,127,"SEARO"
+"3462","Timor-Leste","TLS",2025,NA,NA,73,"SEARO"
+"3463","Timor-Leste","TLS",2025,NA,NA,82,"SEARO"
+"3464","Timor-Leste","TLS",2025,NA,NA,56,"SEARO"
+"3465","Timor-Leste","TLS",2025,NA,NA,51,"SEARO"
+"3466","Timor-Leste","TLS",2025,NA,NA,88,"SEARO"
+"3467","Timor-Leste","TLS",2025,NA,NA,0,"SEARO"
+"3468","Timor-Leste","TLS",2025,NA,NA,0,"SEARO"
+"3469","Togo","TGO",2025,1,2025-01-01,NA,NA
+"3470","Togo","TGO",2025,2,2025-02-01,NA,NA
+"3471","Togo","TGO",2025,3,2025-03-01,NA,NA
+"3472","Togo","TGO",2025,4,2025-04-01,NA,NA
+"3473","Togo","TGO",2025,5,2025-05-01,0,"WHO"
+"3474","Togo","TGO",2025,6,2025-06-01,NA,NA
+"3475","Togo","TGO",2025,7,2025-07-01,NA,NA
+"3476","Togo","TGO",2025,8,2025-08-01,NA,NA
+"3477","Togo","TGO",2025,9,2025-09-01,NA,NA
+"3478","Togo","TGO",2025,10,2025-10-01,NA,NA
+"3479","Togo","TGO",2025,11,2025-11-01,NA,NA
+"3480","Togo","TGO",2025,12,2025-12-01,NA,NA
+"3481","Togo","TGO",2025,NA,NA,0,"WHO"
+"3482","Togo","TGO",2025,NA,NA,0,"WHO"
+"3483","Togo","TGO",2025,NA,NA,0,"WHO"
+"3484","Togo","TGO",2025,NA,NA,0,"WHO"
+"3485","Togo","TGO",2025,NA,NA,0,"WHO"
+"3486","Togo","TGO",2025,NA,NA,0,"WHO"
+"3487","Togo","TGO",2025,NA,NA,0,"WHO"
+"3488","Togo","TGO",2025,NA,NA,0,"WHO"
+"3489","Togo","TGO",2025,NA,NA,0,"WHO"
+"3490","Togo","TGO",2025,NA,NA,0,"WHO"
+"3491","Tokelau","TKL",2025,1,2025-01-01,NA,NA
+"3492","Tokelau","TKL",2025,2,2025-02-01,NA,NA
+"3493","Tokelau","TKL",2025,3,2025-03-01,NA,NA
+"3494","Tokelau","TKL",2025,4,2025-04-01,NA,NA
+"3495","Tokelau","TKL",2025,5,2025-05-01,0,"WHO"
+"3496","Tokelau","TKL",2025,6,2025-06-01,NA,NA
+"3497","Tokelau","TKL",2025,7,2025-07-01,NA,NA
+"3498","Tokelau","TKL",2025,8,2025-08-01,NA,NA
+"3499","Tokelau","TKL",2025,9,2025-09-01,NA,NA
+"3500","Tokelau","TKL",2025,10,2025-10-01,NA,NA
+"3501","Tokelau","TKL",2025,11,2025-11-01,NA,NA
+"3502","Tokelau","TKL",2025,12,2025-12-01,NA,NA
+"3503","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3504","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3505","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3506","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3507","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3508","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3509","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3510","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3511","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3512","Tokelau","TKL",2025,NA,NA,0,"WHO"
+"3513","Tonga","TON",2025,1,2025-01-01,NA,NA
+"3514","Tonga","TON",2025,2,2025-02-01,NA,NA
+"3515","Tonga","TON",2025,3,2025-03-01,NA,NA
+"3516","Tonga","TON",2025,4,2025-04-01,NA,NA
+"3517","Tonga","TON",2025,5,2025-05-01,563,"WHO"
+"3518","Tonga","TON",2025,6,2025-06-01,NA,NA
+"3519","Tonga","TON",2025,7,2025-07-01,NA,NA
+"3520","Tonga","TON",2025,8,2025-08-01,NA,NA
+"3521","Tonga","TON",2025,9,2025-09-01,NA,NA
+"3522","Tonga","TON",2025,10,2025-10-01,NA,NA
+"3523","Tonga","TON",2025,11,2025-11-01,NA,NA
+"3524","Tonga","TON",2025,12,2025-12-01,NA,NA
+"3525","Tonga","TON",2025,NA,NA,0,"WHO"
+"3526","Tonga","TON",2025,NA,NA,249,"WHO"
+"3527","Tonga","TON",2025,NA,NA,603,"WHO"
+"3528","Tonga","TON",2025,NA,NA,433,"WHO"
+"3529","Tonga","TON",2025,NA,NA,207,"WHO"
+"3530","Tonga","TON",2025,NA,NA,109,"WHO"
+"3531","Tonga","TON",2025,NA,NA,11,"WHO"
+"3532","Tonga","TON",2025,NA,NA,1,"WHO"
+"3533","Tonga","TON",2025,NA,NA,7,"WHO"
+"3534","Tonga","TON",2025,NA,NA,1,"WHO"
+"3535","Trinidad & Tobago","TTO",2025,1,2025-01-01,NA,NA
+"3536","Trinidad & Tobago","TTO",2025,2,2025-02-01,NA,NA
+"3537","Trinidad & Tobago","TTO",2025,3,2025-03-01,NA,NA
+"3538","Trinidad & Tobago","TTO",2025,4,2025-04-01,NA,NA
+"3539","Trinidad & Tobago","TTO",2025,5,2025-05-01,9,"PAHO"
+"3540","Trinidad & Tobago","TTO",2025,6,2025-06-01,NA,NA
+"3541","Trinidad & Tobago","TTO",2025,7,2025-07-01,NA,NA
+"3542","Trinidad & Tobago","TTO",2025,8,2025-08-01,NA,NA
+"3543","Trinidad & Tobago","TTO",2025,9,2025-09-01,NA,NA
+"3544","Trinidad & Tobago","TTO",2025,10,2025-10-01,NA,NA
+"3545","Trinidad & Tobago","TTO",2025,11,2025-11-01,NA,NA
+"3546","Trinidad & Tobago","TTO",2025,12,2025-12-01,NA,NA
+"3547","Trinidad & Tobago","TTO",2025,NA,NA,0,"WHO"
+"3548","Trinidad & Tobago","TTO",2025,NA,NA,0,"WHO"
+"3549","Trinidad & Tobago","TTO",2025,NA,NA,0,"WHO"
+"3550","Trinidad & Tobago","TTO",2025,NA,NA,0,"WHO"
+"3551","Trinidad & Tobago","TTO",2025,NA,NA,23,"PAHO"
+"3552","Trinidad & Tobago","TTO",2025,NA,NA,8,"PAHO"
+"3553","Trinidad & Tobago","TTO",2025,NA,NA,7,"PAHO"
+"3554","Trinidad & Tobago","TTO",2025,NA,NA,12,"PAHO"
+"3555","Trinidad & Tobago","TTO",2025,NA,NA,14,"PAHO"
+"3556","Trinidad & Tobago","TTO",2025,NA,NA,NA,"WHO"
+"3557","Turkey","TUR",2025,1,2025-01-01,NA,NA
+"3558","Turkey","TUR",2025,2,2025-02-01,NA,NA
+"3559","Turkey","TUR",2025,3,2025-03-01,NA,NA
+"3560","Turkey","TUR",2025,4,2025-04-01,NA,NA
+"3561","Turkey","TUR",2025,5,2025-05-01,0,"WHO"
+"3562","Turkey","TUR",2025,6,2025-06-01,NA,NA
+"3563","Turkey","TUR",2025,7,2025-07-01,NA,NA
+"3564","Turkey","TUR",2025,8,2025-08-01,NA,NA
+"3565","Turkey","TUR",2025,9,2025-09-01,NA,NA
+"3566","Turkey","TUR",2025,10,2025-10-01,NA,NA
+"3567","Turkey","TUR",2025,11,2025-11-01,NA,NA
+"3568","Turkey","TUR",2025,12,2025-12-01,NA,NA
+"3569","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3570","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3571","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3572","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3573","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3574","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3575","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3576","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3577","Turkey","TUR",2025,NA,NA,0,"WHO"
+"3578","Turkmenistan","TKM",2025,1,2025-01-01,NA,NA
+"3579","Turkmenistan","TKM",2025,2,2025-02-01,NA,NA
+"3580","Turkmenistan","TKM",2025,3,2025-03-01,NA,NA
+"3581","Turkmenistan","TKM",2025,4,2025-04-01,NA,NA
+"3582","Turkmenistan","TKM",2025,5,2025-05-01,0,"WHO"
+"3583","Turkmenistan","TKM",2025,6,2025-06-01,NA,NA
+"3584","Turkmenistan","TKM",2025,7,2025-07-01,NA,NA
+"3585","Turkmenistan","TKM",2025,8,2025-08-01,NA,NA
+"3586","Turkmenistan","TKM",2025,9,2025-09-01,NA,NA
+"3587","Turkmenistan","TKM",2025,10,2025-10-01,NA,NA
+"3588","Turkmenistan","TKM",2025,11,2025-11-01,NA,NA
+"3589","Turkmenistan","TKM",2025,12,2025-12-01,NA,NA
+"3590","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3591","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3592","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3593","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3594","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3595","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3596","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3597","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3598","Turkmenistan","TKM",2025,NA,NA,0,"WHO"
+"3599","Turks & Caicos Islands","TCA",2025,1,2025-01-01,NA,NA
+"3600","Turks & Caicos Islands","TCA",2025,2,2025-02-01,NA,NA
+"3601","Turks & Caicos Islands","TCA",2025,3,2025-03-01,NA,NA
+"3602","Turks & Caicos Islands","TCA",2025,4,2025-04-01,NA,NA
+"3603","Turks & Caicos Islands","TCA",2025,5,2025-05-01,1,"PAHO"
+"3604","Turks & Caicos Islands","TCA",2025,6,2025-06-01,NA,NA
+"3605","Turks & Caicos Islands","TCA",2025,7,2025-07-01,NA,NA
+"3606","Turks & Caicos Islands","TCA",2025,8,2025-08-01,NA,NA
+"3607","Turks & Caicos Islands","TCA",2025,9,2025-09-01,NA,NA
+"3608","Turks & Caicos Islands","TCA",2025,10,2025-10-01,NA,NA
+"3609","Turks & Caicos Islands","TCA",2025,11,2025-11-01,NA,NA
+"3610","Turks & Caicos Islands","TCA",2025,12,2025-12-01,NA,NA
+"3611","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3612","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3613","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3614","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3615","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3616","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3617","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3618","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3619","Turks & Caicos Islands","TCA",2025,NA,NA,0,"WHO"
+"3620","Turks & Caicos Islands","TCA",2025,NA,NA,NA,"WHO"
+"3621","Tuvalu","TUV",2025,1,2025-01-01,NA,NA
+"3622","Tuvalu","TUV",2025,2,2025-02-01,NA,NA
+"3623","Tuvalu","TUV",2025,3,2025-03-01,NA,NA
+"3624","Tuvalu","TUV",2025,4,2025-04-01,NA,NA
+"3625","Tuvalu","TUV",2025,5,2025-05-01,0,"WHO"
+"3626","Tuvalu","TUV",2025,6,2025-06-01,NA,NA
+"3627","Tuvalu","TUV",2025,7,2025-07-01,NA,NA
+"3628","Tuvalu","TUV",2025,8,2025-08-01,NA,NA
+"3629","Tuvalu","TUV",2025,9,2025-09-01,NA,NA
+"3630","Tuvalu","TUV",2025,10,2025-10-01,NA,NA
+"3631","Tuvalu","TUV",2025,11,2025-11-01,NA,NA
+"3632","Tuvalu","TUV",2025,12,2025-12-01,NA,NA
+"3633","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3634","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3635","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3636","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3637","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3638","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3639","Tuvalu","TUV",2025,NA,NA,0,"WHO"
+"3640","Tuvalu","TUV",2025,NA,NA,26,"WHO"
+"3641","Tuvalu","TUV",2025,NA,NA,3,"WHO"
+"3642","Tuvalu","TUV",2025,NA,NA,1,"WHO"
+"3643","U.S. Virgin Islands","VIR",2025,1,2025-01-01,NA,NA
+"3644","U.S. Virgin Islands","VIR",2025,2,2025-02-01,NA,NA
+"3645","U.S. Virgin Islands","VIR",2025,3,2025-03-01,NA,NA
+"3646","U.S. Virgin Islands","VIR",2025,4,2025-04-01,NA,NA
+"3647","U.S. Virgin Islands","VIR",2025,5,2025-05-01,4,"PAHO"
+"3648","U.S. Virgin Islands","VIR",2025,6,2025-06-01,NA,NA
+"3649","U.S. Virgin Islands","VIR",2025,7,2025-07-01,NA,NA
+"3650","U.S. Virgin Islands","VIR",2025,8,2025-08-01,NA,NA
+"3651","U.S. Virgin Islands","VIR",2025,9,2025-09-01,NA,NA
+"3652","U.S. Virgin Islands","VIR",2025,10,2025-10-01,NA,NA
+"3653","U.S. Virgin Islands","VIR",2025,11,2025-11-01,NA,NA
+"3654","U.S. Virgin Islands","VIR",2025,12,2025-12-01,NA,NA
+"3655","U.S. Virgin Islands","VIR",2025,NA,NA,1,"PAHO"
+"3656","U.S. Virgin Islands","VIR",2025,NA,NA,32,"PAHO"
+"3657","U.S. Virgin Islands","VIR",2025,NA,NA,8,"PAHO"
+"3658","U.S. Virgin Islands","VIR",2025,NA,NA,0,"WHO"
+"3659","U.S. Virgin Islands","VIR",2025,NA,NA,2,"PAHO"
+"3660","U.S. Virgin Islands","VIR",2025,NA,NA,0,"WHO"
+"3661","U.S. Virgin Islands","VIR",2025,NA,NA,0,"WHO"
+"3662","U.S. Virgin Islands","VIR",2025,NA,NA,0,"WHO"
+"3663","U.S. Virgin Islands","VIR",2025,NA,NA,NA,"PAHO"
+"3664","U.S. Virgin Islands","VIR",2025,NA,NA,NA,"PAHO"
+"3665","U.S. Virgin Islands","VIR",2025,NA,NA,NA,"PAHO"
+"3666","Ukraine","UKR",2025,1,2025-01-01,NA,NA
+"3667","Ukraine","UKR",2025,2,2025-02-01,NA,NA
+"3668","Ukraine","UKR",2025,3,2025-03-01,NA,NA
+"3669","Ukraine","UKR",2025,4,2025-04-01,NA,NA
+"3670","Ukraine","UKR",2025,5,2025-05-01,0,"WHO"
+"3671","Ukraine","UKR",2025,6,2025-06-01,NA,NA
+"3672","Ukraine","UKR",2025,7,2025-07-01,NA,NA
+"3673","Ukraine","UKR",2025,8,2025-08-01,NA,NA
+"3674","Ukraine","UKR",2025,9,2025-09-01,NA,NA
+"3675","Ukraine","UKR",2025,10,2025-10-01,NA,NA
+"3676","Ukraine","UKR",2025,11,2025-11-01,NA,NA
+"3677","Ukraine","UKR",2025,12,2025-12-01,NA,NA
+"3678","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3679","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3680","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3681","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3682","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3683","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3684","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3685","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3686","Ukraine","UKR",2025,NA,NA,0,"WHO"
+"3687","United Kingdom","GBR",2025,1,2025-01-01,NA,NA
+"3688","United Kingdom","GBR",2025,2,2025-02-01,NA,NA
+"3689","United Kingdom","GBR",2025,3,2025-03-01,NA,NA
+"3690","United Kingdom","GBR",2025,4,2025-04-01,NA,NA
+"3691","United Kingdom","GBR",2025,5,2025-05-01,0,"WHO"
+"3692","United Kingdom","GBR",2025,6,2025-06-01,NA,NA
+"3693","United Kingdom","GBR",2025,7,2025-07-01,NA,NA
+"3694","United Kingdom","GBR",2025,8,2025-08-01,NA,NA
+"3695","United Kingdom","GBR",2025,9,2025-09-01,NA,NA
+"3696","United Kingdom","GBR",2025,10,2025-10-01,NA,NA
+"3697","United Kingdom","GBR",2025,11,2025-11-01,NA,NA
+"3698","United Kingdom","GBR",2025,12,2025-12-01,NA,NA
+"3699","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3700","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3701","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3702","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3703","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3704","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3705","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3706","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3707","United Kingdom","GBR",2025,NA,NA,0,"WHO"
+"3708","United States","USA",2025,1,2025-01-01,NA,NA
+"3709","United States","USA",2025,2,2025-02-01,NA,NA
+"3710","United States","USA",2025,3,2025-03-01,NA,NA
+"3711","United States","USA",2025,4,2025-04-01,NA,NA
+"3712","United States","USA",2025,5,2025-05-01,46,"PAHO"
+"3713","United States","USA",2025,6,2025-06-01,NA,NA
+"3714","United States","USA",2025,7,2025-07-01,NA,NA
+"3715","United States","USA",2025,8,2025-08-01,NA,NA
+"3716","United States","USA",2025,9,2025-09-01,NA,NA
+"3717","United States","USA",2025,10,2025-10-01,NA,NA
+"3718","United States","USA",2025,11,2025-11-01,NA,NA
+"3719","United States","USA",2025,12,2025-12-01,NA,NA
+"3720","United States","USA",2025,NA,NA,78,"PAHO"
+"3721","United States","USA",2025,NA,NA,65,"PAHO"
+"3722","United States","USA",2025,NA,NA,71,"PAHO"
+"3723","United States","USA",2025,NA,NA,62,"PAHO"
+"3724","United States","USA",2025,NA,NA,79,"PAHO"
+"3725","United States","USA",2025,NA,NA,79,"PAHO"
+"3726","United States","USA",2025,NA,NA,120,"PAHO"
+"3727","United States","USA",2025,NA,NA,213,"PAHO"
+"3728","United States","USA",2025,NA,NA,133,"PAHO"
+"3729","United States","USA",2025,NA,NA,132,"PAHO"
+"3730","United States","USA",2025,NA,NA,66,"PAHO"
+"3731","Uruguay","URY",2025,1,2025-01-01,NA,NA
+"3732","Uruguay","URY",2025,2,2025-02-01,NA,NA
+"3733","Uruguay","URY",2025,3,2025-03-01,NA,NA
+"3734","Uruguay","URY",2025,4,2025-04-01,NA,NA
+"3735","Uruguay","URY",2025,5,2025-05-01,4,"PAHO"
+"3736","Uruguay","URY",2025,6,2025-06-01,NA,NA
+"3737","Uruguay","URY",2025,7,2025-07-01,NA,NA
+"3738","Uruguay","URY",2025,8,2025-08-01,NA,NA
+"3739","Uruguay","URY",2025,9,2025-09-01,NA,NA
+"3740","Uruguay","URY",2025,10,2025-10-01,NA,NA
+"3741","Uruguay","URY",2025,11,2025-11-01,NA,NA
+"3742","Uruguay","URY",2025,12,2025-12-01,NA,NA
+"3743","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3744","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3745","Uruguay","URY",2025,NA,NA,1,"PAHO"
+"3746","Uruguay","URY",2025,NA,NA,1,"PAHO"
+"3747","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3748","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3749","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3750","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3751","Uruguay","URY",2025,NA,NA,0,"WHO"
+"3752","Uruguay","URY",2025,NA,NA,1,"PAHO"
+"3753","Uruguay","URY",2025,NA,NA,NA,"PAHO"
+"3754","Uzbekistan","UZB",2025,1,2025-01-01,NA,NA
+"3755","Uzbekistan","UZB",2025,2,2025-02-01,NA,NA
+"3756","Uzbekistan","UZB",2025,3,2025-03-01,NA,NA
+"3757","Uzbekistan","UZB",2025,4,2025-04-01,NA,NA
+"3758","Uzbekistan","UZB",2025,5,2025-05-01,0,"WHO"
+"3759","Uzbekistan","UZB",2025,6,2025-06-01,NA,NA
+"3760","Uzbekistan","UZB",2025,7,2025-07-01,NA,NA
+"3761","Uzbekistan","UZB",2025,8,2025-08-01,NA,NA
+"3762","Uzbekistan","UZB",2025,9,2025-09-01,NA,NA
+"3763","Uzbekistan","UZB",2025,10,2025-10-01,NA,NA
+"3764","Uzbekistan","UZB",2025,11,2025-11-01,NA,NA
+"3765","Uzbekistan","UZB",2025,12,2025-12-01,NA,NA
+"3766","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3767","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3768","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3769","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3770","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3771","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3772","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3773","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3774","Uzbekistan","UZB",2025,NA,NA,0,"WHO"
+"3775","Vanuatu","VUT",2025,1,2025-01-01,NA,NA
+"3776","Vanuatu","VUT",2025,2,2025-02-01,NA,NA
+"3777","Vanuatu","VUT",2025,3,2025-03-01,NA,NA
+"3778","Vanuatu","VUT",2025,4,2025-04-01,NA,NA
+"3779","Vanuatu","VUT",2025,5,2025-05-01,0,"WHO"
+"3780","Vanuatu","VUT",2025,6,2025-06-01,NA,NA
+"3781","Vanuatu","VUT",2025,7,2025-07-01,NA,NA
+"3782","Vanuatu","VUT",2025,8,2025-08-01,NA,NA
+"3783","Vanuatu","VUT",2025,9,2025-09-01,NA,NA
+"3784","Vanuatu","VUT",2025,10,2025-10-01,NA,NA
+"3785","Vanuatu","VUT",2025,11,2025-11-01,NA,NA
+"3786","Vanuatu","VUT",2025,12,2025-12-01,NA,NA
+"3787","Vanuatu","VUT",2025,NA,NA,74,"WHO"
+"3788","Vanuatu","VUT",2025,NA,NA,10,"WHO"
+"3789","Vanuatu","VUT",2025,NA,NA,0,"WHO"
+"3790","Vanuatu","VUT",2025,NA,NA,1,"WHO"
+"3791","Vanuatu","VUT",2025,NA,NA,0,"WHO"
+"3792","Vanuatu","VUT",2025,NA,NA,1,"WHO"
+"3793","Vanuatu","VUT",2025,NA,NA,0,"WHO"
+"3794","Vanuatu","VUT",2025,NA,NA,0,"WHO"
+"3795","Vanuatu","VUT",2025,NA,NA,3,"WHO"
+"3796","Vanuatu","VUT",2025,NA,NA,0,"WHO"
+"3797","Vatican City","VAT",2025,1,2025-01-01,NA,NA
+"3798","Vatican City","VAT",2025,2,2025-02-01,NA,NA
+"3799","Vatican City","VAT",2025,3,2025-03-01,NA,NA
+"3800","Vatican City","VAT",2025,4,2025-04-01,NA,NA
+"3801","Vatican City","VAT",2025,5,2025-05-01,0,"WHO"
+"3802","Vatican City","VAT",2025,6,2025-06-01,NA,NA
+"3803","Vatican City","VAT",2025,7,2025-07-01,NA,NA
+"3804","Vatican City","VAT",2025,8,2025-08-01,NA,NA
+"3805","Vatican City","VAT",2025,9,2025-09-01,NA,NA
+"3806","Vatican City","VAT",2025,10,2025-10-01,NA,NA
+"3807","Vatican City","VAT",2025,11,2025-11-01,NA,NA
+"3808","Vatican City","VAT",2025,12,2025-12-01,NA,NA
+"3809","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3810","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3811","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3812","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3813","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3814","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3815","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3816","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3817","Vatican City","VAT",2025,NA,NA,0,"WHO"
+"3818","Vietnam","VNM",2025,1,2025-01-01,NA,NA
+"3819","Vietnam","VNM",2025,2,2025-02-01,NA,NA
+"3820","Vietnam","VNM",2025,3,2025-03-01,NA,NA
+"3821","Vietnam","VNM",2025,4,2025-04-01,NA,NA
+"3822","Vietnam","VNM",2025,5,2025-05-01,4792,"WHO"
+"3823","Vietnam","VNM",2025,6,2025-06-01,NA,NA
+"3824","Vietnam","VNM",2025,7,2025-07-01,NA,NA
+"3825","Vietnam","VNM",2025,8,2025-08-01,NA,NA
+"3826","Vietnam","VNM",2025,9,2025-09-01,NA,NA
+"3827","Vietnam","VNM",2025,10,2025-10-01,NA,NA
+"3828","Vietnam","VNM",2025,11,2025-11-01,NA,NA
+"3829","Vietnam","VNM",2025,12,2025-12-01,NA,NA
+"3830","Vietnam","VNM",2025,NA,NA,8655,"WHO"
+"3831","Vietnam","VNM",2025,NA,NA,4923,"WHO"
+"3832","Vietnam","VNM",2025,NA,NA,2903,"WHO"
+"3833","Vietnam","VNM",2025,NA,NA,2654,"WHO"
+"3834","Vietnam","VNM",2025,NA,NA,4860,"WHO"
+"3835","Wallis & Futuna","WLF",2025,1,2025-01-01,NA,NA
+"3836","Wallis & Futuna","WLF",2025,2,2025-02-01,NA,NA
+"3837","Wallis & Futuna","WLF",2025,3,2025-03-01,NA,NA
+"3838","Wallis & Futuna","WLF",2025,4,2025-04-01,NA,NA
+"3839","Wallis & Futuna","WLF",2025,5,2025-05-01,1,"WHO"
+"3840","Wallis & Futuna","WLF",2025,6,2025-06-01,NA,NA
+"3841","Wallis & Futuna","WLF",2025,7,2025-07-01,NA,NA
+"3842","Wallis & Futuna","WLF",2025,8,2025-08-01,NA,NA
+"3843","Wallis & Futuna","WLF",2025,9,2025-09-01,NA,NA
+"3844","Wallis & Futuna","WLF",2025,10,2025-10-01,NA,NA
+"3845","Wallis & Futuna","WLF",2025,11,2025-11-01,NA,NA
+"3846","Wallis & Futuna","WLF",2025,12,2025-12-01,NA,NA
+"3847","Wallis & Futuna","WLF",2025,NA,NA,7,"WHO"
+"3848","Wallis & Futuna","WLF",2025,NA,NA,4,"WHO"
+"3849","Wallis & Futuna","WLF",2025,NA,NA,2,"WHO"
+"3850","Wallis & Futuna","WLF",2025,NA,NA,1,"WHO"
+"3851","Wallis & Futuna","WLF",2025,NA,NA,1,"WHO"
+"3852","Wallis & Futuna","WLF",2025,NA,NA,3,"WHO"
+"3853","Wallis & Futuna","WLF",2025,NA,NA,2,"WHO"
+"3854","Wallis & Futuna","WLF",2025,NA,NA,2,"WHO"
+"3855","Wallis & Futuna","WLF",2025,NA,NA,3,"WHO"
+"3856","Wallis & Futuna","WLF",2025,NA,NA,2,"WHO"
+"3857",NA,"MDR",2025,1,2025-01-01,NA,NA
+"3858",NA,NA,2025,1,2025-01-01,NA,NA
+"3859",NA,"MDR",2025,2,2025-02-01,NA,NA
+"3860",NA,NA,2025,2,2025-02-01,NA,NA
+"3861",NA,"MDR",2025,3,2025-03-01,NA,NA
+"3862",NA,NA,2025,3,2025-03-01,NA,NA
+"3863",NA,"MDR",2025,4,2025-04-01,NA,NA
+"3864",NA,NA,2025,4,2025-04-01,NA,NA
+"3865",NA,"MDR",2025,5,2025-05-01,NA,NA
+"3866",NA,NA,2025,5,2025-05-01,34,"PAHO"
+"3867",NA,"MDR",2025,6,2025-06-01,NA,NA
+"3868",NA,NA,2025,6,2025-06-01,NA,NA
+"3869",NA,"MDR",2025,7,2025-07-01,NA,NA
+"3870",NA,NA,2025,7,2025-07-01,NA,NA
+"3871",NA,"MDR",2025,8,2025-08-01,NA,NA
+"3872",NA,NA,2025,8,2025-08-01,NA,NA
+"3873",NA,"MDR",2025,9,2025-09-01,NA,NA
+"3874",NA,NA,2025,9,2025-09-01,NA,NA
+"3875",NA,"MDR",2025,10,2025-10-01,NA,NA
+"3876",NA,NA,2025,10,2025-10-01,NA,NA
+"3877",NA,"MDR",2025,11,2025-11-01,NA,NA
+"3878",NA,NA,2025,11,2025-11-01,NA,NA
+"3879",NA,"MDR",2025,12,2025-12-01,NA,NA
+"3880",NA,NA,2025,12,2025-12-01,NA,NA
+"3881",NA,"MDR",2025,NA,NA,2,"WHO"
+"3882",NA,"MDR",2025,NA,NA,0,"WHO"
+"3883",NA,"MDR",2025,NA,NA,0,"WHO"
+"3884",NA,"MDR",2025,NA,NA,0,"WHO"
+"3885",NA,NA,2025,NA,NA,53,"PAHO"
+"3886",NA,NA,2025,NA,NA,17,"PAHO"
+"3887",NA,NA,2025,NA,NA,18,"PAHO"
+"3888",NA,NA,2025,NA,NA,32,"PAHO"
+"3889",NA,NA,2025,NA,NA,30,"PAHO"
+"3890",NA,NA,2025,NA,NA,NA,"PAHO"
+"3891",NA,NA,2025,NA,NA,NA,"PAHO"
+"3892",NA,NA,2025,NA,NA,NA,"PAHO"
+"3893",NA,NA,2025,NA,NA,NA,"PAHO"
+"3894",NA,NA,2025,NA,NA,NA,"PAHO"
+"3895",NA,NA,2025,NA,NA,5,"PAHO"

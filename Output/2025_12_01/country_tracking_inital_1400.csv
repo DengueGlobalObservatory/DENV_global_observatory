@@ -1,0 +1,210 @@
+iso3,country,step_2_initial_data,step_3a_who_od_clean,step_3a_who_od_selection,step_3b_combined_before_filter,step_3b_combined_after_filter,step_3c_seasonal_before_filter,step_3c_seasonal_after_filter,step_4_current_data,step_5_nowcast_merge,step_6_final,dropped_at_step,drop_reason,final_status
+AFG,Afghanistan,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+ALB,Albania,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ASM,American samoa,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped during seasonal filtering
+AND,Andorra,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+AGO,Angola,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+AIA,Anguilla,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+ARM,Armenia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+AUT,Austria,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MDR,Autonomous Region of Madeira,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+AZE,Azerbaijan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BHS,Bahamas,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+BLR,Belarus,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BEL,Belgium,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BEN,Benin,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BMU,Bermuda,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+BIH,Bosnia and Herzegovina,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BWA,Botswana,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BGR,Bulgaria,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+BDI,Burundi,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CPV,Cabo Verde,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CMR,Cameroon,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+CAN,Canada,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CAF,Central African Republic,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TCD,Chad,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CHL,Chile,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+COM,Comoros,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+COG,Congo,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+HRV,Croatia,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CYP,Cyprus,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CZE,Czechia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+COD,Democratic republic of congo,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped during combined filtering
+DNK,Denmark,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+DJI,Djibouti,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped during combined filtering
+EGY,Egypt,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped during seasonal filtering
+GNQ,Equatorial Guinea,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+EST,Estonia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ETH,Ethiopia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+FIN,Finland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+FRA,France,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+GAB,Gabon,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GMB,Gambia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GEO,Georgia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+DEU,Germany,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GHA,Ghana,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GRC,Greece,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GUM,Guam,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+GIN,Guinea,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GNB,Guinea-Bissau,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+HTI,Haiti,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped during seasonal filtering
+VAT,Holy See,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+HKG,Hong kong,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped during seasonal filtering
+HUN,Hungary,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ISL,Iceland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+IRN,Iran (Islamic Republic of),TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+IRL,Ireland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ISR,Israel,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ITA,Italy,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+JPN,Japan,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped during combined filtering
+KAZ,Kazakhstan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+KGZ,Kyrgyzstan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+LVA,Latvia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+LBR,Liberia,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+LIE,Liechtenstein,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+LTU,Lithuania,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+LUX,Luxembourg,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MAC,Macau,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <5 cases/month average,Dropped during seasonal filtering
+MDG,Madagascar,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MWI,Malawi,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MLI,Mali,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+MLT,Malta,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MRT,Mauritania,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+MUS,Mauritius,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MYT,Mayotte,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+MCO,Monaco,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MNE,Montenegro,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MSR,Montserrat,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+MOZ,Mozambique,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+NAM,Namibia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+NRU,Nauru,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+NLD,Netherlands (Kingdom of the),TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+NER,Niger,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+NGA,Nigeria,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped during seasonal filtering
+NIU,Niue,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+MKD,North Macedonia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MNP,Northern Mariana Islands (Commonwealth of the),TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+NOR,Norway,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+PNG,Papua new guinea,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped during seasonal filtering
+PCN,Pitcairn Islands,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+POL,Poland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+PRT,Portugal,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+MDA,Republic of Moldova,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ROU,Romania,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+RUS,Russian Federation,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+RWA,Rwanda,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+SMR,San Marino,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+STP,Sao Tome and Principe,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+SRB,Serbia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+SYC,Seychelles,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+SLE,Sierra Leone,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+SVK,Slovakia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+SVN,Slovenia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+SOM,Somalia,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped during combined filtering
+SSD,South Sudan,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ESP,Spain,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+SWE,Sweden,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+CHE,Switzerland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TJK,Tajikistan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TGO,Togo,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TKL,Tokelau,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+TKM,Turkmenistan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TUR,Türkiye,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+UGA,Uganda,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+UKR,Ukraine,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+GBR,United Kingdom of Great Britain and Northern Ireland,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+TZA,United Republic of Tanzania,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: <3 complete seasons,Dropped after current data selection
+URY,Uruguay,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+UZB,Uzbekistan,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+VIR,Virgin Islands (US),TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+VIR,Virgin Islands (US),TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,Step_3c_Seasonal_After_Filter,Filtered: incomplete seasons (<12 months per season),Dropped after current data selection
+ZMB,Zambia,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ZWE,Zimbabwe,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,Step_3b_Combined_After_Filter,NA,Dropped after current data selection
+ATG,Antigua and Barbuda,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+BES,"Bonaire, Saint Eustatius and Saba",TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+BRN,Brunei darussalam,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+CUW,Curaçao,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+CIV,Côte d'Ivoire,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+DMA,Dominica,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+FSM,Micronesia (Federated States of),TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+OMN,Oman,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+PHL,Philippines,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+REU,Réunion,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+KNA,Saint Kitts and Nevis,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+MAF,Saint Martin (French part),TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+VCT,Saint Vincent and the Grenadines,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+TWN,Taiwan,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+TTO,Trinidad and Tobago,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+TCA,Turks and Caicos Islands,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+USA,United States of America,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+VEN,Venezuela,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+VGB,Virgin Islands (UK),TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+WLF,Wallis and Futuna,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,NA,NA,Dropped after current data selection
+YEM,Yemen,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NA,NA,Dropped after seasonal filtering
+ARG,Argentina,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+ABW,Aruba,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+AUS,Australia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BGD,Bangladesh,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BRB,Barbados,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BLZ,Belize,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BTN,Bhutan,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BOL,Bolivia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BRA,Brazil,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BFA,Burkina Faso,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+KHM,Cambodia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+CYM,Cayman Islands,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+CHN,China,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+COL,Colombia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+COK,Cook Islands,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+CRI,Costa Rica,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+CUB,Cuba,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+DOM,Dominican Republic,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+ECU,Ecuador,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SLV,El Salvador,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+ERI,Eritrea,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+FJI,Fiji,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+GUF,French Guiana,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PYF,French Polynesia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+GRD,Grenada,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+GLP,Guadeloupe,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+GTM,Guatemala,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+GUY,Guyana,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+HND,Honduras,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+IND,India,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+IDN,Indonesia,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+JAM,Jamaica,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+KEN,Kenya,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+KIR,Kiribati,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+LAO,Lao People's Democratic Republic,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MYS,Malaysia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MDV,Maldives,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MHL,Marshall Islands,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MTQ,Martinique,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MEX,Mexico,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+MMR,Myanmar,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+NPL,Nepal,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+NCL,New Caledonia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+NIC,Nicaragua,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PAK,Pakistan,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PLW,Palau,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PAN,Panama,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PRY,Paraguay,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PER,Peru,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+PRI,Puerto Rico,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+BLM,Saint Barthelemy,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+LCA,Saint Lucia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+WSM,Samoa,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SAU,Saudi Arabia,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SEN,Senegal,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SGP,Singapore,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SXM,Sint Maarten,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SLB,Solomon Islands,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+LKA,Sri Lanka,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SDN,Sudan,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+SUR,Suriname,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+THA,Thailand,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+TLS,Timor-leste,TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+TON,Tonga,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+TUV,Tuvalu,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+VUT,Vanuatu,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included
+VNM,Viet Nam,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,NA,NA,Included

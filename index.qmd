@@ -11,7 +11,7 @@ page-layout: full
 
 # data opening, plot list creation 
 
-source("V1/Scripts/V1_Dashboard_setup.R")
+source("Scripts/V1_Dashboard_setup.R")
 message("✅ _setup.R successfully loaded!")
 
 ```
@@ -32,7 +32,7 @@ library(dplyr)
 library(stringr)
 
 # --- Load map background ---
-map_path <- "V1/Assets/WorldMap_scale.png"
+map_path <- "Assets/Stable/WorldMap_scale.png"
 map_img <- png::readPNG(map_path)
 map_grob <- grid::rasterGrob(map_img, width = unit(1, "npc"), height = unit(1, "npc"))
 
@@ -117,7 +117,7 @@ region_positions <- region_positions %>%
 
 <section class="hero">
 
-<img src="V1/Assets/logo_large.png" alt="Global Dengue Observatory" class="hero-logo">
+<img src="Assets/Stable/logo_large.png" alt="Global Dengue Observatory" class="hero-logo">
 
 <p>
 
@@ -132,7 +132,7 @@ We bring together dengue data reported by more than 70 countries and use advance
 #| include: false
 
 # Save world_plot to PNG for use in scrolly narrative
-ggsave("V1/Assets/world_plot.png", 
+ggsave("Assets/Dynamic/world_plot.png", 
 world_plot + theme_void() + theme(legend.position = "none"),
  width = 6, height = 5, dpi = 150)
 
@@ -254,7 +254,7 @@ if (exists("global_story_points") && nrow(global_story_points) > 0) {
 knitr::asis_output('<div class="scrolly-step" data-step="2">
   <p class="scrolly-step-title">How to read our plots</p>
   <p class="scrolly-step-body">Each wedge or spoke shows one month of the year. Providing information about the average season in black and the current season in colours. The outside ring shows whether the cumulative cases over the year so far are <span style="color: #d32f2f; font-weight: 600;">above</span> or <span style="color: #388e3c; font-weight: 600;">below</span> the average.</p>
-  <img src="V1/Assets/how_to.png" alt="How to read plots guide" class="howto-image">
+  <img src="Assets/Stable/how_to.png" alt="How to read plots guide" class="howto-image">
 </div>')
 
 ```
@@ -276,7 +276,7 @@ knitr::asis_output('<div class="scrolly-step" data-step="3">
   <!-- RIGHT SIDE — sticky global plot -->
 <div class="scrolly-visual">
 <div id="global-plot-wrapper">
-<img src="V1/Assets/world_plot.png" alt="World dengue plot"/>
+<img src="Assets/Dynamic/world_plot.png" alt="World dengue plot"/>
 </div>
 </div>
 
@@ -375,10 +375,10 @@ for(i in seq_len(nrow(region_positions))){
   region_name <- region_positions$Region[i]
   
   if(region_name %in% names(region_plot_list)){
-    plot_file <- paste0("www/", tolower(gsub(" & |, | ", "-", region_name)), ".png")
+    plot_file <- paste0("Assets/Dynamic/region/", tolower(gsub(" & |, | ", "-", region_name)), ".png")
     
     # Ensure the directory exists
-    if(!dir.exists("www")) dir.create("www")
+    if(!dir.exists("Assets/Dynamic/region")) dir.create("Assets/Dynamic/region", recursive = TRUE)
     
     # Save the plot as PNG
     ggsave(

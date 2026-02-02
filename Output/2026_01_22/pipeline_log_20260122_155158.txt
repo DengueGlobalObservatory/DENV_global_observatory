@@ -1,0 +1,3 @@
+[2026-01-22 15:51:58] INFO: Logging initialized.
+[2026-01-22 15:51:58] INFO: Pipeline run completed.
+[2026-01-22 15:51:58] INFO: Closing logger.
