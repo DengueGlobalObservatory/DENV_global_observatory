@@ -197,7 +197,7 @@ full_data_filtered <- full_data_min_cases %>%
   ) %>% 
   dplyr::filter(Number_of_seasons >= 3) %>% 
   ungroup() %>%
-  dplyr::select(!Number_of_seasons,!season)
+  dplyr::select(!Number_of_seasons)
 
 # Diagnostic logging: Track countries at min seasons filter
 if (exists("log_message")) {
