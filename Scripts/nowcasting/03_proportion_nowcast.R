@@ -22,13 +22,17 @@ log_message("Running 03_proportion_nowcast.")
 
 #### ------ Universal Variables ---- ####
 
+current_year <- year(Sys.Date())
 last_month_data <- month(Sys.Date()) - 1
 
-# previous-year logic when month==1, uncomment:
+# previous-year logic when month==1:
 if (last_month_data == 0) {
   last_month_data <- 12
   current_year <- current_year - 1
 }
+
+# Calculate the last month date for date-based estimation
+last_month_date <- as.Date(paste(current_year, last_month_data, "01", sep = "-"))
 #### ------ Nowcasting ---- ####
 
 # combine historic and current data 
@@ -190,7 +194,7 @@ data <- data %>%
 #---------------------------------#
 # ---- Estimate cases for missing months using average monthly proportion ----
 data <- data %>%
-  dplyr::group_by(iso3, Year) %>%
+  dplyr::group_by(iso3, season) %>%
   dplyr::mutate(
     # Get the predicted total (should be same for all months in a season)
     group_predicted_total = dplyr::first(Predicted_total_seasonal_cases[!is.na(Predicted_total_seasonal_cases)])
@@ -200,10 +204,10 @@ data <- data %>%
     cases = dplyr::case_when(
       !is.na(cases) ~ cases,   # keep observed values
       
-      # Only estimate for current year, months <= last_month_data, and if we have predicted total
+      # Estimate for recent months (date <= last month date) if we have predicted total and proportion
       is.na(cases) &
-        Year == current_year &
-        Month <= last_month_data &
+        !is.na(date) &
+        date <= last_month_date &
         !is.na(group_predicted_total) &
         !is.na(Ave_monthly_proportion) ~
         round(group_predicted_total * Ave_monthly_proportion, 0),
