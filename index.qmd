@@ -157,9 +157,11 @@ if (nrow(world_summary) > 0) {
     "close to the seasonal baseline"
   }
   
-  global_ytd_cases <- sum(world_summary$cases, na.rm = TRUE)
+  world_ytd <- world_summary %>%
+    dplyr::filter(Year == current_year, Month <= recent_month)
+  global_ytd_cases <- sum(world_ytd$cases, na.rm = TRUE)
   global_ytd_cases_text <- format(round(global_ytd_cases), big.mark = ",", scientific = FALSE)
-  ytd_expected <- sum(world_summary$Ave_season_monthly_cases, na.rm = TRUE)
+  ytd_expected <- sum(world_ytd$Ave_season_monthly_cases, na.rm = TRUE)
   global_ytd_ratio <- if (!is.na(ytd_expected) && ytd_expected > 0) {
     glue::glue("{sprintf('%.1f', global_ytd_cases / ytd_expected)}× the expected cumulative burden")
   } else {

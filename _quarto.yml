@@ -1,7 +1,6 @@
 project:
   type: website
-  output-dir: docs
-  base-url: /
+  output-dir: docs/
   resources:
     - Assets/
     - Scripts/

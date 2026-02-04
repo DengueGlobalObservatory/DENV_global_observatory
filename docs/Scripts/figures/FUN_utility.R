@@ -39,8 +39,9 @@ build_global_story_points <- function(summary_df) {
   }
   monthly_ratio_label <- if (!is.na(monthly_ratio_value)) sprintf("%.1f", monthly_ratio_value) else NA_character_
   
-  # Calculate YTD values
-  ytd_df <- summary_df %>% dplyr::filter(date <= latest$date)
+  # Calculate YTD values (current calendar year only, up to latest month)
+  ytd_df <- summary_df %>%
+    dplyr::filter(Year == current_year, date <= latest$date)
   ytd_cases <- sum(ytd_df$cases, na.rm = TRUE)
   ytd_baseline <- sum(ytd_df$Ave_season_monthly_cases, na.rm = TRUE)
   ytd_cases_label <- format_big(ytd_cases)
@@ -109,7 +110,7 @@ build_global_story_points <- function(summary_df) {
   # Part 3: YTD cases
   if (!is.na(ytd_cases_label)) {
     story_parts <- c(story_parts,
-      glue::glue('Globally we estimate <span class="scrolly-step-number">{ytd_cases_label}</span> cases have been reported between January {current_year} and {last_month_label} {current_year}.')
+      glue::glue('Globally we estimate <span class="scrolly-step-number">{ytd_cases_label}</span> cases have been reported in {current_year} as of {last_month_label}.')
     )
   }
   

@@ -22,7 +22,6 @@ log_message("Running 03_proportion_nowcast.")
 
 #### ------ Universal Variables ---- ####
 
-current_year <- year(Sys.Date())
 last_month_data <- month(Sys.Date()) - 1
 
 # previous-year logic when month==1:
@@ -194,7 +193,7 @@ data <- data %>%
 #---------------------------------#
 # ---- Estimate cases for missing months using average monthly proportion ----
 data <- data %>%
-  dplyr::group_by(iso3, season) %>%
+  dplyr::group_by(iso3, Year) %>%
   dplyr::mutate(
     # Get the predicted total (should be same for all months in a season)
     group_predicted_total = dplyr::first(Predicted_total_seasonal_cases[!is.na(Predicted_total_seasonal_cases)])

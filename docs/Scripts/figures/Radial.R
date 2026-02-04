@@ -179,10 +179,14 @@ cat("Plotting:", unique(df_start$country))
     last_month <- 0
   }
   
-  # Calculate cumulative values only if we have valid data
-  if (last_month > 0 && last_month <= nrow(df)) {
-    cum_low <- sum(df$low_speed_raw[1:last_month], na.rm=TRUE)
-    cum_high <- sum(df$high_speed_raw[1:last_month], na.rm=TRUE)
+  # Calculate cumulative values up to current month (for ring fill)
+  # Use current month parameter, not last_month from data
+  if (month > 0 && month <= 12) {
+    # Sum data for months 1 through current month
+    current_month <- month  # Store parameter value to avoid confusion
+    months_to_sum <- df %>% filter(.data$month >= 1 & .data$month <= current_month)
+    cum_low <- sum(months_to_sum$low_speed_raw, na.rm=TRUE)
+    cum_high <- sum(months_to_sum$high_speed_raw, na.rm=TRUE)
     if (cum_low > 0) {
       cum_ratio <- cum_high / cum_low
       cum_ratio_capped <- min(max(cum_ratio, 0.5), 2)
@@ -197,11 +201,12 @@ cat("Plotting:", unique(df_start$country))
     cum_ratio_capped <- 1
   }
   
-  # Create ring_df only if we have current year data
-  if (has_current_year_data && last_month > 0) {
+  # Create ring_df using current month (not last_month from data)
+  # Ring extends from January (0.5) to current month (month + 0.5)
+  if (has_current_year_data && month > 0 && month <= 12) {
     ring_df <- tibble(
       xmin = 0.5,
-      xmax = last_month + 0.5,
+      xmax = month-1 + 0.5,
       ymin = max_low * 1.8,
       ymax = max_low * 2,
       fill_val = cum_ratio_capped
@@ -227,7 +232,8 @@ cat("Plotting:", unique(df_start$country))
   }
   
   # Add outer ring if we have current year data
-  if (has_current_year_data && last_month > 0 && nrow(ring_df) > 0) {
+  # Use current month instead of last_month
+  if (has_current_year_data && month > 0 && month <= 12 && nrow(ring_df) > 0) {
     p <- p + geom_rect(data = ring_df,
               aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = fill_val),
               inherit.aes = FALSE)

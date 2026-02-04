@@ -134,13 +134,13 @@ data <- data %>%
 region_summary <- data %>%
   group_by(Region, Year, Month) %>%
   reframe(
-    cases = sum(cases),
+    cases = sum(cases, na.rm = TRUE),
     Ave_season_monthly_cases = sum(Ave_season_monthly_cases, na.rm = TRUE),
     Ave_season_monthly_cum_cases = sum(Ave_season_monthly_cum_cases, na.rm = TRUE),
     Predicted_total_seasonal_cases = sum(Predicted_total_seasonal_cases, na.rm = TRUE),
     # Optionally include averages of proportions or percentiles if needed
-    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion),
-    Ave_monthly_proportion = mean(Ave_monthly_proportion),
+    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion, na.rm = TRUE),
+    Ave_monthly_proportion = mean(Ave_monthly_proportion, na.rm = TRUE),
     # percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
     n_countries = n_distinct(iso3)
   ) %>%
@@ -149,7 +149,12 @@ region_summary <- data %>%
     date = as.Date(paste0(Year, "-", sprintf("%02d", Month), "-01"))
   ) %>%
   # Remove any rows with invalid dates
-  filter(!is.na(date))
+  filter(!is.na(date)) %>%
+  mutate(
+    is_future = (Year > current_year) | (Year == current_year & Month > recent_month),
+    cases = if_else(is_future, NA_real_, cases)
+  ) %>%
+  dplyr::select(-is_future)
 
 
 # ------- Regional helper assets & callouts
@@ -330,19 +335,25 @@ region_plot_list <- region_summary %>%
 world_summary <- data %>%
   group_by(Year, Month) %>%
   reframe(
-    cases = sum(cases),
+    cases = sum(cases, na.rm = TRUE),
     Ave_season_monthly_cases = sum(Ave_season_monthly_cases, na.rm = TRUE),
     Ave_season_monthly_cum_cases = sum(Ave_season_monthly_cum_cases, na.rm = TRUE),
     Predicted_total_seasonal_cases = sum(Predicted_total_seasonal_cases, na.rm = TRUE),
     # Optionally include averages of proportions or percentiles if needed
-    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion),
-    Ave_monthly_proportion = mean(Ave_monthly_proportion),
+    Ave_cum_monthly_proportion = mean(Ave_cum_monthly_proportion, na.rm = TRUE),
+    Ave_monthly_proportion = mean(Ave_monthly_proportion, na.rm = TRUE),
     # percentile_most_recent = mean(percentile_most_recent, na.rm = TRUE),
     n_countries = n_distinct(iso3)
   ) %>%
   ungroup() %>%
   mutate(
-    date = as.Date(paste0(Year, "-", Month, "-01")))
+    date = as.Date(paste0(Year, "-", Month, "-01"))) %>%
+  mutate(
+    is_future = (Year > current_year) | (Year == current_year & Month > recent_month),
+    cases = if_else(is_future, NA_real_, cases)
+  ) %>%
+  dplyr::select(-is_future)
+
 
 world_plot <- make_radial_plot(world_summary, current_year, current_month)
 

@@ -427,3 +427,65 @@
 
 [2026-02-04 12:06:49] INFO: Merged historic and current data rows: 5124
 [2026-02-04 12:06:49] INFO: Unique countries after merge: 187
+[2026-02-04 15:54:36] INFO: Running 03_proportion_nowcast.
+[2026-02-04 15:54:50] INFO: Countries in seasonal baseline: 95
+[2026-02-04 15:54:50] INFO: Countries in current data: 179
+[2026-02-04 15:54:50] INFO: Countries in both: 87
+[2026-02-04 15:54:50] INFO: Countries only in seasonal: 8
+[2026-02-04 15:54:50] INFO: Countries only in current: 92
+[2026-02-04 15:55:04] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 15:55:11] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:03:50] INFO: Seasonal baseline identified for 95 locations.
+[2026-02-04 16:03:55] INFO: No multiple observations per country-month found - each country-month has unique season_nMonth
+[2026-02-04 16:10:49] INFO: Merged historic and current data rows: 5124
+[2026-02-04 16:10:49] INFO: Unique countries after merge: 187
+[2026-02-04 16:33:45] INFO: Merged historic and current data rows: 5124
+[2026-02-04 16:33:45] INFO: Unique countries after merge: 187
+[2026-02-04 16:33:59] INFO: Nowcasting completed; estimated rows: 126
+[2026-02-04 16:33:59] INFO: Completed 03_proportion_nowcast.
+[2026-02-04 16:34:01] INFO: Step Step_5_Nowcast_Merge: 192 countries present
+[2026-02-04 16:34:38] INFO: Running 03_proportion_nowcast.
+[2026-02-04 16:34:38] INFO: Countries in seasonal baseline: 95
+[2026-02-04 16:34:38] INFO: Countries in current data: 179
+[2026-02-04 16:34:38] INFO: Countries in both: 87
+[2026-02-04 16:34:38] INFO: Countries only in seasonal: 8
+[2026-02-04 16:34:38] INFO: Countries only in current: 92
+[2026-02-04 16:34:38] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:34:38] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:34:38] INFO: Merged historic and current data rows: 5124
+[2026-02-04 16:34:38] INFO: Unique countries after merge: 187
+[2026-02-04 16:40:11] INFO: Running 03_proportion_nowcast.
+[2026-02-04 16:40:11] INFO: Countries in seasonal baseline: 95
+[2026-02-04 16:40:11] INFO: Countries in current data: 179
+[2026-02-04 16:40:11] INFO: Countries in both: 87
+[2026-02-04 16:40:11] INFO: Countries only in seasonal: 8
+[2026-02-04 16:40:11] INFO: Countries only in current: 92
+[2026-02-04 16:40:11] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:40:11] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:40:11] INFO: Merged historic and current data rows: 5124
+[2026-02-04 16:40:11] INFO: Unique countries after merge: 187
+[2026-02-04 16:40:26] INFO: Removed 300 rows with NA Year or date
+[2026-02-04 16:42:05] INFO: Running 03_proportion_nowcast.
+[2026-02-04 16:42:05] INFO: Countries in seasonal baseline: 95
+[2026-02-04 16:42:05] INFO: Countries in current data: 179
+[2026-02-04 16:42:05] INFO: Countries in both: 87
+[2026-02-04 16:42:05] INFO: Countries only in seasonal: 8
+[2026-02-04 16:42:05] INFO: Countries only in current: 92
+[2026-02-04 16:42:05] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:42:05] WARNING: Error : object 'Ave_cum_monthly_proportion' not found
+
+[2026-02-04 16:42:05] INFO: Merged historic and current data rows: 5124
+[2026-02-04 16:42:05] INFO: Unique countries after merge: 187
+[2026-02-04 16:42:05] INFO: Removed 300 rows with NA Year or date
+[2026-02-04 16:42:05] INFO: Unique countries before: 187
+[2026-02-04 16:42:05] INFO: Unique countries after: 179
+[2026-02-04 16:49:12] INFO: Nowcasting completed; estimated rows: 126
+[2026-02-04 16:49:13] INFO: Completed 03_proportion_nowcast.
+[2026-02-04 16:49:14] INFO: Step Step_5_Nowcast_Merge: 184 countries present

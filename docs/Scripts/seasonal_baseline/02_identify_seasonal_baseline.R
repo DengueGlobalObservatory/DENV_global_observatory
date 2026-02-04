@@ -442,6 +442,35 @@ if (exists("record_countries_at_step")) {
 
 log_message("Seasonal baseline identified for " %+% length(unique(full_data_average_season$iso3)) %+% " locations.")
 
+# Check for multiple observations per country-month combination
+month_count_check <- full_data_average_season %>%
+  dplyr::group_by(country, iso3, Month) %>%
+  dplyr::summarise(n_obs = n(), .groups = "drop") %>%
+  dplyr::filter(n_obs > 1)
+
+if (nrow(month_count_check) > 0) {
+  log_message("Warning: Multiple observations per country-month found for " %+% nrow(month_count_check) %+% " country-month combinations", level = "WARNING")
+  log_message("Countries with multiple observations per month: " %+% paste(unique(month_count_check$iso3), collapse = ", "))
+  
+  # Show details of which months have multiple season_nMonth values
+  month_details <- full_data_average_season %>%
+    dplyr::filter(iso3 %in% month_count_check$iso3) %>%
+    dplyr::group_by(country, iso3, Month) %>%
+    dplyr::summarise(
+      season_nMonths = paste(sort(unique(season_nMonth)), collapse = ", "),
+      n_obs = n(),
+      .groups = "drop"
+    ) %>%
+    dplyr::filter(n_obs > 1) %>%
+    dplyr::arrange(iso3, Month)
+  
+  log_message("Details: " %+% paste(month_details$iso3, "Month", month_details$Month, 
+                                     "has season_nMonth values:", month_details$season_nMonths, 
+                                     collapse = "; "))
+} else {
+  log_message("No multiple observations per country-month found - each country-month has unique season_nMonth")
+}
+
 # Log NB parameter availability for diagnostic purposes
 if (exists("log_message")) {
   # Check monthly NB parameters
