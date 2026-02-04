@@ -48,7 +48,7 @@ simple_data <- data %>%
     Region, Country,
     source, Data_status,
     Year, Month, season_nMonth,
-    cases, cum_todate_cases_calendar,
+    cases, cum_todate_cases_year,
     Predicted_total_seasonal_cases,
     Ave_season_monthly_cases, Ave_monthly_proportion,
     Ave_season_monthly_cum_cases, Ave_cum_monthly_proportion
@@ -76,7 +76,7 @@ metadata <- tibble::tibble(
   Field = c(
     "Region", "Country", "source", "Data_status",
     "Year", "Month", "season_nMonth",
-    "cases", "cum_todate_cases_calendar",
+    "cases", "cum_todate_cases_year",
     "Predicted_total_seasonal_cases",
     "Ave_season_monthly_cases", "Ave_monthly_proportion",
     "Ave_season_monthly_cum_cases", "Ave_cum_monthly_proportion"

@@ -73,6 +73,7 @@ circular_mean <- function(month_number){
 dengue_season_ave_low_month <- dengue_season_low_month %>% 
   ungroup() %>% 
   group_by(country, 
+           iso3,
            Year) %>%
   
   # Remove years with all zeroes from low month identification - circular mean undefined.
@@ -88,14 +89,14 @@ dengue_season_ave_low_month <- dengue_season_low_month %>%
          within_year_mean_low_month) %>%
   distinct() %>%
   ungroup() %>% 
-  group_by(country) %>%
+  group_by(country, iso3) %>%
   dplyr::summarize(mean_low_month = circular_mean(within_year_mean_low_month))
   
 #----- Add low month back to original dengue counts df 
 full_data <- full_data %>% 
   full_join(., 
             dengue_season_ave_low_month, 
-            by = "country") %>% 
+            by = c("country", "iso3")) %>% 
   distinct()
   
 #----- Align data from calendar year to dengue season 

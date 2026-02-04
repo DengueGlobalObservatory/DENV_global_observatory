@@ -174,7 +174,8 @@ paho_add <- paho_monthly %>%
     Month = month.abb[match(Month, month.name)],
     iso3 = countrycode(sourcevar = country,
                        origin = "country.name",
-                       destination = "iso3c")
+                       destination = "iso3c"),
+    iso3 = ifelse(country == "Saint Martin", "MAF", iso3)
   ) %>%
   dplyr::select(country,
                 iso3,
@@ -236,7 +237,10 @@ log_message("Combined country-month rows across sources: " %+% nrow(combine))
 # Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
 final_cases <- combine %>%
   mutate( 
-    Month_num = match(Month, month.abb)
+    Month_num = match(Month, month.abb),
+    iso3 = ifelse( country == "Saint Martin", "MAF", iso3),
+    country = ifelse(country == "Saint Martin (French part)", "Saint Martin", country)
+    
   ) %>%
   group_by(iso3, Year, Month_num) %>% 
   # order first by NA status (NA last), then by source preference
@@ -246,7 +250,6 @@ final_cases <- combine %>%
   ungroup() %>%
   mutate(
     Month = month.name[Month_num],
-    country = countrycode(iso3, "iso3c", "country.name")
   )
 
 # Step 4 : Selected needed time frame and columns

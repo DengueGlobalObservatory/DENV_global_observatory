@@ -39,6 +39,7 @@ WHO_clean <- who %>%
     date = as.Date(date),
     country = countrycode::countrycode(iso3, "iso3c", "country.name"),
     country = ifelse(iso3 == "MDR", "Autonomous Region of Madeira", country),
+    country = ifelse(iso3 == "MAF", "Saint Martin", country),
     cases = as.numeric(cases),
     Year = year(date),
     Month = month(date),

@@ -120,7 +120,6 @@ source("Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
 #------ Step 5: Nowcasting to Date 
 log_message( "Step 5: Nowcast missing recent months")
 
-
 source("Scripts/nowcasting/03_proportion_nowcast.R")
 
 # Filter out countries without seasonal averages (Ave_season_monthly_cases)

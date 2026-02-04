@@ -123,7 +123,7 @@ data <- data %>%
   mutate(
     is_future = (Year > current_year) | (Year == current_year & Month > recent_month),
     cases = if_else(is_future, NA_real_, cases),
-    cum_todate_cases_calendar = if_else(is_future, NA_real_, cum_todate_cases_calendar),
+    cum_todate_cases_year = if_else(is_future, NA_real_, cum_todate_cases_year),
     cum_todate_cases_season   = if_else(is_future, NA_real_, cum_todate_cases_season)
   ) %>%
   dplyr::select(-is_future)

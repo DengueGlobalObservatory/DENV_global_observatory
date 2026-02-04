@@ -22,7 +22,6 @@ log_message("Running 03_proportion_nowcast.")
 
 #### ------ Universal Variables ---- ####
 
-current_year   <- year(Sys.Date())
 last_month_data <- month(Sys.Date()) - 1
 
 # previous-year logic when month==1, uncomment:
@@ -51,25 +50,20 @@ if (exists("log_message")) {
   log_message("Countries only in seasonal: " %+% length(countries_only_seasonal))
   log_message("Countries only in current: " %+% length(countries_only_current))
   
-  # Check for the 14 specific countries that should be preserved
-  target_countries <- c("ATG", "BES", "CUW", "CIV", "FSM", "REU", "KNA", "MAF", "VCT", "TTO", "TCA", "USA", "VGB", "WLF")
-  target_in_seasonal <- target_countries[target_countries %in% seasonal_countries]
-  target_in_current <- target_countries[target_countries %in% current_countries]
-  target_in_both <- target_countries[target_countries %in% countries_in_both]
-  
-  log_message("Target countries (14) in seasonal: " %+% length(target_in_seasonal) %+% " (" %+% paste(target_in_seasonal, collapse = ", ") %+% ")")
-  log_message("Target countries (14) in current: " %+% length(target_in_current) %+% " (" %+% paste(target_in_current, collapse = ", ") %+% ")")
-  log_message("Target countries (14) in both: " %+% length(target_in_both) %+% " (" %+% paste(target_in_both, collapse = ", ") %+% ")")
+  # # Check for the 14 specific countries that should be preserved
+  # target_countries <- c("ATG", "BES", "CUW", "CIV", "FSM", "REU", "KNA", "MAF", "VCT", "TTO", "TCA", "USA", "VGB", "WLF")
+  # target_in_seasonal <- target_countries[target_countries %in% seasonal_countries]
+  # target_in_current <- target_countries[target_countries %in% current_countries]
+  # target_in_both <- target_countries[target_countries %in% countries_in_both]
+  # 
+  # log_message("Target countries (14) in seasonal: " %+% length(target_in_seasonal) %+% " (" %+% paste(target_in_seasonal, collapse = ", ") %+% ")")
+  # log_message("Target countries (14) in current: " %+% length(target_in_current) %+% " (" %+% paste(target_in_current, collapse = ", ") %+% ")")
+  # log_message("Target countries (14) in both: " %+% length(target_in_both) %+% " (" %+% paste(target_in_both, collapse = ", ") %+% ")")
 }
 
 # Merge using outer join - preserve all countries from both datasets
 # First, we need to align current_data to seasonal months
 # Add season_nMonth to current_data by matching with seasonal baseline
-
-# Get season_nMonth mapping from seasonal baseline
-season_month_map_old <- full_data_average_season %>%
-  dplyr::select(iso3, Month, season_nMonth) %>%
-  dplyr::distinct()
 
 # Get season_nMonth mapping from seasonal baseline
 # Ensure one-to-one mapping: one season_nMonth per Month per iso3
@@ -82,47 +76,24 @@ season_month_map <- full_data_average_season %>%
   dplyr::slice_head(n = 1) %>%
   dplyr::select(-n) %>%
   dplyr::ungroup() %>%
-  dplyr::distinct()
+  dplyr::distinct() %>%
+  dplyr::left_join(dengue_season_ave_low_month, by = "iso3") %>%
+  dplyr::select(!country)
 
 # Add season_nMonth to current_data
 current_data_with_season <- current_data %>%
-  dplyr::left_join(season_month_map, by = c("iso3", "Month"))
+  dplyr::left_join(season_month_map, by = c("iso3", "Month")) %>%
+  mutate(season = case_when(
+    Month >= mean_low_month ~ paste0(Year, "/", (Year+1)),
+    Month < mean_low_month ~ paste0((Year-1), "/", Year))
+  )
+  
 
 # Merge using iso3 and season_nMonth (not calendar Month)
 data <- merge(full_data_average_season, current_data_with_season, 
               all.x = TRUE, all.y = TRUE,
-              by = c("iso3", "season_nMonth")) %>%
+              by = c("iso3", "season_nMonth", "country", "Month")) %>%
   unique()
-
-# Handle country name mismatches - prefer country name from seasonal data
-if ("country.x" %in% names(data) && "country.y" %in% names(data)) {
-  data <- data %>%
-    dplyr::mutate(
-      country = dplyr::coalesce(country.x, country.y)
-    ) %>%
-    dplyr::select(-country.x, -country.y)
-} else if ("country.x" %in% names(data)) {
-  data <- data %>%
-    dplyr::rename(country = country.x)
-} else if ("country.y" %in% names(data)) {
-  data <- data %>%
-    dplyr::rename(country = country.y)
-}
-
-# Handle Month - prefer from current_data if available, otherwise from seasonal
-if ("Month.x" %in% names(data) && "Month.y" %in% names(data)) {
-  data <- data %>%
-    dplyr::mutate(
-      Month = dplyr::coalesce(Month.y, Month.x)  # Prefer current_data Month
-    ) %>%
-    dplyr::select(-Month.x, -Month.y)
-} else if ("Month.x" %in% names(data)) {
-  data <- data %>%
-    dplyr::rename(Month = Month.x)
-} else if ("Month.y" %in% names(data)) {
-  data <- data %>%
-    dplyr::rename(Month = Month.y)
-}
 
 log_message("Merged historic and current data rows: " %+% nrow(data))
 log_message("Unique countries after merge: " %+% length(unique(data$iso3)))
@@ -136,28 +107,37 @@ data <- data %>%
 
 # Calculate cumulative cases to date by season (needed for predicted total)
 # This must be done BEFORE estimating predicted totals
+
+# Cumulative by season (order by season_nMonth within each season)
 data <- data %>%
-  dplyr::arrange(iso3, Year, season_nMonth) %>%
-  dplyr::group_by(country, iso3, Year) %>%  # Group by year to handle season boundaries
+  dplyr::arrange(iso3, season, season_nMonth) %>%
+  dplyr::group_by(country, iso3, season) %>%
   dplyr::mutate(
-    # Calculate cumulative cases within the season (by season_nMonth)
     cum_todate_cases_season = cumsum(dplyr::coalesce(cases, 0))
   ) %>%
   dplyr::ungroup()
 
-# Estimate predicted total seasonal cases using cumulative cases to date
-# Use the most recent observed cumulative cases and cumulative proportion
+# Cumulative by calendar year (order by Month within each year)
 data <- data %>%
-  dplyr::group_by(iso3, Year) %>%
+  dplyr::arrange(iso3, Year, Month) %>%
+  dplyr::group_by(country, iso3, Year) %>%
   dplyr::mutate(
-    # Find the most recent month with observed cases
+    cum_todate_cases_year = cumsum(dplyr::coalesce(cases, 0))
+  ) %>%
+  dplyr::ungroup()
+
+
+# ---- Predicted total for the SEASON ----
+# Order and group by season; last observed = last row with non-NA cases in that season
+data <- data %>%
+  dplyr::arrange(iso3, season, season_nMonth) %>%
+  dplyr::group_by(iso3, season) %>%
+  dplyr::mutate(
     last_obs_idx = if (any(!is.na(cases))) {
       max(which(!is.na(cases)))
     } else {
       NA_integer_
     },
-    
-    # Get cumulative cases and cumulative proportion at that point
     last_cum_cases = if_else(
       is.na(last_obs_idx),
       NA_real_,
@@ -168,8 +148,6 @@ data <- data %>%
       NA_real_,
       Ave_cum_monthly_proportion[last_obs_idx]
     ),
-    
-    # Calculate predicted total: cumulative cases / cumulative proportion
     Predicted_total_seasonal_cases = if_else(
       !is.na(last_cum_cases) & !is.na(last_cum_prop) & last_cum_prop > 0,
       round(last_cum_cases / last_cum_prop, 0),
@@ -179,6 +157,37 @@ data <- data %>%
   dplyr::ungroup() %>%
   dplyr::select(-last_obs_idx, -last_cum_cases, -last_cum_prop)
 
+# ---- Predicted total for the YEAR ----
+# Order and group by year; use cum_todate_cases_year and (for now) seasonal proportion as proxy
+data <- data %>%
+  dplyr::arrange(iso3, Year, Month) %>%
+  dplyr::group_by(iso3, Year) %>%
+  dplyr::mutate(
+    last_obs_idx_year = if (any(!is.na(cases))) {
+      max(which(!is.na(cases)))
+    } else {
+      NA_integer_
+    },
+    last_cum_cases_year = if_else(
+      is.na(last_obs_idx_year),
+      NA_real_,
+      cum_todate_cases_year[last_obs_idx_year]
+    ),
+    last_cum_prop_year = if_else(
+      is.na(last_obs_idx_year),
+      NA_real_,
+      Ave_cum_monthly_proportion[last_obs_idx_year]
+    ),
+    Predicted_total_year_cases = if_else(
+      !is.na(last_cum_cases_year) & !is.na(last_cum_prop_year) & last_cum_prop_year > 0,
+      round(last_cum_cases_year / last_cum_prop_year, 0),
+      NA_real_
+    )
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(-last_obs_idx_year, -last_cum_cases_year, -last_cum_prop_year)
+
+#---------------------------------#
 # ---- Estimate cases for missing months using average monthly proportion ----
 data <- data %>%
   dplyr::group_by(iso3, Year) %>%
@@ -205,27 +214,33 @@ data <- data %>%
   dplyr::ungroup() %>%
   dplyr::select(-group_predicted_total)
 
+#---------------------------------#
+
 # Recalculate cumulative cases after filling estimates
+# Cumulative by season (order by season_nMonth within each season)
 data <- data %>%
-  dplyr::arrange(iso3, Year, season_nMonth) %>%
-  dplyr::group_by(country, iso3, Year) %>%
+  dplyr::arrange(iso3, season, season_nMonth) %>%
+  dplyr::group_by(country, iso3, season) %>%
   dplyr::mutate(
     cum_todate_cases_season = cumsum(dplyr::coalesce(cases, 0))
   ) %>%
   dplyr::ungroup()
 
-# Calculate calendar cumulative cases
+# Cumulative by calendar year (order by Month within each year)
 data <- data %>%
   dplyr::arrange(iso3, Year, Month) %>%
   dplyr::group_by(country, iso3, Year) %>%
   dplyr::mutate(
-    cum_todate_cases_calendar = cumsum(dplyr::coalesce(cases, 0))
+    cum_todate_cases_year = cumsum(dplyr::coalesce(cases, 0))
   ) %>%
   dplyr::ungroup()
 
-# Recalculate predicted total after estimates (for consistency)
+
+# ---- Predicted total for the SEASON ----
+# Order and group by season; last observed = last row with non-NA cases in that season
 data <- data %>%
-  dplyr::group_by(iso3, Year) %>%
+  dplyr::arrange(iso3, season, season_nMonth) %>%
+  dplyr::group_by(iso3, season) %>%
   dplyr::mutate(
     last_obs_idx = if (any(!is.na(cases))) {
       max(which(!is.na(cases)))
@@ -250,6 +265,36 @@ data <- data %>%
   ) %>%
   dplyr::ungroup() %>%
   dplyr::select(-last_obs_idx, -last_cum_cases, -last_cum_prop)
+
+# ---- Predicted total for the YEAR ----
+# Order and group by year; use cum_todate_cases_year and (for now) seasonal proportion as proxy
+data <- data %>%
+  dplyr::arrange(iso3, Year, Month) %>%
+  dplyr::group_by(iso3, Year) %>%
+  dplyr::mutate(
+    last_obs_idx_year = if (any(!is.na(cases))) {
+      max(which(!is.na(cases)))
+    } else {
+      NA_integer_
+    },
+    last_cum_cases_year = if_else(
+      is.na(last_obs_idx_year),
+      NA_real_,
+      cum_todate_cases_year[last_obs_idx_year]
+    ),
+    last_cum_prop_year = if_else(
+      is.na(last_obs_idx_year),
+      NA_real_,
+      Ave_cum_monthly_proportion[last_obs_idx_year]
+    ),
+    Predicted_total_year_cases = if_else(
+      !is.na(last_cum_cases_year) & !is.na(last_cum_prop_year) & last_cum_prop_year > 0,
+      round(last_cum_cases_year / last_cum_prop_year, 0),
+      NA_real_
+    )
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(-last_obs_idx_year, -last_cum_cases_year, -last_cum_prop_year)
 
 # further define Data_status
 data <- data %>%
@@ -277,3 +322,4 @@ if (exists("record_countries_at_step")) {
     }
   })
 }
+
