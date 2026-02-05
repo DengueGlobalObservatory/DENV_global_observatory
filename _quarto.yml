@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: docs/
+  output-dir: docs
   resources:
     - Assets/
     - Scripts/
@@ -67,8 +67,7 @@ format:
     toc: false
     toc-depth: 3
     page-layout: full
-    embed-resources: true
-    self-contained: true
+
 
 filters:
   - quarto
