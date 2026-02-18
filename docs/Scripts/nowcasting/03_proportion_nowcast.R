@@ -93,10 +93,24 @@ current_data_with_season <- current_data %>%
   
 
 # Merge using iso3 and season_nMonth (not calendar Month)
+# Do NOT include country in join keys - it may differ between baseline and current data
+# due to different naming conventions (countrycode canonical vs source names)
 data <- merge(full_data_average_season, current_data_with_season, 
               all.x = TRUE, all.y = TRUE,
-              by = c("iso3", "season_nMonth", "country", "Month")) %>%
+              by = c("iso3", "season_nMonth", "Month")) %>%
   unique()
+
+# Reconcile country name columns if merge created country.x and country.y
+# Prefer baseline country name (countrycode-canonical) over current data name
+if ("country.x" %in% names(data) && "country.y" %in% names(data)) {
+  data <- data %>%
+    dplyr::mutate(country = dplyr::coalesce(country.x, country.y)) %>%
+    dplyr::select(-country.x, -country.y)
+} else if ("country.x" %in% names(data)) {
+  data <- data %>% dplyr::rename(country = country.x)
+} else if ("country.y" %in% names(data)) {
+  data <- data %>% dplyr::rename(country = country.y)
+}
 
 log_message("Merged historic and current data rows: " %+% nrow(data))
 log_message("Unique countries after merge: " %+% length(unique(data$iso3)))

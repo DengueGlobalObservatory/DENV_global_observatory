@@ -91,6 +91,23 @@ dengue_season_ave_low_month <- dengue_season_low_month %>%
   ungroup() %>% 
   group_by(country, iso3) %>%
   dplyr::summarize(mean_low_month = circular_mean(within_year_mean_low_month))
+
+# Ensure one mean_low_month per iso3 (guard against name mismatches)
+dup_check <- dengue_season_ave_low_month %>%
+  dplyr::group_by(iso3) %>%
+  dplyr::filter(n() > 1)
+
+if (nrow(dup_check) > 0) {
+  log_message("WARNING: Multiple mean_low_month values per iso3 detected: " %+%
+              paste(unique(dup_check$iso3), collapse = ", "), level = "WARNING")
+  # Collapse: keep one row per iso3 (first alphabetically by country name)
+  dengue_season_ave_low_month <- dengue_season_ave_low_month %>%
+    dplyr::group_by(iso3) %>%
+    dplyr::arrange(country) %>%
+    dplyr::slice_head(n = 1) %>%
+    dplyr::ungroup()
+  log_message("Deduplicated dengue_season_ave_low_month: kept one row per iso3")
+}
   
 #----- Add low month back to original dengue counts df 
 full_data <- full_data %>% 
@@ -467,6 +484,15 @@ if (nrow(month_count_check) > 0) {
   log_message("Details: " %+% paste(month_details$iso3, "Month", month_details$Month, 
                                      "has season_nMonth values:", month_details$season_nMonths, 
                                      collapse = "; "))
+  
+  # Deduplicate: keep one row per iso3/Month (first by country name, then by season_nMonth)
+  log_message("Deduplicating baseline -- keeping one row per iso3/Month", level = "WARNING")
+  full_data_average_season <- full_data_average_season %>%
+    dplyr::group_by(iso3, Month) %>%
+    dplyr::arrange(country, season_nMonth) %>%
+    dplyr::slice_head(n = 1) %>%
+    dplyr::ungroup()
+  log_message("Deduplication complete. Remaining rows: " %+% nrow(full_data_average_season))
 } else {
   log_message("No multiple observations per country-month found - each country-month has unique season_nMonth")
 }
