@@ -1,0 +1,11 @@
+step,n_countries
+Step_2_Initial_Data,208
+Step_3a_WHO_OD_Clean,208
+Step_3a_WHO_OD_Selection,0
+Step_3b_Combined_Before_Filter,208
+Step_3b_Combined_After_Filter,144
+Step_3c_Seasonal_Before_Filter,144
+Step_3c_Seasonal_After_Filter,96
+Step_4_Current_Data,0
+Step_5_Nowcast_Merge,187
+Step_6_Final,96

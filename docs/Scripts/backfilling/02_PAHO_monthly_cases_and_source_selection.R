@@ -252,6 +252,20 @@ final_cases <- combine %>%
     Month = month.name[Month_num],
   )
 
+# Normalize country names to canonical before completeness expansion
+# Must happen here (not later) because tidyr::complete groups by country, iso3
+# This prevents duplicate Year x Month grids when the same iso3 has different country names
+final_cases <- final_cases %>%
+  dplyr::mutate(
+    country_canonical = countrycode::countrycode(iso3, "iso3c", "country.name",
+                                                  custom_match = c("MDR" = "Autonomous Region of Madeira",
+                                                                   "MAF" = "Saint Martin")),
+    country = dplyr::if_else(is.na(country_canonical), country, country_canonical)
+  ) %>%
+  dplyr::select(-country_canonical)
+
+log_message("Country names normalized to canonical names per iso3 (before completeness expansion)")
+
 # Step 4 : Selected needed time frame and columns
 current_year <- as.numeric(format(Sys.Date(), "%Y"))
 season_start <- current_year - 2

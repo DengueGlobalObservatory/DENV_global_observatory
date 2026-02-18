@@ -12,7 +12,6 @@ source("Scripts/utils/logging.R")
 source("Scripts/utils/country_tracking.R")
 
 #------ Step 1: start log
-
 run_dir <- file.path("Output", format(Sys.Date(), "%Y_%m_%d"))
 
 run_dir_created <- FALSE

@@ -94,10 +94,26 @@ WHO_OD_combined <- dplyr::bind_rows(OD_national_with_source, WHO_clean_with_sour
 
 log_message("Combined dataset rows: " %+% nrow(WHO_OD_combined))
 
+# Normalize country names to a single canonical name per iso3
+# This prevents name mismatches between OD and WHO from causing duplicates downstream
+WHO_OD_combined <- WHO_OD_combined %>%
+  dplyr::mutate(
+    country_canonical = countrycode::countrycode(iso3, "iso3c", "country.name",
+                                                  custom_match = c("MDR" = "Autonomous Region of Madeira",
+                                                                   "MAF" = "Saint Martin")),
+    country = dplyr::if_else(is.na(country_canonical),
+                             country,  # keep original if countrycode fails
+                             country_canonical)
+  ) %>%
+  dplyr::select(-country_canonical)
+
+log_message("Country names normalized to canonical names per iso3")
+
 # Clean combined data - prefer OD_national when duplicates exist
 # For each country-month combination, keep OD_national if available, otherwise WHO
+# Use iso3, date as the deduplication key (not country, date) to handle name variants
 WHO_OD_combined_clean <- WHO_OD_combined %>%
-  dplyr::group_by(country, date) %>%
+  dplyr::group_by(iso3, date) %>%
   dplyr::mutate(
     Number_of_obs = n(),
     # Prefer OD_national: if OD_national exists, keep it; otherwise keep WHO
