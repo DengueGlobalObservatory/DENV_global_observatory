@@ -1,0 +1,227 @@
+---
+title: ""
+format:
+  html:
+    code-fold: false
+---
+
+<div class="faq-container">
+
+<img src="/Assets/Stable/logo_large.png" alt="Global Dengue Observatory" class="faq-logo">
+
+<p class="faq-intro">Frequently asked questions about the Global Dengue Observatory, dengue, data interpretation, and how to use and cite our resources.</p>
+
+<h2>About the Global Dengue Observatory</h2>
+
+<details class="faq-item">
+<summary>What is the Global Dengue Observatory (GDO)?</summary>
+<div class="faq-answer">
+<p>GDO is an online dashboard that brings together dengue surveillance data reported by many countries, advanced modelling to help fill gaps, and historical data so users can track how dengue seasons are unfolding globally, regionally, and nationally. All case data is anonymised.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Who is it for?</summary>
+<div class="faq-answer">
+<p>The general public, journalists, public health practitioners, and decision-makers who want a clear, timely view of dengue trends—with appropriate context.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Is GDO a "real-time" case reporting system?</summary>
+<div class="faq-answer">
+<p>Not exactly. It uses the latest available official reporting and modelling to provide near real-time situational awareness, but these are estimates and may change with time.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>What's new or different compared to other dengue sites?</summary>
+<div class="faq-answer">
+<p>The focus is on real-time information, comparability across countries, seasonal context and gap-filling where reporting is delayed or incomplete, presented in a consistent visual format.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Who funds the GDO?</summary>
+<div class="faq-answer">
+<p>The GDO is supported by the AXA Research Fund, (title: "Pioneering a global observatory for dengue outbreak early warning")</p>
+</div>
+</details>
+
+<h2>Dengue</h2>
+
+<details class="faq-item">
+<summary>What is dengue?</summary>
+<div class="faq-answer">
+<p>Dengue is a viral illness transmitted mainly by Aedes aegypti and Ae. Albopictus. It can cause fever and severe symptoms; a small proportion of infections can progress to severe dengue requiring urgent medical care.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Where is dengue found?</summary>
+<div class="faq-answer">
+<p>Dengue is endemic across much of the tropics and sub-tropics which is also emerging in across the globe with 5.66 billion people in over 120 countries at risk of infection</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>How does dengue spread?</summary>
+<div class="faq-answer">
+<p>Through mosquito bites, it does not typically spread person-to-person like respiratory viruses.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>What are common symptoms?</summary>
+<div class="faq-answer">
+<p>Fever, headache, muscle/joint pain, nausea, rash—symptoms vary and can resemble other infections. Seek medical care for severe symptoms or warning signs. See the <a href="https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue">WHO Dengue and Severe Dengue</a> page for more information.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>What treatments are there for dengue?</summary>
+<div class="faq-answer">
+<p>There's no specific medicine that cures dengue. Treatment is mainly supportive:</p>
+<ul>
+<li>Rest and drink plenty of fluids</li>
+<li>For fever and pain, use paracetamol/acetaminophen</li>
+<li>Seek medical care urgently if symptoms get worse or warning signs appear (your local health service can advise what to watch for)</li>
+</ul>
+<p>For the best advice, talk to a doctor and follow local health guidance, especially for children, pregnancy, older adults, or anyone with other health conditions.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Is there a vaccine that protects against dengue?</summary>
+<div class="faq-answer">
+<p>Yes, dengue vaccines exist, but they are not recommended for everyone, and availability and eligibility vary by country. In some places, vaccination depends on age and whether someone has had dengue before.</p>
+<p>For personal decisions, follow your national/local health guidance and speak with a doctor or travel clinic about whether a dengue vaccine is recommended for you.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>How can people reduce risk?</summary>
+<div class="faq-answer">
+<p>By reducing and preventing mosquito bites: repellents, long sleeves, screens, eliminating standing water, and following local public health guidance. (<a href="https://www.cdc.gov/dengue/prevention/index.html">CDC Prevention Guide</a>)</p>
+</div>
+</details>
+
+<h2>Data, Methods, and Interpretation</h2>
+
+<details class="faq-item">
+<summary>Where do your numbers come from?</summary>
+<div class="faq-answer">
+<p>From dengue data reported by countries to regional (PAHO and SEARO) and global (WHO) databases and then integrated into a common pipeline. GDO also uses modelling to address missing data and delays in reporting.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Are the numbers "reported cases" or "estimated cases"?</summary>
+<div class="faq-answer">
+<p>The dashboard shows reported figures and model-based estimates. When you see language like "we estimate…", that reflects modelled outputs rather than raw counts alone.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Why might your estimates differ from my ministry of health dashboard?</summary>
+<div class="faq-answer">
+<p>Differences can come from reporting cut-off dates, case definitions, backfilled updates, under-reporting, delayed reporting, and the modelling approach used to standardize and fill gaps.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>What does "expected number of cases" mean?</summary>
+<div class="faq-answer">
+<p>It refers to the typical seasonal pattern based on historical data for that location. Comparing the current year to "expected" helps users understand whether the seasonal number of cases is unusually high or low for that time of year.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>What does "× the expected number of cases" mean (e.g., 2.0×)?</summary>
+<div class="faq-answer">
+<p>It's a ratio of current cumulative cases (or estimates) to the historical average for the same point in the year. For example, 2.0× means roughly double the usual level to date.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>How should I interpret "High Severity Countries"?</summary>
+<div class="faq-answer">
+<p>It's a spotlight list of places currently farthest above their own typical yearly average (based on cumulative ratios). It does not necessarily mean the highest absolute number of cases worldwide.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>How often is the dashboard updated?</summary>
+<div class="faq-answer">
+<p>The site indicates a "data last updated" timestamp (e.g., shown on the global outlook). The dashboard is updated at the beginning of every month.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Do you show uncertainty?</summary>
+<div class="faq-answer">
+<p>While we do not currently visualise uncertainty all estimates should be considered approximate values.</p>
+</div>
+</details>
+
+<h2>Limitations and Responsible Use</h2>
+
+<details class="faq-item">
+<summary>Can I use this to assess personal risk or make travel/medical decisions?</summary>
+<div class="faq-answer">
+<p>It's designed for situational awareness, not individual medical guidance. For personal health decisions, follow advice from local public health agencies and clinicians.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Does a lower number mean dengue transmission is low?</summary>
+<div class="faq-answer">
+<p>Not always. Low reported/estimated values can also reflect under-diagnosis, reporting delays, changes in testing, or disruptions in surveillance.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Can I compare countries directly?</summary>
+<div class="faq-answer">
+<p>You can compare broad patterns, but direct comparisons can be misleading due to differences in surveillance systems, testing intensity, case definitions, healthcare access, and reporting practices.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Does GDO predict future outbreaks?</summary>
+<div class="faq-answer">
+<p>Currently, GDO is primarily a monitoring and context tool.</p>
+</div>
+</details>
+
+<h2>Using, Citing, and Contacting</h2>
+
+<details class="faq-item">
+<summary>Can I use your charts in an article or report?</summary>
+<div class="faq-answer">
+<p>Generally yes, with proper attribution. A good standard is: "Source: Global Dengue Observatory (accessed YYYY-MM-DD)."</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Do you provide downloads or an API?</summary>
+<div class="faq-answer">
+<p>The data can be viewed and downloaded from the Data page.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Who do I contact for corrections?</summary>
+<div class="faq-answer">
+<p>If you believe a value is incorrect, contact us at contact@globaldengueobservatory.org. Please include the country, time period, screenshot, and link to the official source.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary>Who do I contact for press/media enquiries?</summary>
+<div class="faq-answer">
+<p>If you are a journalist with a media enquiry about GDO contact press@lshtm.ac.uk</p>
+</div>
+</details>
+
+</div>

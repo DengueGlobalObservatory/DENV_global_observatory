@@ -17,6 +17,7 @@ project:
     - pages/pacificislands.qmd
     - pages/methods.qmd
     - pages/about.qmd
+    - pages/faq.qmd
     - pages/data.qmd
  
   
@@ -53,6 +54,8 @@ website:
         href: pages/data.qmd
       - text: "About"
         href: pages/about.qmd
+      - text: "FAQ"
+        href: pages/faq.qmd
       - icon: github
         href: https://github.com/DengueGlobalObservatory/DENV_global_observatory
   page-footer:

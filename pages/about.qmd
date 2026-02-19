@@ -5,29 +5,31 @@ format:
     code-fold: false
 ---
 
-![](/Assets/Stable/logo_large.png)
+<div class="faq-container">
 
-The Global Dengue Observatory is a project run by researchers at the [London School of Hygiene and Tropical Medicine](https://www.lshtm.ac.uk) that aims to monitor the current global dengue situation to enable faster outbreak response.
+<img src="/Assets/Stable/logo_large.png" alt="Global Dengue Observatory" class="faq-logo">
 
-## The Challenge
+<p class="faq-intro">The Global Dengue Observatory is a project run by researchers at the [London School of Hygiene and Tropical Medicine](https://www.lshtm.ac.uk) that aims to monitor the current global dengue situation to enable faster outbreak response.</p>
+
+<h2>The Challenge</h2>
 
 While many countries regularly publish dengue case statistics, delays mean the information is often out of date. While important progress has been made with platforms like the [World Health Organization Dengue dashboard](https://worldhealthorg.shinyapps.io/dengue_global/) and historical databases like [OpenDengue](https://opendengue.org) we still lack a comprehensive global estimate of what the current dengue situation is right now.
 
-## Our Goal
+<h2>Our Goal</h2>
 
 We aggregate reported case data from countries in real-time and combine them with advanced reporting delay and seasonal estimation models to produce estimates of the current number of cases in each country worldwide.
 
-## Why useful?
+<h2>Why useful?</h2>
 
 This project provides countries and the public with an up-to-date estimate of the current national, regional and global dengue situation and how it compares to previous years. This improves the speed and quality of public health decision making and better informs the public of the [precautions they can take right now to avoid infection](https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue).
 
-## Team
+<h2>Team</h2>
 
 The Global dengue observatory is run by the Dengue Mapping and Modelling Group at LSHTM. We are a group of modellers, epidemiologists and public health practitioners who use data to give new insights into the burden, spread and containment of mosquito-transmitted diseases. We are part of the Centre for Mathematical Modelling of Infectious Diseases.
 
 The project team includes:
 
-[**Dr Katie Susong**](https://www.lshtm.ac.uk/aboutus/people/susong.katie-milligan) (lead)
+[**Dr Katie Susong**](https://www.lshtm.ac.uk/aboutus/people/susong.katie-milligan) <span style="display: inline-block; padding: 0.2rem 0.6rem; margin-left: 0.5rem; border-radius: 999px; background: rgba(31, 111, 99, 0.12); color: #0d5c48; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">lead</span>
 
 <!-- [image temp] -->
 
@@ -35,18 +37,22 @@ The project team includes:
 
 <!-- [image temp] -->
 
-**Mr Kishen Joshi**
+[**Mr Kishen Joshi**](https://www.lshtm.ac.uk/aboutus/people/joshi.kishen)
 
 <!-- [image temp] -->
 
-[**Prof. Oliver Brady** ](https://www.lshtm.ac.uk/aboutus/people/brady.oliver) (director)
+[**Prof. Oliver Brady** ](https://www.lshtm.ac.uk/aboutus/people/brady.oliver) <span style="display: inline-block; padding: 0.2rem 0.6rem; margin-left: 0.5rem; border-radius: 999px; background: rgba(31, 111, 99, 0.12); color: #0d5c48; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">director</span>
 
 <!-- [image temp] -->
 
-## Funders
+<h2>Funders</h2>
 
-The Global Dengue Observatory was made possible by a research grant from the AXA Research Foundation (title: "Pioneering a global observatory for dengue outbreak early warning")
+The Global Dengue Observatory was made possible by a research grant from the [AXA Research Foundation](https://axa-research.org/) (title: "Pioneering a global observatory for dengue outbreak early warning")
 
-## Contact
+<h2>Contact</h2>
+
+[contact@globaldengueobservatory.org](mailto:contact@globaldengueobservatory.org)
 
 [https://github.com/DengueGlobalObservatory](https://github.com/DengueGlobalObservatory)
+
+</div>
