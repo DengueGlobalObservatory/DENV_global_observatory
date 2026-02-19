@@ -91,6 +91,30 @@ region_positions <- data.frame(
     0.45,  # Sub-Saharan Africa
     0.60,  # East & Southeast Asia
     0.60   # Europe, Middle East & North Africa
+  ),
+  
+  # ---- Mobile X positions (adjusted to prevent overlap) ----
+  mobile_x = c(
+    0.20,  # South America - same
+    0.28,  # Caribbean - slightly right to avoid North & Central America
+    0.88,  # Pacific Islands - slightly left
+    0.72,  # South Asia - slightly right
+    0.15,  # North & Central America - further right to avoid Caribbean
+    0.45,  # Sub-Saharan Africa - same
+    0.88,  # East & Southeast Asia - much further right to avoid Europe
+    0.50   # Europe, Middle East & North Africa - further left to avoid East Asia
+  ),
+  
+  # ---- Mobile Y positions (adjusted to prevent overlap) ----
+  mobile_y = c(
+    0.25,  # South America - same
+    0.55,  # Caribbean - below North & Central (0.65) and above Sub-Saharan (0.45)
+    0.35,  # Pacific Islands - same
+    0.50,  # South Asia - moved up to about where East & Southeast was
+    0.65,  # North & Central America - further down to avoid Caribbean
+    0.45,  # Sub-Saharan Africa - same
+    0.64,  # East & Southeast Asia - up, only slightly lower than Europe (0.68)
+    0.68   # Europe, Middle East & North Africa - further down
   )
 )
 
@@ -395,6 +419,45 @@ for(i in seq_len(nrow(region_positions))){
 }
 
 # ----------------------------
+# Compute ring hex colours for mobile dots (matching Radial.R gradient)
+# ----------------------------
+
+library(scales)
+
+# Create gradient palette matching Radial.R scale_fill_gradient2
+# low = "green", mid = "yellow", high = "red", midpoint = 1, limits = c(0.5, 2)
+ring_colour_pal <- scales::gradient_n_pal(
+  colours = c("green", "yellow", "red"),
+  values = scales::rescale(c(0.5, 1.0, 2.0))
+)
+
+ring_colour_fn <- function(ratio) {
+  clamped <- pmin(pmax(ratio, 0.5), 2.0)
+  pal_value <- scales::rescale(clamped, from = c(0.5, 2.0))
+  ring_colour_pal(pal_value)
+}
+
+# Join region_positions with region_callouts to get ytd_ratio
+if (exists("region_callouts") && nrow(region_callouts) > 0) {
+  region_positions <- region_positions %>%
+    left_join(
+      region_callouts %>% select(Region, ytd_ratio),
+      by = "Region"
+    ) %>%
+    mutate(
+      cum_ratio_capped = pmin(pmax(ytd_ratio, 0.5), 2),
+      ring_hex = ifelse(
+        !is.na(cum_ratio_capped),
+        ring_colour_fn(cum_ratio_capped),
+        "#f9a825"  # fallback amber if no data
+      )
+    )
+} else {
+  # Fallback if region_callouts not available
+  region_positions$ring_hex <- "#f9a825"
+}
+
+# ----------------------------
 # Output HTML container with map, radial plots, and region labels
 # ----------------------------
 
@@ -414,13 +477,17 @@ for(i in seq_len(nrow(region_positions))){
   }
   x_pct <- region_positions$x[i] * 100
   y_pct <- (1 - region_positions$y[i]) * 100
+  mobile_x_pct <- region_positions$mobile_x[i] * 100
+  mobile_y_pct <- (1 - region_positions$mobile_y[i]) * 100
+  ring_hex <- region_positions$ring_hex[i]
   
   plot_html <- sprintf(
-    '<a href="%s" class="region-plot" style="left:%f%%; top:%f%%;">
+    '<a href="%s" class="region-plot" style="left:%f%%; top:%f%%; --ring-color:%s; --mobile-left:%f%%; --mobile-top:%f%%;">
       <img src="%s" alt="%s summary plot">
       <span class="region-plot-label">%s</span>
     </a>',
-    region_page, x_pct, y_pct, region_positions$plot_file[i], region_name, region_name
+    region_page, x_pct, y_pct, ring_hex, mobile_x_pct, mobile_y_pct,
+    region_positions$plot_file[i], region_name, region_name
   )
   cat(plot_html)
 }

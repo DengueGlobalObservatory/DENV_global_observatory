@@ -19,6 +19,12 @@ main.content {
   padding: 2rem 3rem;        /* ✅ Add top/bottom + side padding */
 }
 
+@media (max-width: 600px) {
+  main.content {
+    padding: 1.5rem 1rem;
+  }
+}
+
 /* Adjust grid if Quarto layout leaves a TOC column */
 #quarto-content {
   grid-template-columns: 1fr !important;
@@ -233,6 +239,48 @@ body {
     top: -1rem;
     letter-spacing: 0.03em;
   }
+  /* Replace region plots with colored label banners at very small screens */
+  .region-plot img {
+    display: none;
+  }
+  .region-plot {
+    width: auto !important;
+    height: auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* Use mobile-specific positioning */
+    left: var(--mobile-left) !important;
+    top: var(--mobile-top) !important;
+  }
+  .region-plot:hover,
+  .region-plot:focus {
+    text-decoration: none;
+  }
+  .region-plot-label {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    background: var(--ring-color, #f9a825);
+    color: white;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    max-width: 120px;
+    font-size: clamp(0.45rem, 1.8vw, 0.55rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
 }
 
 
@@ -358,7 +406,7 @@ body {
 
 .region-hero-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin: 2rem auto 3rem auto;
   width: 100%;
@@ -474,6 +522,12 @@ body {
 @media (max-width: 900px) {
   .region-hero-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .region-hero-grid {
+    padding: 0 0.5rem;
   }
 }
 
@@ -733,11 +787,25 @@ body {
 @media(max-width: 900px) {
   .scrolly-container {
     flex-direction: column;
+    min-height: auto;
+    gap: 2rem;
+    margin: 2rem auto;
+  }
+  .scrolly-steps {
+    max-width: 100%;
+    padding-top: 0;
   }
   .scrolly-visual {
     position: relative;
     top: 0;
     height: auto;
+    max-width: 100%;
+    order: -1; /* Move plot ABOVE the text on mobile */
+  }
+  .scrolly-step {
+    margin-bottom: 2rem;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -781,6 +849,16 @@ body {
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 4px;
+}
+
+@media(max-width: 900px) {
+  .howto-image {
+    max-width: 100%;
+    width: 100%;
+  }
+  #global-plot-wrapper img {
+    width: 100%;
+  }
 }
 
 /* =====================================
@@ -1048,4 +1126,20 @@ main.content:has(.faq-container) {
 
 .faq-answer a:hover {
   color: #13443c;
+}
+
+/* ==============================================
+   METHODS PAGE -- EQUATION AND LINK OVERFLOW
+   ============================================== */
+
+.faq-answer {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.faq-answer .MathJax,
+.faq-answer mjx-container {
+  overflow-x: auto;
+  max-width: 100%;
+  display: block !important;
 }
