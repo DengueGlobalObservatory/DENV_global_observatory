@@ -29,7 +29,7 @@ The Global dengue observatory is run by the Dengue Mapping and Modelling Group a
 
 The project team includes:
 
-[**Dr Katie Susong**](https://www.lshtm.ac.uk/aboutus/people/susong.katie-milligan) <span style="display: inline-block; padding: 0.2rem 0.6rem; margin-left: 0.5rem; border-radius: 999px; background: rgba(31, 111, 99, 0.12); color: #0d5c48; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">lead</span>
+[**Dr Katie Milligan Susong**](https://www.lshtm.ac.uk/aboutus/people/susong.katie-milligan) <span style="display: inline-block; padding: 0.2rem 0.6rem; margin-left: 0.5rem; border-radius: 999px; background: rgba(31, 111, 99, 0.12); color: #0d5c48; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">lead</span>
 
 <!-- [image temp] -->
 
