@@ -86,7 +86,7 @@ build_global_story_points <- function(summary_df) {
   # Part 1: Monthly cases
   if (!is.na(latest_cases_label)) {
     story_parts <- c(story_parts, 
-      glue::glue('Globally we estimate <span class="scrolly-step-number">{latest_cases_label}</span> cases in {last_month_label}.')
+      glue::glue('At this time globally we estimate <span class="scrolly-step-number">{latest_cases_label}</span> cases in {last_month_label}.')
     )
   }
   
@@ -328,6 +328,7 @@ render_country_plot_text_grid <- function(
       # Extract cumulative values for unified text format
       cum_ratio <- info$cum_ratio[1]
       cum_high <- info$cum_high[1]
+      has_cases <- if ("has_current_year_cases" %in% names(info)) info$has_current_year_cases[1] else TRUE
       
       # Use unified function to generate text
       desc <- severity_country_blurb(
@@ -335,7 +336,8 @@ render_country_plot_text_grid <- function(
         ratio = cum_ratio,
         cum_cases = cum_high,
         region = NULL,
-        region_href = NULL
+        region_href = NULL,
+        has_data = has_cases
       )
     } else {
       desc <- glue::glue("No current summary available for {country}.")
@@ -384,7 +386,7 @@ render_country_plot_text_grid <- function(
 
 
 # --- Utility: Build severity blurbs for high severity countries ---
-severity_country_blurb <- function(country, ratio, cum_cases, region = NULL, region_href = NULL) {
+severity_country_blurb <- function(country, ratio, cum_cases, region = NULL, region_href = NULL, has_data = NULL) {
   n <- max(length(country), length(ratio), length(cum_cases))
   if (n == 0) {
     return(character())
@@ -395,6 +397,7 @@ severity_country_blurb <- function(country, ratio, cum_cases, region = NULL, reg
   cum_cases <- rep_len(cum_cases, n)
   region <- if (is.null(region)) rep(NA_character_, n) else rep_len(region, n)
   region_href <- if (is.null(region_href)) rep(NA_character_, n) else rep_len(region_href, n)
+  has_data <- if (is.null(has_data)) rep(TRUE, n) else rep_len(has_data, n)
   
   safe_country <- ifelse(
     is.na(country) | country == "",
@@ -431,7 +434,11 @@ severity_country_blurb <- function(country, ratio, cum_cases, region = NULL, reg
   # Generate unified text format
   base_sentence <- character(n)
   for (i in seq_len(n)) {
-    if (ratio_valid[i] && cases_valid[i]) {
+    if (!has_data[i]) {
+      base_sentence[i] <- glue::glue(
+        "Current year data for {safe_country[i]} has not been reported yet. We do not have enough data to estimate current cases."
+      )
+    } else if (ratio_valid[i] && cases_valid[i]) {
       base_sentence[i] <- glue::glue(
         "{safe_country[i]} is estimated to have experienced <span class=\"scrolly-step-number\">{cases_text[i]}</span> cases this year to date. This is <span class=\"scrolly-step-number\">{ratio_text[i]}×</span> the number of cases reported in an average year. This year the dengue situation in {safe_country[i]} is <span class=\"scrolly-modifier {status_class[i]}\">{status_text[i]}</span> average."
       )

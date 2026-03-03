@@ -328,7 +328,7 @@ knitr::asis_output('<div class="scrolly-step" data-step="3">
     });
 
   window.addEventListener("resize", scroller.resize);
-  
+
   // Hide scroll down banner on scroll
   let scrollDownBanner = document.getElementById('scroll-down-banner');
   if (scrollDownBanner) {
@@ -396,6 +396,12 @@ p_map <- ggplot() +
 # ----------------------------
 # Save radial plots as images
 # ----------------------------
+# Clear stale PNGs to avoid macOS case-insensitivity clashes on case-sensitive servers
+if (dir.exists("Assets/Dynamic/region")) {
+  old_files <- list.files("Assets/Dynamic/region", pattern = "\\.png$", full.names = TRUE)
+  if (length(old_files) > 0) invisible(file.remove(old_files))
+}
+
 # Loop over each region and export its radial plot to PNG
 for(i in seq_len(nrow(region_positions))){
   region_name <- region_positions$Region[i]

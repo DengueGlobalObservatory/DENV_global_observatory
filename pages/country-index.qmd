@@ -56,7 +56,8 @@ if (!is.na(country_name_col)) {
         cum_ratio,
         cum_high,
         region = region_label,
-        region_href = region_href
+        region_href = region_href,
+        has_data = has_current_year_cases
       ),
       # Ensure we have plot available
       has_plot = country_label %in% names(all_country_plots)
@@ -239,11 +240,14 @@ if (nrow(all_countries_data) == 0) {
     }
     
     # Add data attributes for filtering/sorting
+    # No-data countries get -1 so they sort below 0 when using "Cumulative Cases (Low to High)"
+    has_cases <- row$has_current_year_cases[[1]]
+    cum_cases_for_sort <- if (!isTRUE(has_cases)) -1 else ifelse(is.na(cum_cases), 0, cum_cases)
     htmltools::div(
       class = "snapshot-card severity-card country-card",
       `data-country-name` = tolower(country_name),
       `data-region` = tolower(region_name),
-      `data-cum-cases` = ifelse(is.na(cum_cases), 0, cum_cases),
+      `data-cum-cases` = cum_cases_for_sort,
       `data-cum-ratio` = ifelse(is.na(cum_ratio), 0, cum_ratio),
       htmltools::tags$h4(country_name, class = "text-center fw-semibold"),
       region_display,

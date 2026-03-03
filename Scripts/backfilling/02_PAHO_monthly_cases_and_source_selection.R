@@ -211,6 +211,8 @@ searo_add <- searo %>%
          source,
          cases)
 
+# Indonesia moved out of SEARO; use WHO as preferred source for Indonesia
+searo_add <- searo_add %>% filter(iso3 != "IDN")
 
 who_add <- who %>%
   mutate(

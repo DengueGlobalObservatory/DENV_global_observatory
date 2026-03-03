@@ -410,6 +410,7 @@ country_summary_df <- data %>%
   mutate(
     cum_low  = sum(low_speed_raw[Month <= recent_month], na.rm = TRUE),
     cum_high = sum(high_speed_raw[Month <= recent_month], na.rm = TRUE),
+    has_current_year_cases = any(!is.na(high_speed_raw[Month <= recent_month])),
     # handle division by zero safely
     cum_ratio = if_else(cum_low == 0, NA_real_, cum_high / cum_low),
     # cap ratio between 0.5 and 2
@@ -477,7 +478,8 @@ if (!is.na(country_name_col)) {
         cum_ratio,
         cum_high,
         region = region_label,
-        region_href = region_href
+        region_href = region_href,
+        has_data = has_current_year_cases
       )
     )
   
