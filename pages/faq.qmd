@@ -130,6 +130,13 @@ format:
 </details>
 
 <details class="faq-item">
+<summary>Do you have a way to verify the accuracy of reporting, such as a common case definition supported by laboratory confirmation? Or does this vary from country to country?</summary>
+<div class="faq-answer">
+<p>Our goal is to reflect what countries are actually reporting, not to standardize case definition or compare data across countries. To confirm the case definition, please contact the relevant regional or country office directly.</p>
+</div>
+</details>
+
+<details class="faq-item">
 <summary>What does "expected number of cases" mean?</summary>
 <div class="faq-answer">
 <p>It refers to the typical seasonal pattern based on historical data for that location. Comparing the current year to "expected" helps users understand whether the seasonal number of cases is unusually high or low for that time of year.</p>

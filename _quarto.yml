@@ -22,6 +22,10 @@ project:
  
   
 website:
+  site-url: https://globaldengueobservatory.org/
+  favicon: Assets/Stable/logo.png
+  image: Assets/Stable/logo_large.png
+  open-graph: true
   navbar:
     logo: Assets/Stable/logo.png
     title: "Global Dengue Observatory"

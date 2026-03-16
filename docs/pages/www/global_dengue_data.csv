@@ -54,18 +54,18 @@
 "South America","Argentina","PAHO","Observed",2025,5,10,1976,17533,17635,4523,0.17,59771,0.95
 "South America","Argentina","PAHO","Observed",2025,6,11,86,17619,17635,942,0.03,60714,0.99
 "South America","Argentina","PAHO","Observed",2025,7,12,16,17635,17635,336,0.01,61050,1
-"South America","Argentina","PAHO","Observed",2025,8,1,4,17639,16453,53,0.01,53,0.01
-"South America","Argentina","WHO","Observed",2025,9,2,0,17639,16453,131,0.01,184,0.02
-"South America","Argentina","PAHO","Observed",2025,10,3,3,17642,16453,102,0.02,286,0.04
-"South America","Argentina","PAHO","Observed",2025,11,4,4191,21833,16453,168,0.02,454,0.06
-"South America","Argentina","PAHO","Observed",2025,12,5,3,21836,16453,1712,0.07,2166,0.13
-"South America","Argentina","PAHO","Observed",2026,1,6,6,6,16453,2700,0.03,4866,0.17
-"South America","Argentina","PAHO","Observed",2026,2,7,2,8,16453,7364,0.09,12229,0.26
-"South America","Argentina",NA,"Unobserved",2026,3,8,NA,NA,16453,25476,0.24,37706,0.5
-"South America","Argentina",NA,"Unobserved",2026,4,9,NA,NA,16453,17542,0.28,55248,0.78
-"South America","Argentina",NA,"Unobserved",2026,5,10,NA,NA,16453,4523,0.17,59771,0.95
-"South America","Argentina",NA,"Unobserved",2026,6,11,NA,NA,16453,942,0.03,60714,0.99
-"South America","Argentina",NA,"Unobserved",2026,7,12,NA,NA,16453,336,0.01,61050,1
+"South America","Argentina","PAHO","Observed",2025,8,1,4,17639,18775,53,0.01,53,0.01
+"South America","Argentina","WHO","Observed",2025,9,2,0,17639,18775,131,0.01,184,0.02
+"South America","Argentina","PAHO","Observed",2025,10,3,3,17642,18775,102,0.02,286,0.04
+"South America","Argentina","PAHO","Observed",2025,11,4,4782,22424,18775,168,0.02,454,0.06
+"South America","Argentina","PAHO","Observed",2025,12,5,3,22427,18775,1712,0.07,2166,0.13
+"South America","Argentina","PAHO","Observed",2026,1,6,7,7,18775,2700,0.03,4866,0.17
+"South America","Argentina","PAHO","Observed",2026,2,7,4,11,18775,7364,0.09,12229,0.26
+"South America","Argentina",NA,"Unobserved",2026,3,8,NA,NA,18775,25476,0.24,37706,0.5
+"South America","Argentina",NA,"Unobserved",2026,4,9,NA,NA,18775,17542,0.28,55248,0.78
+"South America","Argentina",NA,"Unobserved",2026,5,10,NA,NA,18775,4523,0.17,59771,0.95
+"South America","Argentina",NA,"Unobserved",2026,6,11,NA,NA,18775,942,0.03,60714,0.99
+"South America","Argentina",NA,"Unobserved",2026,7,12,NA,NA,18775,336,0.01,61050,1
 "South America","Argentina",NA,"Unobserved",2026,8,1,NA,NA,NA,53,0.01,53,0.01
 "South America","Argentina",NA,"Unobserved",2026,9,2,NA,NA,NA,131,0.01,184,0.02
 "South America","Argentina",NA,"Unobserved",2026,10,3,NA,NA,NA,102,0.02,286,0.04
@@ -74,18 +74,18 @@
 "Caribbean","Antigua And Barbuda","WHO","Observed",2025,1,10,0,0,2,54,0.19,236,0.77
 "Caribbean","Antigua And Barbuda","WHO","Observed",2025,2,11,0,0,2,27,0.13,263,0.9
 "Caribbean","Antigua And Barbuda","PAHO","Observed",2025,3,12,2,2,2,17,0.1,280,1
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,4,1,1,3,28,5,0.02,5,0.02
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,5,2,1,4,28,9,0.04,14,0.06
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,6,3,2,6,28,8,0.03,22,0.1
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,7,4,2,8,28,10,0.04,32,0.14
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,8,5,2,10,28,20,0.07,52,0.21
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,9,6,4,14,28,23,0.08,74,0.28
-"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,10,7,1,15,28,27,0.08,101,0.36
-"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2025,11,8,0,15,28,33,0.1,134,0.46
-"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2025,12,9,0,15,28,48,0.12,182,0.58
-"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2026,1,10,7,7,28,54,0.19,236,0.77
-"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2026,2,11,5,12,28,27,0.13,263,0.9
-"Caribbean","Antigua And Barbuda",NA,"Unobserved",2026,3,12,NA,NA,28,17,0.1,280,1
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,4,1,1,3,19,5,0.02,5,0.02
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,5,2,1,4,19,9,0.04,14,0.06
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,6,3,2,6,19,8,0.03,22,0.1
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,7,4,2,8,19,10,0.04,32,0.14
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,8,5,2,10,19,20,0.07,52,0.21
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,9,6,4,14,19,23,0.08,74,0.28
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2025,10,7,1,15,19,27,0.08,101,0.36
+"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2025,11,8,0,15,19,33,0.1,134,0.46
+"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2025,12,9,0,15,19,48,0.12,182,0.58
+"Caribbean","Antigua And Barbuda","PAHO","Observed",2026,1,10,2,2,19,54,0.19,236,0.77
+"Caribbean","Antigua And Barbuda","Estimates","Unobserved",2026,2,11,2,4,19,27,0.13,263,0.9
+"Caribbean","Antigua And Barbuda",NA,"Unobserved",2026,3,12,NA,NA,19,17,0.1,280,1
 "Caribbean","Antigua And Barbuda",NA,"Unobserved",2026,4,1,NA,NA,NA,5,0.02,5,0.02
 "Caribbean","Antigua And Barbuda",NA,"Unobserved",2026,5,2,NA,NA,NA,9,0.04,14,0.06
 "Caribbean","Antigua And Barbuda",NA,"Unobserved",2026,6,3,NA,NA,NA,8,0.03,22,0.1
@@ -169,28 +169,28 @@
 "Sub-Saharan Africa","Burkina Faso",NA,"Unobserved",2026,12,9,NA,NA,NA,4515,0.08,52412,0.91
 "South Asia","Bangladesh","SEARO","Observed",2025,1,11,1161,1161,1535,218,0.01,43130,1
 "South Asia","Bangladesh","SEARO","Observed",2025,2,12,374,1535,1535,71,0,43201,1
-"South Asia","Bangladesh","SEARO","Observed",2025,3,1,336,1871,102413,39,0,39,0
-"South Asia","Bangladesh","SEARO","Observed",2025,4,2,701,2572,102413,60,0,99,0.01
-"South Asia","Bangladesh","SEARO","Observed",2025,5,3,1773,4345,102413,139,0.01,237,0.02
-"South Asia","Bangladesh","SEARO","Observed",2025,6,4,5951,10296,102413,785,0.03,1022,0.04
-"South Asia","Bangladesh","SEARO","Observed",2025,7,5,10684,20980,102413,4430,0.11,5452,0.15
-"South Asia","Bangladesh","SEARO","Observed",2025,8,6,10496,31476,102413,10642,0.24,16094,0.39
-"South Asia","Bangladesh","SEARO","Observed",2025,9,7,15866,47342,102413,9259,0.23,25353,0.62
-"South Asia","Bangladesh","SEARO","Observed",2025,10,8,22520,69862,102413,8730,0.19,34083,0.81
-"South Asia","Bangladesh","SEARO","Observed",2025,11,9,24540,94402,102413,7023,0.14,41106,0.95
-"South Asia","Bangladesh","SEARO","Observed",2025,12,10,8465,102867,102413,1806,0.05,42913,0.99
-"South Asia","Bangladesh","SEARO","Observed",2026,1,11,1081,1081,102413,218,0.01,43130,1
-"South Asia","Bangladesh","SEARO","Observed",2026,2,12,0,1081,102413,71,0,43201,1
-"South Asia","Bangladesh","SEARO","Observed",2026,3,1,NA,NA,0,39,0,39,0
-"South Asia","Bangladesh","SEARO","Observed",2026,4,2,NA,NA,0,60,0,99,0.01
-"South Asia","Bangladesh","SEARO","Observed",2026,5,3,NA,NA,0,139,0.01,237,0.02
-"South Asia","Bangladesh","SEARO","Observed",2026,6,4,NA,NA,0,785,0.03,1022,0.04
-"South Asia","Bangladesh","SEARO","Observed",2026,7,5,NA,NA,0,4430,0.11,5452,0.15
-"South Asia","Bangladesh","SEARO","Observed",2026,8,6,NA,NA,0,10642,0.24,16094,0.39
-"South Asia","Bangladesh","SEARO","Observed",2026,9,7,NA,NA,0,9259,0.23,25353,0.62
-"South Asia","Bangladesh","SEARO","Observed",2026,10,8,NA,NA,0,8730,0.19,34083,0.81
-"South Asia","Bangladesh","SEARO","Observed",2026,11,9,NA,NA,0,7023,0.14,41106,0.95
-"South Asia","Bangladesh","SEARO","Observed",2026,12,10,NA,NA,0,1806,0.05,42913,0.99
+"South Asia","Bangladesh","SEARO","Observed",2025,3,1,336,1871,102822,39,0,39,0
+"South Asia","Bangladesh","SEARO","Observed",2025,4,2,701,2572,102822,60,0,99,0.01
+"South Asia","Bangladesh","SEARO","Observed",2025,5,3,1773,4345,102822,139,0.01,237,0.02
+"South Asia","Bangladesh","SEARO","Observed",2025,6,4,5951,10296,102822,785,0.03,1022,0.04
+"South Asia","Bangladesh","SEARO","Observed",2025,7,5,10684,20980,102822,4430,0.11,5452,0.15
+"South Asia","Bangladesh","SEARO","Observed",2025,8,6,10496,31476,102822,10642,0.24,16094,0.39
+"South Asia","Bangladesh","SEARO","Observed",2025,9,7,15866,47342,102822,9259,0.23,25353,0.62
+"South Asia","Bangladesh","SEARO","Observed",2025,10,8,22520,69862,102822,8730,0.19,34083,0.81
+"South Asia","Bangladesh","SEARO","Observed",2025,11,9,24540,94402,102822,7023,0.14,41106,0.95
+"South Asia","Bangladesh","SEARO","Observed",2025,12,10,8465,102867,102822,1806,0.05,42913,0.99
+"South Asia","Bangladesh","SEARO","Observed",2026,1,11,1081,1081,102822,218,0.01,43130,1
+"South Asia","Bangladesh","SEARO","Observed",2026,2,12,409,1490,102822,71,0,43201,1
+"South Asia","Bangladesh","SEARO","Unobserved",2026,3,1,NA,NA,NA,39,0,39,0
+"South Asia","Bangladesh","SEARO","Unobserved",2026,4,2,NA,NA,NA,60,0,99,0.01
+"South Asia","Bangladesh","SEARO","Unobserved",2026,5,3,NA,NA,NA,139,0.01,237,0.02
+"South Asia","Bangladesh","SEARO","Unobserved",2026,6,4,NA,NA,NA,785,0.03,1022,0.04
+"South Asia","Bangladesh","SEARO","Unobserved",2026,7,5,NA,NA,NA,4430,0.11,5452,0.15
+"South Asia","Bangladesh","SEARO","Unobserved",2026,8,6,NA,NA,NA,10642,0.24,16094,0.39
+"South Asia","Bangladesh","SEARO","Unobserved",2026,9,7,NA,NA,NA,9259,0.23,25353,0.62
+"South Asia","Bangladesh","SEARO","Unobserved",2026,10,8,NA,NA,NA,8730,0.19,34083,0.81
+"South Asia","Bangladesh","SEARO","Unobserved",2026,11,9,NA,NA,NA,7023,0.14,41106,0.95
+"South Asia","Bangladesh","SEARO","Unobserved",2026,12,10,NA,NA,NA,1806,0.05,42913,0.99
 "Caribbean","Bahamas","WHO","Unobserved",2025,1,10,NA,0,NA,131,0.12,1660,0.87
 "Caribbean","Bahamas","WHO","Unobserved",2025,2,11,NA,0,NA,84,0.08,1744,0.95
 "Caribbean","Bahamas","WHO","Unobserved",2025,3,12,NA,0,NA,57,0.05,1800,1
@@ -241,18 +241,18 @@
 "Caribbean","Saint Barthelemy",NA,"Unobserved",2026,12,9,NA,NA,NA,48,0.13,353,0.67
 "North & Central America","Belize","PAHO","Observed",2025,1,11,54,54,111,264,0.08,3441,0.94
 "North & Central America","Belize","PAHO","Observed",2025,2,12,57,111,111,188,0.06,3629,1
-"North & Central America","Belize","PAHO","Observed",2025,3,1,98,209,3146,208,0.07,208,0.07
-"North & Central America","Belize","PAHO","Observed",2025,4,2,57,266,3146,147,0.05,355,0.12
-"North & Central America","Belize","PAHO","Observed",2025,5,3,71,337,3146,184,0.06,539,0.17
-"North & Central America","Belize","PAHO","Observed",2025,6,4,129,466,3146,244,0.07,783,0.24
-"North & Central America","Belize","PAHO","Observed",2025,7,5,298,764,3146,330,0.09,1113,0.33
-"North & Central America","Belize","PAHO","Observed",2025,8,6,575,1339,3146,472,0.12,1585,0.45
-"North & Central America","Belize","PAHO","Observed",2025,9,7,625,1964,3146,489,0.12,2074,0.57
-"North & Central America","Belize","PAHO","Observed",2025,10,8,412,2376,3146,483,0.12,2557,0.7
-"North & Central America","Belize","PAHO","Observed",2025,11,9,221,2597,3146,380,0.09,2937,0.79
-"North & Central America","Belize","PAHO","Observed",2025,12,10,200,2797,3146,240,0.06,3177,0.85
-"North & Central America","Belize","Estimates","Unobserved",2026,1,11,265,265,3146,264,0.08,3441,0.94
-"North & Central America","Belize","Estimates","Unobserved",2026,2,12,195,460,3146,188,0.06,3629,1
+"North & Central America","Belize","PAHO","Observed",2025,3,1,98,209,2918,208,0.07,208,0.07
+"North & Central America","Belize","PAHO","Observed",2025,4,2,57,266,2918,147,0.05,355,0.12
+"North & Central America","Belize","PAHO","Observed",2025,5,3,71,337,2918,184,0.06,539,0.17
+"North & Central America","Belize","PAHO","Observed",2025,6,4,129,466,2918,244,0.07,783,0.24
+"North & Central America","Belize","PAHO","Observed",2025,7,5,298,764,2918,330,0.09,1113,0.33
+"North & Central America","Belize","PAHO","Observed",2025,8,6,575,1339,2918,472,0.12,1585,0.45
+"North & Central America","Belize","PAHO","Observed",2025,9,7,625,1964,2918,489,0.12,2074,0.57
+"North & Central America","Belize","PAHO","Observed",2025,10,8,412,2376,2918,483,0.12,2557,0.7
+"North & Central America","Belize","PAHO","Observed",2025,11,9,221,2597,2918,380,0.09,2937,0.79
+"North & Central America","Belize","PAHO","Observed",2025,12,10,200,2797,2918,240,0.06,3177,0.85
+"North & Central America","Belize","PAHO","Observed",2026,1,11,177,177,2918,264,0.08,3441,0.94
+"North & Central America","Belize","PAHO","Observed",2026,2,12,55,232,2918,188,0.06,3629,1
 "North & Central America","Belize",NA,"Unobserved",2026,3,1,NA,NA,NA,208,0.07,208,0.07
 "North & Central America","Belize",NA,"Unobserved",2026,4,2,NA,NA,NA,147,0.05,355,0.12
 "North & Central America","Belize",NA,"Unobserved",2026,5,3,NA,NA,NA,184,0.06,539,0.17
@@ -270,62 +270,62 @@
 "South America","Bolivia","PAHO","Observed",2025,5,10,5762,23818,29022,3853,0.1,44084,0.93
 "South America","Bolivia","PAHO","Observed",2025,6,11,4063,27881,29022,1411,0.04,45494,0.98
 "South America","Bolivia","PAHO","Observed",2025,7,12,1141,29022,29022,712,0.02,46206,1
-"South America","Bolivia","PAHO","Observed",2025,8,1,844,29866,50967,527,0.02,527,0.02
-"South America","Bolivia","PAHO","Observed",2025,9,2,1167,31033,50967,571,0.02,1098,0.03
-"South America","Bolivia","PAHO","Observed",2025,10,3,1061,32094,50967,928,0.03,2026,0.06
-"South America","Bolivia","PAHO","Observed",2025,11,4,1840,33934,50967,1616,0.05,3642,0.12
-"South America","Bolivia","PAHO","Observed",2025,12,5,4377,38311,50967,2786,0.08,6428,0.2
-"South America","Bolivia","PAHO","Observed",2026,1,6,10139,10139,50967,7102,0.13,13530,0.33
-"South America","Bolivia","PAHO","Observed",2026,2,7,5169,15308,50967,9661,0.16,23191,0.48
-"South America","Bolivia",NA,"Unobserved",2026,3,8,NA,NA,50967,9804,0.19,32995,0.67
-"South America","Bolivia",NA,"Unobserved",2026,4,9,NA,NA,50967,7236,0.16,40230,0.83
-"South America","Bolivia",NA,"Unobserved",2026,5,10,NA,NA,50967,3853,0.1,44084,0.93
-"South America","Bolivia",NA,"Unobserved",2026,6,11,NA,NA,50967,1411,0.04,45494,0.98
-"South America","Bolivia",NA,"Unobserved",2026,7,12,NA,NA,50967,712,0.02,46206,1
+"South America","Bolivia","PAHO","Observed",2025,8,1,841,29863,49746,527,0.02,527,0.02
+"South America","Bolivia","PAHO","Observed",2025,9,2,1170,31033,49746,571,0.02,1098,0.03
+"South America","Bolivia","PAHO","Observed",2025,10,3,1061,32094,49746,928,0.03,2026,0.06
+"South America","Bolivia","PAHO","Observed",2025,11,4,1837,33931,49746,1616,0.05,3642,0.12
+"South America","Bolivia","PAHO","Observed",2025,12,5,4219,38150,49746,2786,0.08,6428,0.2
+"South America","Bolivia","PAHO","Observed",2026,1,6,9707,9707,49746,7102,0.13,13530,0.33
+"South America","Bolivia","PAHO","Observed",2026,2,7,5173,14880,49746,9661,0.16,23191,0.48
+"South America","Bolivia",NA,"Unobserved",2026,3,8,NA,NA,49746,9804,0.19,32995,0.67
+"South America","Bolivia",NA,"Unobserved",2026,4,9,NA,NA,49746,7236,0.16,40230,0.83
+"South America","Bolivia",NA,"Unobserved",2026,5,10,NA,NA,49746,3853,0.1,44084,0.93
+"South America","Bolivia",NA,"Unobserved",2026,6,11,NA,NA,49746,1411,0.04,45494,0.98
+"South America","Bolivia",NA,"Unobserved",2026,7,12,NA,NA,49746,712,0.02,46206,1
 "South America","Bolivia",NA,"Unobserved",2026,8,1,NA,NA,NA,527,0.02,527,0.02
 "South America","Bolivia",NA,"Unobserved",2026,9,2,NA,NA,NA,571,0.02,1098,0.03
 "South America","Bolivia",NA,"Unobserved",2026,10,3,NA,NA,NA,928,0.03,2026,0.06
 "South America","Bolivia",NA,"Unobserved",2026,11,4,NA,NA,NA,1616,0.05,3642,0.12
 "South America","Bolivia",NA,"Unobserved",2026,12,5,NA,NA,NA,2786,0.08,6428,0.2
-"South America","Brazil","PAHO","Observed",2025,1,4,461795,461795,3500201,193597,0.09,314191,0.16
-"South America","Brazil","PAHO","Observed",2025,2,5,568383,1030178,3500201,311238,0.13,625429,0.3
-"South America","Brazil","PAHO","Observed",2025,3,6,868524,1898702,3500201,485519,0.2,1110948,0.49
-"South America","Brazil","PAHO","Observed",2025,4,7,613570,2512272,3500201,458700,0.21,1569647,0.71
-"South America","Brazil","PAHO","Observed",2025,5,8,465470,2977742,3500201,311047,0.15,1880694,0.85
-"South America","Brazil","PAHO","Observed",2025,6,9,209066,3186808,3500201,127702,0.06,2008397,0.92
-"South America","Brazil","PAHO","Observed",2025,7,10,88869,3275677,3500201,60113,0.03,2068509,0.95
-"South America","Brazil","PAHO","Observed",2025,8,11,92881,3368558,3500201,40502,0.02,2109012,0.98
-"South America","Brazil","PAHO","Observed",2025,9,12,131643,3500201,3500201,39160,0.02,2148172,1
-"South America","Brazil","PAHO","Observed",2025,10,1,114745,3614946,1849115,34391,0.02,34391,0.02
-"South America","Brazil","PAHO","Observed",2025,11,2,122503,3737449,1849115,42457,0.02,76848,0.05
-"South America","Brazil","PAHO","Observed",2025,12,3,144025,3881474,1849115,43746,0.03,120593,0.07
-"South America","Brazil","PAHO","Observed",2026,1,4,151859,151859,1849115,193597,0.09,314191,0.16
-"South America","Brazil","PAHO","Observed",2026,2,5,14218,166077,1849115,311238,0.13,625429,0.3
-"South America","Brazil",NA,"Unobserved",2026,3,6,NA,NA,1849115,485519,0.2,1110948,0.49
-"South America","Brazil",NA,"Unobserved",2026,4,7,NA,NA,1849115,458700,0.21,1569647,0.71
-"South America","Brazil",NA,"Unobserved",2026,5,8,NA,NA,1849115,311047,0.15,1880694,0.85
-"South America","Brazil",NA,"Unobserved",2026,6,9,NA,NA,1849115,127702,0.06,2008397,0.92
-"South America","Brazil",NA,"Unobserved",2026,7,10,NA,NA,1849115,60113,0.03,2068509,0.95
-"South America","Brazil",NA,"Unobserved",2026,8,11,NA,NA,1849115,40502,0.02,2109012,0.98
-"South America","Brazil",NA,"Unobserved",2026,9,12,NA,NA,1849115,39160,0.02,2148172,1
+"South America","Brazil","PAHO","Observed",2025,1,4,462762,462762,3504006,193597,0.09,314191,0.16
+"South America","Brazil","PAHO","Observed",2025,2,5,568886,1031648,3504006,311238,0.13,625429,0.3
+"South America","Brazil","PAHO","Observed",2025,3,6,869993,1901641,3504006,485519,0.2,1110948,0.49
+"South America","Brazil","PAHO","Observed",2025,4,7,614614,2516255,3504006,458700,0.21,1569647,0.71
+"South America","Brazil","PAHO","Observed",2025,5,8,466145,2982400,3504006,311047,0.15,1880694,0.85
+"South America","Brazil","PAHO","Observed",2025,6,9,209227,3191627,3504006,127702,0.06,2008397,0.92
+"South America","Brazil","PAHO","Observed",2025,7,10,88920,3280547,3504006,60113,0.03,2068509,0.95
+"South America","Brazil","PAHO","Observed",2025,8,11,84812,3365359,3504006,40502,0.02,2109012,0.98
+"South America","Brazil","PAHO","Observed",2025,9,12,138647,3504006,3504006,39160,0.02,2148172,1
+"South America","Brazil","PAHO","Observed",2025,10,1,113051,3617057,2305331,34391,0.02,34391,0.02
+"South America","Brazil","PAHO","Observed",2025,11,2,120145,3737202,2305331,42457,0.02,76848,0.05
+"South America","Brazil","PAHO","Observed",2025,12,3,148743,3885945,2305331,43746,0.03,120593,0.07
+"South America","Brazil","PAHO","Observed",2026,1,4,163600,163600,2305331,193597,0.09,314191,0.16
+"South America","Brazil","PAHO","Observed",2026,2,5,136854,300454,2305331,311238,0.13,625429,0.3
+"South America","Brazil",NA,"Unobserved",2026,3,6,NA,NA,2305331,485519,0.2,1110948,0.49
+"South America","Brazil",NA,"Unobserved",2026,4,7,NA,NA,2305331,458700,0.21,1569647,0.71
+"South America","Brazil",NA,"Unobserved",2026,5,8,NA,NA,2305331,311047,0.15,1880694,0.85
+"South America","Brazil",NA,"Unobserved",2026,6,9,NA,NA,2305331,127702,0.06,2008397,0.92
+"South America","Brazil",NA,"Unobserved",2026,7,10,NA,NA,2305331,60113,0.03,2068509,0.95
+"South America","Brazil",NA,"Unobserved",2026,8,11,NA,NA,2305331,40502,0.02,2109012,0.98
+"South America","Brazil",NA,"Unobserved",2026,9,12,NA,NA,2305331,39160,0.02,2148172,1
 "South America","Brazil",NA,"Unobserved",2026,10,1,NA,NA,NA,34391,0.02,34391,0.02
 "South America","Brazil",NA,"Unobserved",2026,11,2,NA,NA,NA,42457,0.02,76848,0.05
 "South America","Brazil",NA,"Unobserved",2026,12,3,NA,NA,NA,43746,0.03,120593,0.07
 "Caribbean","Barbados","PAHO","Observed",2025,1,10,28,28,56,135,0.14,935,0.84
 "Caribbean","Barbados","PAHO","Observed",2025,2,11,16,44,56,91,0.09,1026,0.94
 "Caribbean","Barbados","PAHO","Observed",2025,3,12,12,56,56,62,0.06,1089,1
-"Caribbean","Barbados","PAHO","Observed",2025,4,1,18,74,388,41,0.06,41,0.06
-"Caribbean","Barbados","PAHO","Observed",2025,5,2,10,84,388,43,0.05,85,0.11
-"Caribbean","Barbados","PAHO","Observed",2025,6,3,11,95,388,47,0.06,131,0.17
-"Caribbean","Barbados","PAHO","Observed",2025,7,4,13,108,388,48,0.06,179,0.23
-"Caribbean","Barbados","PAHO","Observed",2025,8,5,103,211,388,74,0.07,253,0.3
-"Caribbean","Barbados","PAHO","Observed",2025,9,6,127,338,388,165,0.12,419,0.42
-"Caribbean","Barbados","PAHO","Observed",2025,10,7,12,350,388,149,0.11,568,0.53
-"Caribbean","Barbados","PAHO","Observed",2025,11,8,24,374,388,124,0.09,692,0.62
-"Caribbean","Barbados","PAHO","Observed",2025,12,9,6,380,388,109,0.08,800,0.7
-"Caribbean","Barbados","PAHO","Observed",2026,1,10,3,3,388,135,0.14,935,0.84
-"Caribbean","Barbados","Estimates","Unobserved",2026,2,11,37,40,388,91,0.09,1026,0.94
-"Caribbean","Barbados",NA,"Unobserved",2026,3,12,NA,NA,388,62,0.06,1089,1
+"Caribbean","Barbados","PAHO","Observed",2025,4,1,18,74,428,41,0.06,41,0.06
+"Caribbean","Barbados","PAHO","Observed",2025,5,2,10,84,428,43,0.05,85,0.11
+"Caribbean","Barbados","PAHO","Observed",2025,6,3,11,95,428,47,0.06,131,0.17
+"Caribbean","Barbados","PAHO","Observed",2025,7,4,13,108,428,48,0.06,179,0.23
+"Caribbean","Barbados","PAHO","Observed",2025,8,5,11,119,428,74,0.07,253,0.3
+"Caribbean","Barbados","PAHO","Observed",2025,9,6,172,291,428,165,0.12,419,0.42
+"Caribbean","Barbados","PAHO","Observed",2025,10,7,123,414,428,149,0.11,568,0.53
+"Caribbean","Barbados","PAHO","Observed",2025,11,8,24,438,428,124,0.09,692,0.62
+"Caribbean","Barbados","PAHO","Observed",2025,12,9,6,444,428,109,0.08,800,0.7
+"Caribbean","Barbados","PAHO","Observed",2026,1,10,11,11,428,135,0.14,935,0.84
+"Caribbean","Barbados","PAHO","Observed",2026,2,11,2,13,428,91,0.09,1026,0.94
+"Caribbean","Barbados",NA,"Unobserved",2026,3,12,NA,NA,428,62,0.06,1089,1
 "Caribbean","Barbados",NA,"Unobserved",2026,4,1,NA,NA,NA,41,0.06,41,0.06
 "Caribbean","Barbados",NA,"Unobserved",2026,5,2,NA,NA,NA,43,0.05,85,0.11
 "Caribbean","Barbados",NA,"Unobserved",2026,6,3,NA,NA,NA,47,0.06,131,0.17
@@ -348,44 +348,44 @@
 "East & Southeast Asia","Brunei Darussalam",NA,"Unobserved",NA,11,7,NA,NA,NA,33,0.09,201,0.57
 "East & Southeast Asia","Brunei Darussalam",NA,"Unobserved",NA,12,8,NA,NA,NA,30,0.09,231,0.66
 "South Asia","Bhutan","SEARO","Observed",2025,1,11,2,2,2,62,0.15,951,0.92
-"South Asia","Bhutan","SEARO","Observed",2025,2,12,0,2,2,30,0.08,981,1
-"South Asia","Bhutan","SEARO","Observed",2025,3,1,1,3,33,52,0.04,52,0.04
-"South Asia","Bhutan","SEARO","Observed",2025,4,2,0,3,33,53,0.05,105,0.09
-"South Asia","Bhutan","SEARO","Observed",2025,5,3,1,4,33,41,0.03,146,0.12
-"South Asia","Bhutan","SEARO","Observed",2025,6,4,0,4,33,56,0.05,202,0.17
-"South Asia","Bhutan","SEARO","Observed",2025,7,5,3,7,33,74,0.07,277,0.24
-"South Asia","Bhutan","SEARO","Observed",2025,8,6,22,29,33,139,0.12,416,0.36
-"South Asia","Bhutan","SEARO","Observed",2025,9,7,5,34,33,132,0.11,548,0.47
-"South Asia","Bhutan","SEARO","Observed",2025,10,8,1,35,33,128,0.11,677,0.59
-"South Asia","Bhutan","SEARO","Observed",2025,11,9,0,35,33,120,0.1,796,0.69
-"South Asia","Bhutan","SEARO","Observed",2025,12,10,0,35,33,94,0.08,890,0.77
-"South Asia","Bhutan","SEARO","Observed",2026,1,11,0,0,33,62,0.15,951,0.92
-"South Asia","Bhutan","SEARO","Observed",2026,2,12,0,0,33,30,0.08,981,1
-"South Asia","Bhutan","SEARO","Observed",2026,3,1,NA,NA,0,52,0.04,52,0.04
-"South Asia","Bhutan","SEARO","Observed",2026,4,2,NA,NA,0,53,0.05,105,0.09
-"South Asia","Bhutan","SEARO","Observed",2026,5,3,NA,NA,0,41,0.03,146,0.12
-"South Asia","Bhutan","SEARO","Observed",2026,6,4,NA,NA,0,56,0.05,202,0.17
-"South Asia","Bhutan","SEARO","Observed",2026,7,5,NA,NA,0,74,0.07,277,0.24
-"South Asia","Bhutan","SEARO","Observed",2026,8,6,NA,NA,0,139,0.12,416,0.36
-"South Asia","Bhutan","SEARO","Observed",2026,9,7,NA,NA,0,132,0.11,548,0.47
-"South Asia","Bhutan","SEARO","Observed",2026,10,8,NA,NA,0,128,0.11,677,0.59
-"South Asia","Bhutan","SEARO","Observed",2026,11,9,NA,NA,0,120,0.1,796,0.69
-"South Asia","Bhutan","SEARO","Observed",2026,12,10,NA,NA,0,94,0.08,890,0.77
+"South Asia","Bhutan","Estimates","Unobserved",2025,2,12,0,2,2,30,0.08,981,1
+"South Asia","Bhutan","SEARO","Observed",2025,3,1,1,3,46,52,0.04,52,0.04
+"South Asia","Bhutan","Estimates","Unobserved",2025,4,2,0,3,46,53,0.05,105,0.09
+"South Asia","Bhutan","SEARO","Observed",2025,5,3,1,4,46,41,0.03,146,0.12
+"South Asia","Bhutan","Estimates","Unobserved",2025,6,4,0,4,46,56,0.05,202,0.17
+"South Asia","Bhutan","SEARO","Observed",2025,7,5,3,7,46,74,0.07,277,0.24
+"South Asia","Bhutan","SEARO","Observed",2025,8,6,22,29,46,139,0.12,416,0.36
+"South Asia","Bhutan","SEARO","Observed",2025,9,7,5,34,46,132,0.11,548,0.47
+"South Asia","Bhutan","SEARO","Observed",2025,10,8,1,35,46,128,0.11,677,0.59
+"South Asia","Bhutan","Estimates","Unobserved",2025,11,9,0,35,46,120,0.1,796,0.69
+"South Asia","Bhutan","Estimates","Unobserved",2025,12,10,0,35,46,94,0.08,890,0.77
+"South Asia","Bhutan","Estimates","Unobserved",2026,1,11,9,9,46,62,0.15,951,0.92
+"South Asia","Bhutan","Estimates","Unobserved",2026,2,12,4,13,46,30,0.08,981,1
+"South Asia","Bhutan","SEARO","Unobserved",2026,3,1,NA,NA,NA,52,0.04,52,0.04
+"South Asia","Bhutan","SEARO","Unobserved",2026,4,2,NA,NA,NA,53,0.05,105,0.09
+"South Asia","Bhutan","SEARO","Unobserved",2026,5,3,NA,NA,NA,41,0.03,146,0.12
+"South Asia","Bhutan","SEARO","Unobserved",2026,6,4,NA,NA,NA,56,0.05,202,0.17
+"South Asia","Bhutan","SEARO","Unobserved",2026,7,5,NA,NA,NA,74,0.07,277,0.24
+"South Asia","Bhutan","SEARO","Unobserved",2026,8,6,NA,NA,NA,139,0.12,416,0.36
+"South Asia","Bhutan","SEARO","Unobserved",2026,9,7,NA,NA,NA,132,0.11,548,0.47
+"South Asia","Bhutan","SEARO","Unobserved",2026,10,8,NA,NA,NA,128,0.11,677,0.59
+"South Asia","Bhutan","SEARO","Unobserved",2026,11,9,NA,NA,NA,120,0.1,796,0.69
+"South Asia","Bhutan","SEARO","Unobserved",2026,12,10,NA,NA,NA,94,0.08,890,0.77
 "South America","Chile","WHO","Observed",2025,1,10,0,0,0,1,0.04,28,0.73
 "South America","Chile","WHO","Observed",2025,2,11,0,0,0,2,0.06,30,0.8
 "South America","Chile","WHO","Observed",2025,3,12,0,0,0,8,0.2,38,1
-"South America","Chile","WHO","Observed",2025,4,1,0,0,0,13,0.34,13,0.34
-"South America","Chile","WHO","Observed",2025,5,2,0,0,0,6,0.15,19,0.49
-"South America","Chile","WHO","Observed",2025,6,3,0,0,0,2,0.04,20,0.54
-"South America","Chile","WHO","Observed",2025,7,4,0,0,0,1,0.03,21,0.56
-"South America","Chile","WHO","Observed",2025,8,5,0,0,0,1,0.03,22,0.59
-"South America","Chile","WHO","Observed",2025,9,6,0,0,0,1,0.03,23,0.62
-"South America","Chile","WHO","Observed",2025,10,7,0,0,0,1,0.03,24,0.64
-"South America","Chile","WHO","Observed",2025,11,8,0,0,0,1,0.03,25,0.67
-"South America","Chile","WHO","Observed",2025,12,9,0,0,0,1,0.03,26,0.7
-"South America","Chile","WHO","Observed",2026,1,10,0,0,0,1,0.04,28,0.73
-"South America","Chile","Estimates","Unobserved",2026,2,11,0,0,0,2,0.06,30,0.8
-"South America","Chile",NA,"Unobserved",2026,3,12,NA,NA,0,8,0.2,38,1
+"South America","Chile","WHO","Observed",2025,4,1,0,0,12,13,0.34,13,0.34
+"South America","Chile","WHO","Observed",2025,5,2,0,0,12,6,0.15,19,0.49
+"South America","Chile","WHO","Observed",2025,6,3,0,0,12,2,0.04,20,0.54
+"South America","Chile","WHO","Observed",2025,7,4,0,0,12,1,0.03,21,0.56
+"South America","Chile","WHO","Observed",2025,8,5,0,0,12,1,0.03,22,0.59
+"South America","Chile","WHO","Observed",2025,9,6,0,0,12,1,0.03,23,0.62
+"South America","Chile","WHO","Observed",2025,10,7,0,0,12,1,0.03,24,0.64
+"South America","Chile","WHO","Observed",2025,11,8,0,0,12,1,0.03,25,0.67
+"South America","Chile","WHO","Observed",2025,12,9,0,0,12,1,0.03,26,0.7
+"South America","Chile","WHO","Observed",2026,1,10,0,0,12,1,0.04,28,0.73
+"South America","Chile","PAHO","Observed",2026,2,11,6,6,12,2,0.06,30,0.8
+"South America","Chile","PAHO","Observed",2026,3,12,NA,NA,12,8,0.2,38,1
 "South America","Chile",NA,"Unobserved",2026,4,1,NA,NA,NA,13,0.34,13,0.34
 "South America","Chile",NA,"Unobserved",2026,5,2,NA,NA,NA,6,0.15,19,0.49
 "South America","Chile",NA,"Unobserved",2026,6,3,NA,NA,NA,2,0.04,20,0.54
@@ -480,31 +480,31 @@
 "South America","Colombia","PAHO","Observed",2025,11,10,6554,117710,116862,7498,0.08,85830,0.82
 "South America","Colombia","PAHO","Observed",2025,12,11,7409,125119,116862,7023,0.08,92853,0.89
 "South America","Colombia","PAHO","Observed",2026,1,12,11537,11537,116862,9961,0.11,102814,1
-"South America","Colombia","PAHO","Observed",2026,2,1,4771,16308,54994,8925,0.09,8925,0.09
-"South America","Colombia",NA,"Unobserved",2026,3,2,NA,NA,54994,9758,0.09,18683,0.17
-"South America","Colombia",NA,"Unobserved",2026,4,3,NA,NA,54994,9446,0.09,28129,0.26
-"South America","Colombia",NA,"Unobserved",2026,5,4,NA,NA,54994,10349,0.09,38479,0.35
-"South America","Colombia",NA,"Unobserved",2026,6,5,NA,NA,54994,9796,0.08,48274,0.44
-"South America","Colombia",NA,"Unobserved",2026,7,6,NA,NA,54994,8740,0.08,57014,0.52
-"South America","Colombia",NA,"Unobserved",2026,8,7,NA,NA,54994,7105,0.07,64120,0.59
-"South America","Colombia",NA,"Unobserved",2026,9,8,NA,NA,54994,7135,0.07,71254,0.66
-"South America","Colombia",NA,"Unobserved",2026,10,9,NA,NA,54994,7078,0.08,78332,0.74
-"South America","Colombia",NA,"Unobserved",2026,11,10,NA,NA,54994,7498,0.08,85830,0.82
-"South America","Colombia",NA,"Unobserved",2026,12,11,NA,NA,54994,7023,0.08,92853,0.89
+"South America","Colombia","PAHO","Observed",2026,2,1,9292,20829,107107,8925,0.09,8925,0.09
+"South America","Colombia",NA,"Unobserved",2026,3,2,NA,NA,107107,9758,0.09,18683,0.17
+"South America","Colombia",NA,"Unobserved",2026,4,3,NA,NA,107107,9446,0.09,28129,0.26
+"South America","Colombia",NA,"Unobserved",2026,5,4,NA,NA,107107,10349,0.09,38479,0.35
+"South America","Colombia",NA,"Unobserved",2026,6,5,NA,NA,107107,9796,0.08,48274,0.44
+"South America","Colombia",NA,"Unobserved",2026,7,6,NA,NA,107107,8740,0.08,57014,0.52
+"South America","Colombia",NA,"Unobserved",2026,8,7,NA,NA,107107,7105,0.07,64120,0.59
+"South America","Colombia",NA,"Unobserved",2026,9,8,NA,NA,107107,7135,0.07,71254,0.66
+"South America","Colombia",NA,"Unobserved",2026,10,9,NA,NA,107107,7078,0.08,78332,0.74
+"South America","Colombia",NA,"Unobserved",2026,11,10,NA,NA,107107,7498,0.08,85830,0.82
+"South America","Colombia",NA,"Unobserved",2026,12,11,NA,NA,107107,7023,0.08,92853,0.89
 "North & Central America","Costa Rica","PAHO","Observed",2025,1,11,544,544,804,1601,0.07,20908,0.96
 "North & Central America","Costa Rica","PAHO","Observed",2025,2,12,260,804,804,838,0.04,21746,1
-"North & Central America","Costa Rica","PAHO","Observed",2025,3,1,286,1090,5930,747,0.04,747,0.04
-"North & Central America","Costa Rica","PAHO","Observed",2025,4,2,165,1255,5930,672,0.04,1419,0.07
-"North & Central America","Costa Rica","PAHO","Observed",2025,5,3,185,1440,5930,1167,0.06,2586,0.13
-"North & Central America","Costa Rica","PAHO","Observed",2025,6,4,326,1766,5930,1925,0.1,4511,0.23
-"North & Central America","Costa Rica","PAHO","Observed",2025,7,5,492,2258,5930,2679,0.13,7190,0.37
-"North & Central America","Costa Rica","PAHO","Observed",2025,8,6,661,2919,5930,2838,0.13,10027,0.5
-"North & Central America","Costa Rica","PAHO","Observed",2025,9,7,893,3812,5930,2611,0.12,12639,0.61
-"North & Central America","Costa Rica","PAHO","Observed",2025,10,8,783,4595,5930,2652,0.11,15290,0.73
-"North & Central America","Costa Rica","PAHO","Observed",2025,11,9,815,5410,5930,2511,0.1,17801,0.83
-"North & Central America","Costa Rica","PAHO","Observed",2025,12,10,714,6124,5930,1506,0.06,19307,0.89
-"North & Central America","Costa Rica","PAHO","Observed",2026,1,11,503,503,5930,1601,0.07,20908,0.96
-"North & Central America","Costa Rica","PAHO","Observed",2026,2,12,107,610,5930,838,0.04,21746,1
+"North & Central America","Costa Rica","PAHO","Observed",2025,3,1,286,1090,5953,747,0.04,747,0.04
+"North & Central America","Costa Rica","PAHO","Observed",2025,4,2,165,1255,5953,672,0.04,1419,0.07
+"North & Central America","Costa Rica","PAHO","Observed",2025,5,3,185,1440,5953,1167,0.06,2586,0.13
+"North & Central America","Costa Rica","PAHO","Observed",2025,6,4,326,1766,5953,1925,0.1,4511,0.23
+"North & Central America","Costa Rica","PAHO","Observed",2025,7,5,492,2258,5953,2679,0.13,7190,0.37
+"North & Central America","Costa Rica","PAHO","Observed",2025,8,6,664,2922,5953,2838,0.13,10027,0.5
+"North & Central America","Costa Rica","PAHO","Observed",2025,9,7,860,3782,5953,2611,0.12,12639,0.61
+"North & Central America","Costa Rica","PAHO","Observed",2025,10,8,786,4568,5953,2652,0.11,15290,0.73
+"North & Central America","Costa Rica","PAHO","Observed",2025,11,9,841,5409,5953,2511,0.1,17801,0.83
+"North & Central America","Costa Rica","PAHO","Observed",2025,12,10,714,6123,5953,1506,0.06,19307,0.89
+"North & Central America","Costa Rica","PAHO","Observed",2026,1,11,349,349,5953,1601,0.07,20908,0.96
+"North & Central America","Costa Rica","PAHO","Observed",2026,2,12,285,634,5953,838,0.04,21746,1
 "North & Central America","Costa Rica",NA,"Unobserved",2026,3,1,NA,NA,NA,747,0.04,747,0.04
 "North & Central America","Costa Rica",NA,"Unobserved",2026,4,2,NA,NA,NA,672,0.04,1419,0.07
 "North & Central America","Costa Rica",NA,"Unobserved",2026,5,3,NA,NA,NA,1167,0.06,2586,0.13
@@ -600,51 +600,51 @@
 "Caribbean","Dominica",NA,"Unobserved",NA,11,8,NA,NA,NA,40,0.13,164,0.54
 "Caribbean","Dominica",NA,"Unobserved",NA,12,9,NA,NA,NA,26,0.09,190,0.63
 "Caribbean","Dominican Republic","PAHO","Observed",2025,1,12,201,201,201,777,0.08,9381,1
-"Caribbean","Dominican Republic","PAHO","Observed",2025,2,1,166,367,1946,474,0.08,474,0.08
-"Caribbean","Dominican Republic","PAHO","Observed",2025,3,2,239,606,1946,460,0.07,934,0.16
-"Caribbean","Dominican Republic","PAHO","Observed",2025,4,3,126,732,1946,372,0.06,1307,0.22
-"Caribbean","Dominican Republic","PAHO","Observed",2025,5,4,166,898,1946,410,0.06,1717,0.28
-"Caribbean","Dominican Republic","PAHO","Observed",2025,6,5,178,1076,1946,518,0.07,2235,0.34
-"Caribbean","Dominican Republic","PAHO","Observed",2025,7,6,139,1215,1946,694,0.07,2929,0.42
-"Caribbean","Dominican Republic","PAHO","Observed",2025,8,7,117,1332,1946,909,0.08,3838,0.5
-"Caribbean","Dominican Republic","PAHO","Observed",2025,9,8,168,1500,1946,1325,0.11,5163,0.61
-"Caribbean","Dominican Republic","PAHO","Observed",2025,10,9,172,1672,1946,1602,0.13,6765,0.74
-"Caribbean","Dominican Republic","PAHO","Observed",2025,11,10,196,1868,1946,986,0.11,7751,0.84
-"Caribbean","Dominican Republic","PAHO","Observed",2025,12,11,143,2011,1946,853,0.08,8604,0.92
-"Caribbean","Dominican Republic","PAHO","Observed",2026,1,12,136,136,1946,777,0.08,9381,1
-"Caribbean","Dominican Republic","PAHO","Observed",2026,2,1,25,161,295,474,0.08,474,0.08
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,3,2,NA,NA,295,460,0.07,934,0.16
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,4,3,NA,NA,295,372,0.06,1307,0.22
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,5,4,NA,NA,295,410,0.06,1717,0.28
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,6,5,NA,NA,295,518,0.07,2235,0.34
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,7,6,NA,NA,295,694,0.07,2929,0.42
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,8,7,NA,NA,295,909,0.08,3838,0.5
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,9,8,NA,NA,295,1325,0.11,5163,0.61
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,10,9,NA,NA,295,1602,0.13,6765,0.74
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,11,10,NA,NA,295,986,0.11,7751,0.84
-"Caribbean","Dominican Republic",NA,"Unobserved",2026,12,11,NA,NA,295,853,0.08,8604,0.92
-"South America","Ecuador","PAHO","Observed",2025,1,3,4513,4513,35581,1520,0.08,3449,0.18
-"South America","Ecuador","PAHO","Observed",2025,2,4,4122,8635,35581,1799,0.09,5249,0.27
-"South America","Ecuador","PAHO","Observed",2025,3,5,5770,14405,35581,2650,0.12,7898,0.4
-"South America","Ecuador","PAHO","Observed",2025,4,6,4985,19390,35581,2776,0.12,10675,0.52
-"South America","Ecuador","PAHO","Observed",2025,5,7,5324,24714,35581,3289,0.14,13963,0.66
-"South America","Ecuador","PAHO","Observed",2025,6,8,4741,29455,35581,2530,0.11,16494,0.77
-"South America","Ecuador","PAHO","Observed",2025,7,9,2452,31907,35581,1822,0.09,18315,0.86
-"South America","Ecuador","PAHO","Observed",2025,8,10,1343,33250,35581,1098,0.05,19413,0.91
-"South America","Ecuador","PAHO","Observed",2025,9,11,1387,34637,35581,886,0.04,20300,0.96
-"South America","Ecuador","PAHO","Observed",2025,10,12,944,35581,35581,856,0.04,21156,1
-"South America","Ecuador","PAHO","Observed",2025,11,1,904,36485,17531,792,0.04,792,0.04
-"South America","Ecuador","PAHO","Observed",2025,12,2,1181,37666,17531,1137,0.06,1929,0.1
-"South America","Ecuador","PAHO","Observed",2026,1,3,1798,1798,17531,1520,0.08,3449,0.18
-"South America","Ecuador","PAHO","Observed",2026,2,4,887,2685,17531,1799,0.09,5249,0.27
-"South America","Ecuador",NA,"Unobserved",2026,3,5,NA,NA,17531,2650,0.12,7898,0.4
-"South America","Ecuador",NA,"Unobserved",2026,4,6,NA,NA,17531,2776,0.12,10675,0.52
-"South America","Ecuador",NA,"Unobserved",2026,5,7,NA,NA,17531,3289,0.14,13963,0.66
-"South America","Ecuador",NA,"Unobserved",2026,6,8,NA,NA,17531,2530,0.11,16494,0.77
-"South America","Ecuador",NA,"Unobserved",2026,7,9,NA,NA,17531,1822,0.09,18315,0.86
-"South America","Ecuador",NA,"Unobserved",2026,8,10,NA,NA,17531,1098,0.05,19413,0.91
-"South America","Ecuador",NA,"Unobserved",2026,9,11,NA,NA,17531,886,0.04,20300,0.96
-"South America","Ecuador",NA,"Unobserved",2026,10,12,NA,NA,17531,856,0.04,21156,1
+"Caribbean","Dominican Republic","PAHO","Observed",2025,2,1,166,367,1943,474,0.08,474,0.08
+"Caribbean","Dominican Republic","PAHO","Observed",2025,3,2,239,606,1943,460,0.07,934,0.16
+"Caribbean","Dominican Republic","PAHO","Observed",2025,4,3,126,732,1943,372,0.06,1307,0.22
+"Caribbean","Dominican Republic","PAHO","Observed",2025,5,4,166,898,1943,410,0.06,1717,0.28
+"Caribbean","Dominican Republic","PAHO","Observed",2025,6,5,178,1076,1943,518,0.07,2235,0.34
+"Caribbean","Dominican Republic","PAHO","Observed",2025,7,6,139,1215,1943,694,0.07,2929,0.42
+"Caribbean","Dominican Republic","PAHO","Observed",2025,8,7,117,1332,1943,909,0.08,3838,0.5
+"Caribbean","Dominican Republic","PAHO","Observed",2025,9,8,168,1500,1943,1325,0.11,5163,0.61
+"Caribbean","Dominican Republic","PAHO","Observed",2025,10,9,172,1672,1943,1602,0.13,6765,0.74
+"Caribbean","Dominican Republic","PAHO","Observed",2025,11,10,196,1868,1943,986,0.11,7751,0.84
+"Caribbean","Dominican Republic","PAHO","Observed",2025,12,11,143,2011,1943,853,0.08,8604,0.92
+"Caribbean","Dominican Republic","PAHO","Observed",2026,1,12,133,133,1943,777,0.08,9381,1
+"Caribbean","Dominican Republic","PAHO","Observed",2026,2,1,80,213,943,474,0.08,474,0.08
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,3,2,NA,NA,943,460,0.07,934,0.16
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,4,3,NA,NA,943,372,0.06,1307,0.22
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,5,4,NA,NA,943,410,0.06,1717,0.28
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,6,5,NA,NA,943,518,0.07,2235,0.34
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,7,6,NA,NA,943,694,0.07,2929,0.42
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,8,7,NA,NA,943,909,0.08,3838,0.5
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,9,8,NA,NA,943,1325,0.11,5163,0.61
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,10,9,NA,NA,943,1602,0.13,6765,0.74
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,11,10,NA,NA,943,986,0.11,7751,0.84
+"Caribbean","Dominican Republic",NA,"Unobserved",2026,12,11,NA,NA,943,853,0.08,8604,0.92
+"South America","Ecuador","PAHO","Observed",2025,1,3,4513,4513,35610,1520,0.08,3449,0.18
+"South America","Ecuador","PAHO","Observed",2025,2,4,4122,8635,35610,1799,0.09,5249,0.27
+"South America","Ecuador","PAHO","Observed",2025,3,5,5770,14405,35610,2650,0.12,7898,0.4
+"South America","Ecuador","PAHO","Observed",2025,4,6,4985,19390,35610,2776,0.12,10675,0.52
+"South America","Ecuador","PAHO","Observed",2025,5,7,5324,24714,35610,3289,0.14,13963,0.66
+"South America","Ecuador","PAHO","Observed",2025,6,8,4741,29455,35610,2530,0.11,16494,0.77
+"South America","Ecuador","PAHO","Observed",2025,7,9,2452,31907,35610,1822,0.09,18315,0.86
+"South America","Ecuador","PAHO","Observed",2025,8,10,1415,33322,35610,1098,0.05,19413,0.91
+"South America","Ecuador","PAHO","Observed",2025,9,11,1382,34704,35610,886,0.04,20300,0.96
+"South America","Ecuador","PAHO","Observed",2025,10,12,906,35610,35610,856,0.04,21156,1
+"South America","Ecuador","PAHO","Observed",2025,11,1,890,36500,22056,792,0.04,792,0.04
+"South America","Ecuador","PAHO","Observed",2025,12,2,1101,37601,22056,1137,0.06,1929,0.1
+"South America","Ecuador","PAHO","Observed",2026,1,3,1783,1783,22056,1520,0.08,3449,0.18
+"South America","Ecuador","PAHO","Observed",2026,2,4,2227,4010,22056,1799,0.09,5249,0.27
+"South America","Ecuador",NA,"Unobserved",2026,3,5,NA,NA,22056,2650,0.12,7898,0.4
+"South America","Ecuador",NA,"Unobserved",2026,4,6,NA,NA,22056,2776,0.12,10675,0.52
+"South America","Ecuador",NA,"Unobserved",2026,5,7,NA,NA,22056,3289,0.14,13963,0.66
+"South America","Ecuador",NA,"Unobserved",2026,6,8,NA,NA,22056,2530,0.11,16494,0.77
+"South America","Ecuador",NA,"Unobserved",2026,7,9,NA,NA,22056,1822,0.09,18315,0.86
+"South America","Ecuador",NA,"Unobserved",2026,8,10,NA,NA,22056,1098,0.05,19413,0.91
+"South America","Ecuador",NA,"Unobserved",2026,9,11,NA,NA,22056,886,0.04,20300,0.96
+"South America","Ecuador",NA,"Unobserved",2026,10,12,NA,NA,22056,856,0.04,21156,1
 "South America","Ecuador",NA,"Unobserved",2026,11,1,NA,NA,NA,792,0.04,792,0.04
 "South America","Ecuador",NA,"Unobserved",2026,12,2,NA,NA,NA,1137,0.06,1929,0.1
 "Sub-Saharan Africa","Eritrea","Estimates","Unobserved",2025,1,7,7,7,89,1100,0.09,7702,0.62
@@ -722,18 +722,18 @@
 "Caribbean","Guadeloupe","PAHO","Observed",2025,1,10,2220,2220,4160,632,0.23,5914,0.82
 "Caribbean","Guadeloupe","PAHO","Observed",2025,2,11,970,3190,4160,309,0.1,6223,0.92
 "Caribbean","Guadeloupe","PAHO","Observed",2025,3,12,970,4160,4160,262,0.08,6485,1
-"Caribbean","Guadeloupe","WHO","Observed",2025,4,1,0,4160,2132,144,0.02,144,0.02
-"Caribbean","Guadeloupe","PAHO","Observed",2025,5,2,210,4370,2132,182,0.02,326,0.04
-"Caribbean","Guadeloupe","PAHO","Observed",2025,6,3,265,4635,2132,238,0.03,565,0.06
-"Caribbean","Guadeloupe","Estimates","Unobserved",2025,7,4,84,4719,2132,169,0.02,733,0.08
-"Caribbean","Guadeloupe","Estimates","Unobserved",2025,8,5,135,4854,2132,316,0.03,1050,0.11
-"Caribbean","Guadeloupe","WHO","Observed",2025,9,6,155,5009,2132,1101,0.12,2151,0.24
-"Caribbean","Guadeloupe","Estimates","Unobserved",2025,10,7,533,5542,2132,1176,0.13,3327,0.37
-"Caribbean","Guadeloupe","WHO","Observed",2025,11,8,84,5626,2132,1299,0.15,4626,0.51
-"Caribbean","Guadeloupe","PAHO","Observed",2025,12,9,340,5966,2132,656,0.08,5283,0.59
-"Caribbean","Guadeloupe","PAHO","Observed",2026,1,10,22,22,2132,632,0.23,5914,0.82
-"Caribbean","Guadeloupe","Estimates","Unobserved",2026,2,11,127,149,2132,309,0.1,6223,0.92
-"Caribbean","Guadeloupe",NA,"Unobserved",2026,3,12,NA,NA,2132,262,0.08,6485,1
+"Caribbean","Guadeloupe","WHO","Observed",2025,4,1,0,4160,2119,144,0.02,144,0.02
+"Caribbean","Guadeloupe","PAHO","Observed",2025,5,2,210,4370,2119,182,0.02,326,0.04
+"Caribbean","Guadeloupe","PAHO","Observed",2025,6,3,265,4635,2119,238,0.03,565,0.06
+"Caribbean","Guadeloupe","Estimates","Unobserved",2025,7,4,84,4719,2119,169,0.02,733,0.08
+"Caribbean","Guadeloupe","Estimates","Unobserved",2025,8,5,135,4854,2119,316,0.03,1050,0.11
+"Caribbean","Guadeloupe","WHO","Observed",2025,9,6,155,5009,2119,1101,0.12,2151,0.24
+"Caribbean","Guadeloupe","Estimates","Unobserved",2025,10,7,533,5542,2119,1176,0.13,3327,0.37
+"Caribbean","Guadeloupe","WHO","Observed",2025,11,8,84,5626,2119,1299,0.15,4626,0.51
+"Caribbean","Guadeloupe","PAHO","Observed",2025,12,9,340,5966,2119,656,0.08,5283,0.59
+"Caribbean","Guadeloupe","PAHO","Observed",2026,1,10,102,102,2119,632,0.23,5914,0.82
+"Caribbean","Guadeloupe","PAHO","Observed",2026,2,11,35,137,2119,309,0.1,6223,0.92
+"Caribbean","Guadeloupe",NA,"Unobserved",2026,3,12,NA,NA,2119,262,0.08,6485,1
 "Caribbean","Guadeloupe",NA,"Unobserved",2026,4,1,NA,NA,NA,144,0.02,144,0.02
 "Caribbean","Guadeloupe",NA,"Unobserved",2026,5,2,NA,NA,NA,182,0.02,326,0.04
 "Caribbean","Guadeloupe",NA,"Unobserved",2026,6,3,NA,NA,NA,238,0.03,565,0.06
@@ -744,53 +744,53 @@
 "Caribbean","Guadeloupe",NA,"Unobserved",2026,11,8,NA,NA,NA,1299,0.15,4626,0.51
 "Caribbean","Guadeloupe",NA,"Unobserved",2026,12,9,NA,NA,NA,656,0.08,5283,0.59
 "Caribbean","Grenada","PAHO","Observed",2025,1,12,16,16,16,17,0.08,281,1
-"Caribbean","Grenada","PAHO","Observed",2025,2,1,16,32,272,14,0.07,14,0.07
-"Caribbean","Grenada","PAHO","Observed",2025,3,2,24,56,272,15,0.08,29,0.15
-"Caribbean","Grenada","PAHO","Observed",2025,4,3,16,72,272,16,0.07,44,0.22
-"Caribbean","Grenada","PAHO","Observed",2025,5,4,7,79,272,30,0.09,74,0.31
-"Caribbean","Grenada","PAHO","Observed",2025,6,5,12,91,272,24,0.07,99,0.38
-"Caribbean","Grenada","PAHO","Observed",2025,7,6,15,106,272,28,0.09,126,0.47
-"Caribbean","Grenada","PAHO","Observed",2025,8,7,18,124,272,39,0.12,166,0.59
-"Caribbean","Grenada","PAHO","Observed",2025,9,8,20,144,272,46,0.14,211,0.72
-"Caribbean","Grenada","PAHO","Observed",2025,10,9,24,168,272,26,0.09,238,0.82
-"Caribbean","Grenada","PAHO","Observed",2025,11,10,32,200,272,14,0.05,251,0.87
-"Caribbean","Grenada","PAHO","Observed",2025,12,11,64,264,272,13,0.05,264,0.92
-"Caribbean","Grenada","PAHO","Observed",2026,1,12,24,24,272,17,0.08,281,1
-"Caribbean","Grenada","PAHO","Observed",2026,2,1,11,35,159,14,0.07,14,0.07
-"Caribbean","Grenada",NA,"Unobserved",2026,3,2,NA,NA,159,15,0.08,29,0.15
-"Caribbean","Grenada",NA,"Unobserved",2026,4,3,NA,NA,159,16,0.07,44,0.22
-"Caribbean","Grenada",NA,"Unobserved",2026,5,4,NA,NA,159,30,0.09,74,0.31
-"Caribbean","Grenada",NA,"Unobserved",2026,6,5,NA,NA,159,24,0.07,99,0.38
-"Caribbean","Grenada",NA,"Unobserved",2026,7,6,NA,NA,159,28,0.09,126,0.47
-"Caribbean","Grenada",NA,"Unobserved",2026,8,7,NA,NA,159,39,0.12,166,0.59
-"Caribbean","Grenada",NA,"Unobserved",2026,9,8,NA,NA,159,46,0.14,211,0.72
-"Caribbean","Grenada",NA,"Unobserved",2026,10,9,NA,NA,159,26,0.09,238,0.82
-"Caribbean","Grenada",NA,"Unobserved",2026,11,10,NA,NA,159,14,0.05,251,0.87
-"Caribbean","Grenada",NA,"Unobserved",2026,12,11,NA,NA,159,13,0.05,264,0.92
+"Caribbean","Grenada","PAHO","Observed",2025,2,1,16,32,265,14,0.07,14,0.07
+"Caribbean","Grenada","PAHO","Observed",2025,3,2,24,56,265,15,0.08,29,0.15
+"Caribbean","Grenada","PAHO","Observed",2025,4,3,16,72,265,16,0.07,44,0.22
+"Caribbean","Grenada","PAHO","Observed",2025,5,4,7,79,265,30,0.09,74,0.31
+"Caribbean","Grenada","PAHO","Observed",2025,6,5,12,91,265,24,0.07,99,0.38
+"Caribbean","Grenada","PAHO","Observed",2025,7,6,15,106,265,28,0.09,126,0.47
+"Caribbean","Grenada","PAHO","Observed",2025,8,7,18,124,265,39,0.12,166,0.59
+"Caribbean","Grenada","PAHO","Observed",2025,9,8,20,144,265,46,0.14,211,0.72
+"Caribbean","Grenada","PAHO","Observed",2025,10,9,18,162,265,26,0.09,238,0.82
+"Caribbean","Grenada","PAHO","Observed",2025,11,10,32,194,265,14,0.05,251,0.87
+"Caribbean","Grenada","PAHO","Observed",2025,12,11,63,257,265,13,0.05,264,0.92
+"Caribbean","Grenada","PAHO","Observed",2026,1,12,24,24,265,17,0.08,281,1
+"Caribbean","Grenada","PAHO","Observed",2026,2,1,17,41,245,14,0.07,14,0.07
+"Caribbean","Grenada",NA,"Unobserved",2026,3,2,NA,NA,245,15,0.08,29,0.15
+"Caribbean","Grenada",NA,"Unobserved",2026,4,3,NA,NA,245,16,0.07,44,0.22
+"Caribbean","Grenada",NA,"Unobserved",2026,5,4,NA,NA,245,30,0.09,74,0.31
+"Caribbean","Grenada",NA,"Unobserved",2026,6,5,NA,NA,245,24,0.07,99,0.38
+"Caribbean","Grenada",NA,"Unobserved",2026,7,6,NA,NA,245,28,0.09,126,0.47
+"Caribbean","Grenada",NA,"Unobserved",2026,8,7,NA,NA,245,39,0.12,166,0.59
+"Caribbean","Grenada",NA,"Unobserved",2026,9,8,NA,NA,245,46,0.14,211,0.72
+"Caribbean","Grenada",NA,"Unobserved",2026,10,9,NA,NA,245,26,0.09,238,0.82
+"Caribbean","Grenada",NA,"Unobserved",2026,11,10,NA,NA,245,14,0.05,251,0.87
+"Caribbean","Grenada",NA,"Unobserved",2026,12,11,NA,NA,245,13,0.05,264,0.92
 "North & Central America","Guatemala","PAHO","Observed",2025,1,12,4342,4342,4342,1367,0.06,29915,1
-"North & Central America","Guatemala","PAHO","Observed",2025,2,1,3502,7844,48057,997,0.06,997,0.06
-"North & Central America","Guatemala","PAHO","Observed",2025,3,2,5449,13293,48057,1093,0.05,2089,0.11
-"North & Central America","Guatemala","PAHO","Observed",2025,4,3,3995,17288,48057,1130,0.05,3220,0.16
-"North & Central America","Guatemala","PAHO","Observed",2025,5,4,4924,22212,48057,1701,0.07,4921,0.22
-"North & Central America","Guatemala","PAHO","Observed",2025,6,5,5885,28097,48057,3104,0.1,8024,0.32
-"North & Central America","Guatemala","PAHO","Observed",2025,7,6,4076,32173,48057,3464,0.11,11489,0.43
-"North & Central America","Guatemala","PAHO","Observed",2025,8,7,3900,36073,48057,4218,0.13,15706,0.56
-"North & Central America","Guatemala","PAHO","Observed",2025,9,8,4239,40312,48057,4953,0.12,20659,0.68
-"North & Central America","Guatemala","PAHO","Observed",2025,10,9,3361,43673,48057,3952,0.12,24611,0.8
-"North & Central America","Guatemala","PAHO","Observed",2025,11,10,2832,46505,48057,2623,0.09,27234,0.89
-"North & Central America","Guatemala","PAHO","Observed",2025,12,11,2792,49297,48057,1315,0.05,28549,0.94
-"North & Central America","Guatemala","Estimates","Unobserved",2026,1,12,3102,3102,48057,1367,0.06,29915,1
-"North & Central America","Guatemala","Estimates","Unobserved",2026,2,1,2757,5859,48065,997,0.06,997,0.06
-"North & Central America","Guatemala",NA,"Unobserved",2026,3,2,NA,NA,48065,1093,0.05,2089,0.11
-"North & Central America","Guatemala",NA,"Unobserved",2026,4,3,NA,NA,48065,1130,0.05,3220,0.16
-"North & Central America","Guatemala",NA,"Unobserved",2026,5,4,NA,NA,48065,1701,0.07,4921,0.22
-"North & Central America","Guatemala",NA,"Unobserved",2026,6,5,NA,NA,48065,3104,0.1,8024,0.32
-"North & Central America","Guatemala",NA,"Unobserved",2026,7,6,NA,NA,48065,3464,0.11,11489,0.43
-"North & Central America","Guatemala",NA,"Unobserved",2026,8,7,NA,NA,48065,4218,0.13,15706,0.56
-"North & Central America","Guatemala",NA,"Unobserved",2026,9,8,NA,NA,48065,4953,0.12,20659,0.68
-"North & Central America","Guatemala",NA,"Unobserved",2026,10,9,NA,NA,48065,3952,0.12,24611,0.8
-"North & Central America","Guatemala",NA,"Unobserved",2026,11,10,NA,NA,48065,2623,0.09,27234,0.89
-"North & Central America","Guatemala",NA,"Unobserved",2026,12,11,NA,NA,48065,1315,0.05,28549,0.94
+"North & Central America","Guatemala","PAHO","Observed",2025,2,1,3502,7844,45977,997,0.06,997,0.06
+"North & Central America","Guatemala","PAHO","Observed",2025,3,2,5449,13293,45977,1093,0.05,2089,0.11
+"North & Central America","Guatemala","PAHO","Observed",2025,4,3,3995,17288,45977,1130,0.05,3220,0.16
+"North & Central America","Guatemala","PAHO","Observed",2025,5,4,4924,22212,45977,1701,0.07,4921,0.22
+"North & Central America","Guatemala","PAHO","Observed",2025,6,5,5885,28097,45977,3104,0.1,8024,0.32
+"North & Central America","Guatemala","PAHO","Observed",2025,7,6,4076,32173,45977,3464,0.11,11489,0.43
+"North & Central America","Guatemala","PAHO","Observed",2025,8,7,3747,35920,45977,4218,0.13,15706,0.56
+"North & Central America","Guatemala","PAHO","Observed",2025,9,8,4350,40270,45977,4953,0.12,20659,0.68
+"North & Central America","Guatemala","PAHO","Observed",2025,10,9,3358,43628,45977,3952,0.12,24611,0.8
+"North & Central America","Guatemala","PAHO","Observed",2025,11,10,2831,46459,45977,2623,0.09,27234,0.89
+"North & Central America","Guatemala","PAHO","Observed",2025,12,11,2522,48981,45977,1315,0.05,28549,0.94
+"North & Central America","Guatemala","PAHO","Observed",2026,1,12,1338,1338,45977,1367,0.06,29915,1
+"North & Central America","Guatemala","PAHO","Observed",2026,2,1,844,2182,14714,997,0.06,997,0.06
+"North & Central America","Guatemala",NA,"Unobserved",2026,3,2,NA,NA,14714,1093,0.05,2089,0.11
+"North & Central America","Guatemala",NA,"Unobserved",2026,4,3,NA,NA,14714,1130,0.05,3220,0.16
+"North & Central America","Guatemala",NA,"Unobserved",2026,5,4,NA,NA,14714,1701,0.07,4921,0.22
+"North & Central America","Guatemala",NA,"Unobserved",2026,6,5,NA,NA,14714,3104,0.1,8024,0.32
+"North & Central America","Guatemala",NA,"Unobserved",2026,7,6,NA,NA,14714,3464,0.11,11489,0.43
+"North & Central America","Guatemala",NA,"Unobserved",2026,8,7,NA,NA,14714,4218,0.13,15706,0.56
+"North & Central America","Guatemala",NA,"Unobserved",2026,9,8,NA,NA,14714,4953,0.12,20659,0.68
+"North & Central America","Guatemala",NA,"Unobserved",2026,10,9,NA,NA,14714,3952,0.12,24611,0.8
+"North & Central America","Guatemala",NA,"Unobserved",2026,11,10,NA,NA,14714,2623,0.09,27234,0.89
+"North & Central America","Guatemala",NA,"Unobserved",2026,12,11,NA,NA,14714,1315,0.05,28549,0.94
 "South America","French Guiana","Estimates","Unobserved",2025,1,4,37,37,381,686,0.13,1314,0.36
 "South America","French Guiana","Estimates","Unobserved",2025,2,5,40,77,381,679,0.14,1994,0.51
 "South America","French Guiana","Estimates","Unobserved",2025,3,6,25,102,381,479,0.09,2473,0.6
@@ -800,69 +800,69 @@
 "South America","French Guiana","PAHO","Observed",2025,7,10,12,346,381,241,0.06,3778,0.88
 "South America","French Guiana","PAHO","Observed",2025,8,11,18,364,381,224,0.07,4003,0.94
 "South America","French Guiana","PAHO","Observed",2025,9,12,17,381,381,130,0.06,4132,1
-"South America","French Guiana","PAHO","Observed",2025,10,1,14,395,83,168,0.06,168,0.06
-"South America","French Guiana","PAHO","Observed",2025,11,2,11,406,83,268,0.1,436,0.16
-"South America","French Guiana","PAHO","Observed",2025,12,3,14,420,83,192,0.07,628,0.23
-"South America","French Guiana","PAHO","Observed",2026,1,4,1,1,83,686,0.13,1314,0.36
-"South America","French Guiana","PAHO","Observed",2026,2,5,2,3,83,679,0.14,1994,0.51
-"South America","French Guiana",NA,"Unobserved",2026,3,6,NA,NA,83,479,0.09,2473,0.6
-"South America","French Guiana",NA,"Unobserved",2026,4,7,NA,NA,83,375,0.08,2847,0.67
-"South America","French Guiana",NA,"Unobserved",2026,5,8,NA,NA,83,343,0.06,3191,0.74
-"South America","French Guiana",NA,"Unobserved",2026,6,9,NA,NA,83,347,0.07,3537,0.81
-"South America","French Guiana",NA,"Unobserved",2026,7,10,NA,NA,83,241,0.06,3778,0.88
-"South America","French Guiana",NA,"Unobserved",2026,8,11,NA,NA,83,224,0.07,4003,0.94
-"South America","French Guiana",NA,"Unobserved",2026,9,12,NA,NA,83,130,0.06,4132,1
+"South America","French Guiana","PAHO","Observed",2025,10,1,14,395,72,168,0.06,168,0.06
+"South America","French Guiana","PAHO","Observed",2025,11,2,11,406,72,268,0.1,436,0.16
+"South America","French Guiana","PAHO","Observed",2025,12,3,14,420,72,192,0.07,628,0.23
+"South America","French Guiana","PAHO","Observed",2026,1,4,1,1,72,686,0.13,1314,0.36
+"South America","French Guiana","PAHO","Observed",2026,2,5,2,3,72,679,0.14,1994,0.51
+"South America","French Guiana","PAHO","Observed",2026,3,6,NA,NA,72,479,0.09,2473,0.6
+"South America","French Guiana",NA,"Unobserved",2026,4,7,NA,NA,72,375,0.08,2847,0.67
+"South America","French Guiana",NA,"Unobserved",2026,5,8,NA,NA,72,343,0.06,3191,0.74
+"South America","French Guiana",NA,"Unobserved",2026,6,9,NA,NA,72,347,0.07,3537,0.81
+"South America","French Guiana",NA,"Unobserved",2026,7,10,NA,NA,72,241,0.06,3778,0.88
+"South America","French Guiana",NA,"Unobserved",2026,8,11,NA,NA,72,224,0.07,4003,0.94
+"South America","French Guiana",NA,"Unobserved",2026,9,12,NA,NA,72,130,0.06,4132,1
 "South America","French Guiana",NA,"Unobserved",2026,10,1,NA,NA,NA,168,0.06,168,0.06
 "South America","French Guiana",NA,"Unobserved",2026,11,2,NA,NA,NA,268,0.1,436,0.16
 "South America","French Guiana",NA,"Unobserved",2026,12,3,NA,NA,NA,192,0.07,628,0.23
-"South America","Guyana","PAHO","Observed",2025,1,1,5033,5033,94595,756,0.08,756,0.08
-"South America","Guyana","PAHO","Observed",2025,2,2,4229,9262,94595,741,0.07,1497,0.15
-"South America","Guyana","PAHO","Observed",2025,3,3,6799,16061,94595,840,0.07,2337,0.23
-"South America","Guyana","PAHO","Observed",2025,4,4,3800,19861,94595,817,0.07,3154,0.3
-"South America","Guyana","PAHO","Observed",2025,5,5,8305,28166,94595,1128,0.09,4281,0.39
-"South America","Guyana","PAHO","Observed",2025,6,6,10602,38768,94595,1380,0.09,5661,0.49
-"South America","Guyana","PAHO","Observed",2025,7,7,5363,44131,94595,1321,0.12,6982,0.6
-"South America","Guyana","PAHO","Observed",2025,8,8,4582,48713,94595,979,0.09,7961,0.69
-"South America","Guyana","PAHO","Observed",2025,9,9,6071,54784,94595,971,0.09,8933,0.78
-"South America","Guyana","PAHO","Observed",2025,10,10,5059,59843,94595,970,0.09,9903,0.86
-"South America","Guyana","PAHO","Observed",2025,11,11,11167,71010,94595,828,0.08,10730,0.94
-"South America","Guyana","PAHO","Observed",2025,12,12,23585,94595,94595,616,0.06,11346,1
-"South America","Guyana","PAHO","Observed",2026,1,1,12642,12642,153485,756,0.08,756,0.08
-"South America","Guyana","Estimates","Unobserved",2026,2,2,11005,23647,153485,741,0.07,1497,0.15
-"South America","Guyana",NA,"Unobserved",2026,3,3,NA,NA,153485,840,0.07,2337,0.23
-"South America","Guyana",NA,"Unobserved",2026,4,4,NA,NA,153485,817,0.07,3154,0.3
-"South America","Guyana",NA,"Unobserved",2026,5,5,NA,NA,153485,1128,0.09,4281,0.39
-"South America","Guyana",NA,"Unobserved",2026,6,6,NA,NA,153485,1380,0.09,5661,0.49
-"South America","Guyana",NA,"Unobserved",2026,7,7,NA,NA,153485,1321,0.12,6982,0.6
-"South America","Guyana",NA,"Unobserved",2026,8,8,NA,NA,153485,979,0.09,7961,0.69
-"South America","Guyana",NA,"Unobserved",2026,9,9,NA,NA,153485,971,0.09,8933,0.78
-"South America","Guyana",NA,"Unobserved",2026,10,10,NA,NA,153485,970,0.09,9903,0.86
-"South America","Guyana",NA,"Unobserved",2026,11,11,NA,NA,153485,828,0.08,10730,0.94
-"South America","Guyana",NA,"Unobserved",2026,12,12,NA,NA,153485,616,0.06,11346,1
+"South America","Guyana","PAHO","Observed",2025,1,1,5033,5033,78931,756,0.08,756,0.08
+"South America","Guyana","PAHO","Observed",2025,2,2,4229,9262,78931,741,0.07,1497,0.15
+"South America","Guyana","PAHO","Observed",2025,3,3,6799,16061,78931,840,0.07,2337,0.23
+"South America","Guyana","PAHO","Observed",2025,4,4,3800,19861,78931,817,0.07,3154,0.3
+"South America","Guyana","PAHO","Observed",2025,5,5,8305,28166,78931,1128,0.09,4281,0.39
+"South America","Guyana","PAHO","Observed",2025,6,6,10602,38768,78931,1380,0.09,5661,0.49
+"South America","Guyana","PAHO","Observed",2025,7,7,5363,44131,78931,1321,0.12,6982,0.6
+"South America","Guyana","PAHO","Observed",2025,8,8,4582,48713,78931,979,0.09,7961,0.69
+"South America","Guyana","PAHO","Observed",2025,9,9,6071,54784,78931,971,0.09,8933,0.78
+"South America","Guyana","PAHO","Observed",2025,10,10,5059,59843,78931,970,0.09,9903,0.86
+"South America","Guyana","PAHO","Observed",2025,11,11,9561,69404,78931,828,0.08,10730,0.94
+"South America","Guyana","PAHO","Observed",2025,12,12,9527,78931,78931,616,0.06,11346,1
+"South America","Guyana","PAHO","Observed",2026,1,1,12134,12134,147319,756,0.08,756,0.08
+"South America","Guyana","Estimates","Unobserved",2026,2,2,10563,22697,147319,741,0.07,1497,0.15
+"South America","Guyana",NA,"Unobserved",2026,3,3,NA,NA,147319,840,0.07,2337,0.23
+"South America","Guyana",NA,"Unobserved",2026,4,4,NA,NA,147319,817,0.07,3154,0.3
+"South America","Guyana",NA,"Unobserved",2026,5,5,NA,NA,147319,1128,0.09,4281,0.39
+"South America","Guyana",NA,"Unobserved",2026,6,6,NA,NA,147319,1380,0.09,5661,0.49
+"South America","Guyana",NA,"Unobserved",2026,7,7,NA,NA,147319,1321,0.12,6982,0.6
+"South America","Guyana",NA,"Unobserved",2026,8,8,NA,NA,147319,979,0.09,7961,0.69
+"South America","Guyana",NA,"Unobserved",2026,9,9,NA,NA,147319,971,0.09,8933,0.78
+"South America","Guyana",NA,"Unobserved",2026,10,10,NA,NA,147319,970,0.09,9903,0.86
+"South America","Guyana",NA,"Unobserved",2026,11,11,NA,NA,147319,828,0.08,10730,0.94
+"South America","Guyana",NA,"Unobserved",2026,12,12,NA,NA,147319,616,0.06,11346,1
 "North & Central America","Honduras","PAHO","Observed",2025,1,12,1434,1434,1434,1937,0.07,42287,1
-"North & Central America","Honduras","PAHO","Observed",2025,2,1,1274,2708,17034,1636,0.06,1636,0.06
-"North & Central America","Honduras","PAHO","Observed",2025,3,2,2134,4842,17034,1759,0.05,3395,0.11
-"North & Central America","Honduras","PAHO","Observed",2025,4,3,1467,6309,17034,1908,0.06,5303,0.17
-"North & Central America","Honduras","PAHO","Observed",2025,5,4,1678,7987,17034,2806,0.08,8109,0.25
-"North & Central America","Honduras","PAHO","Observed",2025,6,5,1835,9822,17034,5883,0.12,13992,0.37
-"North & Central America","Honduras","PAHO","Observed",2025,7,6,1424,11246,17034,6444,0.12,20436,0.49
-"North & Central America","Honduras","PAHO","Observed",2025,8,7,1222,12468,17034,6181,0.11,26617,0.59
-"North & Central America","Honduras","PAHO","Observed",2025,9,8,1176,13644,17034,4683,0.09,31300,0.68
-"North & Central America","Honduras","PAHO","Observed",2025,10,9,1216,14860,17034,3839,0.1,35139,0.78
-"North & Central America","Honduras","PAHO","Observed",2025,11,10,1235,16095,17034,3157,0.09,38296,0.86
-"North & Central America","Honduras","PAHO","Observed",2025,12,11,1275,17370,17034,2055,0.06,40351,0.93
-"North & Central America","Honduras","PAHO","Observed",2026,1,12,1098,1098,17034,1937,0.07,42287,1
-"North & Central America","Honduras","PAHO","Observed",2026,2,1,200,1298,3532,1636,0.06,1636,0.06
-"North & Central America","Honduras",NA,"Unobserved",2026,3,2,NA,NA,3532,1759,0.05,3395,0.11
-"North & Central America","Honduras",NA,"Unobserved",2026,4,3,NA,NA,3532,1908,0.06,5303,0.17
-"North & Central America","Honduras",NA,"Unobserved",2026,5,4,NA,NA,3532,2806,0.08,8109,0.25
-"North & Central America","Honduras",NA,"Unobserved",2026,6,5,NA,NA,3532,5883,0.12,13992,0.37
-"North & Central America","Honduras",NA,"Unobserved",2026,7,6,NA,NA,3532,6444,0.12,20436,0.49
-"North & Central America","Honduras",NA,"Unobserved",2026,8,7,NA,NA,3532,6181,0.11,26617,0.59
-"North & Central America","Honduras",NA,"Unobserved",2026,9,8,NA,NA,3532,4683,0.09,31300,0.68
-"North & Central America","Honduras",NA,"Unobserved",2026,10,9,NA,NA,3532,3839,0.1,35139,0.78
-"North & Central America","Honduras",NA,"Unobserved",2026,11,10,NA,NA,3532,3157,0.09,38296,0.86
-"North & Central America","Honduras",NA,"Unobserved",2026,12,11,NA,NA,3532,2055,0.06,40351,0.93
+"North & Central America","Honduras","PAHO","Observed",2025,2,1,1274,2708,16998,1636,0.06,1636,0.06
+"North & Central America","Honduras","PAHO","Observed",2025,3,2,2134,4842,16998,1759,0.05,3395,0.11
+"North & Central America","Honduras","PAHO","Observed",2025,4,3,1467,6309,16998,1908,0.06,5303,0.17
+"North & Central America","Honduras","PAHO","Observed",2025,5,4,1678,7987,16998,2806,0.08,8109,0.25
+"North & Central America","Honduras","PAHO","Observed",2025,6,5,1835,9822,16998,5883,0.12,13992,0.37
+"North & Central America","Honduras","PAHO","Observed",2025,7,6,1424,11246,16998,6444,0.12,20436,0.49
+"North & Central America","Honduras","PAHO","Observed",2025,8,7,1222,12468,16998,6181,0.11,26617,0.59
+"North & Central America","Honduras","PAHO","Observed",2025,9,8,1176,13644,16998,4683,0.09,31300,0.68
+"North & Central America","Honduras","PAHO","Observed",2025,10,9,1216,14860,16998,3839,0.1,35139,0.78
+"North & Central America","Honduras","PAHO","Observed",2025,11,10,1235,16095,16998,3157,0.09,38296,0.86
+"North & Central America","Honduras","PAHO","Observed",2025,12,11,1273,17368,16998,2055,0.06,40351,0.93
+"North & Central America","Honduras","PAHO","Observed",2026,1,12,1064,1064,16998,1937,0.07,42287,1
+"North & Central America","Honduras","PAHO","Observed",2026,2,1,389,1453,6870,1636,0.06,1636,0.06
+"North & Central America","Honduras",NA,"Unobserved",2026,3,2,NA,NA,6870,1759,0.05,3395,0.11
+"North & Central America","Honduras",NA,"Unobserved",2026,4,3,NA,NA,6870,1908,0.06,5303,0.17
+"North & Central America","Honduras",NA,"Unobserved",2026,5,4,NA,NA,6870,2806,0.08,8109,0.25
+"North & Central America","Honduras",NA,"Unobserved",2026,6,5,NA,NA,6870,5883,0.12,13992,0.37
+"North & Central America","Honduras",NA,"Unobserved",2026,7,6,NA,NA,6870,6444,0.12,20436,0.49
+"North & Central America","Honduras",NA,"Unobserved",2026,8,7,NA,NA,6870,6181,0.11,26617,0.59
+"North & Central America","Honduras",NA,"Unobserved",2026,9,8,NA,NA,6870,4683,0.09,31300,0.68
+"North & Central America","Honduras",NA,"Unobserved",2026,10,9,NA,NA,6870,3839,0.1,35139,0.78
+"North & Central America","Honduras",NA,"Unobserved",2026,11,10,NA,NA,6870,3157,0.09,38296,0.86
+"North & Central America","Honduras",NA,"Unobserved",2026,12,11,NA,NA,6870,2055,0.06,40351,0.93
 "Caribbean","Haiti","WHO","Unobserved",2025,1,9,NA,0,NA,607,0.16,1911,0.88
 "Caribbean","Haiti","WHO","Unobserved",2025,2,10,NA,0,NA,201,0.05,2113,0.93
 "Caribbean","Haiti","WHO","Unobserved",2025,3,11,NA,0,NA,147,0.05,2259,0.97
@@ -887,58 +887,70 @@
 "Caribbean","Haiti",NA,"Unobserved",2026,10,6,NA,NA,NA,105,0.07,551,0.45
 "Caribbean","Haiti",NA,"Unobserved",2026,11,7,NA,NA,NA,110,0.07,660,0.52
 "Caribbean","Haiti",NA,"Unobserved",2026,12,8,NA,NA,NA,644,0.19,1304,0.72
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,1,4,NA,NA,NA,16034,0.13,36573,0.32
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,2,5,NA,NA,NA,14782,0.12,51355,0.44
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,3,6,NA,NA,NA,13363,0.11,64719,0.55
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,4,7,NA,NA,NA,11714,0.1,76433,0.65
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,5,8,NA,NA,NA,11173,0.09,87606,0.74
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,6,9,NA,NA,NA,9309,0.08,96914,0.82
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,7,10,NA,NA,NA,7957,0.07,104871,0.89
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,8,11,NA,NA,NA,6776,0.06,111647,0.95
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,9,12,NA,NA,NA,5902,0.05,117550,1
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,10,1,NA,NA,NA,6244,0.06,6244,0.06
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,11,2,NA,NA,NA,6965,0.06,13209,0.12
-"East & Southeast Asia","Indonesia",NA,"Unobserved",NA,12,3,NA,NA,NA,7330,0.07,20540,0.19
+"East & Southeast Asia","Indonesia","SEARO","Observed",2025,1,4,21417,21417,75997,16034,0.13,36573,0.32
+"East & Southeast Asia","Indonesia","SEARO","Observed",2025,2,5,17160,38577,75997,14782,0.12,51355,0.44
+"East & Southeast Asia","Indonesia","SEARO","Observed",2025,3,6,11795,50372,75997,13363,0.11,64719,0.55
+"East & Southeast Asia","Indonesia","SEARO","Observed",2025,4,7,5750,56122,75997,11714,0.1,76433,0.65
+"East & Southeast Asia","Indonesia","SEARO","Observed",2025,5,8,157,56279,75997,11173,0.09,87606,0.74
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,6,9,5938,62217,75997,9309,0.08,96914,0.82
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,7,10,5156,67373,75997,7957,0.07,104871,0.89
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,8,11,4518,71891,75997,6776,0.06,111647,0.95
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,9,12,4106,75997,75997,5902,0.05,117550,1
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,10,1,4553,80550,75999,6244,0.06,6244,0.06
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,11,2,4936,85486,75999,6965,0.06,13209,0.12
+"East & Southeast Asia","Indonesia","Estimates","Unobserved",2025,12,3,4956,90442,75999,7330,0.07,20540,0.19
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,1,4,NA,0,75999,16034,0.13,36573,0.32
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,2,5,NA,0,75999,14782,0.12,51355,0.44
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,3,6,NA,NA,75999,13363,0.11,64719,0.55
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,4,7,NA,NA,75999,11714,0.1,76433,0.65
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,5,8,NA,NA,75999,11173,0.09,87606,0.74
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,6,9,NA,NA,75999,9309,0.08,96914,0.82
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,7,10,NA,NA,75999,7957,0.07,104871,0.89
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,8,11,NA,NA,75999,6776,0.06,111647,0.95
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,9,12,NA,NA,75999,5902,0.05,117550,1
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,10,1,NA,NA,NA,6244,0.06,6244,0.06
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,11,2,NA,NA,NA,6965,0.06,13209,0.12
+"East & Southeast Asia","Indonesia",NA,"Unobserved",2026,12,3,NA,NA,NA,7330,0.07,20540,0.19
 "South Asia","India","SEARO","Observed",2025,1,10,4700,4700,12023,7379,0.07,117570,0.92
 "South Asia","India","SEARO","Observed",2025,2,11,3806,8506,12023,4683,0.05,122253,0.96
 "South Asia","India","SEARO","Observed",2025,3,12,3517,12023,12023,3868,0.04,126122,1
-"South Asia","India","SEARO","Observed",2025,4,1,2700,14723,112250,2517,0.02,2517,0.02
-"South Asia","India","SEARO","Observed",2025,5,2,3766,18489,112250,3697,0.03,6214,0.05
-"South Asia","India","SEARO","Observed",2025,6,3,6459,24948,112250,5558,0.04,11773,0.09
-"South Asia","India","SEARO","Observed",2025,7,4,10302,35250,112250,10959,0.08,22732,0.18
-"South Asia","India","SEARO","Observed",2025,8,5,14303,49553,112250,14657,0.11,37389,0.29
-"South Asia","India","SEARO","Observed",2025,9,6,18803,68356,112250,19806,0.15,57195,0.44
-"South Asia","India","SEARO","Observed",2025,10,7,22659,91015,112250,25893,0.2,83087,0.63
-"South Asia","India","SEARO","Observed",2025,11,8,22175,113190,112250,17626,0.13,100713,0.77
-"South Asia","India","SEARO","Observed",2025,12,9,7539,120729,112250,9478,0.07,110191,0.84
-"South Asia","India","SEARO","Observed",2026,1,10,3544,3544,112250,7379,0.07,117570,0.92
-"South Asia","India","SEARO","Observed",2026,2,11,0,3544,112250,4683,0.05,122253,0.96
-"South Asia","India","SEARO","Observed",2026,3,12,NA,NA,112250,3868,0.04,126122,1
-"South Asia","India","SEARO","Observed",2026,4,1,NA,NA,0,2517,0.02,2517,0.02
-"South Asia","India","SEARO","Observed",2026,5,2,NA,NA,0,3697,0.03,6214,0.05
-"South Asia","India","SEARO","Observed",2026,6,3,NA,NA,0,5558,0.04,11773,0.09
-"South Asia","India","SEARO","Observed",2026,7,4,NA,NA,0,10959,0.08,22732,0.18
-"South Asia","India","SEARO","Observed",2026,8,5,NA,NA,0,14657,0.11,37389,0.29
-"South Asia","India","SEARO","Observed",2026,9,6,NA,NA,0,19806,0.15,57195,0.44
-"South Asia","India","SEARO","Observed",2026,10,7,NA,NA,0,25893,0.2,83087,0.63
-"South Asia","India","SEARO","Observed",2026,11,8,NA,NA,0,17626,0.13,100713,0.77
-"South Asia","India","SEARO","Observed",2026,12,9,NA,NA,0,9478,0.07,110191,0.84
+"South Asia","India","SEARO","Observed",2025,4,1,2700,14723,119894,2517,0.02,2517,0.02
+"South Asia","India","SEARO","Observed",2025,5,2,3766,18489,119894,3697,0.03,6214,0.05
+"South Asia","India","SEARO","Observed",2025,6,3,6459,24948,119894,5558,0.04,11773,0.09
+"South Asia","India","SEARO","Observed",2025,7,4,10302,35250,119894,10959,0.08,22732,0.18
+"South Asia","India","SEARO","Observed",2025,8,5,14303,49553,119894,14657,0.11,37389,0.29
+"South Asia","India","SEARO","Observed",2025,9,6,18803,68356,119894,19806,0.15,57195,0.44
+"South Asia","India","SEARO","Observed",2025,10,7,22659,91015,119894,25893,0.2,83087,0.63
+"South Asia","India","SEARO","Observed",2025,11,8,22175,113190,119894,17626,0.13,100713,0.77
+"South Asia","India","SEARO","Observed",2025,12,9,7539,120729,119894,9478,0.07,110191,0.84
+"South Asia","India","SEARO","Observed",2026,1,10,3544,3544,119894,7379,0.07,117570,0.92
+"South Asia","India","SEARO","Observed",2026,2,11,3019,6563,119894,4683,0.05,122253,0.96
+"South Asia","India","SEARO","Unobserved",2026,3,12,NA,NA,119894,3868,0.04,126122,1
+"South Asia","India","SEARO","Unobserved",2026,4,1,NA,NA,NA,2517,0.02,2517,0.02
+"South Asia","India","SEARO","Unobserved",2026,5,2,NA,NA,NA,3697,0.03,6214,0.05
+"South Asia","India","SEARO","Unobserved",2026,6,3,NA,NA,NA,5558,0.04,11773,0.09
+"South Asia","India","SEARO","Unobserved",2026,7,4,NA,NA,NA,10959,0.08,22732,0.18
+"South Asia","India","SEARO","Unobserved",2026,8,5,NA,NA,NA,14657,0.11,37389,0.29
+"South Asia","India","SEARO","Unobserved",2026,9,6,NA,NA,NA,19806,0.15,57195,0.44
+"South Asia","India","SEARO","Unobserved",2026,10,7,NA,NA,NA,25893,0.2,83087,0.63
+"South Asia","India","SEARO","Unobserved",2026,11,8,NA,NA,NA,17626,0.13,100713,0.77
+"South Asia","India","SEARO","Unobserved",2026,12,9,NA,NA,NA,9478,0.07,110191,0.84
 "Caribbean","Jamaica","PAHO","Observed",2025,1,9,46,46,165,229,0.09,1810,0.82
 "Caribbean","Jamaica","PAHO","Observed",2025,2,10,38,84,165,163,0.08,1974,0.9
 "Caribbean","Jamaica","PAHO","Observed",2025,3,11,37,121,165,89,0.06,2063,0.96
 "Caribbean","Jamaica","PAHO","Observed",2025,4,12,44,165,165,42,0.04,2105,1
-"Caribbean","Jamaica","PAHO","Observed",2025,5,1,30,195,583,61,0.05,61,0.05
-"Caribbean","Jamaica","PAHO","Observed",2025,6,2,65,260,583,69,0.05,130,0.11
-"Caribbean","Jamaica","PAHO","Observed",2025,7,3,48,308,583,110,0.07,240,0.18
-"Caribbean","Jamaica","PAHO","Observed",2025,8,4,17,325,583,90,0.05,330,0.23
-"Caribbean","Jamaica","PAHO","Observed",2025,9,5,54,379,583,280,0.11,610,0.33
-"Caribbean","Jamaica","PAHO","Observed",2025,10,6,33,412,583,264,0.1,874,0.44
-"Caribbean","Jamaica","PAHO","Observed",2025,11,7,117,529,583,372,0.11,1246,0.55
-"Caribbean","Jamaica","PAHO","Observed",2025,12,8,73,602,583,335,0.18,1581,0.73
-"Caribbean","Jamaica","PAHO","Observed",2026,1,9,40,40,583,229,0.09,1810,0.82
-"Caribbean","Jamaica","Estimates","Unobserved",2026,2,10,48,88,583,163,0.08,1974,0.9
-"Caribbean","Jamaica",NA,"Unobserved",2026,3,11,NA,NA,583,89,0.06,2063,0.96
-"Caribbean","Jamaica",NA,"Unobserved",2026,4,12,NA,NA,583,42,0.04,2105,1
+"Caribbean","Jamaica","PAHO","Observed",2025,5,1,30,195,550,61,0.05,61,0.05
+"Caribbean","Jamaica","PAHO","Observed",2025,6,2,65,260,550,69,0.05,130,0.11
+"Caribbean","Jamaica","PAHO","Observed",2025,7,3,48,308,550,110,0.07,240,0.18
+"Caribbean","Jamaica","PAHO","Observed",2025,8,4,17,325,550,90,0.05,330,0.23
+"Caribbean","Jamaica","PAHO","Observed",2025,9,5,54,379,550,280,0.11,610,0.33
+"Caribbean","Jamaica","PAHO","Observed",2025,10,6,33,412,550,264,0.1,874,0.44
+"Caribbean","Jamaica","PAHO","Observed",2025,11,7,117,529,550,372,0.11,1246,0.55
+"Caribbean","Jamaica","PAHO","Observed",2025,12,8,73,602,550,335,0.18,1581,0.73
+"Caribbean","Jamaica","PAHO","Observed",2026,1,9,44,44,550,229,0.09,1810,0.82
+"Caribbean","Jamaica","PAHO","Observed",2026,2,10,15,59,550,163,0.08,1974,0.9
+"Caribbean","Jamaica",NA,"Unobserved",2026,3,11,NA,NA,550,89,0.06,2063,0.96
+"Caribbean","Jamaica",NA,"Unobserved",2026,4,12,NA,NA,550,42,0.04,2105,1
 "Caribbean","Jamaica",NA,"Unobserved",2026,5,1,NA,NA,NA,61,0.05,61,0.05
 "Caribbean","Jamaica",NA,"Unobserved",2026,6,2,NA,NA,NA,69,0.05,130,0.11
 "Caribbean","Jamaica",NA,"Unobserved",2026,7,3,NA,NA,NA,110,0.07,240,0.18
@@ -1022,18 +1034,18 @@
 "Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,1,10,0,0,4,24,0.11,138,0.96
 "Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,2,11,4,4,4,5,0.03,143,0.99
 "Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,3,12,0,4,4,2,0.01,145,1
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,4,1,0,4,12,2,0.02,2,0.02
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,5,2,0,4,12,7,0.07,8,0.08
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,6,3,0,4,12,16,0.2,25,0.29
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,7,4,0,4,12,2,0.02,27,0.31
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,8,5,0,4,12,3,0.03,30,0.34
-"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,9,6,3,7,12,7,0.08,37,0.42
-"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,10,7,2,9,12,17,0.15,54,0.57
-"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,11,8,0,9,12,37,0.17,91,0.74
-"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,12,9,2,11,12,22,0.11,113,0.85
-"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2026,1,10,5,5,12,24,0.11,138,0.96
-"Caribbean","Saint Kitts And Nevis","Estimates","Unobserved",2026,2,11,0,5,12,5,0.03,143,0.99
-"Caribbean","Saint Kitts And Nevis",NA,"Unobserved",2026,3,12,NA,NA,12,2,0.01,145,1
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,4,1,0,4,15,2,0.02,2,0.02
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,5,2,0,4,15,7,0.07,8,0.08
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,6,3,0,4,15,16,0.2,25,0.29
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,7,4,0,4,15,2,0.02,27,0.31
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,8,5,0,4,15,3,0.03,30,0.34
+"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,9,6,3,7,15,7,0.08,37,0.42
+"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,10,7,2,9,15,17,0.15,54,0.57
+"Caribbean","Saint Kitts And Nevis","WHO","Observed",2025,11,8,0,9,15,37,0.17,91,0.74
+"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2025,12,9,2,11,15,22,0.11,113,0.85
+"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2026,1,10,5,5,15,24,0.11,138,0.96
+"Caribbean","Saint Kitts And Nevis","PAHO","Observed",2026,2,11,3,8,15,5,0.03,143,0.99
+"Caribbean","Saint Kitts And Nevis",NA,"Unobserved",2026,3,12,NA,NA,15,2,0.01,145,1
 "Caribbean","Saint Kitts And Nevis",NA,"Unobserved",2026,4,1,NA,NA,NA,2,0.02,2,0.02
 "Caribbean","Saint Kitts And Nevis",NA,"Unobserved",2026,5,2,NA,NA,NA,7,0.07,8,0.08
 "Caribbean","Saint Kitts And Nevis",NA,"Unobserved",2026,6,3,NA,NA,NA,16,0.2,25,0.29
@@ -1103,35 +1115,35 @@
 "South Asia","Sri Lanka","SEARO","Observed",2025,10,10,2717,41757,51463,3362,0.06,49449,0.82
 "South Asia","Sri Lanka","SEARO","Observed",2025,11,11,3806,45563,51463,4265,0.07,53714,0.9
 "South Asia","Sri Lanka","SEARO","Observed",2025,12,12,5900,51463,51463,5627,0.1,59341,1
-"South Asia","Sri Lanka","SEARO","Observed",2026,1,1,7868,7868,7868,7180,0.14,7180,0.14
-"South Asia","Sri Lanka","SEARO","Observed",2026,2,2,0,7868,7868,4364,0.08,11544,0.22
-"South Asia","Sri Lanka","SEARO","Observed",2026,3,3,NA,NA,7868,3596,0.06,15140,0.28
-"South Asia","Sri Lanka","SEARO","Observed",2026,4,4,NA,NA,7868,3836,0.06,18976,0.34
-"South Asia","Sri Lanka","SEARO","Observed",2026,5,5,NA,NA,7868,4467,0.07,23443,0.41
-"South Asia","Sri Lanka","SEARO","Observed",2026,6,6,NA,NA,7868,6223,0.1,29666,0.51
-"South Asia","Sri Lanka","SEARO","Observed",2026,7,7,NA,NA,7868,8700,0.13,38366,0.64
-"South Asia","Sri Lanka","SEARO","Observed",2026,8,8,NA,NA,7868,4749,0.08,43115,0.71
-"South Asia","Sri Lanka","SEARO","Observed",2026,9,9,NA,NA,7868,2972,0.05,46087,0.77
-"South Asia","Sri Lanka","SEARO","Observed",2026,10,10,NA,NA,7868,3362,0.06,49449,0.82
-"South Asia","Sri Lanka","SEARO","Observed",2026,11,11,NA,NA,7868,4265,0.07,53714,0.9
-"South Asia","Sri Lanka","SEARO","Observed",2026,12,12,NA,NA,7868,5627,0.1,59341,1
+"South Asia","Sri Lanka","SEARO","Observed",2026,1,1,7868,7868,61159,7180,0.14,7180,0.14
+"South Asia","Sri Lanka","SEARO","Observed",2026,2,2,5724,13592,61159,4364,0.08,11544,0.22
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,3,3,NA,NA,61159,3596,0.06,15140,0.28
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,4,4,NA,NA,61159,3836,0.06,18976,0.34
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,5,5,NA,NA,61159,4467,0.07,23443,0.41
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,6,6,NA,NA,61159,6223,0.1,29666,0.51
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,7,7,NA,NA,61159,8700,0.13,38366,0.64
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,8,8,NA,NA,61159,4749,0.08,43115,0.71
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,9,9,NA,NA,61159,2972,0.05,46087,0.77
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,10,10,NA,NA,61159,3362,0.06,49449,0.82
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,11,11,NA,NA,61159,4265,0.07,53714,0.9
+"South Asia","Sri Lanka","SEARO","Unobserved",2026,12,12,NA,NA,61159,5627,0.1,59341,1
 "Caribbean","Saint Martin","PAHO","Observed",2025,1,8,53,53,154,105,0.13,521,0.68
 "Caribbean","Saint Martin","PAHO","Observed",2025,2,9,17,70,154,90,0.11,611,0.78
 "Caribbean","Saint Martin","PAHO","Observed",2025,3,10,18,88,154,51,0.06,662,0.84
 "Caribbean","Saint Martin","PAHO","Observed",2025,4,11,32,120,154,39,0.06,700,0.9
 "Caribbean","Saint Martin","PAHO","Observed",2025,5,12,34,154,154,60,0.1,761,1
-"Caribbean","Saint Martin","PAHO","Observed",2025,6,1,30,184,124,53,0.08,53,0.08
-"Caribbean","Saint Martin","Estimates","Unobserved",2025,7,2,6,190,124,26,0.04,78,0.12
-"Caribbean","Saint Martin","Estimates","Unobserved",2025,8,3,6,196,124,32,0.04,111,0.15
-"Caribbean","Saint Martin","WHO","Observed",2025,9,4,20,216,124,37,0.05,148,0.2
-"Caribbean","Saint Martin","Estimates","Unobserved",2025,10,5,15,231,124,68,0.1,216,0.3
-"Caribbean","Saint Martin","WHO","Observed",2025,11,6,5,236,124,124,0.14,341,0.45
-"Caribbean","Saint Martin","PAHO","Observed",2025,12,7,5,241,124,75,0.1,416,0.55
-"Caribbean","Saint Martin","WHO","Observed",2026,1,8,0,0,124,105,0.13,521,0.68
-"Caribbean","Saint Martin","Estimates","Unobserved",2026,2,9,10,10,124,90,0.11,611,0.78
-"Caribbean","Saint Martin",NA,"Unobserved",2026,3,10,NA,NA,124,51,0.06,662,0.84
-"Caribbean","Saint Martin",NA,"Unobserved",2026,4,11,NA,NA,124,39,0.06,700,0.9
-"Caribbean","Saint Martin",NA,"Unobserved",2026,5,12,NA,NA,124,60,0.1,761,1
+"Caribbean","Saint Martin","PAHO","Observed",2025,6,1,30,184,116,53,0.08,53,0.08
+"Caribbean","Saint Martin","Estimates","Unobserved",2025,7,2,6,190,116,26,0.04,78,0.12
+"Caribbean","Saint Martin","Estimates","Unobserved",2025,8,3,6,196,116,32,0.04,111,0.15
+"Caribbean","Saint Martin","WHO","Observed",2025,9,4,20,216,116,37,0.05,148,0.2
+"Caribbean","Saint Martin","Estimates","Unobserved",2025,10,5,15,231,116,68,0.1,216,0.3
+"Caribbean","Saint Martin","WHO","Observed",2025,11,6,5,236,116,124,0.14,341,0.45
+"Caribbean","Saint Martin","PAHO","Observed",2025,12,7,5,241,116,75,0.1,416,0.55
+"Caribbean","Saint Martin","WHO","Observed",2026,1,8,0,0,116,105,0.13,521,0.68
+"Caribbean","Saint Martin","PAHO","Observed",2026,2,9,4,4,116,90,0.11,611,0.78
+"Caribbean","Saint Martin",NA,"Unobserved",2026,3,10,NA,NA,116,51,0.06,662,0.84
+"Caribbean","Saint Martin",NA,"Unobserved",2026,4,11,NA,NA,116,39,0.06,700,0.9
+"Caribbean","Saint Martin",NA,"Unobserved",2026,5,12,NA,NA,116,60,0.1,761,1
 "Caribbean","Saint Martin",NA,"Unobserved",2026,6,1,NA,NA,NA,53,0.08,53,0.08
 "Caribbean","Saint Martin",NA,"Unobserved",2026,7,2,NA,NA,NA,26,0.04,78,0.12
 "Caribbean","Saint Martin",NA,"Unobserved",2026,8,3,NA,NA,NA,32,0.04,111,0.15
@@ -1152,41 +1164,41 @@
 "South Asia","Maldives","SEARO","Observed",2025,11,10,376,2041,3011,158,0.07,1872,0.81
 "South Asia","Maldives","SEARO","Observed",2025,12,11,411,2452,3011,151,0.06,2023,0.87
 "South Asia","Maldives","SEARO","Observed",2026,1,12,631,631,3011,198,0.13,2221,1
-"South Asia","Maldives","SEARO","Observed",2026,2,1,0,631,0,105,0.05,105,0.05
-"South Asia","Maldives","SEARO","Observed",2026,3,2,NA,NA,0,111,0.05,216,0.1
-"South Asia","Maldives","SEARO","Observed",2026,4,3,NA,NA,0,144,0.06,360,0.16
-"South Asia","Maldives","SEARO","Observed",2026,5,4,NA,NA,0,201,0.08,562,0.25
-"South Asia","Maldives","SEARO","Observed",2026,6,5,NA,NA,0,277,0.11,839,0.36
-"South Asia","Maldives","SEARO","Observed",2026,7,6,NA,NA,0,300,0.13,1139,0.49
-"South Asia","Maldives","SEARO","Observed",2026,8,7,NA,NA,0,208,0.09,1347,0.59
-"South Asia","Maldives","SEARO","Observed",2026,9,8,NA,NA,0,166,0.07,1514,0.66
-"South Asia","Maldives","SEARO","Observed",2026,10,9,NA,NA,0,200,0.08,1714,0.74
-"South Asia","Maldives","SEARO","Observed",2026,11,10,NA,NA,0,158,0.07,1872,0.81
-"South Asia","Maldives","SEARO","Observed",2026,12,11,NA,NA,0,151,0.06,2023,0.87
+"South Asia","Maldives","Estimates","Unobserved",2026,2,1,145,776,3018,105,0.05,105,0.05
+"South Asia","Maldives","SEARO","Unobserved",2026,3,2,NA,NA,3018,111,0.05,216,0.1
+"South Asia","Maldives","SEARO","Unobserved",2026,4,3,NA,NA,3018,144,0.06,360,0.16
+"South Asia","Maldives","SEARO","Unobserved",2026,5,4,NA,NA,3018,201,0.08,562,0.25
+"South Asia","Maldives","SEARO","Unobserved",2026,6,5,NA,NA,3018,277,0.11,839,0.36
+"South Asia","Maldives","SEARO","Unobserved",2026,7,6,NA,NA,3018,300,0.13,1139,0.49
+"South Asia","Maldives","SEARO","Unobserved",2026,8,7,NA,NA,3018,208,0.09,1347,0.59
+"South Asia","Maldives","SEARO","Unobserved",2026,9,8,NA,NA,3018,166,0.07,1514,0.66
+"South Asia","Maldives","SEARO","Unobserved",2026,10,9,NA,NA,3018,200,0.08,1714,0.74
+"South Asia","Maldives","SEARO","Unobserved",2026,11,10,NA,NA,3018,158,0.07,1872,0.81
+"South Asia","Maldives","SEARO","Unobserved",2026,12,11,NA,NA,3018,151,0.06,2023,0.87
 "North & Central America","Mexico","PAHO","Observed",2025,1,12,11125,11125,11125,5373,0.04,164104,1
-"North & Central America","Mexico","PAHO","Observed",2025,2,1,8287,19412,139897,4487,0.03,4487,0.03
-"North & Central America","Mexico","PAHO","Observed",2025,3,2,9680,29092,139897,4627,0.03,9115,0.06
-"North & Central America","Mexico","PAHO","Observed",2025,4,3,6002,35094,139897,4321,0.03,13436,0.09
-"North & Central America","Mexico","PAHO","Observed",2025,5,4,7905,42999,139897,5973,0.04,19409,0.13
-"North & Central America","Mexico","PAHO","Observed",2025,6,5,12409,55408,139897,10247,0.06,29656,0.2
-"North & Central America","Mexico","PAHO","Observed",2025,7,6,11822,67230,139897,14022,0.09,43678,0.28
-"North & Central America","Mexico","PAHO","Observed",2025,8,7,13638,80868,139897,21119,0.12,64797,0.4
-"North & Central America","Mexico","PAHO","Observed",2025,9,8,21031,101899,139897,31406,0.17,96203,0.57
-"North & Central America","Mexico","PAHO","Observed",2025,10,9,21250,123149,139897,33039,0.21,129242,0.78
-"North & Central America","Mexico","PAHO","Observed",2025,11,10,14725,137874,139897,20915,0.13,150157,0.91
-"North & Central America","Mexico","PAHO","Observed",2025,12,11,7377,145251,139897,8574,0.05,158731,0.96
-"North & Central America","Mexico","PAHO","Observed",2026,1,12,5771,5771,139897,5373,0.04,164104,1
-"North & Central America","Mexico","PAHO","Observed",2026,2,1,1348,7119,43319,4487,0.03,4487,0.03
-"North & Central America","Mexico",NA,"Unobserved",2026,3,2,NA,NA,43319,4627,0.03,9115,0.06
-"North & Central America","Mexico",NA,"Unobserved",2026,4,3,NA,NA,43319,4321,0.03,13436,0.09
-"North & Central America","Mexico",NA,"Unobserved",2026,5,4,NA,NA,43319,5973,0.04,19409,0.13
-"North & Central America","Mexico",NA,"Unobserved",2026,6,5,NA,NA,43319,10247,0.06,29656,0.2
-"North & Central America","Mexico",NA,"Unobserved",2026,7,6,NA,NA,43319,14022,0.09,43678,0.28
-"North & Central America","Mexico",NA,"Unobserved",2026,8,7,NA,NA,43319,21119,0.12,64797,0.4
-"North & Central America","Mexico",NA,"Unobserved",2026,9,8,NA,NA,43319,31406,0.17,96203,0.57
-"North & Central America","Mexico",NA,"Unobserved",2026,10,9,NA,NA,43319,33039,0.21,129242,0.78
-"North & Central America","Mexico",NA,"Unobserved",2026,11,10,NA,NA,43319,20915,0.13,150157,0.91
-"North & Central America","Mexico",NA,"Unobserved",2026,12,11,NA,NA,43319,8574,0.05,158731,0.96
+"North & Central America","Mexico","PAHO","Observed",2025,2,1,8287,19412,140398,4487,0.03,4487,0.03
+"North & Central America","Mexico","PAHO","Observed",2025,3,2,9680,29092,140398,4627,0.03,9115,0.06
+"North & Central America","Mexico","PAHO","Observed",2025,4,3,6002,35094,140398,4321,0.03,13436,0.09
+"North & Central America","Mexico","PAHO","Observed",2025,5,4,7905,42999,140398,5973,0.04,19409,0.13
+"North & Central America","Mexico","PAHO","Observed",2025,6,5,12409,55408,140398,10247,0.06,29656,0.2
+"North & Central America","Mexico","PAHO","Observed",2025,7,6,11822,67230,140398,14022,0.09,43678,0.28
+"North & Central America","Mexico","PAHO","Observed",2025,8,7,13638,80868,140398,21119,0.12,64797,0.4
+"North & Central America","Mexico","PAHO","Observed",2025,9,8,21031,101899,140398,31406,0.17,96203,0.57
+"North & Central America","Mexico","PAHO","Observed",2025,10,9,21250,123149,140398,33039,0.21,129242,0.78
+"North & Central America","Mexico","PAHO","Observed",2025,11,10,14725,137874,140398,20915,0.13,150157,0.91
+"North & Central America","Mexico","PAHO","Observed",2025,12,11,7377,145251,140398,8574,0.05,158731,0.96
+"North & Central America","Mexico","PAHO","Observed",2026,1,12,6272,6272,140398,5373,0.04,164104,1
+"North & Central America","Mexico","PAHO","Observed",2026,2,1,4769,11041,153255,4487,0.03,4487,0.03
+"North & Central America","Mexico",NA,"Unobserved",2026,3,2,NA,NA,153255,4627,0.03,9115,0.06
+"North & Central America","Mexico",NA,"Unobserved",2026,4,3,NA,NA,153255,4321,0.03,13436,0.09
+"North & Central America","Mexico",NA,"Unobserved",2026,5,4,NA,NA,153255,5973,0.04,19409,0.13
+"North & Central America","Mexico",NA,"Unobserved",2026,6,5,NA,NA,153255,10247,0.06,29656,0.2
+"North & Central America","Mexico",NA,"Unobserved",2026,7,6,NA,NA,153255,14022,0.09,43678,0.28
+"North & Central America","Mexico",NA,"Unobserved",2026,8,7,NA,NA,153255,21119,0.12,64797,0.4
+"North & Central America","Mexico",NA,"Unobserved",2026,9,8,NA,NA,153255,31406,0.17,96203,0.57
+"North & Central America","Mexico",NA,"Unobserved",2026,10,9,NA,NA,153255,33039,0.21,129242,0.78
+"North & Central America","Mexico",NA,"Unobserved",2026,11,10,NA,NA,153255,20915,0.13,150157,0.91
+"North & Central America","Mexico",NA,"Unobserved",2026,12,11,NA,NA,153255,8574,0.05,158731,0.96
 "Pacific Islands","Marshall Islands","WHO","Observed",2025,1,8,0,0,0,185,0.11,693,0.76
 "Pacific Islands","Marshall Islands","WHO","Observed",2025,2,9,0,0,0,148,0.09,841,0.85
 "Pacific Islands","Marshall Islands","WHO","Observed",2025,3,10,0,0,0,87,0.1,928,0.95
@@ -1224,17 +1236,17 @@
 "East & Southeast Asia","Myanmar","SEARO","Observed",2025,11,10,594,11730,11998,721,0.04,17082,0.99
 "East & Southeast Asia","Myanmar","SEARO","Observed",2025,12,11,310,12040,11998,178,0.01,17260,1
 "East & Southeast Asia","Myanmar","SEARO","Observed",2026,1,12,130,130,11998,38,0,17297,1
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,2,1,0,130,0,23,0,23,0
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,3,2,NA,NA,0,120,0.01,144,0.01
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,4,3,NA,NA,0,288,0.01,432,0.02
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,5,4,NA,NA,0,1533,0.08,1965,0.11
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,6,5,NA,NA,0,3891,0.22,5856,0.32
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,7,6,NA,NA,0,4260,0.24,10116,0.57
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,8,7,NA,NA,0,3100,0.18,13216,0.75
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,9,8,NA,NA,0,1993,0.12,15209,0.87
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,10,9,NA,NA,0,1153,0.07,16361,0.94
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,11,10,NA,NA,0,721,0.04,17082,0.99
-"East & Southeast Asia","Myanmar","SEARO","Observed",2026,12,11,NA,NA,0,178,0.01,17260,1
+"East & Southeast Asia","Myanmar","Estimates","Unobserved",2026,2,1,32,162,12027,23,0,23,0
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,3,2,NA,NA,12027,120,0.01,144,0.01
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,4,3,NA,NA,12027,288,0.01,432,0.02
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,5,4,NA,NA,12027,1533,0.08,1965,0.11
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,6,5,NA,NA,12027,3891,0.22,5856,0.32
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,7,6,NA,NA,12027,4260,0.24,10116,0.57
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,8,7,NA,NA,12027,3100,0.18,13216,0.75
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,9,8,NA,NA,12027,1993,0.12,15209,0.87
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,10,9,NA,NA,12027,1153,0.07,16361,0.94
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,11,10,NA,NA,12027,721,0.04,17082,0.99
+"East & Southeast Asia","Myanmar","SEARO","Unobserved",2026,12,11,NA,NA,12027,178,0.01,17260,1
 "Sub-Saharan Africa","Mauritania","WHO","Observed",2025,1,10,102,102,203,220,0.11,1881,0.88
 "Sub-Saharan Africa","Mauritania","WHO","Observed",2025,2,11,66,168,203,167,0.08,2048,0.95
 "Sub-Saharan Africa","Mauritania","WHO","Observed",2025,3,12,35,203,203,99,0.05,2147,1
@@ -1263,18 +1275,18 @@
 "Caribbean","Martinique","PAHO","Observed",2025,2,10,100,393,775,357,0.17,5090,0.79
 "Caribbean","Martinique","PAHO","Observed",2025,3,11,282,675,775,292,0.14,5381,0.93
 "Caribbean","Martinique","PAHO","Observed",2025,4,12,100,775,775,144,0.07,5525,1
-"Caribbean","Martinique","PAHO","Observed",2025,5,1,130,905,1076,173,0.02,173,0.02
-"Caribbean","Martinique","PAHO","Observed",2025,6,2,90,995,1076,200,0.02,373,0.05
-"Caribbean","Martinique","Estimates","Unobserved",2025,7,3,28,1023,1076,330,0.04,703,0.08
-"Caribbean","Martinique","Estimates","Unobserved",2025,8,4,29,1052,1076,667,0.04,1370,0.12
-"Caribbean","Martinique","WHO","Observed",2025,9,5,105,1157,1076,1079,0.09,2449,0.21
-"Caribbean","Martinique","Estimates","Unobserved",2025,10,6,78,1235,1076,899,0.1,3348,0.31
-"Caribbean","Martinique","WHO","Observed",2025,11,7,30,1265,1076,691,0.08,4039,0.39
-"Caribbean","Martinique","PAHO","Observed",2025,12,8,150,1415,1076,335,0.05,4374,0.44
-"Caribbean","Martinique","PAHO","Observed",2026,1,9,61,61,1076,359,0.19,4733,0.63
-"Caribbean","Martinique","Estimates","Unobserved",2026,2,10,153,214,1076,357,0.17,5090,0.79
-"Caribbean","Martinique",NA,"Unobserved",2026,3,11,NA,NA,1076,292,0.14,5381,0.93
-"Caribbean","Martinique",NA,"Unobserved",2026,4,12,NA,NA,1076,144,0.07,5525,1
+"Caribbean","Martinique","PAHO","Observed",2025,5,1,130,905,1654,173,0.02,173,0.02
+"Caribbean","Martinique","PAHO","Observed",2025,6,2,90,995,1654,200,0.02,373,0.05
+"Caribbean","Martinique","Estimates","Unobserved",2025,7,3,28,1023,1654,330,0.04,703,0.08
+"Caribbean","Martinique","Estimates","Unobserved",2025,8,4,29,1052,1654,667,0.04,1370,0.12
+"Caribbean","Martinique","WHO","Observed",2025,9,5,105,1157,1654,1079,0.09,2449,0.21
+"Caribbean","Martinique","Estimates","Unobserved",2025,10,6,78,1235,1654,899,0.1,3348,0.31
+"Caribbean","Martinique","WHO","Observed",2025,11,7,30,1265,1654,691,0.08,4039,0.39
+"Caribbean","Martinique","PAHO","Observed",2025,12,8,150,1415,1654,335,0.05,4374,0.44
+"Caribbean","Martinique","PAHO","Observed",2026,1,9,346,346,1654,359,0.19,4733,0.63
+"Caribbean","Martinique","PAHO","Observed",2026,2,10,327,673,1654,357,0.17,5090,0.79
+"Caribbean","Martinique",NA,"Unobserved",2026,3,11,NA,NA,1654,292,0.14,5381,0.93
+"Caribbean","Martinique",NA,"Unobserved",2026,4,12,NA,NA,1654,144,0.07,5525,1
 "Caribbean","Martinique",NA,"Unobserved",2026,5,1,NA,NA,NA,173,0.02,173,0.02
 "Caribbean","Martinique",NA,"Unobserved",2026,6,2,NA,NA,NA,200,0.02,373,0.05
 "Caribbean","Martinique",NA,"Unobserved",2026,7,3,NA,NA,NA,330,0.04,703,0.08
@@ -1357,28 +1369,28 @@
 "North & Central America","Nicaragua",NA,"Unobserved",2026,12,10,NA,NA,NA,4811,0.06,63420,0.87
 "South Asia","Nepal","SEARO","Observed",2025,1,11,259,259,511,95,0.05,12218,0.98
 "South Asia","Nepal","SEARO","Observed",2025,2,12,252,511,511,83,0.02,12301,1
-"South Asia","Nepal","SEARO","Observed",2025,3,1,254,765,8240,60,0.01,60,0.01
-"South Asia","Nepal","SEARO","Observed",2025,4,2,224,989,8240,58,0.01,118,0.02
-"South Asia","Nepal","SEARO","Observed",2025,5,3,314,1303,8240,106,0.02,224,0.03
-"South Asia","Nepal","SEARO","Observed",2025,6,4,530,1833,8240,172,0.02,396,0.06
-"South Asia","Nepal","SEARO","Observed",2025,7,5,830,2663,8240,731,0.06,1128,0.12
-"South Asia","Nepal","SEARO","Observed",2025,8,6,1197,3860,8240,1975,0.15,3102,0.26
-"South Asia","Nepal","SEARO","Observed",2025,9,7,1636,5496,8240,4377,0.27,7479,0.53
-"South Asia","Nepal","SEARO","Observed",2025,10,8,1869,7365,8240,3413,0.23,10892,0.77
-"South Asia","Nepal","SEARO","Observed",2025,11,9,891,8256,8240,1046,0.12,11938,0.88
-"South Asia","Nepal","SEARO","Observed",2025,12,10,317,8573,8240,185,0.05,12122,0.93
-"South Asia","Nepal","SEARO","Observed",2026,1,11,178,178,8240,95,0.05,12218,0.98
-"South Asia","Nepal","SEARO","Observed",2026,2,12,0,178,8240,83,0.02,12301,1
-"South Asia","Nepal","SEARO","Observed",2026,3,1,NA,NA,0,60,0.01,60,0.01
-"South Asia","Nepal","SEARO","Observed",2026,4,2,NA,NA,0,58,0.01,118,0.02
-"South Asia","Nepal","SEARO","Observed",2026,5,3,NA,NA,0,106,0.02,224,0.03
-"South Asia","Nepal","SEARO","Observed",2026,6,4,NA,NA,0,172,0.02,396,0.06
-"South Asia","Nepal","SEARO","Observed",2026,7,5,NA,NA,0,731,0.06,1128,0.12
-"South Asia","Nepal","SEARO","Observed",2026,8,6,NA,NA,0,1975,0.15,3102,0.26
-"South Asia","Nepal","SEARO","Observed",2026,9,7,NA,NA,0,4377,0.27,7479,0.53
-"South Asia","Nepal","SEARO","Observed",2026,10,8,NA,NA,0,3413,0.23,10892,0.77
-"South Asia","Nepal","SEARO","Observed",2026,11,9,NA,NA,0,1046,0.12,11938,0.88
-"South Asia","Nepal","SEARO","Observed",2026,12,10,NA,NA,0,185,0.05,12122,0.93
+"South Asia","Nepal","SEARO","Observed",2025,3,1,254,765,8359,60,0.01,60,0.01
+"South Asia","Nepal","SEARO","Observed",2025,4,2,224,989,8359,58,0.01,118,0.02
+"South Asia","Nepal","SEARO","Observed",2025,5,3,314,1303,8359,106,0.02,224,0.03
+"South Asia","Nepal","SEARO","Observed",2025,6,4,530,1833,8359,172,0.02,396,0.06
+"South Asia","Nepal","SEARO","Observed",2025,7,5,830,2663,8359,731,0.06,1128,0.12
+"South Asia","Nepal","SEARO","Observed",2025,8,6,1197,3860,8359,1975,0.15,3102,0.26
+"South Asia","Nepal","SEARO","Observed",2025,9,7,1636,5496,8359,4377,0.27,7479,0.53
+"South Asia","Nepal","SEARO","Observed",2025,10,8,1869,7365,8359,3413,0.23,10892,0.77
+"South Asia","Nepal","SEARO","Observed",2025,11,9,891,8256,8359,1046,0.12,11938,0.88
+"South Asia","Nepal","SEARO","Observed",2025,12,10,317,8573,8359,185,0.05,12122,0.93
+"South Asia","Nepal","SEARO","Observed",2026,1,11,144,144,8359,95,0.05,12218,0.98
+"South Asia","Nepal","SEARO","Observed",2026,2,12,153,297,8359,83,0.02,12301,1
+"South Asia","Nepal","SEARO","Unobserved",2026,3,1,NA,NA,NA,60,0.01,60,0.01
+"South Asia","Nepal","SEARO","Unobserved",2026,4,2,NA,NA,NA,58,0.01,118,0.02
+"South Asia","Nepal","SEARO","Unobserved",2026,5,3,NA,NA,NA,106,0.02,224,0.03
+"South Asia","Nepal","SEARO","Unobserved",2026,6,4,NA,NA,NA,172,0.02,396,0.06
+"South Asia","Nepal","SEARO","Unobserved",2026,7,5,NA,NA,NA,731,0.06,1128,0.12
+"South Asia","Nepal","SEARO","Unobserved",2026,8,6,NA,NA,NA,1975,0.15,3102,0.26
+"South Asia","Nepal","SEARO","Unobserved",2026,9,7,NA,NA,NA,4377,0.27,7479,0.53
+"South Asia","Nepal","SEARO","Unobserved",2026,10,8,NA,NA,NA,3413,0.23,10892,0.77
+"South Asia","Nepal","SEARO","Unobserved",2026,11,9,NA,NA,NA,1046,0.12,11938,0.88
+"South Asia","Nepal","SEARO","Unobserved",2026,12,10,NA,NA,NA,185,0.05,12122,0.93
 "Europe, Middle East & North Africa","Oman",NA,"Unobserved",NA,1,10,NA,NA,NA,42,0.09,506,0.79
 "Europe, Middle East & North Africa","Oman",NA,"Unobserved",NA,2,11,NA,NA,NA,21,0.03,527,0.82
 "Europe, Middle East & North Africa","Oman",NA,"Unobserved",NA,3,12,NA,NA,NA,65,0.18,592,1
@@ -1418,18 +1430,18 @@
 "North & Central America","Panama","PAHO","Observed",2025,1,10,2339,2339,4947,1008,0.12,8685,0.91
 "North & Central America","Panama","PAHO","Observed",2025,2,11,1335,3674,4947,451,0.05,9136,0.96
 "North & Central America","Panama","PAHO","Observed",2025,3,12,1273,4947,4947,337,0.04,9472,1
-"North & Central America","Panama","PAHO","Observed",2025,4,1,827,5774,16774,223,0.03,223,0.03
-"North & Central America","Panama","PAHO","Observed",2025,5,2,962,6736,16774,312,0.05,535,0.08
-"North & Central America","Panama","PAHO","Observed",2025,6,3,1813,8549,16774,575,0.06,1110,0.14
-"North & Central America","Panama","PAHO","Observed",2025,7,4,2331,10880,16774,1128,0.1,2238,0.24
-"North & Central America","Panama","PAHO","Observed",2025,8,5,1967,12847,16774,1155,0.11,3393,0.35
-"North & Central America","Panama","PAHO","Observed",2025,9,6,2326,15173,16774,1148,0.1,4541,0.45
-"North & Central America","Panama","PAHO","Observed",2025,10,7,1576,16749,16774,1079,0.11,5620,0.57
-"North & Central America","Panama","PAHO","Observed",2025,11,8,1342,18091,16774,984,0.1,6603,0.67
-"North & Central America","Panama","PAHO","Observed",2025,12,9,1418,19509,16774,1074,0.12,7677,0.79
-"North & Central America","Panama","PAHO","Observed",2026,1,10,722,722,16774,1008,0.12,8685,0.91
-"North & Central America","Panama","Estimates","Unobserved",2026,2,11,848,1570,16774,451,0.05,9136,0.96
-"North & Central America","Panama",NA,"Unobserved",2026,3,12,NA,NA,16774,337,0.04,9472,1
+"North & Central America","Panama","PAHO","Observed",2025,4,1,827,5774,17068,223,0.03,223,0.03
+"North & Central America","Panama","PAHO","Observed",2025,5,2,962,6736,17068,312,0.05,535,0.08
+"North & Central America","Panama","PAHO","Observed",2025,6,3,1813,8549,17068,575,0.06,1110,0.14
+"North & Central America","Panama","PAHO","Observed",2025,7,4,2331,10880,17068,1128,0.1,2238,0.24
+"North & Central America","Panama","PAHO","Observed",2025,8,5,1989,12869,17068,1155,0.11,3393,0.35
+"North & Central America","Panama","PAHO","Observed",2025,9,6,2323,15192,17068,1148,0.1,4541,0.45
+"North & Central America","Panama","PAHO","Observed",2025,10,7,1580,16772,17068,1079,0.11,5620,0.57
+"North & Central America","Panama","PAHO","Observed",2025,11,8,1357,18129,17068,984,0.1,6603,0.67
+"North & Central America","Panama","PAHO","Observed",2025,12,9,1389,19518,17068,1074,0.12,7677,0.79
+"North & Central America","Panama","PAHO","Observed",2026,1,10,1087,1087,17068,1008,0.12,8685,0.91
+"North & Central America","Panama","PAHO","Observed",2026,2,11,757,1844,17068,451,0.05,9136,0.96
+"North & Central America","Panama",NA,"Unobserved",2026,3,12,NA,NA,17068,337,0.04,9472,1
 "North & Central America","Panama",NA,"Unobserved",2026,4,1,NA,NA,NA,223,0.03,223,0.03
 "North & Central America","Panama",NA,"Unobserved",2026,5,2,NA,NA,NA,312,0.05,535,0.08
 "North & Central America","Panama",NA,"Unobserved",2026,6,3,NA,NA,NA,575,0.06,1110,0.14
@@ -1439,26 +1451,26 @@
 "North & Central America","Panama",NA,"Unobserved",2026,10,7,NA,NA,NA,1079,0.11,5620,0.57
 "North & Central America","Panama",NA,"Unobserved",2026,11,8,NA,NA,NA,984,0.1,6603,0.67
 "North & Central America","Panama",NA,"Unobserved",2026,12,9,NA,NA,NA,1074,0.12,7677,0.79
-"South America","Peru","PAHO","Observed",2025,1,5,6182,6182,32077,4858,0.12,15417,0.33
-"South America","Peru","PAHO","Observed",2025,2,6,4516,10698,32077,6384,0.11,21801,0.44
-"South America","Peru","PAHO","Observed",2025,3,7,7093,17791,32077,10602,0.12,32403,0.56
-"South America","Peru","PAHO","Observed",2025,4,8,6207,23998,32077,12130,0.14,44533,0.7
-"South America","Peru","PAHO","Observed",2025,5,9,3573,27571,32077,12176,0.14,56709,0.84
-"South America","Peru","PAHO","Observed",2025,6,10,2451,30022,32077,6229,0.08,62938,0.92
-"South America","Peru","PAHO","Observed",2025,7,11,1191,31213,32077,3721,0.05,66659,0.96
-"South America","Peru","PAHO","Observed",2025,8,12,864,32077,32077,2228,0.04,68886,1
-"South America","Peru","PAHO","Observed",2025,9,1,1150,33227,28759,1848,0.03,1848,0.03
-"South America","Peru","PAHO","Observed",2025,10,2,954,34181,28759,2211,0.04,4059,0.07
-"South America","Peru","PAHO","Observed",2025,11,3,1604,35785,28759,3644,0.08,7703,0.15
-"South America","Peru","PAHO","Observed",2025,12,4,2466,38251,28759,2857,0.06,10560,0.21
-"South America","Peru","PAHO","Observed",2026,1,5,3586,3586,28759,4858,0.12,15417,0.33
-"South America","Peru","PAHO","Observed",2026,2,6,2837,6423,28759,6384,0.11,21801,0.44
-"South America","Peru",NA,"Unobserved",2026,3,7,NA,NA,28759,10602,0.12,32403,0.56
-"South America","Peru",NA,"Unobserved",2026,4,8,NA,NA,28759,12130,0.14,44533,0.7
-"South America","Peru",NA,"Unobserved",2026,5,9,NA,NA,28759,12176,0.14,56709,0.84
-"South America","Peru",NA,"Unobserved",2026,6,10,NA,NA,28759,6229,0.08,62938,0.92
-"South America","Peru",NA,"Unobserved",2026,7,11,NA,NA,28759,3721,0.05,66659,0.96
-"South America","Peru",NA,"Unobserved",2026,8,12,NA,NA,28759,2228,0.04,68886,1
+"South America","Peru","PAHO","Observed",2025,1,5,6182,6182,32252,4858,0.12,15417,0.33
+"South America","Peru","PAHO","Observed",2025,2,6,4516,10698,32252,6384,0.11,21801,0.44
+"South America","Peru","PAHO","Observed",2025,3,7,7093,17791,32252,10602,0.12,32403,0.56
+"South America","Peru","PAHO","Observed",2025,4,8,6207,23998,32252,12130,0.14,44533,0.7
+"South America","Peru","PAHO","Observed",2025,5,9,3573,27571,32252,12176,0.14,56709,0.84
+"South America","Peru","PAHO","Observed",2025,6,10,2451,30022,32252,6229,0.08,62938,0.92
+"South America","Peru","PAHO","Observed",2025,7,11,1191,31213,32252,3721,0.05,66659,0.96
+"South America","Peru","PAHO","Observed",2025,8,12,1039,32252,32252,2228,0.04,68886,1
+"South America","Peru","PAHO","Observed",2025,9,1,1049,33301,33743,1848,0.03,1848,0.03
+"South America","Peru","PAHO","Observed",2025,10,2,943,34244,33743,2211,0.04,4059,0.07
+"South America","Peru","PAHO","Observed",2025,11,3,1606,35850,33743,3644,0.08,7703,0.15
+"South America","Peru","PAHO","Observed",2025,12,4,2553,38403,33743,2857,0.06,10560,0.21
+"South America","Peru","PAHO","Observed",2026,1,5,3002,3002,33743,4858,0.12,15417,0.33
+"South America","Peru","PAHO","Observed",2026,2,6,5627,8629,33743,6384,0.11,21801,0.44
+"South America","Peru",NA,"Unobserved",2026,3,7,NA,NA,33743,10602,0.12,32403,0.56
+"South America","Peru",NA,"Unobserved",2026,4,8,NA,NA,33743,12130,0.14,44533,0.7
+"South America","Peru",NA,"Unobserved",2026,5,9,NA,NA,33743,12176,0.14,56709,0.84
+"South America","Peru",NA,"Unobserved",2026,6,10,NA,NA,33743,6229,0.08,62938,0.92
+"South America","Peru",NA,"Unobserved",2026,7,11,NA,NA,33743,3721,0.05,66659,0.96
+"South America","Peru",NA,"Unobserved",2026,8,12,NA,NA,33743,2228,0.04,68886,1
 "South America","Peru",NA,"Unobserved",2026,9,1,NA,NA,NA,1848,0.03,1848,0.03
 "South America","Peru",NA,"Unobserved",2026,10,2,NA,NA,NA,2211,0.04,4059,0.07
 "South America","Peru",NA,"Unobserved",2026,11,3,NA,NA,NA,3644,0.08,7703,0.15
@@ -1502,18 +1514,18 @@
 "Caribbean","Puerto Rico","PAHO","Observed",2025,1,10,662,662,1378,412,0.11,5634,0.85
 "Caribbean","Puerto Rico","PAHO","Observed",2025,2,11,389,1051,1378,290,0.09,5924,0.94
 "Caribbean","Puerto Rico","PAHO","Observed",2025,3,12,327,1378,1378,270,0.06,6194,1
-"Caribbean","Puerto Rico","PAHO","Observed",2025,4,1,193,1571,2553,266,0.04,266,0.04
-"Caribbean","Puerto Rico","PAHO","Observed",2025,5,2,191,1762,2553,318,0.05,584,0.09
-"Caribbean","Puerto Rico","PAHO","Observed",2025,6,3,295,2057,2553,317,0.05,901,0.14
-"Caribbean","Puerto Rico","PAHO","Observed",2025,7,4,208,2265,2553,487,0.07,1388,0.2
-"Caribbean","Puerto Rico","PAHO","Observed",2025,8,5,193,2458,2553,554,0.08,1941,0.28
-"Caribbean","Puerto Rico","PAHO","Observed",2025,9,6,229,2687,2553,598,0.09,2539,0.37
-"Caribbean","Puerto Rico","PAHO","Observed",2025,10,7,269,2956,2553,796,0.12,3335,0.49
-"Caribbean","Puerto Rico","PAHO","Observed",2025,11,8,242,3198,2553,1005,0.14,4340,0.63
-"Caribbean","Puerto Rico","PAHO","Observed",2025,12,9,121,3319,2553,883,0.12,5222,0.74
-"Caribbean","Puerto Rico","PAHO","Observed",2026,1,10,239,239,2553,412,0.11,5634,0.85
-"Caribbean","Puerto Rico","Estimates","Unobserved",2026,2,11,220,459,2553,290,0.09,5924,0.94
-"Caribbean","Puerto Rico",NA,"Unobserved",2026,3,12,NA,NA,2553,270,0.06,6194,1
+"Caribbean","Puerto Rico","PAHO","Observed",2025,4,1,193,1571,2343,266,0.04,266,0.04
+"Caribbean","Puerto Rico","PAHO","Observed",2025,5,2,191,1762,2343,318,0.05,584,0.09
+"Caribbean","Puerto Rico","PAHO","Observed",2025,6,3,295,2057,2343,317,0.05,901,0.14
+"Caribbean","Puerto Rico","PAHO","Observed",2025,7,4,208,2265,2343,487,0.07,1388,0.2
+"Caribbean","Puerto Rico","PAHO","Observed",2025,8,5,193,2458,2343,554,0.08,1941,0.28
+"Caribbean","Puerto Rico","PAHO","Observed",2025,9,6,229,2687,2343,598,0.09,2539,0.37
+"Caribbean","Puerto Rico","PAHO","Observed",2025,10,7,269,2956,2343,796,0.12,3335,0.49
+"Caribbean","Puerto Rico","PAHO","Observed",2025,11,8,242,3198,2343,1005,0.14,4340,0.63
+"Caribbean","Puerto Rico","PAHO","Observed",2025,12,9,121,3319,2343,883,0.12,5222,0.74
+"Caribbean","Puerto Rico","PAHO","Observed",2026,1,10,235,235,2343,412,0.11,5634,0.85
+"Caribbean","Puerto Rico","PAHO","Observed",2026,2,11,26,261,2343,290,0.09,5924,0.94
+"Caribbean","Puerto Rico",NA,"Unobserved",2026,3,12,NA,NA,2343,270,0.06,6194,1
 "Caribbean","Puerto Rico",NA,"Unobserved",2026,4,1,NA,NA,NA,266,0.04,266,0.04
 "Caribbean","Puerto Rico",NA,"Unobserved",2026,5,2,NA,NA,NA,318,0.05,584,0.09
 "Caribbean","Puerto Rico",NA,"Unobserved",2026,6,3,NA,NA,NA,317,0.05,901,0.14
@@ -1529,18 +1541,18 @@
 "South America","Paraguay","PAHO","Observed",2025,4,10,2923,16166,21838,5776,0.09,64388,0.89
 "South America","Paraguay","PAHO","Observed",2025,5,11,3701,19867,21838,4194,0.07,68582,0.96
 "South America","Paraguay","PAHO","Observed",2025,6,12,1971,21838,21838,1731,0.04,70313,1
-"South America","Paraguay","PAHO","Observed",2025,7,1,870,22708,21211,1105,0.04,1105,0.04
-"South America","Paraguay","PAHO","Observed",2025,8,2,877,23585,21211,1766,0.07,2872,0.1
-"South America","Paraguay","PAHO","Observed",2025,9,3,1338,24923,21211,1207,0.03,4079,0.14
-"South America","Paraguay","PAHO","Observed",2025,10,4,1750,26673,21211,2266,0.06,6344,0.2
-"South America","Paraguay","PAHO","Observed",2025,11,5,2523,29196,21211,2614,0.06,8958,0.26
-"South America","Paraguay","PAHO","Observed",2025,12,6,2460,31656,21211,5425,0.1,14384,0.36
-"South America","Paraguay","PAHO","Observed",2026,1,7,2860,2860,21211,15901,0.14,30284,0.49
-"South America","Paraguay","PAHO","Observed",2026,2,8,973,3833,21211,16276,0.15,46560,0.64
-"South America","Paraguay",NA,"Unobserved",2026,3,9,NA,NA,21211,12052,0.15,58612,0.8
-"South America","Paraguay",NA,"Unobserved",2026,4,10,NA,NA,21211,5776,0.09,64388,0.89
-"South America","Paraguay",NA,"Unobserved",2026,5,11,NA,NA,21211,4194,0.07,68582,0.96
-"South America","Paraguay",NA,"Unobserved",2026,6,12,NA,NA,21211,1731,0.04,70313,1
+"South America","Paraguay","PAHO","Observed",2025,7,1,870,22708,22609,1105,0.04,1105,0.04
+"South America","Paraguay","PAHO","Observed",2025,8,2,877,23585,22609,1766,0.07,2872,0.1
+"South America","Paraguay","PAHO","Observed",2025,9,3,1338,24923,22609,1207,0.03,4079,0.14
+"South America","Paraguay","PAHO","Observed",2025,10,4,1750,26673,22609,2266,0.06,6344,0.2
+"South America","Paraguay","PAHO","Observed",2025,11,5,2523,29196,22609,2614,0.06,8958,0.26
+"South America","Paraguay","PAHO","Observed",2025,12,6,2460,31656,22609,5425,0.1,14384,0.36
+"South America","Paraguay","PAHO","Observed",2026,1,7,2910,2910,22609,15901,0.14,30284,0.49
+"South America","Paraguay","PAHO","Observed",2026,2,8,1823,4733,22609,16276,0.15,46560,0.64
+"South America","Paraguay",NA,"Unobserved",2026,3,9,NA,NA,22609,12052,0.15,58612,0.8
+"South America","Paraguay",NA,"Unobserved",2026,4,10,NA,NA,22609,5776,0.09,64388,0.89
+"South America","Paraguay",NA,"Unobserved",2026,5,11,NA,NA,22609,4194,0.07,68582,0.96
+"South America","Paraguay",NA,"Unobserved",2026,6,12,NA,NA,22609,1731,0.04,70313,1
 "South America","Paraguay",NA,"Unobserved",2026,7,1,NA,NA,NA,1105,0.04,1105,0.04
 "South America","Paraguay",NA,"Unobserved",2026,8,2,NA,NA,NA,1766,0.07,2872,0.1
 "South America","Paraguay",NA,"Unobserved",2026,9,3,NA,NA,NA,1207,0.03,4079,0.14
@@ -1715,33 +1727,33 @@
 "North & Central America","El Salvador","PAHO","Observed",2025,10,10,458,5338,5833,2078,0.1,17377,0.88
 "North & Central America","El Salvador","PAHO","Observed",2025,11,11,298,5636,5833,1524,0.07,18901,0.96
 "North & Central America","El Salvador","PAHO","Observed",2025,12,12,197,5833,5833,814,0.04,19715,1
-"North & Central America","El Salvador","PAHO","Observed",2026,1,1,731,731,6489,1120,0.07,1120,0.07
-"North & Central America","El Salvador","PAHO","Observed",2026,2,2,96,827,6489,825,0.06,1944,0.13
-"North & Central America","El Salvador",NA,"Unobserved",2026,3,3,NA,NA,6489,988,0.06,2932,0.19
-"North & Central America","El Salvador",NA,"Unobserved",2026,4,4,NA,NA,6489,915,0.06,3848,0.25
-"North & Central America","El Salvador",NA,"Unobserved",2026,5,5,NA,NA,6489,1327,0.08,5175,0.33
-"North & Central America","El Salvador",NA,"Unobserved",2026,6,6,NA,NA,6489,1926,0.1,7101,0.42
-"North & Central America","El Salvador",NA,"Unobserved",2026,7,7,NA,NA,6489,2430,0.12,9531,0.54
-"North & Central America","El Salvador",NA,"Unobserved",2026,8,8,NA,NA,6489,3139,0.13,12670,0.67
-"North & Central America","El Salvador",NA,"Unobserved",2026,9,9,NA,NA,6489,2629,0.12,15298,0.78
-"North & Central America","El Salvador",NA,"Unobserved",2026,10,10,NA,NA,6489,2078,0.1,17377,0.88
-"North & Central America","El Salvador",NA,"Unobserved",2026,11,11,NA,NA,6489,1524,0.07,18901,0.96
-"North & Central America","El Salvador",NA,"Unobserved",2026,12,12,NA,NA,6489,814,0.04,19715,1
+"North & Central America","El Salvador","PAHO","Observed",2026,1,1,731,731,7948,1120,0.07,1120,0.07
+"North & Central America","El Salvador","PAHO","Observed",2026,2,2,282,1013,7948,825,0.06,1944,0.13
+"North & Central America","El Salvador",NA,"Unobserved",2026,3,3,NA,NA,7948,988,0.06,2932,0.19
+"North & Central America","El Salvador",NA,"Unobserved",2026,4,4,NA,NA,7948,915,0.06,3848,0.25
+"North & Central America","El Salvador",NA,"Unobserved",2026,5,5,NA,NA,7948,1327,0.08,5175,0.33
+"North & Central America","El Salvador",NA,"Unobserved",2026,6,6,NA,NA,7948,1926,0.1,7101,0.42
+"North & Central America","El Salvador",NA,"Unobserved",2026,7,7,NA,NA,7948,2430,0.12,9531,0.54
+"North & Central America","El Salvador",NA,"Unobserved",2026,8,8,NA,NA,7948,3139,0.13,12670,0.67
+"North & Central America","El Salvador",NA,"Unobserved",2026,9,9,NA,NA,7948,2629,0.12,15298,0.78
+"North & Central America","El Salvador",NA,"Unobserved",2026,10,10,NA,NA,7948,2078,0.1,17377,0.88
+"North & Central America","El Salvador",NA,"Unobserved",2026,11,11,NA,NA,7948,1524,0.07,18901,0.96
+"North & Central America","El Salvador",NA,"Unobserved",2026,12,12,NA,NA,7948,814,0.04,19715,1
 "South America","Suriname","PAHO","Observed",2025,1,10,75,75,526,50,0.22,178,0.67
 "South America","Suriname","PAHO","Observed",2025,2,11,162,237,526,66,0.21,244,0.88
 "South America","Suriname","PAHO","Observed",2025,3,12,289,526,526,44,0.12,288,1
-"South America","Suriname","PAHO","Observed",2025,4,1,98,624,1797,13,0.06,13,0.06
-"South America","Suriname","PAHO","Observed",2025,5,2,204,828,1797,12,0.04,25,0.1
-"South America","Suriname","PAHO","Observed",2025,6,3,119,947,1797,10,0.04,35,0.14
-"South America","Suriname","PAHO","Observed",2025,7,4,115,1062,1797,15,0.05,50,0.19
-"South America","Suriname","PAHO","Observed",2025,8,5,133,1195,1797,16,0.05,66,0.25
-"South America","Suriname","PAHO","Observed",2025,9,6,67,1262,1797,13,0.04,79,0.28
-"South America","Suriname","PAHO","Observed",2025,10,7,19,1281,1797,22,0.08,101,0.37
-"South America","Suriname","PAHO","Observed",2025,11,8,26,1307,1797,10,0.03,111,0.4
-"South America","Suriname","PAHO","Observed",2025,12,9,28,1335,1797,17,0.05,128,0.45
-"South America","Suriname","Estimates","Unobserved",2026,1,10,397,397,1797,50,0.22,178,0.67
-"South America","Suriname","Estimates","Unobserved",2026,2,11,383,780,1797,66,0.21,244,0.88
-"South America","Suriname",NA,"Unobserved",2026,3,12,NA,NA,1797,44,0.12,288,1
+"South America","Suriname","PAHO","Observed",2025,4,1,98,624,1762,13,0.06,13,0.06
+"South America","Suriname","PAHO","Observed",2025,5,2,204,828,1762,12,0.04,25,0.1
+"South America","Suriname","PAHO","Observed",2025,6,3,119,947,1762,10,0.04,35,0.14
+"South America","Suriname","PAHO","Observed",2025,7,4,115,1062,1762,15,0.05,50,0.19
+"South America","Suriname","PAHO","Observed",2025,8,5,133,1195,1762,16,0.05,66,0.25
+"South America","Suriname","PAHO","Observed",2025,9,6,67,1262,1762,13,0.04,79,0.28
+"South America","Suriname","PAHO","Observed",2025,10,7,19,1281,1762,22,0.08,101,0.37
+"South America","Suriname","PAHO","Observed",2025,11,8,20,1301,1762,10,0.03,111,0.4
+"South America","Suriname","PAHO","Observed",2025,12,9,18,1319,1762,17,0.05,128,0.45
+"South America","Suriname","Estimates","Unobserved",2026,1,10,389,389,1762,50,0.22,178,0.67
+"South America","Suriname","Estimates","Unobserved",2026,2,11,376,765,1762,66,0.21,244,0.88
+"South America","Suriname",NA,"Unobserved",2026,3,12,NA,NA,1762,44,0.12,288,1
 "South America","Suriname",NA,"Unobserved",2026,4,1,NA,NA,NA,13,0.06,13,0.06
 "South America","Suriname",NA,"Unobserved",2026,5,2,NA,NA,NA,12,0.04,25,0.1
 "South America","Suriname",NA,"Unobserved",2026,6,3,NA,NA,NA,10,0.04,35,0.14
@@ -1803,18 +1815,18 @@
 "Caribbean","Turks And Caicos Islands","WHO","Observed",2025,2,10,0,0,0,28,0.14,213,0.85
 "Caribbean","Turks And Caicos Islands","WHO","Observed",2025,3,11,0,0,0,22,0.11,235,0.96
 "Caribbean","Turks And Caicos Islands","WHO","Observed",2025,4,12,0,0,0,9,0.04,244,1
-"Caribbean","Turks And Caicos Islands","PAHO","Observed",2025,5,1,1,1,1,7,0.03,7,0.03
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,6,2,0,1,1,7,0.02,14,0.05
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,7,3,0,1,1,8,0.03,21,0.07
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,8,4,0,1,1,21,0.07,43,0.15
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,9,5,0,1,1,22,0.08,65,0.23
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,10,6,0,1,1,72,0.26,137,0.48
-"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,11,7,0,1,1,9,0.03,145,0.51
-"Caribbean","Turks And Caicos Islands","Estimates","Unobserved",2025,12,8,0,1,1,8,0.03,154,0.54
-"Caribbean","Turks And Caicos Islands","Estimates","Unobserved",2026,1,9,0,0,1,32,0.16,185,0.71
-"Caribbean","Turks And Caicos Islands","Estimates","Unobserved",2026,2,10,0,0,1,28,0.14,213,0.85
-"Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,3,11,NA,NA,1,22,0.11,235,0.96
-"Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,4,12,NA,NA,1,9,0.04,244,1
+"Caribbean","Turks And Caicos Islands","PAHO","Observed",2025,5,1,1,1,13,7,0.03,7,0.03
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,6,2,0,1,13,7,0.02,14,0.05
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,7,3,0,1,13,8,0.03,21,0.07
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,8,4,0,1,13,21,0.07,43,0.15
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,9,5,0,1,13,22,0.08,65,0.23
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,10,6,0,1,13,72,0.26,137,0.48
+"Caribbean","Turks And Caicos Islands","WHO","Observed",2025,11,7,0,1,13,9,0.03,145,0.51
+"Caribbean","Turks And Caicos Islands","Estimates","Unobserved",2025,12,8,0,1,13,8,0.03,154,0.54
+"Caribbean","Turks And Caicos Islands","PAHO","Observed",2026,1,9,8,8,13,32,0.16,185,0.71
+"Caribbean","Turks And Caicos Islands","Estimates","Unobserved",2026,2,10,2,10,13,28,0.14,213,0.85
+"Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,3,11,NA,NA,13,22,0.11,235,0.96
+"Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,4,12,NA,NA,13,9,0.04,244,1
 "Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,5,1,NA,NA,NA,7,0.03,7,0.03
 "Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,6,2,NA,NA,NA,7,0.02,14,0.05
 "Caribbean","Turks And Caicos Islands",NA,"Unobserved",2026,7,3,NA,NA,NA,8,0.03,21,0.07
@@ -1836,17 +1848,17 @@
 "East & Southeast Asia","Thailand","SEARO","Observed",2025,11,10,3218,55013,55338,6892,0.08,76335,0.9
 "East & Southeast Asia","Thailand","SEARO","Observed",2025,12,11,2427,57440,55338,4270,0.05,80604,0.95
 "East & Southeast Asia","Thailand","SEARO","Observed",2026,1,12,1903,1903,55338,3500,0.05,84104,1
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,2,1,0,1903,0,2720,0.04,2720,0.04
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,3,2,NA,NA,0,2920,0.04,5640,0.08
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,4,3,NA,NA,0,3024,0.04,8664,0.11
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,5,4,NA,NA,0,5658,0.07,14322,0.18
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,6,5,NA,NA,0,10646,0.13,24968,0.31
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,7,6,NA,NA,0,14275,0.16,39244,0.47
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,8,7,NA,NA,0,13360,0.15,52604,0.63
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,9,8,NA,NA,0,9531,0.11,62135,0.74
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,10,9,NA,NA,0,7308,0.09,69442,0.82
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,11,10,NA,NA,0,6892,0.08,76335,0.9
-"East & Southeast Asia","Thailand","SEARO","Observed",2026,12,11,NA,NA,0,4270,0.05,80604,0.95
+"East & Southeast Asia","Thailand","SEARO","Observed",2026,2,1,1288,3191,34466,2720,0.04,2720,0.04
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,3,2,NA,NA,34466,2920,0.04,5640,0.08
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,4,3,NA,NA,34466,3024,0.04,8664,0.11
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,5,4,NA,NA,34466,5658,0.07,14322,0.18
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,6,5,NA,NA,34466,10646,0.13,24968,0.31
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,7,6,NA,NA,34466,14275,0.16,39244,0.47
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,8,7,NA,NA,34466,13360,0.15,52604,0.63
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,9,8,NA,NA,34466,9531,0.11,62135,0.74
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,10,9,NA,NA,34466,7308,0.09,69442,0.82
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,11,10,NA,NA,34466,6892,0.08,76335,0.9
+"East & Southeast Asia","Thailand","SEARO","Unobserved",2026,12,11,NA,NA,34466,4270,0.05,80604,0.95
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,1,5,130,130,970,202,0.15,308,0.27
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,2,6,189,319,970,268,0.25,576,0.51
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,3,7,192,511,970,255,0.22,831,0.74
@@ -1855,22 +1867,22 @@
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,6,10,74,827,970,51,0.03,1144,0.96
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,7,11,85,912,970,35,0.02,1179,0.98
 "East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,8,12,58,970,970,22,0.02,1201,1
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,9,1,51,1021,3926,13,0.01,13,0.01
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,10,2,99,1120,3926,21,0.02,34,0.04
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,11,3,111,1231,3926,20,0.02,54,0.06
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,12,4,279,1510,3926,53,0.06,107,0.11
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,1,5,1281,1281,3926,202,0.15,308,0.27
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,2,6,2105,3386,3926,268,0.25,576,0.51
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,3,7,NA,NA,3926,255,0.22,831,0.74
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,4,8,NA,NA,3926,161,0.13,992,0.86
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,5,9,NA,NA,3926,100,0.06,1093,0.93
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,6,10,NA,NA,3926,51,0.03,1144,0.96
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,7,11,NA,NA,3926,35,0.02,1179,0.98
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,8,12,NA,NA,3926,22,0.02,1201,1
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,9,1,NA,NA,0,13,0.01,13,0.01
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,10,2,NA,NA,0,21,0.02,34,0.04
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,11,3,NA,NA,0,20,0.02,54,0.06
-"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,12,4,NA,NA,0,53,0.06,107,0.11
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,9,1,51,1021,7635,13,0.01,13,0.01
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,10,2,99,1120,7635,21,0.02,34,0.04
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,11,3,111,1231,7635,20,0.02,54,0.06
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2025,12,4,279,1510,7635,53,0.06,107,0.11
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,1,5,1281,1281,7635,202,0.15,308,0.27
+"East & Southeast Asia","Timor-Leste","SEARO","Observed",2026,2,6,2105,3386,7635,268,0.25,576,0.51
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,3,7,NA,NA,7635,255,0.22,831,0.74
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,4,8,NA,NA,7635,161,0.13,992,0.86
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,5,9,NA,NA,7635,100,0.06,1093,0.93
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,6,10,NA,NA,7635,51,0.03,1144,0.96
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,7,11,NA,NA,7635,35,0.02,1179,0.98
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,8,12,NA,NA,7635,22,0.02,1201,1
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,9,1,NA,NA,NA,13,0.01,13,0.01
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,10,2,NA,NA,NA,21,0.02,34,0.04
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,11,3,NA,NA,NA,20,0.02,54,0.06
+"East & Southeast Asia","Timor-Leste","SEARO","Unobserved",2026,12,4,NA,NA,NA,53,0.06,107,0.11
 "Pacific Islands","Tonga","WHO","Observed",2025,1,9,0,0,1285,57,0.08,475,0.51
 "Pacific Islands","Tonga","WHO","Observed",2025,2,10,249,249,1285,128,0.15,603,0.66
 "Pacific Islands","Tonga","WHO","Observed",2025,3,11,603,852,1285,216,0.23,820,0.89
@@ -1898,18 +1910,18 @@
 "Caribbean","Trinidad And Tobago","WHO","Observed",2025,1,10,0,0,0,99,0.2,954,0.95
 "Caribbean","Trinidad And Tobago","WHO","Observed",2025,2,11,0,0,0,17,0.03,971,0.98
 "Caribbean","Trinidad And Tobago","WHO","Observed",2025,3,12,0,0,0,9,0.02,980,1
-"Caribbean","Trinidad And Tobago","WHO","Observed",2025,4,1,0,0,97,8,0,8,0
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,5,2,9,9,97,9,0.01,17,0.01
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,6,3,23,32,97,17,0.01,34,0.03
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,7,4,8,40,97,32,0.02,66,0.05
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,8,5,7,47,97,250,0.24,316,0.29
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,9,6,12,59,97,95,0.08,411,0.37
-"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,10,7,14,73,97,175,0.15,586,0.52
-"Caribbean","Trinidad And Tobago","WHO","Observed",2025,11,8,0,73,97,207,0.18,793,0.7
-"Caribbean","Trinidad And Tobago","WHO","Observed",2025,12,9,0,73,97,61,0.05,855,0.75
-"Caribbean","Trinidad And Tobago","Estimates","Unobserved",2026,1,10,19,19,97,99,0.2,954,0.95
-"Caribbean","Trinidad And Tobago","Estimates","Unobserved",2026,2,11,3,22,97,17,0.03,971,0.98
-"Caribbean","Trinidad And Tobago",NA,"Unobserved",2026,3,12,NA,NA,97,9,0.02,980,1
+"Caribbean","Trinidad And Tobago","WHO","Observed",2025,4,1,0,0,78,8,0,8,0
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,5,2,9,9,78,9,0.01,17,0.01
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,6,3,23,32,78,17,0.01,34,0.03
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,7,4,8,40,78,32,0.02,66,0.05
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,8,5,7,47,78,250,0.24,316,0.29
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,9,6,12,59,78,95,0.08,411,0.37
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2025,10,7,14,73,78,175,0.15,586,0.52
+"Caribbean","Trinidad And Tobago","WHO","Observed",2025,11,8,0,73,78,207,0.18,793,0.7
+"Caribbean","Trinidad And Tobago","WHO","Observed",2025,12,9,0,73,78,61,0.05,855,0.75
+"Caribbean","Trinidad And Tobago","PAHO","Observed",2026,1,10,2,2,78,99,0.2,954,0.95
+"Caribbean","Trinidad And Tobago","Estimates","Unobserved",2026,2,11,2,4,78,17,0.03,971,0.98
+"Caribbean","Trinidad And Tobago",NA,"Unobserved",2026,3,12,NA,NA,78,9,0.02,980,1
 "Caribbean","Trinidad And Tobago",NA,"Unobserved",2026,4,1,NA,NA,NA,8,0,8,0
 "Caribbean","Trinidad And Tobago",NA,"Unobserved",2026,5,2,NA,NA,NA,9,0.01,17,0.01
 "Caribbean","Trinidad And Tobago",NA,"Unobserved",2026,6,3,NA,NA,NA,17,0.01,34,0.03
@@ -2017,7 +2029,7 @@
 "Caribbean","Saint Vincent And The Grenadines","PAHO","Observed",2025,12,9,2,8,8,50,0.16,210,0.69
 "Caribbean","Saint Vincent And The Grenadines","PAHO","Observed",2026,1,10,1,1,8,59,0.2,269,0.88
 "Caribbean","Saint Vincent And The Grenadines","PAHO","Observed",2026,2,11,1,2,8,22,0.07,291,0.95
-"Caribbean","Saint Vincent And The Grenadines",NA,"Unobserved",2026,3,12,NA,NA,8,15,0.05,306,1
+"Caribbean","Saint Vincent And The Grenadines","PAHO","Unobserved",2026,3,12,NA,NA,8,15,0.05,306,1
 "Caribbean","Saint Vincent And The Grenadines",NA,"Unobserved",2026,4,1,NA,NA,NA,16,0.05,16,0.05
 "Caribbean","Saint Vincent And The Grenadines",NA,"Unobserved",2026,5,2,NA,NA,NA,22,0.07,37,0.12
 "Caribbean","Saint Vincent And The Grenadines",NA,"Unobserved",2026,6,3,NA,NA,NA,23,0.07,60,0.19

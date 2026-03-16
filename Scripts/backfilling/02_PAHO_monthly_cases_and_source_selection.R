@@ -211,8 +211,13 @@ searo_add <- searo %>%
          source,
          cases)
 
-# Indonesia moved out of SEARO; use WHO as preferred source for Indonesia
-searo_add <- searo_add %>% filter(iso3 != "IDN")
+# SEARO does not distinguish 0 from no data; treat 0 as NA so other sources are preferred when available
+searo_add <- searo_add %>%
+  dplyr::mutate(cases = dplyr::if_else(cases == 0, NA_real_, cases))
+
+# Indonesia was removed from SEARO in June 2025; ignore SEARO for Indonesia from that date onward
+searo_add <- searo_add %>%
+  dplyr::filter(!(iso3 == "IDN" & date >= as.Date("2025-06-01")))
 
 who_add <- who %>%
   mutate(
@@ -236,20 +241,25 @@ combine <- bind_rows(paho_add, searo_add, who_add)
 log_message("Combined country-month rows across sources: " %+% nrow(combine))
 
 
-# Step 3: Keep the fewest NAs (PAHO/SEARO > WHO)
+# Step 3: Keep the fewest NAs, then by source preference (Indonesia: prefer WHO; others: prefer PAHO/SEARO over WHO)
 final_cases <- combine %>%
   mutate( 
     Month_num = match(Month, month.abb),
     iso3 = ifelse( country == "Saint Martin", "MAF", iso3),
-    country = ifelse(country == "Saint Martin (French part)", "Saint Martin", country)
-    
+    country = ifelse(country == "Saint Martin (French part)", "Saint Martin", country),
+    # Indonesia moved out of SEARO: prefer WHO for IDN; for others prefer PAHO/SEARO over WHO
+    source_priority = dplyr::case_when(
+      iso3 == "IDN" & source == "WHO"   ~ 1L,
+      iso3 == "IDN"                     ~ 2L,
+      source == "WHO"                   ~ 2L,
+      TRUE                              ~ 1L
+    )
   ) %>%
   group_by(iso3, Year, Month_num) %>% 
-  # order first by NA status (NA last), then by source preference
-  arrange(is.na(cases), source == "WHO") %>% 
-  # keep the first row in each group (non-NA, non-WHO prioritized)
-  slice(1) %>% 
+  arrange(is.na(cases), source_priority) %>%
+  slice(1) %>%
   ungroup() %>%
+  dplyr::select(-source_priority) %>%
   mutate(
     Month = month.name[Month_num],
   )

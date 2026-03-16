@@ -1107,6 +1107,49 @@ main.content:has(.faq-container) {
   flex: 0 1 auto;
 }
 
+/* ==============================================
+   HOME AND DATA PAGES — center content on wide screens
+   ============================================== */
+
+/* Home: only center the main block (flex on container only). Do NOT set
+   main.content to flex or the scrolly/map layout breaks. */
+body:has(.hero) #quarto-content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Data (and FAQ-style): center by making both container and main flex */
+body:has(.data-page-content) #quarto-content,
+body:has(.data-page-content) main.content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+body:has(.data-page-content) main.content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.data-page-content {
+  max-width: 1600px;
+  width: 100%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+}
+
 .faq-logo {
   width: clamp(200px, 40vw, 500px);
   height: auto;

@@ -20,6 +20,8 @@ message("✅ _setup.R successfully loaded!")
 
 ```
 
+<div class="data-page-content">
+
 ## Global Dengue Observatory Data
 
 You can download the **latest processed data** and its **metadata** directly from this page.
@@ -160,3 +162,5 @@ DT::datatable(
 DT::datatable(metadata, options = list(dom = 't', scrollX = TRUE), rownames = FALSE)
 
 ```
+
+</div>
