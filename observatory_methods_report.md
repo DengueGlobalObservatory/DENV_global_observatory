@@ -1,14 +1,20 @@
 # DENV Global Observatory: Pipeline and Dashboard Methods Report
 
-This report documents the full data pipeline, dashboard rendering methods, and all auto-generated text logic for the DENV (Dengue) Global Observatory. It includes detailed flowcharts for every major data decision and text generation pathway.
+This report documents the full data pipeline, dashboard rendering methods, map generation, validation framework, national page architecture, and all auto-generated text logic for the DENV (Dengue) Global Observatory. It includes detailed flowcharts for every major data decision and text generation pathway.
 
 ------------------------------------------------------------------------
 
 ## 1. Executive Overview
 
-The **DENV Global Observatory** is a Quarto-based web dashboard that provides near-real-time surveillance of dengue cases at country, regional, and global levels. It combines data from four external sources (PAHO, WHO, SEARO, OpenDengue), applies backfilling and seasonal baseline methods, performs proportion-based nowcasting for missing recent months, and classifies severity using a negative binomial distribution. The dashboard then renders radial "clockface" plots, auto-generated narrative text, and interactive pages for exploration.
+The **DENV Global Observatory** is a Quarto-based web dashboard that provides near-real-time surveillance of dengue cases at country, regional, and global levels. It combines data from four external sources (PAHO, WHO, SEARO, OpenDengue), applies backfilling and seasonal baseline methods, performs proportion-based nowcasting for missing recent months, and classifies severity using a negative binomial distribution. The dashboard renders radial "clockface" plots, choropleth ratio maps, auto-generated narrative text, interactive national summary pages, and downloadable data for exploration. A separate validation framework evaluates nowcast accuracy via leave-one-season-out cross-validation and produces calibrated prediction intervals.
 
-**End-to-end flow:** External data sources → Data sourcing & ingestion → Historic data selection (OD + WHO) → Seasonal baseline identification → Backfilling & source selection → Proportion nowcasting → Region assignment → Severity classification → Output CSVs → Dashboard setup (load latest CSV, aggregate, generate plots & text) → Quarto render → Static site in `docs/`.
+**End-to-end flow:**
+
+1. **Pipeline:** External data sources → Data sourcing & ingestion → Historic data selection (OD + WHO) → Seasonal baseline identification → Backfilling & source selection → Proportion nowcasting → Region assignment → Severity classification → Output CSVs.
+2. **Maps:** Latest nowcast CSV → Cumulative ratio calculation → Global and regional choropleth maps → `Assets/Dynamic/`.
+3. **Validation:** Historic data → Leave-one-season-out simulation → Error metrics, calibrated prediction intervals, snapshot convergence → `Output/validation/` and `Assets/Stable/calibrated_prediction_intervals.csv`.
+4. **Dashboard:** Load latest CSV → Aggregate by country/region/world → Generate plots, text, and tables → Quarto render → Static site in `docs/`.
+5. **National pages:** Country-level data + radial plot + Chart.js interactive time series + prediction intervals → Pilot pages for Brazil, Cuba, Guyana.
 
 ------------------------------------------------------------------------
 
@@ -364,7 +370,7 @@ flowchart TB
 
 ## 16. Dashboard Page Architecture
 
-The site is a Quarto website (output to `docs/`). Navigation: Home, All Countries, Regions (8 pages), Methods, Data, About, FAQ. All dynamic pages source `V1_Dashboard_setup.R` and consume the objects it creates.
+The site is a Quarto website (output to `docs/`). Navigation: Home, All Countries, Regions (8 pages), Methods, Data, About, FAQ. Three pilot national pages (Brazil, Cuba, Guyana) are also rendered. All dynamic pages source `V1_Dashboard_setup.R` and consume the objects it creates. The site URL is `https://globaldengueobservatory.org/`.
 
 ``` mermaid
 flowchart TB
@@ -383,6 +389,9 @@ flowchart TB
     R6[southamerica.qmd]
     R7[southasia.qmd]
     R8[sub-saharanafrica.qmd]
+    C1[country/brazil.qmd]
+    C2[country/cuba.qmd]
+    C3[country/guyana.qmd]
   end
   Setup[V1_Dashboard_setup.R]
   Setup --> Index
@@ -396,18 +405,22 @@ flowchart TB
   Setup --> R6
   Setup --> R7
   Setup --> R8
+  Setup --> C1
+  Setup --> C2
+  Setup --> C3
   Methods --> Static[Static content]
   About --> Static
   FAQ --> Static
 ```
 
-| Page                    | Dynamic content                                                                                   |
-|-------------------------|---------------------------------------------------------------------------------------------------|
-| **index.qmd**           | Global plot, scrolly narrative, world map with 8 region plots, top 5 severity country cards       |
-| **Regional (8)**        | Region map, region radial plot, latest/YTD sentences, season badge, country plot grid with blurbs |
-| **country-index.qmd**   | All country cards with blurbs, search/filter/sort                                                 |
-| **data.qmd**            | Downloadable CSV, last-updated label, data table                                                  |
-| **methods, about, faq** | Static only                                                                                       |
+| Page                    | Dynamic content                                                                                                              |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| **index.qmd**           | Global plot, scrolly narrative, world map with 8 region plots, top 5 severity country cards                                  |
+| **Regional (8)**        | Region map, region radial plot, latest/YTD sentences, season badge, country plot grid with blurbs                            |
+| **country-index.qmd**   | All country cards with blurbs, search/filter/sort                                                                            |
+| **Country (3 pilot)**   | Country context map, radial plot, season badge, Chart.js interactive time series with comparison years, NB prediction intervals |
+| **data.qmd**            | Downloadable CSV, last-updated label, data table                                                                             |
+| **methods, about, faq** | Static only                                                                                                                  |
 
 ------------------------------------------------------------------------
 
@@ -433,22 +446,273 @@ flowchart TB
 
 ------------------------------------------------------------------------
 
+## 18. Map Generation Pipeline
+
+Choropleth ratio maps are produced separately from the dashboard render by two standalone scripts. Both load the latest `DENV_cases_nowcast_output.csv` from `Output/`, mask future months, and delegate to shared functions in [`Scripts/figures/FUN_map.R`](Scripts/figures/FUN_map.R).
+
+### 18a. Global Ratio Map
+
+[`Scripts/figures/run_global_map.R`](Scripts/figures/run_global_map.R) produces `Assets/Dynamic/global_ratio_map.png`. It calls `build_world_sf()` (Natural Earth 1:10 m countries + overseas territories for France, Netherlands, New Zealand, with OpenDengue region labels) and `make_global_ratio_map()`.
+
+### 18b. Region Ratio Maps
+
+[`Scripts/figures/run_region_maps.R`](Scripts/figures/run_region_maps.R) iterates over the eight observatory regions, calls `make_region_ratio_map()` for each, and saves PNGs to `Assets/Dynamic/region_maps/{slug}.png`. Each region has a hand-tuned bounding box so the map is cropped to the relevant area, with non-region land shown in grey.
+
+### 18c. Cumulative Ratio Calculation
+
+`compute_cum_ratio_by_iso3()` in `FUN_map.R` filters to the target year and months ≤ the target month, sums observed `cases` and `Ave_season_monthly_cases` per ISO3, computes `cum_ratio = cum_high / cum_low`, and caps to \[0.5, 2\] (`cum_ratio_capped`).
+
+### 18d. Colour Scale
+
+`map_ratio_fill_scale()` uses a diverging green → yellow → red gradient (`#7CC8AE` / `#F2D06B` / `#E07A6E`, midpoint = 1, limits \[0.5, 2\]). Countries with no data are `grey80`.
+
+``` mermaid
+flowchart TB
+  NowcastCSV[Latest DENV_cases_nowcast_output.csv] --> MaskFuture[Mask future months]
+  MaskFuture --> CumRatio[compute_cum_ratio_by_iso3]
+  CumRatio --> JoinSF[Join to Natural Earth sf]
+  JoinSF --> GlobalMap[make_global_ratio_map → global_ratio_map.png]
+  JoinSF --> RegionLoop[Loop 8 regions]
+  RegionLoop --> RegionMap["make_region_ratio_map → region_maps/{slug}.png"]
+  NE[Natural Earth 1:10m] --> BuildSF[build_world_sf]
+  OD[fn_OD_region.R] --> BuildSF
+  BuildSF --> JoinSF
+```
+
+------------------------------------------------------------------------
+
+## 19. Country Context Maps
+
+[`Scripts/figures/FUN_country_map.R`](Scripts/figures/FUN_country_map.R) generates static locator maps for national pages. `make_country_context_map(iso3, region)` highlights a single country within its region using the same bounding boxes as the region ratio maps. Regional neighbours appear in light grey; the target country is filled in teal (`#1f6f63`). `save_country_context_map()` writes the output to `Assets/Stable/country_maps/{iso3}.png`. These PNGs are referenced by the pilot country `.qmd` pages.
+
+``` mermaid
+flowchart LR
+  WorldSF[build_world_sf] --> FilterRegion[Filter to target region]
+  FilterRegion --> Highlight[Highlight target ISO3]
+  Highlight --> CropBBox[Crop to region bounding box]
+  CropBBox --> Save["Assets/Stable/country_maps/{iso3}.png"]
+```
+
+------------------------------------------------------------------------
+
+## 20. Validation Framework
+
+The validation framework lives in [`Scripts/validation/04_nowcast_validation.R`](Scripts/validation/04_nowcast_validation.R) and its helper functions in [`Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R`](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R). It evaluates the proportion-based nowcast using historic data and produces calibrated prediction intervals for operational use.
+
+### 20a. Data Preparation
+
+`prepare_validation_dataset()` re-runs the pipeline's data sourcing and seasonal baseline steps, then extracts `country, iso3, Year, season, season_nMonth, Month, cases, Actual_monthly_proportion, Actual_cum_monthly_proportion` and joins region metadata from OpenDengue.
+
+### 20b. Moving-Window Leave-One-Season-Out Simulation
+
+`run_moving_window_validation(validation_data)` iterates over every country–season combination (requiring ≥ 3 seasons). For each test season, all other seasons serve as training data. The training data is used to:
+
+1. **Fit a baseline profile** — `fit_baseline_profile()` computes mean monthly and cumulative proportions across training seasons.
+2. **Fit negative binomial parameters** — `fit_nb_month_distribution()` uses moment-based NB approximation per season month (avoids repeated `glm.nb` fits; falls back to near-Poisson when variance ≤ mean).
+3. **Simulate cutoff months 1–11** — for each cutoff, cumulative observed cases up to the cutoff are divided by the average cumulative proportion to predict the seasonal total. Months after the cutoff receive `predicted_cases = predicted_total × Ave_monthly_proportion`.
+
+For each prediction, parametric NB intervals (2.5th/97.5th and 25th/75th percentiles) and a log-score are computed.
+
+``` mermaid
+flowchart TB
+  ValData[validation_data] --> CountrySplit[Split by country]
+  CountrySplit --> SeasonLoop[For each season s]
+  SeasonLoop --> Train["Train = all seasons ≠ s"]
+  SeasonLoop --> Test["Test = season s"]
+  Train --> Baseline[fit_baseline_profile]
+  Train --> NB[fit_nb_month_distribution]
+  Baseline --> CutoffLoop[For cutoff_month 1..11]
+  NB --> CutoffLoop
+  Test --> CutoffLoop
+  CutoffLoop --> CumObs["cum_observed = Σcases up to cutoff"]
+  CumObs --> PredTotal["predicted_total = cum_observed / cum_prop"]
+  PredTotal --> PredMonths["predicted_cases = predicted_total × monthly_prop"]
+  PredMonths --> Errors[APE, RMSE, RMSPE, logscore, NB intervals]
+  Errors --> Results[validation_results_detail.csv]
+```
+
+### 20c. Error Metrics
+
+`compute_error_metrics()` aggregates results three ways:
+
+| Grouping | Metrics |
+|---|---|
+| **By country** | MAE, RMSE, RMSPE, 95% and 50% NB coverage, mean log-score, number of seasons |
+| **By cutoff month** | Median MAE, RMSE, RMSPE, coverage |
+| **By country × cutoff** | Full detail for heatmaps and per-country analysis |
+
+`classify_performance()` assigns each country to a **Good / Moderate / Poor** tier using RMSPE tertiles, and joins the seasonal profile CV (coefficient of variation of monthly proportions) and mean monthly burden.
+
+`season_month_accuracy_analysis()` identifies the **reliable horizon** — the earliest cutoff month where median RMSPE drops below 0.25.
+
+### 20d. Calibrated Prediction Intervals
+
+`build_prediction_interval_lookup()` constructs empirical prediction intervals from validation residuals at three levels of hierarchy:
+
+1. **Country-level** — quantiles of `relative_error` by `iso3 × cutoff_month × horizon` (used when ≥ `min_obs` observations, default 5).
+2. **Region-level fallback** — used when country-level observations are insufficient.
+3. **Global-level fallback** — final fallback.
+
+The lookup table stores `q025_rel`, `q25_rel`, `q75_rel`, `q975_rel` (2.5th, 25th, 75th, 97.5th percentiles of relative error). `apply_prediction_intervals()` converts these to absolute bounds: `lower = max(0, predicted × (1 + q_rel))`.
+
+`coverage_calibration()` applies the calibrated intervals to the full validation set and reports empirical coverage at 95% and 50% nominal levels.
+
+### 20e. Snapshot Convergence
+
+`compute_snapshot_convergence()` reads all dated `Output/YYYY_MM_DD/` folders, extracts nowcast estimates for rows marked as `source == "Estimates"`, and tracks how each country–month estimate converges over successive pipeline runs. The summary reports when each estimate stabilised (absolute difference to final ≤ 1).
+
+### 20f. Backfill Assessment
+
+`compute_backfill_assessment()` compares PAHO backfill values across snapshots against the latest-available value, computing MAE and RMSE by source.
+
+### 20g. Figures
+
+Seven diagnostic figures are produced:
+
+| Figure | Content |
+|---|---|
+| fig1 | Heatmap: country × cutoff RMSPE (faceted by region) |
+| fig2 | Error curve: median APE by cutoff month (by region) |
+| fig3 | Nowcast fans: selected countries with 50/95% calibrated intervals at cutoffs 3, 6, 9 |
+| fig4 | World map: country performance tier (Good/Moderate/Poor) |
+| fig5 | Boxplot: RMSPE distribution by region |
+| fig6 | Snapshot convergence: selected country–month estimates over time |
+| fig7 | Calibration diagnostic: nominal vs empirical coverage |
+
+### 20h. Output Files
+
+| File | Location |
+|---|---|
+| `validation_results_detail.csv` | `Output/validation/` |
+| `table1_country_validation_summary.csv` | `Output/validation/` |
+| `table2_cutoff_accuracy_summary.csv` | `Output/validation/` |
+| `table3_country_cutoff_detail.csv` | `Output/validation/` |
+| `table4_snapshot_convergence_summary.csv` | `Output/validation/` |
+| `table5_calibrated_prediction_intervals.csv` | `Output/validation/` |
+| `calibrated_prediction_intervals.csv` | `Assets/Stable/` (operational copy) |
+| `calibration_summary.csv` | `Output/validation/` |
+| `snapshot_convergence_detail.csv` | `Output/validation/` |
+| `backfill_assessment_paho.csv` | `Output/validation/` |
+| `reliable_horizon.txt` | `Output/validation/` |
+| `fig1`–`fig7` PNGs | `Output/validation/` |
+
+------------------------------------------------------------------------
+
+## 21. National (Country) Pages
+
+Pilot national summary pages exist for **Brazil** (`pages/country/brazil.qmd`), **Cuba** (`pages/country/cuba.qmd`), and **Guyana** (`pages/country/guyana.qmd`). These are included in the `_quarto.yml` render list and share a common structure.
+
+### 21a. Page Layout
+
+Each country page sources `Scripts/V1_Dashboard_setup.R`, then builds:
+
+1. **Hero panel** — a two-column grid with a static country context map (from `Assets/Stable/country_maps/`) on the left, and on the right: region banner, country heading, season badge (using `season_badge_label_text()` / `season_badge_state_class()`), radial clockface plot, and placeholder narrative text.
+2. **Interactive time series** — a Chart.js line chart comparing the current year's monthly cases (observed vs estimated) against selectable comparison series (5-year average or individual prior years).
+3. **Prediction intervals** — estimated months display 95% NB prediction intervals (using `nb_size` from the seasonal baseline, with mu set to the nowcast point estimate).
+
+### 21b. Data Preparation
+
+For each country page:
+
+- `brazil_df` (etc.) filters `data` to the target ISO3 and current year.
+- YTD ratio is computed to drive the season badge.
+- `ts_current` is a 12-row table (one per month) with `cases`, `average_cases`, `source`, `status` (Observed / Estimated / Unobserved), and NB-based `lower95`/`upper95`/`lower50`/`upper50` bounds.
+- `ts_historic` merges OpenDengue historic data (`pred_downscale_with_ci_V3.csv`) with pipeline output for the preceding 5 years, preferring pipeline values via `coalesce()`.
+
+### 21c. Interactive Chart.js Visualisation
+
+The time series chart is rendered client-side using Chart.js. It displays:
+
+- **Current year observed** — solid teal line with filled points.
+- **Current year estimated** — dashed teal line with hollow points.
+- **95% prediction interval** — shaded fill between `lower95` and `upper95` for estimated months.
+- **Comparison series** — user-selectable via checkboxes: 5-year average (grey) and individual prior years (colour-coded). The default selection is only the 5-year average.
+
+``` mermaid
+flowchart TB
+  Setup[V1_Dashboard_setup.R] --> CountryDF["Filter data to iso3 + current year"]
+  CountryDF --> TsCurrent["ts_current: 12 months × cases, source, NB intervals"]
+  OD[OpenDengue pred_downscale CSV] --> TsHistoric["ts_historic: 5 prior years"]
+  Pipeline[Pipeline output] --> TsHistoric
+  TsCurrent --> JSON["jsonlite::toJSON"]
+  TsHistoric --> JSON
+  JSON --> ChartJS["Chart.js line chart (client-side)"]
+  ChartJS --> Observed["Solid line: observed months"]
+  ChartJS --> Estimated["Dashed line + 95% ribbon: estimated months"]
+  ChartJS --> Compare["Checkbox-toggled comparison series"]
+```
+
+------------------------------------------------------------------------
+
+## 22. Country Audit Script
+
+[`Scripts/audit_countries.R`](Scripts/audit_countries.R) is a QA tool that checks consistency between the All Countries index page and the eight regional pages. It:
+
+1. Rebuilds the country list from `country_summary_df` (filtered to countries with a plot).
+2. Classifies each country's data completeness: Full data, No current year data, Data still loading, or Cases being compiled.
+3. Generates the accompanying text via `severity_country_blurb()` and the data status footnote.
+4. Compares country membership between the All Countries page and each region page, reporting:
+   - Countries on All Countries but not in any region.
+   - Countries on a region page but missing from All Countries.
+   - Per-region discrepancies.
+5. Writes `audit_country_missingness.csv` to the output folder.
+
+------------------------------------------------------------------------
+
 ## Key Source Files
+
+### Pipeline and Data Processing
 
 | File                                                                                                                                 | Role                                                    |
 |--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | [Scripts/V1_Pipeline.R](Scripts/V1_Pipeline.R)                                                                                       | Pipeline orchestrator                                   |
-| [Scripts/V1_Dashboard_setup.R](Scripts/V1_Dashboard_setup.R)                                                                         | Dashboard data prep and text helpers                    |
-| [Scripts/figures/FUN_utility.R](Scripts/figures/FUN_utility.R)                                                                       | Scrolly text, severity blurbs, region/country rendering |
-| [Scripts/figures/Radial.R](Scripts/figures/Radial.R)                                                                                 | Radial clockface plot                                   |
-| [Scripts/data_sourcing/01_dengue_data.R](Scripts/data_sourcing/01_dengue_data.R)                                                     | Data ingestion                                          |
-| [Scripts/data_sourcing/01_select_historic_data.R](Scripts/data_sourcing/01_select_historic_data.R)                                   | Historic OD + WHO selection                             |
+| [Scripts/data_sourcing/01_dengue_data.R](Scripts/data_sourcing/01_dengue_data.R)                                                     | Data ingestion (PAHO, WHO, SEARO, OpenDengue)           |
+| [Scripts/data_sourcing/01_select_historic_data.R](Scripts/data_sourcing/01_select_historic_data.R)                                   | Historic OD + WHO selection and deduplication            |
 | [Scripts/seasonal_baseline/02_identify_seasonal_baseline.R](Scripts/seasonal_baseline/02_identify_seasonal_baseline.R)               | Seasonal baseline and NB params                         |
 | [Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R](Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R) | Backfill and source merge                               |
+| [Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R](Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R)                 | PAHO-specific reporting correction transforms           |
 | [Scripts/nowcasting/03_proportion_nowcast.R](Scripts/nowcasting/03_proportion_nowcast.R)                                             | Proportion nowcasting                                   |
-| [Scripts/utils/logging.R](Scripts/utils/logging.R)                                                                                   | Logging                                                 |
-| [Scripts/utils/country_tracking.R](Scripts/utils/country_tracking.R)                                                                 | Country attrition tracking                              |
+| [Scripts/utils/logging.R](Scripts/utils/logging.R)                                                                                   | Pipeline logging                                        |
+| [Scripts/utils/country_tracking.R](Scripts/utils/country_tracking.R)                                                                 | Country attrition tracking per pipeline step            |
+
+### Dashboard and Visualisation
+
+| File                                                                                                                                 | Role                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| [Scripts/V1_Dashboard_setup.R](Scripts/V1_Dashboard_setup.R)                                                                         | Dashboard data prep, text helpers, plot generation       |
+| [Scripts/figures/FUN_utility.R](Scripts/figures/FUN_utility.R)                                                                       | Scrolly text, severity blurbs, region/country rendering |
+| [Scripts/figures/Radial.R](Scripts/figures/Radial.R)                                                                                 | Radial clockface plot                                   |
+| [Scripts/figures/FUN_map.R](Scripts/figures/FUN_map.R)                                                                               | Shared map functions (world sf, ratio calculation, scales) |
+| [Scripts/figures/FUN_country_map.R](Scripts/figures/FUN_country_map.R)                                                               | Country context locator maps for national pages         |
+| [Scripts/figures/run_global_map.R](Scripts/figures/run_global_map.R)                                                                 | Standalone: generates global choropleth ratio map        |
+| [Scripts/figures/run_region_maps.R](Scripts/figures/run_region_maps.R)                                                               | Standalone: generates eight regional choropleth maps     |
+| [Assets/Stable/OD_maps/fn_OD_region.R](Assets/Stable/OD_maps/fn_OD_region.R)                                                       | OpenDengue region assignment lookup                     |
+
+### Validation
+
+| File                                                                                                                                 | Role                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| [Scripts/validation/04_nowcast_validation.R](Scripts/validation/04_nowcast_validation.R)                                             | Main validation orchestrator and figure generation       |
+| [Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R)                 | Validation functions: moving-window sim, metrics, calibrated intervals, snapshot convergence |
+
+### Quality Assurance
+
+| File                                                                                                                                 | Role                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| [Scripts/audit_countries.R](Scripts/audit_countries.R)                                                                               | Country consistency audit (All Countries vs Regions)    |
+
+### Quarto Pages
+
+| File                                                                                                                                 | Role                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| [index.qmd](index.qmd)                                                                                                              | Home page with global scrolly narrative                  |
+| [pages/country-index.qmd](pages/country-index.qmd)                                                                                 | All Countries searchable index                           |
+| [pages/country/brazil.qmd](pages/country/brazil.qmd)                                                                               | Pilot national page: Brazil                              |
+| [pages/country/cuba.qmd](pages/country/cuba.qmd)                                                                                   | Pilot national page: Cuba                                |
+| [pages/country/guyana.qmd](pages/country/guyana.qmd)                                                                               | Pilot national page: Guyana                              |
+| [pages/data.qmd](pages/data.qmd)                                                                                                   | Data download and table                                  |
+| Regional `.qmd` (8 files)                                                                                                            | Region overview pages                                    |
 
 ------------------------------------------------------------------------
 
-*Report generated for the DENV Global Observatory. All flowcharts use Mermaid syntax and render in Markdown viewers that support Mermaid (e.g. GitHub, Quarto, VS Code).*
+*Report generated for the DENV Global Observatory (last updated: March 2026). All flowcharts use Mermaid syntax and render in Markdown viewers that support Mermaid (e.g. GitHub, Quarto, VS Code).*

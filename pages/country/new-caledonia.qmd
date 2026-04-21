@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "New Caledonia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "NCL"
+  country_name: "New Caledonia"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/ncl.png"
+  slug: "new-caledonia"
+---
+
+{{< include _country-template.qmd >}}

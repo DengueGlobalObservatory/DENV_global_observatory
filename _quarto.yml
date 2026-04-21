@@ -19,6 +19,7 @@ project:
     - pages/about.qmd
     - pages/faq.qmd
     - pages/data.qmd
+    - pages/country/*.qmd
  
   
 website:

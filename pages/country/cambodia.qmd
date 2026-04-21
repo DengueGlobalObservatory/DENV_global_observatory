@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Cambodia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "KHM"
+  country_name: "Cambodia"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/khm.png"
+  slug: "cambodia"
+---
+
+{{< include _country-template.qmd >}}

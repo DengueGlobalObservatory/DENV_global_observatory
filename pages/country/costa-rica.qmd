@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Costa Rica"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "CRI"
+  country_name: "Costa Rica"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/cri.png"
+  slug: "costa-rica"
+---
+
+{{< include _country-template.qmd >}}

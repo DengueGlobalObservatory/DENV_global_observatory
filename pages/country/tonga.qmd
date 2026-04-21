@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Tonga"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "TON"
+  country_name: "Tonga"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/ton.png"
+  slug: "tonga"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Cote D'ivoire"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "CIV"
+  country_name: "Cote D'ivoire"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/civ.png"
+  slug: "cote-d-ivoire"
+---
+
+{{< include _country-template.qmd >}}

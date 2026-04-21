@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "French Guiana"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "GUF"
+  country_name: "French Guiana"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/guf.png"
+  slug: "french-guiana"
+---
+
+{{< include _country-template.qmd >}}

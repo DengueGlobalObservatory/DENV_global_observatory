@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Colombia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "COL"
+  country_name: "Colombia"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/col.png"
+  slug: "colombia"
+---
+
+{{< include _country-template.qmd >}}

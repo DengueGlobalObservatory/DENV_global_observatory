@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Uruguay"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "URY"
+  country_name: "Uruguay"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/ury.png"
+  slug: "uruguay"
+---
+
+{{< include _country-template.qmd >}}

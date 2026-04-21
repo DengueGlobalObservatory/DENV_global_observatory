@@ -474,8 +474,15 @@ body {
 
 .region-hero-map {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.region-hero-map-link {
+  width: 100%;
+  text-align: center;
 }
 
 .region-hero-map-image {
@@ -1017,6 +1024,33 @@ body {
   height: 100% !important;
 }
 
+.country-card-plot-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.country-card-plot-link > * {
+  width: 100% !important;
+  height: 100% !important;
+  transition: transform 0.22s ease;
+}
+
+.country-card-plot-link:hover,
+.country-card-plot-link:focus-visible {
+  transform: translateY(-4px) scale(1.04);
+  filter: drop-shadow(0 8px 16px rgba(13, 92, 72, 0.24));
+}
+
+.country-card-plot-link:focus-visible {
+  outline: 2px solid rgba(13, 92, 72, 0.45);
+  outline-offset: 5px;
+}
+
 .severity-blurb {
   font-size: 0.95rem;
   line-height: 1.4;
@@ -1260,4 +1294,145 @@ body:has(.data-page-content) main.content {
   overflow-x: auto;
   max-width: 100%;
   display: block !important;
+}
+
+/* ==============================================
+   NATIONAL COUNTRY PAGE (MOCK-UP)
+   ============================================== */
+
+.country-page-banner {
+  background: #f7faf9;
+  border: 1px solid rgba(31, 111, 99, 0.2);
+  color: #13443c;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 1rem;
+  margin: 0 auto 0.85rem auto;
+}
+
+.country-page-heading {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.country-page-shell {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.country-page-subtitle {
+  margin: 0.4rem 0 0 0;
+  color: #4c5a69;
+  font-size: 0.95rem;
+}
+
+.country-ts-card {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e3e5eb;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  margin: 0 auto 2.5rem auto;
+  max-width: 100%;
+  padding: 1.2rem 1.2rem 1.4rem 1.2rem;
+}
+
+.country-ts-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.country-ts-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-weight: 700;
+}
+
+.country-ts-note {
+  margin: 0;
+  color: #5f6d7a;
+  font-size: 0.88rem;
+}
+
+.country-ts-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.country-ts-toggle label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #13443c;
+}
+
+.country-ts-checkboxes {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+}
+
+.country-ts-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  color: #1f2a37;
+  border: 1px solid var(--series-color, rgba(31, 111, 99, 0.3));
+  border-radius: 999px;
+  background: var(--series-bg, #f7faf9);
+  padding: 0.2rem 0.55rem;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.country-ts-checkbox:has(input:checked) {
+  box-shadow: inset 0 0 0 1px var(--series-color, #1f6f63);
+}
+
+.country-ts-checkbox input[type="checkbox"] {
+  width: 0.85rem;
+  height: 0.85rem;
+  accent-color: var(--series-color, #1f6f63);
+}
+
+.country-ts-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.2rem;
+  margin-top: 0.55rem;
+  font-size: 0.82rem;
+  color: #3e4b58;
+}
+
+.country-ts-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.country-ts-swatch {
+  width: 18px;
+  height: 0;
+  border-top: 2px solid #0d5c48;
+}
+
+.country-ts-swatch.is-avg {
+  border-top-color: #9aa6b2;
+}
+
+.country-ts-swatch.is-est {
+  border-top-style: dashed;
 }

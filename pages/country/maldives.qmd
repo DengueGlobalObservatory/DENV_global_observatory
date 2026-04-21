@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Maldives"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "MDV"
+  country_name: "Maldives"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/mdv.png"
+  slug: "maldives"
+---
+
+{{< include _country-template.qmd >}}

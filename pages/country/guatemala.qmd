@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Guatemala"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "GTM"
+  country_name: "Guatemala"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/gtm.png"
+  slug: "guatemala"
+---
+
+{{< include _country-template.qmd >}}

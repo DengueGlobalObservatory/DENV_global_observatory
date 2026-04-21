@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Saint Lucia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "LCA"
+  country_name: "Saint Lucia"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/lca.png"
+  slug: "saint-lucia"
+---
+
+{{< include _country-template.qmd >}}

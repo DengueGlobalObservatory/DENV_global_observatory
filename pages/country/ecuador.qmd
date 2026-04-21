@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Ecuador"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "ECU"
+  country_name: "Ecuador"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/ecu.png"
+  slug: "ecuador"
+---
+
+{{< include _country-template.qmd >}}

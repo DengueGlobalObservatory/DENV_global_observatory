@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Reunion"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "REU"
+  country_name: "Reunion"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/reu.png"
+  slug: "reunion"
+---
+
+{{< include _country-template.qmd >}}

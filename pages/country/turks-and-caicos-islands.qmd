@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Turks And Caicos Islands"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "TCA"
+  country_name: "Turks And Caicos Islands"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/tca.png"
+  slug: "turks-and-caicos-islands"
+---
+
+{{< include _country-template.qmd >}}

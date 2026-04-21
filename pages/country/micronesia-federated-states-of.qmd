@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Micronesia (Federated States Of)"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "FSM"
+  country_name: "Micronesia (Federated States Of)"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/fsm.png"
+  slug: "micronesia-federated-states-of"
+---
+
+{{< include _country-template.qmd >}}

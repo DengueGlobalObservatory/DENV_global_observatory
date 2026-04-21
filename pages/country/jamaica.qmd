@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Jamaica"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "JAM"
+  country_name: "Jamaica"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/jam.png"
+  slug: "jamaica"
+---
+
+{{< include _country-template.qmd >}}

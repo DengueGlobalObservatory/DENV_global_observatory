@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Viet Nam"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "VNM"
+  country_name: "Viet Nam"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/vnm.png"
+  slug: "viet-nam"
+---
+
+{{< include _country-template.qmd >}}

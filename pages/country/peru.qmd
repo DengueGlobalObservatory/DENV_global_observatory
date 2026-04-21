@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Peru"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PER"
+  country_name: "Peru"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/per.png"
+  slug: "peru"
+---
+
+{{< include _country-template.qmd >}}

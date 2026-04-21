@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Puerto Rico"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PRI"
+  country_name: "Puerto Rico"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/pri.png"
+  slug: "puerto-rico"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Panama"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PAN"
+  country_name: "Panama"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/pan.png"
+  slug: "panama"
+---
+
+{{< include _country-template.qmd >}}

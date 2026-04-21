@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "El Salvador"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SLV"
+  country_name: "El Salvador"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/slv.png"
+  slug: "el-salvador"
+---
+
+{{< include _country-template.qmd >}}

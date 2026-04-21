@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Saint Vincent And The Grenadines"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "VCT"
+  country_name: "Saint Vincent And The Grenadines"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/vct.png"
+  slug: "saint-vincent-and-the-grenadines"
+---
+
+{{< include _country-template.qmd >}}

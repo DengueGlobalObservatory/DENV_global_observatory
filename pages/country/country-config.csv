@@ -1,0 +1,82 @@
+iso3,country_name,region,region_href,map_src,slug,enabled
+AFG,Afghanistan,South Asia,../southasia.html,../../Assets/Stable/country_maps/afg.png,afghanistan,TRUE
+ATG,Antigua And Barbuda,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/atg.png,antigua-and-barbuda,TRUE
+ARG,Argentina,South America,../southamerica.html,../../Assets/Stable/country_maps/arg.png,argentina,TRUE
+ABW,Aruba,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/abw.png,aruba,TRUE
+AUS,Australia,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/aus.png,australia,TRUE
+BGD,Bangladesh,South Asia,../southasia.html,../../Assets/Stable/country_maps/bgd.png,bangladesh,TRUE
+BRB,Barbados,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/brb.png,barbados,TRUE
+BLZ,Belize,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/blz.png,belize,TRUE
+BTN,Bhutan,South Asia,../southasia.html,../../Assets/Stable/country_maps/btn.png,bhutan,TRUE
+BOL,Bolivia,South America,../southamerica.html,../../Assets/Stable/country_maps/bol.png,bolivia,TRUE
+BRA,Brazil,South America,../southamerica.html,../../Assets/Stable/country_maps/bra.png,brazil,TRUE
+BFA,Burkina Faso,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/bfa.png,burkina-faso,TRUE
+KHM,Cambodia,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/khm.png,cambodia,TRUE
+CYM,Cayman Islands,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/cym.png,cayman-islands,TRUE
+CHL,Chile,South America,../southamerica.html,../../Assets/Stable/country_maps/chl.png,chile,TRUE
+CHN,China,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/chn.png,china,TRUE
+COL,Colombia,South America,../southamerica.html,../../Assets/Stable/country_maps/col.png,colombia,TRUE
+COK,Cook Islands,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/cok.png,cook-islands,TRUE
+CRI,Costa Rica,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/cri.png,costa-rica,TRUE
+CIV,Cote D'ivoire,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/civ.png,cote-d-ivoire,TRUE
+CUB,Cuba,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/cub.png,cuba,TRUE
+DOM,Dominican Republic,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/dom.png,dominican-republic,TRUE
+ECU,Ecuador,South America,../southamerica.html,../../Assets/Stable/country_maps/ecu.png,ecuador,TRUE
+SLV,El Salvador,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/slv.png,el-salvador,TRUE
+ERI,Eritrea,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/eri.png,eritrea,TRUE
+FJI,Fiji,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/fji.png,fiji,TRUE
+GUF,French Guiana,South America,../southamerica.html,../../Assets/Stable/country_maps/guf.png,french-guiana,TRUE
+PYF,French Polynesia,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/pyf.png,french-polynesia,TRUE
+GRD,Grenada,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/grd.png,grenada,TRUE
+GLP,Guadeloupe,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/glp.png,guadeloupe,TRUE
+GTM,Guatemala,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/gtm.png,guatemala,TRUE
+GUY,Guyana,South America,../southamerica.html,../../Assets/Stable/country_maps/guy.png,guyana,TRUE
+HND,Honduras,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/hnd.png,honduras,TRUE
+IND,India,South Asia,../southasia.html,../../Assets/Stable/country_maps/ind.png,india,TRUE
+JAM,Jamaica,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/jam.png,jamaica,TRUE
+KEN,Kenya,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/ken.png,kenya,TRUE
+KIR,Kiribati,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/kir.png,kiribati,TRUE
+LAO,Lao People's Democratic Republic,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/lao.png,lao-people-s-democratic-republic,TRUE
+MYS,Malaysia,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/mys.png,malaysia,TRUE
+MDV,Maldives,South Asia,../southasia.html,../../Assets/Stable/country_maps/mdv.png,maldives,TRUE
+MHL,Marshall Islands,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/mhl.png,marshall-islands,TRUE
+MTQ,Martinique,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/mtq.png,martinique,TRUE
+MRT,Mauritania,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/mrt.png,mauritania,TRUE
+MEX,Mexico,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/mex.png,mexico,TRUE
+FSM,Micronesia (Federated States Of),Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/fsm.png,micronesia-federated-states-of,TRUE
+MMR,Myanmar,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/mmr.png,myanmar,TRUE
+NPL,Nepal,South Asia,../southasia.html,../../Assets/Stable/country_maps/npl.png,nepal,TRUE
+NCL,New Caledonia,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/ncl.png,new-caledonia,TRUE
+PAK,Pakistan,South Asia,../southasia.html,../../Assets/Stable/country_maps/pak.png,pakistan,TRUE
+PLW,Palau,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/plw.png,palau,TRUE
+PAN,Panama,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/pan.png,panama,TRUE
+PRY,Paraguay,South America,../southamerica.html,../../Assets/Stable/country_maps/pry.png,paraguay,TRUE
+PER,Peru,South America,../southamerica.html,../../Assets/Stable/country_maps/per.png,peru,TRUE
+PRI,Puerto Rico,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/pri.png,puerto-rico,TRUE
+REU,Reunion,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/reu.png,reunion,TRUE
+BLM,Saint Barthelemy,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/blm.png,saint-barthelemy,TRUE
+KNA,Saint Kitts And Nevis,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/kna.png,saint-kitts-and-nevis,TRUE
+LCA,Saint Lucia,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/lca.png,saint-lucia,TRUE
+MAF,Saint Martin,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/maf.png,saint-martin,TRUE
+VCT,Saint Vincent And The Grenadines,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/vct.png,saint-vincent-and-the-grenadines,TRUE
+WSM,Samoa,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/wsm.png,samoa,TRUE
+SEN,Senegal,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/sen.png,senegal,TRUE
+SYC,Seychelles,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/syc.png,seychelles,TRUE
+SGP,Singapore,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/sgp.png,singapore,TRUE
+SXM,Sint Maarten,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/sxm.png,sint-maarten,TRUE
+SLB,Solomon Islands,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/slb.png,solomon-islands,TRUE
+LKA,Sri Lanka,South Asia,../southasia.html,../../Assets/Stable/country_maps/lka.png,sri-lanka,TRUE
+SDN,Sudan,"Europe, Middle East & North Africa",../europemiddleeastnorthafrica.html,../../Assets/Stable/country_maps/sdn.png,sudan,TRUE
+SUR,Suriname,South America,../southamerica.html,../../Assets/Stable/country_maps/sur.png,suriname,TRUE
+THA,Thailand,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/tha.png,thailand,TRUE
+TLS,Timor-Leste,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/tls.png,timor-leste,TRUE
+TON,Tonga,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/ton.png,tonga,TRUE
+TTO,Trinidad And Tobago,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/tto.png,trinidad-and-tobago,TRUE
+TCA,Turks And Caicos Islands,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/tca.png,turks-and-caicos-islands,TRUE
+TUV,Tuvalu,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/tuv.png,tuvalu,TRUE
+USA,United States Of America,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/usa.png,united-states-of-america,TRUE
+URY,Uruguay,South America,../southamerica.html,../../Assets/Stable/country_maps/ury.png,uruguay,TRUE
+VUT,Vanuatu,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/vut.png,vanuatu,TRUE
+VNM,Viet Nam,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/vnm.png,viet-nam,TRUE
+VGB,Virgin Islands (Uk),Caribbean,../caribbean.html,../../Assets/Stable/country_maps/vgb.png,virgin-islands-uk,TRUE
+WLF,Wallis And Futuna,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/wlf.png,wallis-and-futuna,TRUE

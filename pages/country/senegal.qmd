@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Senegal"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SEN"
+  country_name: "Senegal"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/sen.png"
+  slug: "senegal"
+---
+
+{{< include _country-template.qmd >}}

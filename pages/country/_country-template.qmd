@@ -1,0 +1,601 @@
+```{=html}
+<style>
+  /* Hide Quarto's page-level title; keep hero title */
+  #title-block-header { display: none; }
+</style>
+```
+
+```{=html}
+<div class="country-page-shell">
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+if (basename(getwd()) == "country") {
+  setwd("../..")
+} else if (basename(getwd()) == "pages") {
+  setwd("..")
+}
+
+source("Scripts/V1_Dashboard_setup.R")
+```
+
+```{r}
+#| label: prep-country-data
+#| include: false
+
+country_iso3 <- toupper(params$iso3)
+country_name <- params$country_name
+country_region <- params$region
+country_region_href <- params$region_href
+country_map_src <- params$map_src
+country_slug <- params$slug
+
+country_df <- data %>%
+  dplyr::filter(iso3 == country_iso3, Year == current_year) %>%
+  dplyr::arrange(Month)
+
+country_plot <- all_country_plots[[country_name]]
+if (is.null(country_plot)) {
+  country_plot <- make_radial_plot(data %>% dplyr::filter(iso3 == country_iso3), current_year, current_month)
+}
+
+ytd_row <- country_df %>%
+  dplyr::filter(Month <= recent_month) %>%
+  dplyr::summarise(
+    ytd_cases = sum(cases, na.rm = TRUE),
+    ytd_expected = sum(Ave_season_monthly_cases, na.rm = TRUE)
+  ) %>%
+  dplyr::mutate(ytd_ratio = dplyr::if_else(ytd_expected > 0, ytd_cases / ytd_expected, NA_real_))
+
+badge_class <- if (nrow(ytd_row) == 1) season_badge_state_class(ytd_row$ytd_ratio)[1] else "is-neutral"
+badge_label <- if (nrow(ytd_row) == 1) season_badge_label_text(ytd_row$ytd_ratio)[1] else "Season near baseline"
+
+ts_current <- country_df %>%
+  dplyr::transmute(
+    month = Month,
+    month_label = month.abb[Month],
+    cases = as.numeric(cases),
+    average_cases = round(as.numeric(Ave_season_monthly_cases), 0),
+    source = dplyr::coalesce(as.character(source), "Not available"),
+    status = dplyr::case_when(
+      is.na(cases) ~ "Unobserved",
+      dplyr::coalesce(as.character(source), "") == "Estimates" ~ "Estimated",
+      "Data_status" %in% names(country_df) &
+        !is.na(cases) &
+        dplyr::coalesce(as.character(Data_status), "") == "Unobserved" ~ "Estimated",
+      TRUE ~ "Observed"
+    ),
+    lower95 = dplyr::if_else(
+      status == "Estimated" & !is.na(nb_size) & !is.na(cases),
+      as.numeric(stats::qnbinom(0.025, size = nb_size, mu = pmax(cases, 1e-6))),
+      NA_real_
+    ),
+    upper95 = dplyr::if_else(
+      status == "Estimated" & !is.na(nb_size) & !is.na(cases),
+      as.numeric(stats::qnbinom(0.975, size = nb_size, mu = pmax(cases, 1e-6))),
+      NA_real_
+    )
+  )
+
+hist_csv_path <- if (file.exists("Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv")) {
+  "Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv"
+} else if (file.exists("../Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv")) {
+  "../Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv"
+} else {
+  "../../Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv"
+}
+hist_raw <- read.csv(hist_csv_path, check.names = FALSE)
+
+comparison_years <- seq.int(current_year - 5, current_year - 1)
+
+ts_historic_stable <- hist_raw %>%
+  dplyr::filter(ISO_A0 == country_iso3, Year %in% comparison_years) %>%
+  dplyr::transmute(
+    year = as.character(Year),
+    month = as.integer(month),
+    month_label = month.abb[as.integer(month)],
+    cases = as.numeric(dengue_total_scaled)
+  )
+
+ts_historic_output <- data %>%
+  dplyr::filter(iso3 == country_iso3, Year %in% comparison_years) %>%
+  dplyr::transmute(
+    year = as.character(Year),
+    month = as.integer(Month),
+    month_label = month.abb[as.integer(Month)],
+    cases_output = as.numeric(cases)
+  )
+
+ts_historic <- ts_historic_stable %>%
+  dplyr::full_join(
+    ts_historic_output,
+    by = c("year", "month", "month_label")
+  ) %>%
+  dplyr::mutate(
+    cases = dplyr::coalesce(cases_output, cases)
+  ) %>%
+  dplyr::select(year, month, month_label, cases)
+
+format_big <- function(x) {
+  if (is.null(x) || is.na(x)) return(NA_character_)
+  format(round(x), big.mark = ",", trim = TRUE, scientific = FALSE)
+}
+
+monthly_phrase <- function(ratio) {
+  if (is.na(ratio)) return("close to")
+  if (ratio >= 1.30) return("well above")
+  if (ratio >= 1.10) return("slightly above")
+  if (ratio >= 0.90) return("close to")
+  if (ratio >= 0.70) return("slightly below")
+  return("well below")
+}
+
+season_phrase <- function(ratio) {
+  if (is.na(ratio)) return("near")
+  if (ratio >= 1.20) return("above")
+  if (ratio < 0.85) return("below")
+  return("near")
+}
+
+relative_level_phrase <- function(ratio) {
+  if (is.na(ratio)) return("near")
+  if (ratio >= 1.40) return("well above")
+  if (ratio >= 1.10) return("above")
+  if (ratio >= 0.90) return("near")
+  if (ratio >= 0.70) return("below")
+  return("well below")
+}
+
+last_row <- country_df %>%
+  dplyr::filter(!is.na(cases)) %>%
+  dplyr::arrange(date) %>%
+  dplyr::slice_tail(n = 1)
+prev_row <- country_df %>%
+  dplyr::filter(!is.na(cases), date < last_row$date) %>%
+  dplyr::arrange(date) %>%
+  dplyr::slice_tail(n = 1)
+
+cases_last_month <- if (nrow(last_row) == 1) last_row$cases[1] else NA_real_
+expected_last_month <- if (nrow(last_row) == 1) last_row$Ave_season_monthly_cases[1] else NA_real_
+last_month_label <- if (nrow(last_row) == 1) format(as.Date(last_row$date[1]), "%B %Y") else "recent months"
+
+prev_month_label <- if (nrow(prev_row) == 1) format(as.Date(prev_row$date[1]), "%B %Y") else NA_character_
+cases_prev_month <- if (nrow(prev_row) == 1) prev_row$cases[1] else NA_real_
+
+monthly_ratio <- if (!is.na(cases_last_month) && !is.na(expected_last_month) && expected_last_month > 0) {
+  cases_last_month / expected_last_month
+} else {
+  NA_real_
+}
+monthly_vs_expected_phrase <- monthly_phrase(monthly_ratio)
+
+pct_change_value <- if (!is.na(cases_prev_month) && cases_prev_month > 0 && !is.na(cases_last_month)) {
+  (cases_last_month - cases_prev_month) / cases_prev_month
+} else {
+  NA_real_
+}
+
+ytd_cases <- if (nrow(ytd_row) == 1) ytd_row$ytd_cases[1] else NA_real_
+ytd_ratio <- if (nrow(ytd_row) == 1) ytd_row$ytd_ratio[1] else NA_real_
+season_status_phrase <- season_phrase(ytd_ratio)
+
+peak_month <- country_df %>%
+  dplyr::filter(!is.na(Ave_season_monthly_cases)) %>%
+  dplyr::arrange(dplyr::desc(Ave_season_monthly_cases)) %>%
+  dplyr::slice_head(n = 1) %>%
+  dplyr::pull(Month)
+peak_month_label <- if (length(peak_month) == 1 && !is.na(peak_month)) month.name[peak_month] else NA_character_
+
+has_estimated_months <- any(ts_current$status == "Estimated", na.rm = TRUE)
+
+cases_last_month_label <- format_big(cases_last_month)
+cases_prev_month_label <- format_big(cases_prev_month)
+ytd_cases_label <- format_big(ytd_cases)
+ytd_ratio_label <- if (!is.na(ytd_ratio)) sprintf("%.1f", ytd_ratio) else NA_character_
+observed_history <- if ("Data_status" %in% names(data)) {
+  data %>%
+    dplyr::filter(
+      iso3 == country_iso3,
+      !is.na(cases),
+      dplyr::coalesce(as.character(source), "") != "Estimates",
+      dplyr::coalesce(as.character(Data_status), "") != "Unobserved"
+    ) %>%
+    dplyr::arrange(date)
+} else {
+  data %>%
+    dplyr::filter(
+      iso3 == country_iso3,
+      !is.na(cases),
+      dplyr::coalesce(as.character(source), "") != "Estimates"
+    ) %>%
+    dplyr::arrange(date)
+}
+
+if (nrow(observed_history) == 0) {
+  last_observed_month_label <- "recent months"
+} else {
+  last_observed_month_label <- format(as.Date(observed_history$date[nrow(observed_history)]), "%B %Y")
+}
+
+data_refreshed_date <- latest_update_label
+
+current_trajectory <- if (is.na(pct_change_value)) {
+  "stable"
+} else if (pct_change_value > 0.05) {
+  "increasing"
+} else if (pct_change_value < -0.05) {
+  "decreasing"
+} else {
+  "stable"
+}
+
+hero_relative_phrase <- relative_level_phrase(ytd_ratio)
+trajectory_context_phrase <- "as expected at this time of the year based on trends in previous years"
+
+analysis_sentence_1 <- glue::glue(
+  "In {last_month_label}, {country_name} reported {cases_last_month_label} dengue cases, {monthly_vs_expected_phrase} what we would typically expect for this time of year."
+)
+analysis_sentence_2 <- if (!is.na(prev_month_label) && !is.na(cases_prev_month_label)) {
+  glue::glue(
+    "Compared with {prev_month_label}, in which {cases_prev_month_label} cases were reported, this is a similar level of reported cases."
+  )
+} else {
+  "Compared with the previous month, this is a similar level of reported cases."
+}
+analysis_sentence_3 <- glue::glue(
+  "So far in {current_year}, the country has recorded {ytd_cases_label} cases-about {ytd_ratio_label}x the expected level-so the season is {season_status_phrase} average to date."
+)
+
+hero_status_sentence <- glue::glue(
+  "In {current_year} so far, the reported cases are {hero_relative_phrase} the expected number of cases. Cases are currently {current_trajectory}, {trajectory_context_phrase}."
+)
+
+chart_host_id <- paste0(country_slug, "TsChart")
+canvas_id <- paste0(country_slug, "TsCanvas")
+control_id <- paste0(country_slug, "CompareControl")
+```
+
+```{r}
+#| label: country-hero
+#| echo: false
+
+hero_text <- htmltools::div(
+  class = "region-hero-text-block",
+  htmltools::tags$p(
+    hero_status_sentence,
+    class = "region-hero-text-body"
+  ),
+  htmltools::tags$small(
+    class = "region-hero-updated",
+    paste("Data refreshed:", data_refreshed_date)
+  )
+)
+
+map_block <- if (file.exists(country_map_src)) {
+  htmltools::tags$img(
+    src = country_map_src,
+    alt = paste("Map highlighting", country_name, "in", country_region),
+    class = "region-hero-map-image"
+  )
+} else {
+  htmltools::div(
+    class = "region-hero-map-placeholder",
+    "Map coming soon"
+  )
+}
+
+htmltools::div(
+  class = "region-hero-grid",
+  htmltools::div(
+    class = "region-hero-panel region-hero-map",
+    map_block,
+    htmltools::div(
+      class = "region-hero-map-link",
+      htmltools::tags$a(
+        href = country_region_href,
+        class = "severity-region-link",
+        country_region
+      )
+    )
+  ),
+  htmltools::div(
+    class = "region-hero-panel region-hero-plot",
+    htmltools::div(
+      class = "region-hero-heading-block",
+      htmltools::tags$div(class = "country-page-heading", country_name),
+      htmltools::div(class = paste("season-badge", badge_class), badge_label)
+    ),
+    htmltools::div(
+      class = "region-summary-plot",
+      htmltools::plotTag(country_plot, alt = paste(country_name, "radial plot"))
+    ),
+    hero_text
+  )
+)
+```
+
+```{r}
+#| echo: false
+
+htmltools::div(
+  class = "country-ts-card",
+  htmltools::div(
+    class = "country-ts-header",
+    htmltools::tags$h2(class = "country-ts-title", glue::glue("Dengue cases in {current_year}")),
+    htmltools::div(
+      class = "country-ts-toggle",
+      htmltools::tags$label("Compare to"),
+      htmltools::tags$span(id = control_id)
+    )
+  ),
+  htmltools::tags$p(
+    class = "country-ts-note",
+    if (has_estimated_months) "Some recent months include estimated values because official reports can arrive with delays." else NULL
+  ),
+  htmltools::tags$div(id = chart_host_id),
+  htmltools::div(
+    class = "country-ts-legend",
+    htmltools::tags$span(
+      class = "country-ts-legend-item",
+      htmltools::tags$span(class = "country-ts-swatch"),
+      " Current year: Reported cases"
+    ),
+    htmltools::tags$span(
+      class = "country-ts-legend-item",
+      htmltools::tags$span(class = "country-ts-swatch is-est"),
+      " Current year: Estimated cases (reported cases not available)"
+    ),
+    htmltools::tags$span(
+      class = "country-ts-legend-item",
+      htmltools::tags$span(
+        class = "country-ts-swatch",
+        style = "background-color: rgba(13, 92, 72, 0.14); border-color: rgba(13, 92, 72, 0.14);"
+      ),
+      " Uncertainty: 95% confidence interval"
+    )
+  )
+)
+```
+
+```{r}
+#| echo: false
+#| results: asis
+
+ts_current_json <- jsonlite::toJSON(ts_current, auto_unbox = TRUE, na = "null")
+ts_historic_json <- jsonlite::toJSON(ts_historic, auto_unbox = TRUE, na = "null")
+
+htmltools::tagList(
+  htmltools::tags$script(src = "https://cdn.jsdelivr.net/npm/chart.js"),
+  htmltools::tags$script(
+    htmltools::HTML(sprintf(
+'(function () {
+  const tsCurrent = %s;
+  const tsHistoric = %s;
+  const labels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const controlHost = document.getElementById("%s");
+  const canvasHost = document.getElementById("%s");
+  if (!controlHost || !canvasHost) return;
+  const historicYears = Array.from(new Set(tsHistoric.map(d => String(d.year)))).sort((a, b) => Number(b) - Number(a)).slice(0, 5);
+  const compareOptions = ["5-year Average", ...historicYears];
+  const seriesColorMap = {
+    "5-year Average": "#6c757d",
+    "2025": "#ff7851",
+    "2024": "#6cc3d5",
+    "2023": "#f3969a",
+    "2022": "#ffce67",
+    "2021": "#6610f2",
+    "2020": "#343a40"
+  };
+  const colorForSeries = (series) => seriesColorMap[series] || "#607080";
+  const toRgba = (hex, alpha) => {
+    const clean = hex.replace("#", "");
+    const h = clean.length === 3
+      ? clean.split("").map(x => x + x).join("")
+      : clean;
+    const r = parseInt(h.slice(0, 2), 16);
+    const g = parseInt(h.slice(2, 4), 16);
+    const b = parseInt(h.slice(4, 6), 16);
+    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+  };
+  const monthValue = (arr, month, field) => {
+    const row = arr.find(d => Number(d.month) === month);
+    if (!row) return null;
+    const val = row[field];
+    return val === null || val === undefined ? null : Number(val);
+  };
+  const checkboxWrap = document.createElement("div");
+  checkboxWrap.className = "country-ts-checkboxes";
+  compareOptions.forEach((v, idx) => {
+    const optionId = "%s_compareOption_" + v;
+    const label = document.createElement("label");
+    label.className = "country-ts-checkbox";
+    label.setAttribute("for", optionId);
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.id = optionId;
+    input.value = v;
+    input.checked = idx === 0;
+    const text = document.createElement("span");
+    text.textContent = v;
+    const swatchColor = colorForSeries(v);
+    label.style.setProperty("--series-color", swatchColor);
+    label.style.setProperty("--series-bg", toRgba(swatchColor, 0.12));
+    input.style.accentColor = swatchColor;
+    label.appendChild(input);
+    label.appendChild(text);
+    checkboxWrap.appendChild(label);
+  });
+  controlHost.replaceChildren(checkboxWrap);
+  const canvas = document.createElement("canvas");
+  canvas.id = "%s";
+  canvasHost.replaceChildren(canvas);
+  const monthStatus = labels.map((_, idx) => {
+    const m = idx + 1;
+    const row = tsCurrent.find(d => Number(d.month) === m);
+    return row ? String(row.status || "") : "Unobserved";
+  });
+  const casesData = labels.map((_, idx) => monthValue(tsCurrent, idx + 1, "cases"));
+  const lower95Data = labels.map((_, idx) => {
+    if (monthStatus[idx] !== "Estimated") return null;
+    return monthValue(tsCurrent, idx + 1, "lower95");
+  });
+  const upper95Data = labels.map((_, idx) => {
+    if (monthStatus[idx] !== "Estimated") return null;
+    return monthValue(tsCurrent, idx + 1, "upper95");
+  });
+  const averageData = labels.map((_, idx) => monthValue(tsCurrent, idx + 1, "average_cases"));
+  const getHistoricSeries = (year) => labels.map((_, idx) => {
+    const m = idx + 1;
+    const row = tsHistoric.find(d => d.year === year && Number(d.month) === m);
+    return row ? Number(row.cases) : null;
+  });
+  const selectedComparisons = () => Array.from(checkboxWrap.querySelectorAll("input[type=checkbox]:checked")).map(el => el.value);
+  const buildComparisonDatasets = () => {
+    const picks = selectedComparisons();
+    return picks.map((series) => {
+      const isAverage = series === "5-year Average";
+      const seriesColor = colorForSeries(series);
+      return {
+        label: isAverage ? "5-year Average" : series + " season",
+        data: isAverage ? averageData : getHistoricSeries(series),
+        borderColor: seriesColor,
+        backgroundColor: "transparent",
+        borderWidth: isAverage ? 2.3 : 2,
+        pointRadius: 0,
+        spanGaps: true
+      };
+    });
+  };
+  const baseDatasets = [
+    { label: "Uncertainty upper", data: upper95Data, borderColor: "transparent", backgroundColor: "rgba(13,92,72,0.14)", pointRadius: 0, borderWidth: 0, spanGaps: true, fill: false, order: 1 },
+    { label: "Uncertainty lower", data: lower95Data, borderColor: "transparent", backgroundColor: "rgba(13,92,72,0.14)", pointRadius: 0, borderWidth: 0, spanGaps: true, fill: "-1", order: 1 },
+    {
+      label: "Current year: Cases",
+      data: casesData,
+      borderColor: "#0d5c48",
+      backgroundColor: "transparent",
+      borderWidth: 2.6,
+      pointRadius: (ctx) => {
+        const status = monthStatus[ctx.dataIndex];
+        return status === "Estimated" ? 2.8 : (status === "Observed" ? 2.4 : 0);
+      },
+      pointBackgroundColor: (ctx) => {
+        const status = monthStatus[ctx.dataIndex];
+        return status === "Estimated" ? "#ffffff" : "#0d5c48";
+      },
+      pointBorderColor: "#0d5c48",
+      pointBorderWidth: (ctx) => {
+        const status = monthStatus[ctx.dataIndex];
+        return status === "Estimated" ? 2 : 0;
+      },
+      spanGaps: true,
+      segment: {
+        borderDash: (ctx) => {
+          const targetStatus = monthStatus[ctx.p1DataIndex];
+          return targetStatus === "Estimated" ? [6, 4] : [];
+        }
+      },
+      order: 2
+    }
+  ];
+  const baseDatasetCount = baseDatasets.length;
+  const uncertaintyWhiskerPlugin = {
+    id: "uncertaintyWhiskerPlugin",
+    afterDatasetsDraw(chartInstance) {
+      const xScale = chartInstance.scales.x;
+      const yScale = chartInstance.scales.y;
+      if (!xScale || !yScale) return;
+
+      const chartCtx = chartInstance.ctx;
+      chartCtx.save();
+      chartCtx.strokeStyle = "rgba(13,92,72,0.62)";
+      chartCtx.lineWidth = 1.2;
+
+      for (let i = 0; i < labels.length; i++) {
+        const lo = lower95Data[i];
+        const hi = upper95Data[i];
+        if (lo === null || hi === null) continue;
+
+        const x = xScale.getPixelForValue(i);
+        const yLo = yScale.getPixelForValue(lo);
+        const yHi = yScale.getPixelForValue(hi);
+        const cap = 4;
+
+        chartCtx.beginPath();
+        chartCtx.moveTo(x, yHi);
+        chartCtx.lineTo(x, yLo);
+        chartCtx.moveTo(x - cap, yHi);
+        chartCtx.lineTo(x + cap, yHi);
+        chartCtx.moveTo(x - cap, yLo);
+        chartCtx.lineTo(x + cap, yLo);
+        chartCtx.stroke();
+      }
+      chartCtx.restore();
+    }
+  };
+  const ctx = canvas.getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "line",
+    plugins: [uncertaintyWhiskerPlugin],
+    data: {
+      labels,
+      datasets: baseDatasets.concat(buildComparisonDatasets())
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          filter: (tooltipItem) => {
+            const idx = tooltipItem.dataIndex;
+            const status = monthStatus[idx];
+            if (tooltipItem.datasetIndex <= 1) {
+              return status === "Estimated";
+            }
+            return true;
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: true, text: "Month" }, grid: { display: false } },
+        y: { title: { display: true, text: "Cases" }, grid: { display: false } }
+      }
+    }
+  });
+  canvas.parentElement.style.minHeight = "360px";
+  checkboxWrap.addEventListener("change", () => {
+    chart.data.datasets = chart.data.datasets.slice(0, baseDatasetCount).concat(buildComparisonDatasets());
+    chart.update();
+  });
+})();',
+      ts_current_json,
+      ts_historic_json,
+      control_id,
+      chart_host_id,
+      country_slug,
+      canvas_id
+    ))
+  )
+)
+```
+
+## Further analysis
+
+`r analysis_sentence_1`
+
+`r analysis_sentence_2`
+
+`r analysis_sentence_3`
+
+The last month with reported cases is **`r last_observed_month_label`**.
+
+In `r country_name` the average peak month is **`r peak_month_label`**.
+
+```{=html}
+</div>
+```

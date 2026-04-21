@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Nepal"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "NPL"
+  country_name: "Nepal"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/npl.png"
+  slug: "nepal"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Sudan"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SDN"
+  country_name: "Sudan"
+  region: "Europe, Middle East & North Africa"
+  region_href: "../europemiddleeastnorthafrica.html"
+  map_src: "../../Assets/Stable/country_maps/sdn.png"
+  slug: "sudan"
+---
+
+{{< include _country-template.qmd >}}

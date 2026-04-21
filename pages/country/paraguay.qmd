@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Paraguay"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PRY"
+  country_name: "Paraguay"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/pry.png"
+  slug: "paraguay"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Honduras"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "HND"
+  country_name: "Honduras"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/hnd.png"
+  slug: "honduras"
+---
+
+{{< include _country-template.qmd >}}
