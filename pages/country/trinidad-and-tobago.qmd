@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Trinidad And Tobago"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "TTO"
+  country_name: "Trinidad And Tobago"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/tto.png"
+  slug: "trinidad-and-tobago"
+---
+
+{{< include _country-template.qmd >}}

@@ -231,14 +231,14 @@ season_badge_state_class <- function(ratio) {
 }
 
 region_map_lookup <- c(
-  "South America" = "../Assets/Stable/OD_maps/temp_maps/southamerica.png",
-  "Caribbean" = "../Assets/Stable/OD_maps/temp_maps/caribbean.png",
-  "Pacific Islands" = "../Assets/Stable/OD_maps/temp_maps/pacific.png",
-  "South Asia" = "../Assets/Stable/OD_maps/temp_maps/southasia.png",
-  "North & Central America" = "../Assets/Stable/OD_maps/temp_maps/mexico_centralamerica.png",
-  "Sub-Saharan Africa" = "../Assets/Stable/OD_maps/temp_maps/africa.png",
-  "East & Southeast Asia" = "../Assets/Stable/OD_maps/temp_maps/southeast_east_asia.png",
-  "Europe, Middle East & North Africa" = "../Assets/Stable/OD_maps/temp_maps/europe_middleeast.png"
+  "South America" = "../Assets/Dynamic/region_maps/south_america.png",
+  "Caribbean" = "../Assets/Dynamic/region_maps/caribbean.png",
+  "Pacific Islands" = "../Assets/Dynamic/region_maps/pacific_islands.png",
+  "South Asia" = "../Assets/Dynamic/region_maps/south_asia.png",
+  "North & Central America" = "../Assets/Dynamic/region_maps/north_and_central_america.png",
+  "Sub-Saharan Africa" = "../Assets/Dynamic/region_maps/sub_saharan_africa.png",
+  "East & Southeast Asia" = "../Assets/Dynamic/region_maps/east_and_southeast_asia.png",
+  "Europe, Middle East & North Africa" = "../Assets/Dynamic/region_maps/europe_middle_east_and_north_africa.png"
 )
 
 region_callouts <- {
@@ -497,4 +497,5 @@ if (!is.na(country_name_col)) {
 
 # Create country data status lookup
 country_data_status <- get_country_data_status(data)
+
 

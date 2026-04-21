@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Saint Barthelemy"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "BLM"
+  country_name: "Saint Barthelemy"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/blm.png"
+  slug: "saint-barthelemy"
+---
+
+{{< include _country-template.qmd >}}

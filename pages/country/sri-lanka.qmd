@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Sri Lanka"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "LKA"
+  country_name: "Sri Lanka"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/lka.png"
+  slug: "sri-lanka"
+---
+
+{{< include _country-template.qmd >}}

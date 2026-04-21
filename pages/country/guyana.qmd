@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Guyana"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "GUY"
+  country_name: "Guyana"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/guy.png"
+  slug: "guyana"
+---
+
+{{< include _country-template.qmd >}}

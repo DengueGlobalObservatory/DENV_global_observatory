@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "French Polynesia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PYF"
+  country_name: "French Polynesia"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/pyf.png"
+  slug: "french-polynesia"
+---
+
+{{< include _country-template.qmd >}}

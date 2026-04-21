@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Timor-Leste"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "TLS"
+  country_name: "Timor-Leste"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/tls.png"
+  slug: "timor-leste"
+---
+
+{{< include _country-template.qmd >}}

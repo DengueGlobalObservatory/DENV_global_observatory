@@ -1,0 +1,96 @@
+"iso3","country","region","out_file","status","error"
+"AFG","Afghanistan","South Asia","Assets/Stable/country_maps/afg.png","ok",NA
+"ATG","Antigua and Barbuda","Caribbean","Assets/Stable/country_maps/atg.png","ok",NA
+"ARG","Argentina","South America","Assets/Stable/country_maps/arg.png","ok",NA
+"ABW","Aruba","Caribbean","Assets/Stable/country_maps/abw.png","ok",NA
+"AUS","Australia","Pacific Islands","Assets/Stable/country_maps/aus.png","ok",NA
+"BHS","Bahamas","Caribbean","Assets/Stable/country_maps/bhs.png","ok",NA
+"BGD","Bangladesh","South Asia","Assets/Stable/country_maps/bgd.png","ok",NA
+"BRB","Barbados","Caribbean","Assets/Stable/country_maps/brb.png","ok",NA
+"BLZ","Belize","North & Central America","Assets/Stable/country_maps/blz.png","ok",NA
+"BTN","Bhutan","South Asia","Assets/Stable/country_maps/btn.png","ok",NA
+"BOL","Bolivia","South America","Assets/Stable/country_maps/bol.png","ok",NA
+"BES","Bonaire, Saint Eustatius and Saba","Caribbean","Assets/Stable/country_maps/bes.png","ok",NA
+"BRA","Brazil","South America","Assets/Stable/country_maps/bra.png","ok",NA
+"BRN","Brunei darussalam","East & Southeast Asia","Assets/Stable/country_maps/brn.png","ok",NA
+"BFA","Burkina Faso","Sub-Saharan Africa","Assets/Stable/country_maps/bfa.png","ok",NA
+"KHM","Cambodia","East & Southeast Asia","Assets/Stable/country_maps/khm.png","ok",NA
+"CYM","Cayman Islands","Caribbean","Assets/Stable/country_maps/cym.png","ok",NA
+"CHL","Chile","South America","Assets/Stable/country_maps/chl.png","ok",NA
+"CHN","China","East & Southeast Asia","Assets/Stable/country_maps/chn.png","ok",NA
+"COL","Colombia","South America","Assets/Stable/country_maps/col.png","ok",NA
+"COK","Cook Islands","Pacific Islands","Assets/Stable/country_maps/cok.png","ok",NA
+"CRI","Costa Rica","North & Central America","Assets/Stable/country_maps/cri.png","ok",NA
+"CUB","Cuba","Caribbean","Assets/Stable/country_maps/cub.png","ok",NA
+"CUW","Curaçao","Caribbean","Assets/Stable/country_maps/cuw.png","ok",NA
+"CIV","Côte d'Ivoire","Sub-Saharan Africa","Assets/Stable/country_maps/civ.png","ok",NA
+"DMA","Dominica","Caribbean","Assets/Stable/country_maps/dma.png","ok",NA
+"DOM","Dominican Republic","Caribbean","Assets/Stable/country_maps/dom.png","ok",NA
+"ECU","Ecuador","South America","Assets/Stable/country_maps/ecu.png","ok",NA
+"SLV","El Salvador","North & Central America","Assets/Stable/country_maps/slv.png","ok",NA
+"ERI","Eritrea","Sub-Saharan Africa","Assets/Stable/country_maps/eri.png","ok",NA
+"FJI","Fiji","Pacific Islands","Assets/Stable/country_maps/fji.png","ok",NA
+"GUF","French Guiana","South America","Assets/Stable/country_maps/guf.png","ok",NA
+"PYF","French Polynesia","Pacific Islands","Assets/Stable/country_maps/pyf.png","ok",NA
+"GRD","Grenada","Caribbean","Assets/Stable/country_maps/grd.png","ok",NA
+"GLP","Guadeloupe","Caribbean","Assets/Stable/country_maps/glp.png","ok",NA
+"GTM","Guatemala","North & Central America","Assets/Stable/country_maps/gtm.png","ok",NA
+"GUY","Guyana","South America","Assets/Stable/country_maps/guy.png","ok",NA
+"HTI","Haiti","Caribbean","Assets/Stable/country_maps/hti.png","ok",NA
+"HND","Honduras","North & Central America","Assets/Stable/country_maps/hnd.png","ok",NA
+"IND","India","South Asia","Assets/Stable/country_maps/ind.png","ok",NA
+"IDN","Indonesia","East & Southeast Asia","Assets/Stable/country_maps/idn.png","ok",NA
+"JAM","Jamaica","Caribbean","Assets/Stable/country_maps/jam.png","ok",NA
+"KEN","Kenya","Sub-Saharan Africa","Assets/Stable/country_maps/ken.png","ok",NA
+"KIR","Kiribati","Pacific Islands","Assets/Stable/country_maps/kir.png","ok",NA
+"LAO","Lao People's Democratic Republic","East & Southeast Asia","Assets/Stable/country_maps/lao.png","ok",NA
+"MYS","Malaysia","East & Southeast Asia","Assets/Stable/country_maps/mys.png","ok",NA
+"MDV","Maldives","South Asia","Assets/Stable/country_maps/mdv.png","ok",NA
+"MHL","Marshall Islands","Pacific Islands","Assets/Stable/country_maps/mhl.png","ok",NA
+"MTQ","Martinique","Caribbean","Assets/Stable/country_maps/mtq.png","ok",NA
+"MRT","Mauritania","Sub-Saharan Africa","Assets/Stable/country_maps/mrt.png","ok",NA
+"MEX","Mexico","North & Central America","Assets/Stable/country_maps/mex.png","ok",NA
+"FSM","Micronesia (Federated States of)","Pacific Islands","Assets/Stable/country_maps/fsm.png","ok",NA
+"MMR","Myanmar","East & Southeast Asia","Assets/Stable/country_maps/mmr.png","ok",NA
+"NPL","Nepal","South Asia","Assets/Stable/country_maps/npl.png","ok",NA
+"NCL","New Caledonia","Pacific Islands","Assets/Stable/country_maps/ncl.png","ok",NA
+"NIC","Nicaragua","North & Central America","Assets/Stable/country_maps/nic.png","ok",NA
+"OMN","Oman","Europe, Middle East & North Africa","Assets/Stable/country_maps/omn.png","ok",NA
+"PAK","Pakistan","South Asia","Assets/Stable/country_maps/pak.png","ok",NA
+"PLW","Palau","Pacific Islands","Assets/Stable/country_maps/plw.png","ok",NA
+"PAN","Panama","North & Central America","Assets/Stable/country_maps/pan.png","ok",NA
+"PRY","Paraguay","South America","Assets/Stable/country_maps/pry.png","ok",NA
+"PER","Peru","South America","Assets/Stable/country_maps/per.png","ok",NA
+"PHL","Philippines","East & Southeast Asia","Assets/Stable/country_maps/phl.png","ok",NA
+"PRI","Puerto Rico","Caribbean","Assets/Stable/country_maps/pri.png","ok",NA
+"REU","Réunion","Sub-Saharan Africa","Assets/Stable/country_maps/reu.png","ok",NA
+"BLM","Saint Barthelemy","Caribbean","Assets/Stable/country_maps/blm.png","ok",NA
+"KNA","Saint Kitts and Nevis","Caribbean","Assets/Stable/country_maps/kna.png","ok",NA
+"LCA","Saint Lucia","Caribbean","Assets/Stable/country_maps/lca.png","ok",NA
+"MAF","Saint Martin (French part)","Caribbean","Assets/Stable/country_maps/maf.png","ok",NA
+"VCT","Saint Vincent and the Grenadines","Caribbean","Assets/Stable/country_maps/vct.png","ok",NA
+"WSM","Samoa","Pacific Islands","Assets/Stable/country_maps/wsm.png","ok",NA
+"SAU","Saudi Arabia","Europe, Middle East & North Africa","Assets/Stable/country_maps/sau.png","ok",NA
+"SEN","Senegal","Sub-Saharan Africa","Assets/Stable/country_maps/sen.png","ok",NA
+"SYC","Seychelles","Sub-Saharan Africa","Assets/Stable/country_maps/syc.png","ok",NA
+"SGP","Singapore","East & Southeast Asia","Assets/Stable/country_maps/sgp.png","ok",NA
+"SXM","Sint Maarten","Caribbean","Assets/Stable/country_maps/sxm.png","ok",NA
+"SLB","Solomon Islands","Pacific Islands","Assets/Stable/country_maps/slb.png","ok",NA
+"LKA","Sri Lanka","South Asia","Assets/Stable/country_maps/lka.png","ok",NA
+"SDN","Sudan","Europe, Middle East & North Africa","Assets/Stable/country_maps/sdn.png","ok",NA
+"SUR","Suriname","South America","Assets/Stable/country_maps/sur.png","ok",NA
+"TWN","Taiwan","East & Southeast Asia","Assets/Stable/country_maps/twn.png","ok",NA
+"THA","Thailand","East & Southeast Asia","Assets/Stable/country_maps/tha.png","ok",NA
+"TLS","Timor-leste","East & Southeast Asia","Assets/Stable/country_maps/tls.png","ok",NA
+"TON","Tonga","Pacific Islands","Assets/Stable/country_maps/ton.png","ok",NA
+"TTO","Trinidad and Tobago","Caribbean","Assets/Stable/country_maps/tto.png","ok",NA
+"TCA","Turks and Caicos Islands","Caribbean","Assets/Stable/country_maps/tca.png","ok",NA
+"TUV","Tuvalu","Pacific Islands","Assets/Stable/country_maps/tuv.png","ok",NA
+"USA","United States of America","North & Central America","Assets/Stable/country_maps/usa.png","ok",NA
+"URY","Uruguay","South America","Assets/Stable/country_maps/ury.png","ok",NA
+"VUT","Vanuatu","Pacific Islands","Assets/Stable/country_maps/vut.png","ok",NA
+"VEN","Venezuela (Bolivarian Republic of)","South America","Assets/Stable/country_maps/ven.png","ok",NA
+"VNM","Viet Nam","East & Southeast Asia","Assets/Stable/country_maps/vnm.png","ok",NA
+"VGB","Virgin Islands (UK)","Caribbean","Assets/Stable/country_maps/vgb.png","ok",NA
+"WLF","Wallis and Futuna","Pacific Islands","Assets/Stable/country_maps/wlf.png","ok",NA
+"YEM","Yemen","Europe, Middle East & North Africa","Assets/Stable/country_maps/yem.png","ok",NA

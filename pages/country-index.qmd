@@ -26,6 +26,13 @@ country_name_col <- dplyr::case_when(
 )
 
 if (!is.na(country_name_col)) {
+  country_page_registry <- read.csv("pages/country/country-config.csv", check.names = FALSE, stringsAsFactors = FALSE) %>%
+    dplyr::mutate(
+      country_label_key = tolower(trimws(country_name)),
+      country_href = paste0("country/", trimws(slug), ".html")
+    ) %>%
+    dplyr::select(country_label_key, country_href)
+
   # Get latest data for each country
   all_countries_data <- country_summary_df %>%
     dplyr::mutate(country_label = .data[[country_name_col]]) %>%
@@ -91,6 +98,10 @@ if (!is.na(country_name_col)) {
         data_status_message = "Recent months contain observed data only"
       )
   }
+
+  all_countries_data <- all_countries_data %>%
+    dplyr::mutate(country_label_key = tolower(trimws(country_label))) %>%
+    dplyr::left_join(country_page_registry, by = "country_label_key")
 } else {
   all_countries_data <- dplyr::tibble(
     country_label = character(),
@@ -99,6 +110,7 @@ if (!is.na(country_name_col)) {
     cum_high = numeric(),
     severity_blurb = character(),
     region_href = character(),
+    country_href = character(),
     has_plot = logical()
   )
 }
@@ -122,7 +134,7 @@ if (!exists("latest_update_label") || !exists("latest_nowcast_dir")) {
   <span class="global-summary-date">`r latest_update_label`</span>
 </div>
 
-Explore all countries with available dengue surveillance data. Use the search and sort controls below to filter by name, region, cumulative cases, or severity ratio.
+Explore all countries with available dengue surveillance data. Use the search and sort controls below to filter by name, region, cumulative cases, or severity ratio. Click any radial plot to open that country's detailed summary page.
 
 ```{r}
 #| label: search-sort-controls
@@ -208,6 +220,7 @@ if (nrow(all_countries_data) == 0) {
     blurb_text <- row$severity_blurb[[1]]
     region_name <- row$region_label[[1]]
     region_href <- row$region_href[[1]]
+    country_href <- row$country_href[[1]]
     cum_cases <- row$cum_high[[1]]
     cum_ratio <- row$cum_ratio[[1]]
     plot_obj <- all_country_plots[[country_name]]
@@ -216,6 +229,12 @@ if (nrow(all_countries_data) == 0) {
       htmltools::div(
         class = "plot-placeholder",
         "Plot not yet available for this country."
+      )
+    } else if (!is.na(country_href) && nzchar(country_href)) {
+      htmltools::tags$a(
+        href = country_href,
+        class = "country-card-plot-link",
+        htmltools::plotTag(plot_obj, alt = paste(country_name, "yearly outlook"))
       )
     } else {
       htmltools::plotTag(plot_obj, alt = paste(country_name, "yearly outlook"))

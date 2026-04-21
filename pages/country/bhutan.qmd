@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Bhutan"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "BTN"
+  country_name: "Bhutan"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/btn.png"
+  slug: "bhutan"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Saint Kitts And Nevis"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "KNA"
+  country_name: "Saint Kitts And Nevis"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/kna.png"
+  slug: "saint-kitts-and-nevis"
+---
+
+{{< include _country-template.qmd >}}

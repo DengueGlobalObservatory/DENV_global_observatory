@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "India"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "IND"
+  country_name: "India"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/ind.png"
+  slug: "india"
+---
+
+{{< include _country-template.qmd >}}

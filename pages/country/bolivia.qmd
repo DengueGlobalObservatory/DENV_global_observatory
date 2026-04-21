@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Bolivia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "BOL"
+  country_name: "Bolivia"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/bol.png"
+  slug: "bolivia"
+---
+
+{{< include _country-template.qmd >}}

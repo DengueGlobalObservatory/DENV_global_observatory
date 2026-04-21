@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Kenya"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "KEN"
+  country_name: "Kenya"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/ken.png"
+  slug: "kenya"
+---
+
+{{< include _country-template.qmd >}}

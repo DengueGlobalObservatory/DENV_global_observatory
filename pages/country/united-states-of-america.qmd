@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "United States Of America"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "USA"
+  country_name: "United States Of America"
+  region: "North & Central America"
+  region_href: "../centralamericamexico.html"
+  map_src: "../../Assets/Stable/country_maps/usa.png"
+  slug: "united-states-of-america"
+---
+
+{{< include _country-template.qmd >}}

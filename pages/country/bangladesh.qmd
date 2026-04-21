@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Bangladesh"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "BGD"
+  country_name: "Bangladesh"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/bgd.png"
+  slug: "bangladesh"
+---
+
+{{< include _country-template.qmd >}}

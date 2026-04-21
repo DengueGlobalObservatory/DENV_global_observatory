@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Fiji"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "FJI"
+  country_name: "Fiji"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/fji.png"
+  slug: "fiji"
+---
+
+{{< include _country-template.qmd >}}

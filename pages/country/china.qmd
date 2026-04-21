@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "China"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "CHN"
+  country_name: "China"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/chn.png"
+  slug: "china"
+---
+
+{{< include _country-template.qmd >}}

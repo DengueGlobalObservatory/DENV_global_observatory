@@ -206,24 +206,43 @@ data <- data %>%
 
 #---------------------------------#
 # ---- Estimate cases for missing months using average monthly proportion ----
+# Design decision:
+# 1) Predicted_total_seasonal_cases is the frozen pre-fill total used for estimation.
+# 2) estimate_formula_result_raw stores the exact unrounded estimate input*output value
+#    for estimated rows only.
+# 3) Post-fill recalculated totals are kept separately for diagnostics.
 data <- data %>%
   dplyr::group_by(iso3, Year) %>%
   dplyr::mutate(
-    # Get the predicted total (should be same for all months in a season)
+    # Get the frozen seasonal predicted total used to estimate missing cases.
+    # This value is intentionally NOT overwritten later in the workflow.
     group_predicted_total = dplyr::first(Predicted_total_seasonal_cases[!is.na(Predicted_total_seasonal_cases)])
   ) %>%
   dplyr::mutate(
-    # Fill missing cases using average monthly proportion
+    # Save raw formula output only for rows that are truly estimated.
+    # Keep NA for observed rows to make provenance explicit.
+    estimate_formula_result_raw = dplyr::case_when(
+      is.na(cases) &
+        Data_status == "Unobserved" &
+        !is.na(date) &
+        date <= last_month_date &
+        !is.na(group_predicted_total) &
+        !is.na(Ave_monthly_proportion) ~
+        group_predicted_total * Ave_monthly_proportion,
+      TRUE ~ NA_real_
+    ),
+    # Fill missing cases using average monthly proportion and rounded final value.
     cases = dplyr::case_when(
       !is.na(cases) ~ cases,   # keep observed values
       
       # Estimate for recent months (date <= last month date) if we have predicted total and proportion
       is.na(cases) &
+        Data_status == "Unobserved" &
         !is.na(date) &
         date <= last_month_date &
         !is.na(group_predicted_total) &
         !is.na(Ave_monthly_proportion) ~
-        round(group_predicted_total * Ave_monthly_proportion, 0),
+        round(estimate_formula_result_raw, 0),
       
       TRUE ~ NA_real_
     )
@@ -253,65 +272,36 @@ data <- data %>%
   dplyr::ungroup()
 
 
-# ---- Predicted total for the SEASON ----
-# Order and group by season; last observed = last row with non-NA cases in that season
+# ---- Post-fill diagnostic seasonal total ----
+# Recalculate the seasonal total after estimates are filled, but store it in a
+# dedicated diagnostic column. Do NOT overwrite Predicted_total_seasonal_cases.
 data <- data %>%
   dplyr::arrange(iso3, season, season_nMonth) %>%
   dplyr::group_by(iso3, season) %>%
   dplyr::mutate(
-    last_obs_idx = if (any(!is.na(cases))) {
+    last_obs_idx_post_fill = if (any(!is.na(cases))) {
       max(which(!is.na(cases)))
     } else {
       NA_integer_
     },
-    last_cum_cases = if_else(
-      is.na(last_obs_idx),
+    last_cum_cases_post_fill = if_else(
+      is.na(last_obs_idx_post_fill),
       NA_real_,
-      cum_todate_cases_season[last_obs_idx]
+      cum_todate_cases_season[last_obs_idx_post_fill]
     ),
-    last_cum_prop = if_else(
-      is.na(last_obs_idx),
+    last_cum_prop_post_fill = if_else(
+      is.na(last_obs_idx_post_fill),
       NA_real_,
-      Ave_cum_monthly_proportion[last_obs_idx]
+      Ave_cum_monthly_proportion[last_obs_idx_post_fill]
     ),
-    Predicted_total_seasonal_cases = if_else(
-      !is.na(last_cum_cases) & !is.na(last_cum_prop) & last_cum_prop > 0,
-      round(last_cum_cases / last_cum_prop, 0),
+    pred_total_post_fill = if_else(
+      !is.na(last_cum_cases_post_fill) & !is.na(last_cum_prop_post_fill) & last_cum_prop_post_fill > 0,
+      round(last_cum_cases_post_fill / last_cum_prop_post_fill, 0),
       NA_real_
     )
   ) %>%
   dplyr::ungroup() %>%
-  dplyr::select(-last_obs_idx, -last_cum_cases, -last_cum_prop)
-
-# ---- Predicted total for the YEAR ----
-# Order and group by year; use cum_todate_cases_year and (for now) seasonal proportion as proxy
-data <- data %>%
-  dplyr::arrange(iso3, Year, Month) %>%
-  dplyr::group_by(iso3, Year) %>%
-  dplyr::mutate(
-    last_obs_idx_year = if (any(!is.na(cases))) {
-      max(which(!is.na(cases)))
-    } else {
-      NA_integer_
-    },
-    last_cum_cases_year = if_else(
-      is.na(last_obs_idx_year),
-      NA_real_,
-      cum_todate_cases_year[last_obs_idx_year]
-    ),
-    last_cum_prop_year = if_else(
-      is.na(last_obs_idx_year),
-      NA_real_,
-      Ave_cum_monthly_proportion[last_obs_idx_year]
-    ),
-    Predicted_total_year_cases = if_else(
-      !is.na(last_cum_cases_year) & !is.na(last_cum_prop_year) & last_cum_prop_year > 0,
-      round(last_cum_cases_year / last_cum_prop_year, 0),
-      NA_real_
-    )
-  ) %>%
-  dplyr::ungroup() %>%
-  dplyr::select(-last_obs_idx_year, -last_cum_cases_year, -last_cum_prop_year)
+  dplyr::select(-last_obs_idx_post_fill, -last_cum_cases_post_fill, -last_cum_prop_post_fill)
 
 # further define Data_status
 data <- data %>%

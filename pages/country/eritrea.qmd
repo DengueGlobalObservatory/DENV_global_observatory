@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Eritrea"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "ERI"
+  country_name: "Eritrea"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/eri.png"
+  slug: "eritrea"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Wallis And Futuna"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "WLF"
+  country_name: "Wallis And Futuna"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/wlf.png"
+  slug: "wallis-and-futuna"
+---
+
+{{< include _country-template.qmd >}}

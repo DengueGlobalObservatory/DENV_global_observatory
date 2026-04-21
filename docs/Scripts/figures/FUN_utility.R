@@ -297,6 +297,12 @@ render_country_plot_text_grid <- function(
       class = "region-title text-center fw-bold mt-3 mb-3"
     )
   }
+
+  section_note <- htmltools::tags$p(
+    "Click any radial plot to open that country's detailed summary page.",
+    class = "text-center text-muted",
+    style = "margin: 0.2rem 0 1.2rem 0;"
+  )
   
   # Get country name column from summary_df
   country_name_col <- dplyr::case_when(
@@ -304,6 +310,26 @@ render_country_plot_text_grid <- function(
     "Country" %in% names(summary_df) ~ "Country",
     TRUE ~ NA_character_
   )
+
+  country_config_candidates <- c(
+    "pages/country/country-config.csv",
+    "country/country-config.csv",
+    "../pages/country/country-config.csv"
+  )
+  country_config_path <- country_config_candidates[
+    vapply(country_config_candidates, file.exists, logical(1))
+  ]
+  country_config_path <- if (length(country_config_path) > 0) country_config_path[[1]] else NA_character_
+
+  country_page_registry <- if (!is.na(country_config_path)) {
+    read.csv(country_config_path, check.names = FALSE, stringsAsFactors = FALSE) %>%
+      dplyr::transmute(
+        country_key = tolower(trimws(country_name)),
+        country_href = paste0("country/", trimws(slug), ".html")
+      )
+  } else {
+    dplyr::tibble(country_key = character(), country_href = character())
+  }
   
   rows <- lapply(names(plot_list), function(country) {
     info <- summary_df %>%
@@ -344,11 +370,27 @@ render_country_plot_text_grid <- function(
     }
     
     # Build card with new style matching all countries page
+    country_key_value <- tolower(trimws(country))
+    href_row <- country_page_registry %>%
+      dplyr::filter(country_key == !!country_key_value) %>%
+      dplyr::slice_head(n = 1)
+    country_href <- if (nrow(href_row) > 0) href_row$country_href[[1]] else NA_character_
+
+    plot_el <- if (!is.na(country_href) && nzchar(country_href)) {
+      htmltools::tags$a(
+        href = country_href,
+        class = "country-card-plot-link",
+        htmltools::plotTag(plot_list[[country]], alt = paste("Plot for", country))
+      )
+    } else {
+      htmltools::plotTag(plot_list[[country]], alt = paste("Plot for", country))
+    }
+
     card_elements <- list(
       htmltools::tags$h4(country, class = "text-center fw-semibold"),
       htmltools::div(
         class = plot_class,
-        htmltools::plotTag(plot_list[[country]], alt = paste("Plot for", country))
+        plot_el
       ),
       htmltools::tags$p(
         class = text_class,
@@ -381,7 +423,7 @@ render_country_plot_text_grid <- function(
     container <- htmltools::div(class = "snapshot-region-scroll", container)
   }
   
-  htmltools::tagList(section_title, container)
+  htmltools::tagList(section_title, section_note, container)
 }
 
 

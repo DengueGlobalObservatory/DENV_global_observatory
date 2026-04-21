@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Palau"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PLW"
+  country_name: "Palau"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/plw.png"
+  slug: "palau"
+---
+
+{{< include _country-template.qmd >}}

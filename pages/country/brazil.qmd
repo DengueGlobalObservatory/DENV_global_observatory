@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Brazil"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "BRA"
+  country_name: "Brazil"
+  region: "South America"
+  region_href: "../southamerica.html"
+  map_src: "../../Assets/Stable/country_maps/bra.png"
+  slug: "brazil"
+---
+
+{{< include _country-template.qmd >}}

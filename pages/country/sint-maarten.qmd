@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Sint Maarten"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SXM"
+  country_name: "Sint Maarten"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/sxm.png"
+  slug: "sint-maarten"
+---
+
+{{< include _country-template.qmd >}}

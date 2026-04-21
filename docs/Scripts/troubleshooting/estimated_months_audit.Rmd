@@ -1,0 +1,661 @@
+---
+title: "Audit of Estimated Recent Months"
+author: "DENV Global Observatory"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Estimated Months Audit
+
+## Overview
+
+This report audits countries with recent estimated months in the most recent nowcast output used by the dashboard workflow.
+
+It has two goals:
+
+1. Identify all countries that currently contain estimated months (`source == "Estimates"`).
+2. Detect potential duplication issues where estimated values in the current year exactly match values from any of the previous five years.
+
+The analysis uses the latest dated folder in `Output/` that contains `DENV_cases_nowcast_output.csv`, consistent with the data-loading approach in `Scripts/V1_Dashboard_setup.R`.
+
+## Set up
+
+```{r}
+setwd("~/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory")
+
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(lubridate)
+library(knitr)
+library(glue)
+```
+
+```{r}
+
+# Read the nowcast dataset under review (fixed file used for this audit run).
+data <- read_csv("~/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory/Output/2026_04_13/DENV_cases_nowcast_output.csv", show_col_types = FALSE)
+
+# Validate that key fields needed for all analyses are present.
+required_cols <- c("country", "iso3", "Region", "Year", "Month", "cases", "source")
+missing_cols <- setdiff(required_cols, names(data))
+if (length(missing_cols) > 0) {
+  stop("Missing required columns: ", paste(missing_cols, collapse = ", "))
+}
+
+# Define "current" analysis window as current year through most recently completed month.
+current_year <- as.integer(format(Sys.Date(), "%Y"))
+current_month <- as.integer(format(Sys.Date(), "%m"))
+recent_month <- current_month - 1L
+if (recent_month == 0L) recent_month <- 12L
+```
+
+## Analysis 1: Countries with current estimated months
+
+This section lists countries with estimated values in the current reporting year up to the most recent completed month.
+
+```{r}
+# Keep only rows that are truly estimated in current year and within reporting window.
+current_estimated_rows <- data %>%
+  filter(
+    Year == current_year,
+    Month <= recent_month,
+    source == "Estimates",
+    !is.na(cases)
+  ) %>%
+  arrange(country, Month)
+
+# Country-level roll-up of current estimated activity.
+countries_with_current_estimates <- current_estimated_rows %>%
+  group_by(country, iso3, Region) %>%
+  dplyr::summarise(
+    n_estimated_months_current_year = n(),
+    estimated_months = paste(sort(unique(Month)), collapse = ", "),
+    estimated_cases_sum = sum(cases, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n_estimated_months_current_year), country)
+
+kable(countries_with_current_estimates)
+```
+
+```{r, echo=FALSE}
+cat("Countries with current-year estimated months:", nrow(countries_with_current_estimates), "\n")
+cat("Total estimated rows in current year:", nrow(current_estimated_rows), "\n")
+```
+
+### Analysis 1 summary
+
+```{r, echo=FALSE}
+if (nrow(countries_with_current_estimates) == 0) {
+  cat("No countries currently have estimated months in the analysis window.\n")
+} else {
+  top_country <- countries_with_current_estimates %>% slice(1)
+  cat(glue(
+    "Current-year estimated data are present in {nrow(countries_with_current_estimates)} countries ",
+    "({nrow(current_estimated_rows)} estimated rows total, through month {recent_month}). ",
+    "The country with the most estimated months is {top_country$country} ({top_country$iso3}) ",
+    "in {top_country$Region}, with {top_country$n_estimated_months_current_year} estimated months."
+  ))
+}
+```
+
+## Analysis 2: Check for exact matches to previous five years
+
+This section tests whether each estimated month in the current year exactly equals a case value from the same country and month in any of the previous five years. Exact matches do not automatically prove an error, but they flag records for investigation.
+
+```{r}
+comparison_years <- (current_year - 5L):(current_year - 1L)
+
+# Current-year estimated values that will be checked for historical equality.
+estimated_current <- data %>%
+  filter(
+    Year == current_year,
+    Month <= recent_month,
+    source == "Estimates",
+    !is.na(cases)
+  ) %>%
+  dplyr::select(country, iso3, Region, Month, estimated_cases_current = cases)
+
+# Historical pool (most recent 5 prior years) for month-by-month comparison.
+historical_pool <- data %>%
+  filter(
+    Year %in% comparison_years,
+    !is.na(cases)
+  ) %>%
+  dplyr::select(country, iso3, Region, Year, Month, historical_cases = cases)
+
+# Join on iso3 + month + region and flag exact equality of case counts.
+exact_matches <- estimated_current %>%
+  inner_join(historical_pool, by = c("iso3", "Month", "Region")) %>%
+  mutate(
+    same_country_name = country.x == country.y,
+    exact_case_match = estimated_cases_current == historical_cases
+  ) %>%
+  filter(exact_case_match) %>%
+  transmute(
+    country_estimated = country.x,
+    country_historical = country.y,
+    iso3,
+    Region,
+    Month,
+    current_year = current_year,
+    estimated_cases_current,
+    matched_historical_year = Year,
+    matched_historical_cases = historical_cases,
+    same_country_name
+  ) %>%
+  arrange(country_estimated, Month, matched_historical_year)
+
+kable(exact_matches)
+```
+
+```{r}
+country_match_summary <- exact_matches %>%
+  group_by(country_estimated, iso3, Region) %>%
+  dplyr::summarise(
+    n_estimated_months_with_any_exact_match = n_distinct(Month),
+    matched_years = paste(sort(unique(matched_historical_year)), collapse = ", "),
+    matched_months = paste(sort(unique(Month)), collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n_estimated_months_with_any_exact_match), country_estimated)
+
+kable(country_match_summary)
+```
+
+```{r}
+region_match_summary <- country_match_summary %>%
+  group_by(Region) %>%
+  dplyr::summarise(
+    n_countries_flagged = n_distinct(iso3),
+    countries_flagged = paste(sort(unique(country_estimated)), collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n_countries_flagged), Region)
+
+kable(region_match_summary)
+```
+
+
+```{r, echo=FALSE}
+cat("Total exact-match records found:", nrow(exact_matches), "\n")
+cat("Countries with at least one exact-match estimated month:", nrow(country_match_summary), "\n")
+cat("Regions with at least one flagged country:", nrow(region_match_summary), "\n")
+```
+
+### Analysis 2 summary
+
+```{r, echo=FALSE}
+if (nrow(country_match_summary) == 0) {
+  cat("No countries were flagged for exact-match estimated values versus the previous 5 years.\n")
+} else {
+  cat(glue(
+    "{nrow(country_match_summary)} countries were flagged with at least one exact-match estimated month ",
+    "against years {min(comparison_years)}-{max(comparison_years)}. ",
+    "These flagged countries span {nrow(region_match_summary)} regions, indicating this is not region-specific."
+  ))
+}
+```
+
+## Analysis 3: Why exact matches occur (code-path review + diagnostics)
+
+This section documents the active nowcasting code path and tests the numerical drivers for countries flagged in Analysis 2.
+
+In `Scripts/nowcasting/03_proportion_nowcast.R`, estimated rows are created with:
+
+- grouping: `group_by(iso3, Year)`
+- estimate equation: `round(group_predicted_total * Ave_monthly_proportion, 0)`
+
+So exact month-level repeats can occur when one or both of these inputs are identical across years for the same country and month.
+
+```{r}
+nowcast_script_path <- "~/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory/Scripts/nowcasting/03_proportion_nowcast.R"
+nowcast_script_lines <- readLines(nowcast_script_path, warn = FALSE)
+
+show_with_line_numbers <- function(lines, pattern, pad = 3) {
+  hit <- grep(pattern, lines)
+  if (length(hit) == 0) return(character(0))
+  idx <- unique(unlist(lapply(hit, function(h) seq(max(1, h - pad), min(length(lines), h + pad)))))
+  paste0(idx, ": ", lines[idx])
+}
+
+key_grouping <- show_with_line_numbers(nowcast_script_lines, "group_by\\(iso3, Year\\)|group_predicted_total", pad = 2)
+key_equation <- show_with_line_numbers(nowcast_script_lines, "round\\(group_predicted_total \\* Ave_monthly_proportion, 0\\)", pad = 2)
+
+cat("Key grouping logic in 03_proportion_nowcast.R\n")
+cat(paste(key_grouping, collapse = "\n"))
+cat("\n\nKey estimate equation in 03_proportion_nowcast.R\n")
+cat(paste(key_equation, collapse = "\n"))
+```
+
+```{r}
+flagged_iso3 <- country_match_summary %>%
+  distinct(iso3) %>%
+  pull(iso3)
+
+# Pull current-year estimated rows for flagged countries and retain formula inputs.
+current_est_rows <- data %>%
+  filter(
+    iso3 %in% flagged_iso3,
+    Year == current_year,
+    Month <= recent_month,
+    source == "Estimates",
+    !is.na(cases)
+  ) %>%
+  dplyr::select(
+    country, iso3, Region, Month,
+    estimated_cases_current = cases,
+    pred_total_current = Predicted_total_seasonal_cases,
+    monthly_prop_current = Ave_monthly_proportion
+  )
+
+# Pull historical rows for the same countries from previous 5 years.
+hist_rows_recent5 <- data %>%
+  filter(
+    iso3 %in% flagged_iso3,
+    Year %in% comparison_years,
+    !is.na(cases)
+  ) %>%
+  dplyr::select(
+    country, iso3, Region, Year, Month,
+    historical_cases = cases,
+    pred_total_hist = Predicted_total_seasonal_cases,
+    monthly_prop_hist = Ave_monthly_proportion
+  )
+
+# Evaluate whether exact matches are driven by equal formula inputs.
+driver_diagnostic <- current_est_rows %>%
+  inner_join(hist_rows_recent5, by = c("iso3", "Region", "Month")) %>%
+  filter(estimated_cases_current == historical_cases) %>%
+  mutate(
+    same_pred_total = pred_total_current == pred_total_hist,
+    same_monthly_prop = monthly_prop_current == monthly_prop_hist,
+    same_both_inputs = same_pred_total & same_monthly_prop,
+    reconstructed_current = round(pred_total_current * monthly_prop_current, 0),
+    reconstruction_matches_estimate = reconstructed_current == estimated_cases_current
+  ) %>%
+  arrange(country.x, Month, Year) %>%
+  transmute(
+    country = country.x,
+    iso3,
+    Region,
+    Month,
+    matched_historical_year = Year,
+    estimated_cases_current,
+    matched_historical_cases = historical_cases,
+    pred_total_current,
+    pred_total_hist,
+    monthly_prop_current,
+    monthly_prop_hist,
+    same_pred_total,
+    same_monthly_prop,
+    same_both_inputs,
+    reconstruction_matches_estimate
+  )
+
+kable(driver_diagnostic)
+```
+
+```{r}
+driver_summary <- driver_diagnostic %>%
+  group_by(country, iso3, Region) %>%
+  dplyr::summarise(
+    n_exact_match_rows = n(),
+    n_rows_same_pred_total = sum(same_pred_total, na.rm = TRUE),
+    n_rows_same_monthly_prop = sum(same_monthly_prop, na.rm = TRUE),
+    n_rows_same_both_inputs = sum(same_both_inputs, na.rm = TRUE),
+    all_rows_reconstruct_from_formula = all(reconstruction_matches_estimate, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n_rows_same_both_inputs), desc(n_exact_match_rows), country)
+
+kable(driver_summary)
+```
+
+```{r, echo=FALSE}
+cat("Interpretation guide:\n")
+cat("- If same_both_inputs is TRUE for most/all rows, exact repeats are mechanically expected from the current formula.\n")
+cat("- If same_monthly_prop is TRUE but same_pred_total is FALSE, rounding may still create occasional exact repeats.\n")
+cat("- If reconstruction_matches_estimate is TRUE, the estimate is fully explained by the current equation.\n")
+```
+
+### Analysis 3 summary
+
+```{r, echo=FALSE}
+if (nrow(driver_summary) == 0) {
+  cat("No driver diagnostics were generated because no exact-match rows were identified in Analysis 2.\n")
+} else {
+  n_explained <- sum(driver_summary$all_rows_reconstruct_from_formula, na.rm = TRUE)
+  n_unexplained <- nrow(driver_summary) - n_explained
+  cat(glue(
+    "For most flagged countries, exact matches are mechanically explained by repeated input proportions and/or totals ",
+    "under the equation round(group_predicted_total * Ave_monthly_proportion, 0). ",
+    "{n_explained} flagged countries are fully reconstructed by this equation, while {n_unexplained} are not."
+  ))
+}
+```
+
+## Analysis 4: Cuba deep dive for unexplained rows
+
+This section focuses on Cuba (`iso3 == "CUB"`) where some exact-match rows were not fully reconstructed by the current output columns.
+
+The nowcast script calculates `Predicted_total_seasonal_cases` **twice**: once before filling estimated months and again after filling. The estimate equation uses `group_predicted_total` from the first pass, but the final output stores the second-pass value. Therefore, `cases` can be valid while `round(Predicted_total_seasonal_cases * Ave_monthly_proportion, 0)` does not match in the saved file.
+
+```{r}
+# Cuba-only subset from prior diagnostic table.
+cuba_driver <- driver_diagnostic %>%
+  filter(iso3 == "CUB") %>%
+  arrange(Month, matched_historical_year)
+
+kable(cuba_driver)
+```
+
+```{r}
+cuba_unexplained <- cuba_driver %>%
+  filter(!reconstruction_matches_estimate) %>%
+  arrange(Month, matched_historical_year)
+
+kable(cuba_unexplained)
+cat("Cuba rows with reconstruction mismatch (from Analysis 3):", nrow(cuba_unexplained), "\n")
+```
+
+```{r}
+# Reconstruct Cuba estimates using output columns and compare against stored cases.
+cuba_current_est <- data %>%
+  filter(
+    iso3 == "CUB",
+    Year == current_year,
+    Month <= recent_month,
+    source == "Estimates",
+    !is.na(cases)
+  ) %>%
+  mutate(
+    reconstructed_from_output = round(Predicted_total_seasonal_cases * Ave_monthly_proportion, 0),
+    reconstruction_matches_output_cols = reconstructed_from_output == cases,
+    implied_total_from_cases = cases / Ave_monthly_proportion,
+    implied_total_rounded = round(implied_total_from_cases, 0),
+    output_total_minus_implied = Predicted_total_seasonal_cases - implied_total_from_cases
+  ) %>%
+  dplyr::select(
+    country, iso3, Region, Year, Month, season, season_nMonth,
+    cases, Ave_monthly_proportion, Predicted_total_seasonal_cases,
+    reconstructed_from_output, reconstruction_matches_output_cols,
+    implied_total_from_cases, implied_total_rounded, output_total_minus_implied
+  ) %>%
+  arrange(Year, Month)
+
+kable(cuba_current_est)
+```
+
+```{r}
+# Check for duplicate-row artifacts that might explain inconsistency.
+cuba_dup_check <- data %>%
+  filter(iso3 == "CUB", Year == current_year, Month <= recent_month) %>%
+  group_by(iso3, Year, Month) %>%
+  dplyr::summarise(
+    n_rows = n(),
+    n_distinct_cases = n_distinct(cases, na.rm = TRUE),
+    n_distinct_source = n_distinct(source, na.rm = TRUE),
+    n_distinct_prop = n_distinct(Ave_monthly_proportion, na.rm = TRUE),
+    n_distinct_pred_total = n_distinct(Predicted_total_seasonal_cases, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(Month)
+
+kable(cuba_dup_check)
+```
+
+```{r}
+cuba_summary <- cuba_current_est %>%
+  dplyr::summarise(
+    n_estimated_rows = n(),
+    n_reconstruction_mismatch_output_cols = sum(!reconstruction_matches_output_cols, na.rm = TRUE),
+    min_abs_total_gap = min(abs(output_total_minus_implied), na.rm = TRUE),
+    max_abs_total_gap = max(abs(output_total_minus_implied), na.rm = TRUE)
+  )
+
+kable(cuba_summary)
+```
+
+```{r, echo=FALSE}
+cat("Interpretation guide for Cuba:\n")
+cat("- reconstruction_matches_output_cols == FALSE indicates output totals differ from totals implied by the estimated cases.\n")
+cat("- This is consistent with the script recalculating Predicted_total_seasonal_cases after estimates are filled.\n")
+cat("- cuba_dup_check helps rule in/out duplicate-row artifacts by month as an additional cause.\n")
+```
+
+### Analysis 4 summary
+
+The rendered output shows that Cuba has 3 estimated rows in 2026 (months 1-3), and all 3 fail reconstruction when using final output columns (`n_reconstruction_mismatch_output_cols = 3`). For these rows, the implied total from `cases / Ave_monthly_proportion` is approximately 37,547, while final `Predicted_total_seasonal_cases` is 52,586 (gap approximately 15,037-15,039 each month). The duplicate check shows one row per month with no within-month multiplicity, so this is not a duplicate join artifact.
+
+Taken together, this pattern is most consistent with a two-pass nowcasting effect in `03_proportion_nowcast.R`: estimated `cases` appear to be generated from a first-pass total, while the exported `Predicted_total_seasonal_cases` reflects a second-pass recalculation after fill. This explains why Cuba can have exact 2026 to 2025 estimated values while also failing direct reconstruction from the final output columns.
+
+## Implementation decision and pipeline update plan
+
+Based on this troubleshooting review, the pipeline will be updated with the following reproducible design decisions:
+
+1. `Predicted_total_seasonal_cases` will be the frozen seasonal total used for estimation and will no longer be overwritten after fill.
+2. Post-fill recalculation will be retained as diagnostics only in `pred_total_post_fill` and will not feed back into the estimation phase.
+3. Estimation will run in one controlled phase, and the intermediate value `estimate_formula_result_raw` will be saved for estimated rows only.
+
+This design preserves downstream behavior that depends on `cases`, improves traceability, and ensures that estimated rows can be audited directly against the formula inputs used at fill time.
+
+## Test post update changes
+
+```{r}
+# read in and format new nowcast output
+
+
+# Read the nowcast dataset under review (fixed file used for this audit run).
+data_new <- read_csv("~/Dropbox/DMMG/DENV_dashboard/DENV_global_observatory/Output/2026_04_15/DENV_cases_nowcast_output.csv", show_col_types = FALSE)
+```
+
+```{r}
+# ---- Harmonize key columns used for comparison ----
+# old dataset: `data` (loaded at top of report)
+# new dataset: `data_new` (post-update run)
+required_compare_cols <- c(
+  "country", "iso3", "Region", "Year", "Month", "season", "season_nMonth",
+  "cases", "source", "Predicted_total_seasonal_cases"
+)
+
+missing_old <- setdiff(required_compare_cols, names(data))
+missing_new <- setdiff(required_compare_cols, names(data_new))
+
+if (length(missing_old) > 0) stop("Old dataset missing columns: ", paste(missing_old, collapse = ", "))
+if (length(missing_new) > 0) stop("New dataset missing columns: ", paste(missing_new, collapse = ", "))
+
+# Compare only through the same reporting window used in this audit.
+old_core <- data %>%
+  filter(Year == current_year, Month <= recent_month) %>%
+  dplyr::select(all_of(required_compare_cols))
+
+new_core <- data_new %>%
+  filter(Year == current_year, Month <= recent_month) %>%
+  dplyr::select(all_of(required_compare_cols))
+```
+
+### Comparison 1: all estimated rows (old vs new)
+
+```{r}
+# Build comparable estimate tables from each run.
+old_est_all <- old_core %>%
+  filter(source == "Estimates", !is.na(cases)) %>%
+  dplyr::rename(
+    country_old = country,
+    Region_old = Region,
+    source_old = source,
+    cases_old = cases,
+    pred_total_old = Predicted_total_seasonal_cases
+  )
+
+new_est_all <- new_core %>%
+  filter(source == "Estimates", !is.na(cases)) %>%
+  dplyr::rename(
+    country_new = country,
+    Region_new = Region,
+    source_new = source,
+    cases_new = cases,
+    pred_total_new = Predicted_total_seasonal_cases
+  )
+
+all_estimate_comparison <- full_join(
+  old_est_all,
+  new_est_all,
+  by = c("iso3", "Year", "Month", "season", "season_nMonth")
+) %>%
+  mutate(
+    country = coalesce(country_new, country_old),
+    Region = coalesce(Region_new, Region_old),
+    estimate_status = case_when(
+      !is.na(cases_old) & !is.na(cases_new) ~ "Estimated in both",
+      !is.na(cases_old) & is.na(cases_new) ~ "Only estimated in old",
+      is.na(cases_old) & !is.na(cases_new) ~ "Only estimated in new",
+      TRUE ~ "No estimate in either"
+    ),
+    case_delta_new_minus_old = cases_new - cases_old,
+    pred_total_delta_new_minus_old = pred_total_new - pred_total_old
+  ) %>%
+  arrange(country, Month)
+
+kable(all_estimate_comparison)
+```
+
+```{r}
+all_estimate_summary <- all_estimate_comparison %>%
+  dplyr::summarise(
+    n_rows_compared = n(),
+    n_estimated_in_both = sum(estimate_status == "Estimated in both", na.rm = TRUE),
+    n_only_estimated_old = sum(estimate_status == "Only estimated in old", na.rm = TRUE),
+    n_only_estimated_new = sum(estimate_status == "Only estimated in new", na.rm = TRUE),
+    n_changed_case_value = sum(estimate_status == "Estimated in both" & cases_old != cases_new, na.rm = TRUE),
+    n_changed_pred_total = sum(estimate_status == "Estimated in both" & pred_total_old != pred_total_new, na.rm = TRUE)
+  )
+
+kable(all_estimate_summary)
+```
+
+### Comparison 2: previously flagged duplicates to historical years (including 2025)
+
+```{r}
+# Recreate duplicate flags for old and new datasets, then compare.
+comparison_years <- (current_year - 5L):(current_year - 1L)
+
+get_exact_match_flags <- function(df_input) {
+  est_current <- df_input %>%
+    filter(
+      Year == current_year,
+      Month <= recent_month,
+      source == "Estimates",
+      !is.na(cases)
+    ) %>%
+    select(country, iso3, Region, Month, estimated_cases_current = cases)
+  
+  hist_pool <- df_input %>%
+    filter(Year %in% comparison_years, !is.na(cases)) %>%
+    select(iso3, Region, Year, Month, historical_cases = cases)
+  
+  est_current %>%
+    inner_join(hist_pool, by = c("iso3", "Region", "Month")) %>%
+    filter(estimated_cases_current == historical_cases) %>%
+    transmute(
+      country, iso3, Region, Month,
+      estimated_cases_current,
+      matched_historical_year = Year
+    ) %>%
+    distinct()
+}
+
+old_exact_flags <- get_exact_match_flags(data) %>%
+  rename(
+    estimated_cases_old = estimated_cases_current,
+    matched_historical_year_old = matched_historical_year
+  )
+
+new_exact_flags <- get_exact_match_flags(data_new) %>%
+  rename(
+    estimated_cases_new = estimated_cases_current,
+    matched_historical_year_new = matched_historical_year
+  )
+
+duplicate_flag_comparison <- full_join(
+  old_exact_flags,
+  new_exact_flags,
+  by = c("country", "iso3", "Region", "Month")
+) %>%
+  mutate(
+    duplicate_status = case_when(
+      !is.na(estimated_cases_old) & !is.na(estimated_cases_new) ~ "Duplicate in both runs",
+      !is.na(estimated_cases_old) & is.na(estimated_cases_new) ~ "Resolved in new run",
+      is.na(estimated_cases_old) & !is.na(estimated_cases_new) ~ "New duplicate in new run",
+      TRUE ~ "Not flagged"
+    ),
+    case_delta_for_duplicate = estimated_cases_new - estimated_cases_old
+  ) %>%
+  arrange(country, Month)
+
+kable(duplicate_flag_comparison)
+```
+
+```{r}
+duplicate_flag_summary <- duplicate_flag_comparison %>%
+  summarise(
+    n_rows_flagged_any_run = n(),
+    n_duplicate_in_both_runs = sum(duplicate_status == "Duplicate in both runs", na.rm = TRUE),
+    n_resolved_in_new_run = sum(duplicate_status == "Resolved in new run", na.rm = TRUE),
+    n_new_duplicates_in_new_run = sum(duplicate_status == "New duplicate in new run", na.rm = TRUE)
+  )
+
+kable(duplicate_flag_summary)
+```
+
+### Comparison 3: Cuba-focused change check
+
+```{r}
+# Focus on Cuba rows that are estimates and/or duplicate flags.
+cuba_all_estimate_changes <- all_estimate_comparison %>%
+  filter(iso3 == "CUB") %>%
+  arrange(Year, Month)
+
+kable(cuba_all_estimate_changes)
+```
+
+```{r}
+cuba_duplicate_flag_changes <- duplicate_flag_comparison %>%
+  filter(iso3 == "CUB") %>%
+  arrange(Month)
+
+kable(cuba_duplicate_flag_changes)
+```
+
+```{r}
+cuba_change_summary <- cuba_all_estimate_changes %>%
+  summarise(
+    n_cuba_rows_compared = n(),
+    n_cuba_estimated_in_both = sum(estimate_status == "Estimated in both", na.rm = TRUE),
+    n_cuba_case_changes = sum(estimate_status == "Estimated in both" & cases_old != cases_new, na.rm = TRUE),
+    n_cuba_pred_total_changes = sum(estimate_status == "Estimated in both" & pred_total_old != pred_total_new, na.rm = TRUE)
+  )
+
+kable(cuba_change_summary)
+```
+
+### Test post update summary
+
+```{r}
+cat(
+  "This section compares old vs updated nowcast outputs across: ",
+  "(1) all estimated rows, ",
+  "(2) rows previously identified as exact duplicates to recent historical years (including 2025), ",
+  "and (3) Cuba-specific rows.\n",
+  sep = ""
+)
+cat(
+  "Use 'duplicate_flag_summary' to confirm how many prior duplicate rows were resolved, ",
+  "and 'cuba_change_summary' to verify Cuba-specific behavior after the update.\n",
+  sep = ""
+)
+
+```

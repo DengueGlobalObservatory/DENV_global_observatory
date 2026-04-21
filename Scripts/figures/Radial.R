@@ -13,7 +13,7 @@ make_radial_plot <- function(df_start, year = NULL, month = NULL ) {
   
   # Validate input
   if (is.null(df_start) || !is.data.frame(df_start) || nrow(df_start) == 0) {
-    return(NULL)
+    return(NULL) 
   }
   
   

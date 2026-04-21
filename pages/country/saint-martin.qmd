@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Saint Martin"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "MAF"
+  country_name: "Saint Martin"
+  region: "Caribbean"
+  region_href: "../caribbean.html"
+  map_src: "../../Assets/Stable/country_maps/maf.png"
+  slug: "saint-martin"
+---
+
+{{< include _country-template.qmd >}}

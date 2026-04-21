@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Lao People's Democratic Republic"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "LAO"
+  country_name: "Lao People's Democratic Republic"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/lao.png"
+  slug: "lao-people-s-democratic-republic"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Afghanistan"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "AFG"
+  country_name: "Afghanistan"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/afg.png"
+  slug: "afghanistan"
+---
+
+{{< include _country-template.qmd >}}

@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Singapore"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SGP"
+  country_name: "Singapore"
+  region: "East & Southeast Asia"
+  region_href: "../eastsoutheastasia.html"
+  map_src: "../../Assets/Stable/country_maps/sgp.png"
+  slug: "singapore"
+---
+
+{{< include _country-template.qmd >}}

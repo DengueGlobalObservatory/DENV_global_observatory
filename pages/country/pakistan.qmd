@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Pakistan"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "PAK"
+  country_name: "Pakistan"
+  region: "South Asia"
+  region_href: "../southasia.html"
+  map_src: "../../Assets/Stable/country_maps/pak.png"
+  slug: "pakistan"
+---
+
+{{< include _country-template.qmd >}}

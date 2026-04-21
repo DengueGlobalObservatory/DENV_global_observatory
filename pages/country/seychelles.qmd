@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Seychelles"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "SYC"
+  country_name: "Seychelles"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/syc.png"
+  slug: "seychelles"
+---
+
+{{< include _country-template.qmd >}}

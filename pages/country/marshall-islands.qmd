@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Marshall Islands"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "MHL"
+  country_name: "Marshall Islands"
+  region: "Pacific Islands"
+  region_href: "../pacificislands.html"
+  map_src: "../../Assets/Stable/country_maps/mhl.png"
+  slug: "marshall-islands"
+---
+
+{{< include _country-template.qmd >}}
