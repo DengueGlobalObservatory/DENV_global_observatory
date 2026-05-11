@@ -1,0 +1,50 @@
+# Runs Scripts/V1_Pipeline.R daily at 10:00 UTC (GitHub schedule cron is always UTC).
+# Persists new/changed files under Output/ to the default branch (see branch protection note below).
+name: V1 pipeline daily
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v1-pipeline-daily
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4.1"
+
+      - name: Set up renv
+        uses: r-lib/actions/setup-renv@v2
+
+      - name: Run V1 pipeline
+        run: Rscript Scripts/V1_Pipeline.R
+
+      # Pushes require the default branch to allow GitHub Actions (or use a PAT in secrets and pass it to checkout).
+      - name: Commit and push Output/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Output/
+          if git diff --staged --quiet; then
+            echo "No output changes to commit."
+          else
+            git commit -m "chore: V1 pipeline output $(date -u +%Y-%m-%d)"
+            git push
+          fi
