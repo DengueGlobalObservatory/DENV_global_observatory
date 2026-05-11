@@ -62,6 +62,19 @@ temp <- tempfile(fileext = ".xlsx")
 download.file(download_url, temp, mode = "wb")
 who <- readxl::read_excel(temp)
 
+# add reporting delay
+who_download_date <- as.Date(gsub("dengue-global-data-|\\.xlsx", "", latest_file))
+who_download_year <- as.integer(format(who_download_date, "%Y"))
+who_download_month <- as.integer(format(who_download_date, "%m"))
+
+who_obs_year <- as.integer(format(who$date, "%Y"))
+who_obs_month <- as.integer(format(who$date, "%m"))
+
+# Delay is months between download month and observation month.
+who$d <- (who_download_year - who_obs_year) * 12 + (who_download_month - who_obs_month)
+who$d_unit <- "month"
+
+
 
 #---- SEARO - API
 log_message("Start SEARO - API download...")
@@ -101,6 +114,18 @@ searo <- read.csv(temp)
 searo$country <- searo$Country
 searo <- dplyr::select(searo, -c(Country))
 
+#add reporting delay
+download_dt <- dt[which.max(dt)]
+download_year <- as.integer(format(download_dt, "%Y"))
+download_month <- as.integer(format(download_dt, "%m"))
+
+obs_month <- match(tolower(substr(searo$Month, 1, 3)), tolower(month.abb))
+obs_year <- as.integer(searo$Year)
+
+# Delay is months between download month and observation month.
+searo$d <- (download_year - obs_year) * 12 + (download_month - obs_month)
+searo$d_unit <- "month"
+
 
 
 #---- OpenDengue - historic data 
@@ -122,4 +147,6 @@ log_message("Completed 01_dengue_data.R")
 suppressWarnings(
 suppressMessages(
 rm( "dir_input","download_url" ,"dt" ,"files" ,"latest_file",
-    "res","searo_files","temp","timestamps", "url","xlsx_files")))  
+    "res","searo_files","temp","timestamps", "url","xlsx_files",
+    "who_download_date","who_download_month","who_download_year",
+    "who_obs_month","who_obs_year")))  
