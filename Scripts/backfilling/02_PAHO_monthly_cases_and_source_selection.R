@@ -330,6 +330,17 @@ current_data <- current_data %>%
 
 log_message("Current data rows after completeness expansion: " %+% nrow(current_data))
 
+# Record canonical Step 4 country presence from finalized current_data
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    record_countries_at_step(current_data, "Step_4_Current_Data")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 4 Current Data: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
+
 # Verify current year is present for all countries
 if (exists("log_message")) {
   all_countries <- current_data %>%

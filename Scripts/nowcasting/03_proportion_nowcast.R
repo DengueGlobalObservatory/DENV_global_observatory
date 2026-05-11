@@ -319,10 +319,14 @@ estimated_rows <- data %>%
 log_message("Nowcasting completed; estimated rows: " %+% estimated_rows)
 log_message("Completed 03_proportion_nowcast.")
 
-# Record countries after nowcast merge (Step 5: Nowcast Merge)
+# Record countries after merge/nowcast (Step 5: Merge and Nowcast)
 if (exists("record_countries_at_step")) {
   tryCatch({
-    record_countries_at_step(data, "Step_5_Nowcast_Merge")
+    # Track only countries that have seasonal baseline support.
+    # This keeps Step 5 counts aligned with Step 3 seasonal eligibility.
+    trackable_nowcast_countries <- data %>%
+      dplyr::filter(!is.na(Ave_season_monthly_cases))
+    record_countries_at_step(trackable_nowcast_countries, "Step_5_Merge_and_Nowcast")
   }, error = function(e) {
     if (exists("log_message")) {
       log_message("Warning: Country tracking failed at Step 5: " %+% conditionMessage(e), level = "WARNING")
