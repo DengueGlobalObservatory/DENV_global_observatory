@@ -12,7 +12,7 @@ The **DENV Global Observatory** is a Quarto-based web dashboard that provides ne
 
 1. **Pipeline:** External data sources → Data sourcing & ingestion → Historic data selection (OD + WHO) → Seasonal baseline identification → Backfilling & source selection → Proportion nowcasting → Region assignment → Severity classification → Output CSVs.
 2. **Maps:** Latest nowcast CSV → Cumulative ratio calculation → Global and regional choropleth maps → `Assets/Dynamic/`.
-3. **Validation:** Historic data → Leave-one-season-out simulation → Error metrics, calibrated prediction intervals, snapshot convergence → `Output/validation/` and `Assets/Stable/calibrated_prediction_intervals.csv`.
+3. **Validation:** Pipeline writes `full_data_season_monthly_proportions.csv` → [`Scripts/validation/ORC_nowcast_validation.R`](Scripts/validation/ORC_nowcast_validation.R) runs LOSO detail, summaries/quantiles/coverage, snapshot convergence, and figures → `Output/validation/` and `Assets/Stable/calibrated_prediction_intervals.csv`.
 4. **Dashboard:** Load latest CSV → Aggregate by country/region/world → Generate plots, text, and tables → Quarto render → Static site in `docs/`.
 5. **National pages:** Country-level data + radial plot + Chart.js interactive time series + prediction intervals → Pilot pages for Brazil, Cuba, Guyana.
 
@@ -497,104 +497,46 @@ flowchart LR
 
 ## 20. Validation Framework
 
-The validation framework lives in [`Scripts/validation/04_nowcast_validation.R`](Scripts/validation/04_nowcast_validation.R) and its helper functions in [`Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R`](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R). It evaluates the proportion-based nowcast using historic data and produces calibrated prediction intervals for operational use.
+Retrospective validation is split into small scripts under `Scripts/validation/`, orchestrated by [`Scripts/validation/ORC_nowcast_validation.R`](Scripts/validation/ORC_nowcast_validation.R). Shared helpers for the LOSO loop live in [`Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R`](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R) (`fit_baseline_profile`, `nowcast_one_cutoff`). The pipeline writes `full_data_season_monthly_proportions.csv` into each dated `Output/YYYY_MM_DD/` folder ([`Scripts/V1_Pipeline.R`](Scripts/V1_Pipeline.R) Step 8); validation reads the **latest** dated folder that contains this file so runs are reproducible without re-sourcing raw APIs.
 
-### 20a. Data Preparation
+### 20a. Individual errors (`03_nowcast_validation_ind.R`)
 
-`prepare_validation_dataset()` re-runs the pipeline's data sourcing and seasonal baseline steps, then extracts `country, iso3, Year, season, season_nMonth, Month, cases, Actual_monthly_proportion, Actual_cum_monthly_proportion` and joins region metadata from OpenDengue.
+Reads the saved proportions table, joins `Region` from `Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv`, and runs **leave-one-season-out** validation for each country with ≥ 3 seasons: for each held-out season, the mean seasonal profile is estimated from all other seasons; cutoffs `k = 1..11` simulate observing months `1..k` only; months `k+1..12` are nowcast and compared to truth. Output: `Output/validation/validation_detail.csv` (per-row `absolute_error`, `squared_error`, `relative_error` with `actual_cases > 0` guard).
 
-### 20b. Moving-Window Leave-One-Season-Out Simulation
+### 20b. Summaries, quantiles, coverage (`03_nowcast_validation_summary.R`)
 
-`run_moving_window_validation(validation_data)` iterates over every country–season combination (requiring ≥ 3 seasons). For each test season, all other seasons serve as training data. The training data is used to:
+Reads `validation_detail.csv` and writes:
 
-1. **Fit a baseline profile** — `fit_baseline_profile()` computes mean monthly and cumulative proportions across training seasons.
-2. **Fit negative binomial parameters** — `fit_nb_month_distribution()` uses moment-based NB approximation per season month (avoids repeated `glm.nb` fits; falls back to near-Poisson when variance ≤ mean).
-3. **Simulate cutoff months 1–11** — for each cutoff, cumulative observed cases up to the cutoff are divided by the average cumulative proportion to predict the seasonal total. Months after the cutoff receive `predicted_cases = predicted_total × Ave_monthly_proportion`.
+- **Country summary** — MAE, RMSE, `MRE_signed`, `MRE_abs`, `n_seasons`; **composite z tiering** on `RMSE / mean_monthly_cases` and `|MRE_signed|` → Good / Moderate / Poor tertiles.
+- **Pair summaries** — by `(cutoff_month, prediction_month)` and by `(iso3, cutoff_month, prediction_month)`.
+- **Quantile tables** — empirical relative-error quantiles (`q025`, `q25`, `q75`, `q975`) at **country**, **region**, and **global** levels (keyed by last-observation month × prediction month, not by horizon).
+- **Operational lookup** — country-level quantiles only, rows with `n_obs < 5` dropped; mirrored to `Assets/Stable/calibrated_prediction_intervals.csv`. Columns include `prediction_month` (not `horizon`) and `q025` / `q975` (not `q025_rel`).
+- **Coverage** — `coverage_summary.csv`: empirical 95% / 50% interval coverage after applying the methods formula `max(0, predicted × (1 + q))` to rows that match the operational lookup.
 
-For each prediction, parametric NB intervals (2.5th/97.5th and 25th/75th percentiles) and a log-score are computed.
+### 20c. Snapshot convergence (`03_nowcast_validation_snapshots.R`)
 
-``` mermaid
-flowchart TB
-  ValData[validation_data] --> CountrySplit[Split by country]
-  CountrySplit --> SeasonLoop[For each season s]
-  SeasonLoop --> Train["Train = all seasons ≠ s"]
-  SeasonLoop --> Test["Test = season s"]
-  Train --> Baseline[fit_baseline_profile]
-  Train --> NB[fit_nb_month_distribution]
-  Baseline --> CutoffLoop[For cutoff_month 1..11]
-  NB --> CutoffLoop
-  Test --> CutoffLoop
-  CutoffLoop --> CumObs["cum_observed = Σcases up to cutoff"]
-  CumObs --> PredTotal["predicted_total = cum_observed / cum_prop"]
-  PredTotal --> PredMonths["predicted_cases = predicted_total × monthly_prop"]
-  PredMonths --> Errors[APE, RMSE, RMSPE, logscore, NB intervals]
-  Errors --> Results[validation_results_detail.csv]
-```
+Scans dated `Output/YYYY_MM_DD/` folders for `DENV_cases_nowcast_output.csv`, keeps `Data_status == "Unobserved"` and `source == "Estimates"`, defines the **final** estimate as the latest snapshot per `(iso3, Year, Month)`, and writes `snapshot_convergence_detail.csv` and `snapshot_convergence_summary.csv` (including first snapshot where absolute difference to final ≤ 1).
 
-### 20c. Error Metrics
+### 20d. Figures (`04_nowcast_validation_FIG.R`)
 
-`compute_error_metrics()` aggregates results three ways:
+Six publication-style figures (220 dpi PNGs): error heatmap by `(cutoff_month, prediction_month)`, nominal vs empirical coverage, world map of performance tier, RMSE_scaled by region, example nowcast fans (one country per tier at cutoffs 3/6/9), and snapshot convergence trajectories for highly revised country–months.
 
-| Grouping | Metrics |
-|---|---|
-| **By country** | MAE, RMSE, RMSPE, 95% and 50% NB coverage, mean log-score, number of seasons |
-| **By cutoff month** | Median MAE, RMSE, RMSPE, coverage |
-| **By country × cutoff** | Full detail for heatmaps and per-country analysis |
+### 20e. Ad hoc Brazil test (legacy)
 
-`classify_performance()` assigns each country to a **Good / Moderate / Poor** tier using RMSPE tertiles, and joins the seasonal profile CV (coefficient of variation of monthly proportions) and mean monthly burden.
+[`Scripts/validation/04_nowcast_validation_BRA_test.R`](Scripts/validation/04_nowcast_validation_BRA_test.R) still sources the archived helper bundle [`Scripts/validation/FUNCTIONS/00_FUN_validation_metrics_legacy_BRA.R`](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics_legacy_BRA.R) for a single-country moving-window diagnostic (independent of the main workflow above).
 
-`season_month_accuracy_analysis()` identifies the **reliable horizon** — the earliest cutoff month where median RMSPE drops below 0.25.
-
-### 20d. Calibrated Prediction Intervals
-
-`build_prediction_interval_lookup()` constructs empirical prediction intervals from validation residuals at three levels of hierarchy:
-
-1. **Country-level** — quantiles of `relative_error` by `iso3 × cutoff_month × horizon` (used when ≥ `min_obs` observations, default 5).
-2. **Region-level fallback** — used when country-level observations are insufficient.
-3. **Global-level fallback** — final fallback.
-
-The lookup table stores `q025_rel`, `q25_rel`, `q75_rel`, `q975_rel` (2.5th, 25th, 75th, 97.5th percentiles of relative error). `apply_prediction_intervals()` converts these to absolute bounds: `lower = max(0, predicted × (1 + q_rel))`.
-
-`coverage_calibration()` applies the calibrated intervals to the full validation set and reports empirical coverage at 95% and 50% nominal levels.
-
-### 20e. Snapshot Convergence
-
-`compute_snapshot_convergence()` reads all dated `Output/YYYY_MM_DD/` folders, extracts nowcast estimates for rows marked as `source == "Estimates"`, and tracks how each country–month estimate converges over successive pipeline runs. The summary reports when each estimate stabilised (absolute difference to final ≤ 1).
-
-### 20f. Backfill Assessment
-
-`compute_backfill_assessment()` compares PAHO backfill values across snapshots against the latest-available value, computing MAE and RMSE by source.
-
-### 20g. Figures
-
-Seven diagnostic figures are produced:
-
-| Figure | Content |
-|---|---|
-| fig1 | Heatmap: country × cutoff RMSPE (faceted by region) |
-| fig2 | Error curve: median APE by cutoff month (by region) |
-| fig3 | Nowcast fans: selected countries with 50/95% calibrated intervals at cutoffs 3, 6, 9 |
-| fig4 | World map: country performance tier (Good/Moderate/Poor) |
-| fig5 | Boxplot: RMSPE distribution by region |
-| fig6 | Snapshot convergence: selected country–month estimates over time |
-| fig7 | Calibration diagnostic: nominal vs empirical coverage |
-
-### 20h. Output Files
+### 20f. Output files (current)
 
 | File | Location |
 |---|---|
-| `validation_results_detail.csv` | `Output/validation/` |
-| `table1_country_validation_summary.csv` | `Output/validation/` |
-| `table2_cutoff_accuracy_summary.csv` | `Output/validation/` |
-| `table3_country_cutoff_detail.csv` | `Output/validation/` |
-| `table4_snapshot_convergence_summary.csv` | `Output/validation/` |
-| `table5_calibrated_prediction_intervals.csv` | `Output/validation/` |
-| `calibrated_prediction_intervals.csv` | `Assets/Stable/` (operational copy) |
-| `calibration_summary.csv` | `Output/validation/` |
-| `snapshot_convergence_detail.csv` | `Output/validation/` |
-| `backfill_assessment_paho.csv` | `Output/validation/` |
-| `reliable_horizon.txt` | `Output/validation/` |
-| `fig1`–`fig7` PNGs | `Output/validation/` |
+| `validation_detail.csv` | `Output/validation/` |
+| `summary_country.csv`, `summary_pair.csv`, `summary_country_pair.csv` | `Output/validation/` |
+| `quantiles_country.csv`, `quantiles_region.csv`, `quantiles_global.csv` | `Output/validation/` |
+| `calibrated_prediction_intervals.csv` | `Output/validation/` and `Assets/Stable/` |
+| `coverage_summary.csv` | `Output/validation/` |
+| `snapshot_convergence_detail.csv`, `snapshot_convergence_summary.csv` | `Output/validation/` |
+| `fig_error_heatmap_cutoff_pred.png`, `fig_coverage_calibration.png`, `fig_country_tier_map.png`, `fig_rmse_by_region_boxplot.png`, `fig_nowcast_fans.png`, `fig_snapshot_convergence.png` | `Output/validation/` |
+| `full_data_season_monthly_proportions.csv` | `Output/YYYY_MM_DD/` (pipeline artefact consumed by validation) |
 
 ------------------------------------------------------------------------
 
@@ -690,10 +632,15 @@ flowchart TB
 
 ### Validation
 
-| File                                                                                                                                 | Role                                                    |
-|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| [Scripts/validation/04_nowcast_validation.R](Scripts/validation/04_nowcast_validation.R)                                             | Main validation orchestrator and figure generation       |
-| [Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R)                 | Validation functions: moving-window sim, metrics, calibrated intervals, snapshot convergence |
+| File | Role |
+|---|---|
+| [Scripts/validation/ORC_nowcast_validation.R](Scripts/validation/ORC_nowcast_validation.R) | Orchestrator: runs validation + figures in order |
+| [Scripts/validation/03_nowcast_validation_ind.R](Scripts/validation/03_nowcast_validation_ind.R) | LOSO detail → `validation_detail.csv` |
+| [Scripts/validation/03_nowcast_validation_summary.R](Scripts/validation/03_nowcast_validation_summary.R) | Summaries, quantiles, calibrated lookup, coverage |
+| [Scripts/validation/03_nowcast_validation_snapshots.R](Scripts/validation/03_nowcast_validation_snapshots.R) | Snapshot convergence CSVs |
+| [Scripts/validation/04_nowcast_validation_FIG.R](Scripts/validation/04_nowcast_validation_FIG.R) | Publication figures |
+| [Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R) | LOSO helpers: `fit_baseline_profile`, `nowcast_one_cutoff` |
+| [Scripts/validation/FUNCTIONS/00_FUN_validation_metrics_legacy_BRA.R](Scripts/validation/FUNCTIONS/00_FUN_validation_metrics_legacy_BRA.R) | Legacy bundle for `04_nowcast_validation_BRA_test.R` only |
 
 ### Quality Assurance
 

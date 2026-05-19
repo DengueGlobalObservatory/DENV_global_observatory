@@ -12,8 +12,8 @@ get_tracking_env <- function() {
 #' Initialize country tracking
 #' 
 #' @param countries_df Data frame with country and iso3 columns
-#' @param step_name Name of the step (e.g., "Step_1_Historic_Data")
-initialize_country_tracking <- function(countries_df, step_name = "Step_1_Historic_Data") {
+#' @param step_name Name of the step (e.g., "Step_2_Initial_Data")
+initialize_country_tracking <- function(countries_df, step_name = "Step_2_Initial_Data") {
   env <- get_tracking_env()
   
   # Validate input
@@ -104,12 +104,15 @@ initialize_country_tracking <- function(countries_df, step_name = "Step_1_Histor
           paste0(toupper(substring(country, 1, 1)), tolower(substring(country, 2))),
           country
         ),
-        step_1_historic_data = TRUE,
-        step_2_cleaned_data = FALSE,
-        step_3a_after_case_filter = FALSE,
-        step_3b_after_seasonal_filter = FALSE,
+        step_2_initial_data = TRUE,
+        step_3a_who_od_clean = FALSE,
+        step_3a_who_od_selection = FALSE,
+        step_3b_combined_before_filter = FALSE,
+        step_3b_combined_after_filter = FALSE,
+        step_3c_seasonal_before_filter = FALSE,
+        step_3c_seasonal_after_filter = FALSE,
         step_4_current_data = FALSE,
-        step_5_merge_and_nowcast = FALSE,
+        step_5_nowcast_merge = FALSE,
         step_6_final = FALSE,
         dropped_at_step = NA_character_,
         drop_reason = NA_character_
@@ -130,12 +133,15 @@ initialize_country_tracking <- function(countries_df, step_name = "Step_1_Histor
             paste0(toupper(substring(country, 1, 1)), tolower(substring(country, 2))),
             country
           ),
-          step_1_historic_data = TRUE,
-          step_2_cleaned_data = FALSE,
-          step_3a_after_case_filter = FALSE,
-          step_3b_after_seasonal_filter = FALSE,
+          step_2_initial_data = TRUE,
+          step_3a_who_od_clean = FALSE,
+          step_3a_who_od_selection = FALSE,
+          step_3b_combined_before_filter = FALSE,
+          step_3b_combined_after_filter = FALSE,
+          step_3c_seasonal_before_filter = FALSE,
+          step_3c_seasonal_after_filter = FALSE,
           step_4_current_data = FALSE,
-          step_5_merge_and_nowcast = FALSE,
+          step_5_nowcast_merge = FALSE,
           step_6_final = FALSE,
           dropped_at_step = NA_character_,
           drop_reason = NA_character_
@@ -236,25 +242,17 @@ record_countries_at_step <- function(countries_df, step_name, drop_reason = NA_c
   
   # Map step names to column names
   step_col_map <- list(
-    # Canonical simplified step names
-    "Step_1_Historic_Data" = "step_1_historic_data",
-    "Step_2_Cleaned_Data" = "step_2_cleaned_data",
-    "Step_3a_After_Case_Filter" = "step_3a_after_case_filter",
-    "Step_3b_After_Seasonal_filter" = "step_3b_after_seasonal_filter",
+    "Step_2_Initial_Data" = "step_2_initial_data",
+    "Step_3a_WHO_OD_Clean" = "step_3a_who_od_clean",
+    "Step_3a_WHO_OD_Selection" = "step_3a_who_od_selection",
+    "Step_3b_Combined_Before_Filter" = "step_3b_combined_before_filter",
+    "Step_3b_Combined_After_Filter" = "step_3b_combined_after_filter",
+    "Step_3c_Seasonal_Before_Filter" = "step_3c_seasonal_before_filter",
+    "Step_3c_Seasonal_After_Filter" = "step_3c_seasonal_after_filter",
     "Step_4_Current_Data" = "step_4_current_data",
-    "Step_5_Merge_and_Nowcast" = "step_5_merge_and_nowcast",
+    "Step_5_Nowcast_Merge" = "step_5_nowcast_merge",
     "Step_6_Final" = "step_6_final"
   )
-
-  # Backward-compatible aliases for legacy step names
-  step_col_map[["Step_2_Initial_Data"]] <- "step_1_historic_data"
-  step_col_map[["Step_3a_WHO_OD_Clean"]] <- "step_2_cleaned_data"
-  step_col_map[["Step_3a_WHO_OD_Selection"]] <- "step_2_cleaned_data"
-  step_col_map[["Step_3b_Combined_Before_Filter"]] <- "step_2_cleaned_data"
-  step_col_map[["Step_3b_Combined_After_Filter"]] <- "step_3a_after_case_filter"
-  step_col_map[["Step_3c_Seasonal_Before_Filter"]] <- "step_3a_after_case_filter"
-  step_col_map[["Step_3c_Seasonal_After_Filter"]] <- "step_3b_after_seasonal_filter"
-  step_col_map[["Step_5_Nowcast_Merge"]] <- "step_5_merge_and_nowcast"
   
   # Find matching column name
   step_col_final <- step_col_map[[step_name]]
@@ -298,21 +296,22 @@ record_countries_at_step <- function(countries_df, step_name, drop_reason = NA_c
   if (has_drop_reason) {
     tryCatch({
       # Find countries that were present in at least one previous step but not in current step
-      previous_steps <- c("step_1_historic_data", "step_2_cleaned_data",
-                         "step_3a_after_case_filter", "step_3b_after_seasonal_filter",
-                         "step_4_current_data", "step_5_merge_and_nowcast")
+      previous_steps <- c("step_2_initial_data", "step_3a_who_od_clean", "step_3a_who_od_selection",
+                         "step_3b_combined_before_filter", "step_3b_combined_after_filter",
+                         "step_3c_seasonal_before_filter", "step_3c_seasonal_after_filter",
+                         "step_4_current_data", "step_5_nowcast_merge")
       previous_steps <- previous_steps[previous_steps != step_col_final]
       previous_steps <- previous_steps[previous_steps %in% names(env$tracking_df)]
       
       if (length(previous_steps) > 0) {
         # For seasonal filtering, specifically check if they were in the before_filter step
         # For other steps, check if they were in any previous step
-        if (step_col_final == "step_3b_after_seasonal_filter" && "step_3a_after_case_filter" %in% names(env$tracking_df)) {
+        if (step_col_final == "step_3c_seasonal_after_filter" && "step_3c_seasonal_before_filter" %in% names(env$tracking_df)) {
           # Countries that were in before_filter but not in after_filter
           dropped_iso3s <- env$tracking_df %>%
             dplyr::filter(
               # Was in before_filter step
-              step_3a_after_case_filter == TRUE &
+              step_3c_seasonal_before_filter == TRUE &
               # But not in current step
               !(iso3 %in% step_countries$iso3) &
               # Haven't been marked as dropped yet
@@ -417,12 +416,15 @@ export_country_tracking <- function(output_path) {
     dplyr::mutate(
       final_status = dplyr::case_when(
         step_6_final ~ "Included",
-        step_5_merge_and_nowcast ~ "Dropped after merge/nowcast",
+        step_5_nowcast_merge ~ "Dropped after nowcast merge",
         step_4_current_data ~ "Dropped after current data selection",
-        step_3b_after_seasonal_filter ~ "Dropped after seasonal filtering",
-        step_3a_after_case_filter ~ "Dropped after case filtering",
-        step_2_cleaned_data ~ "Dropped after cleaned data step",
-        step_1_historic_data ~ "Dropped after initial historic data step",
+        step_3c_seasonal_after_filter ~ "Dropped after seasonal filtering",
+        step_3c_seasonal_before_filter ~ "Dropped during seasonal filtering",
+        step_3b_combined_after_filter ~ "Dropped after combined filtering",
+        step_3b_combined_before_filter ~ "Dropped during combined filtering",
+        step_3a_who_od_selection ~ "Dropped during WHO/OD selection",
+        step_3a_who_od_clean ~ "Dropped during WHO/OD cleaning",
+        step_2_initial_data ~ "Dropped after initial data load",
         TRUE ~ "Unknown"
       )
     ) %>%
@@ -431,21 +433,27 @@ export_country_tracking <- function(output_path) {
   # Create summary statistics
   summary_stats <- dplyr::tibble(
     step = c(
-      "Step_1_Historic_Data",
-      "Step_2_Cleaned_Data",
-      "Step_3a_After_Case_Filter",
-      "Step_3b_After_Seasonal_filter",
+      "Step_2_Initial_Data",
+      "Step_3a_WHO_OD_Clean",
+      "Step_3a_WHO_OD_Selection",
+      "Step_3b_Combined_Before_Filter",
+      "Step_3b_Combined_After_Filter",
+      "Step_3c_Seasonal_Before_Filter",
+      "Step_3c_Seasonal_After_Filter",
       "Step_4_Current_Data",
-      "Step_5_Merge_and_Nowcast",
+      "Step_5_Nowcast_Merge",
       "Step_6_Final"
     ),
     n_countries = c(
-      sum(tracking_export$step_1_historic_data, na.rm = TRUE),
-      sum(tracking_export$step_2_cleaned_data, na.rm = TRUE),
-      sum(tracking_export$step_3a_after_case_filter, na.rm = TRUE),
-      sum(tracking_export$step_3b_after_seasonal_filter, na.rm = TRUE),
+      sum(tracking_export$step_2_initial_data, na.rm = TRUE),
+      sum(tracking_export$step_3a_who_od_clean, na.rm = TRUE),
+      sum(tracking_export$step_3a_who_od_selection, na.rm = TRUE),
+      sum(tracking_export$step_3b_combined_before_filter, na.rm = TRUE),
+      sum(tracking_export$step_3b_combined_after_filter, na.rm = TRUE),
+      sum(tracking_export$step_3c_seasonal_before_filter, na.rm = TRUE),
+      sum(tracking_export$step_3c_seasonal_after_filter, na.rm = TRUE),
       sum(tracking_export$step_4_current_data, na.rm = TRUE),
-      sum(tracking_export$step_5_merge_and_nowcast, na.rm = TRUE),
+      sum(tracking_export$step_5_nowcast_merge, na.rm = TRUE),
       sum(tracking_export$step_6_final, na.rm = TRUE)
     )
   )

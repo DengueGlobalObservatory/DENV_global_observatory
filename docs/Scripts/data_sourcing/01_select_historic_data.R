@@ -51,7 +51,7 @@ if (any(is.na(WHO_clean$country))) {
   log_message("Warning: Not all ISO3 codes in WHO database matched to countries", level = "WARNING")
 }
 
-# Record countries after cleaning (Step 2: Cleaned Data)
+# Record countries after cleaning (Step 3a: WHO/OD Clean)
 if (exists("record_countries_at_step") && exists("WHO_clean") && exists("OD_national_clean")) {
   tryCatch({
     # Combine cleaned countries
@@ -60,7 +60,7 @@ if (exists("record_countries_at_step") && exists("WHO_clean") && exists("OD_nati
       OD_national_clean %>% dplyr::select(country, iso3) %>% dplyr::distinct()
     ) %>% dplyr::distinct()
     
-    record_countries_at_step(cleaned_countries, "Step_2_Cleaned_Data")
+    record_countries_at_step(cleaned_countries, "Step_3a_WHO_OD_Clean")
   }, error = function(e) {
     # Silently fail - tracking should not stop pipeline
     if (exists("log_message")) {
@@ -126,6 +126,17 @@ WHO_OD_combined_clean <- WHO_OD_combined %>%
   dplyr::filter(To_keep == "Keep") %>%
   dplyr::select(!To_keep & !Number_of_obs) %>%
   dplyr::ungroup()
+
+# Record countries before filtering (Step 3b: Combined Before Filter)
+if (exists("record_countries_at_step")) {
+  tryCatch({
+    record_countries_at_step(WHO_OD_combined_clean, "Step_3b_Combined_Before_Filter")
+  }, error = function(e) {
+    if (exists("log_message")) {
+      log_message("Warning: Country tracking failed at Step 3b Before Filter: " %+% conditionMessage(e), level = "WARNING")
+    }
+  })
+}
 
 #--------------- Filter combined data - only remove all-zero years
 # Let seasonal filtering handle completeness requirements
@@ -213,7 +224,7 @@ if (exists("record_countries_at_step")) {
   })
 }
 
-# Record countries after filtering (Step 3a: After Case Filter)
+# Record countries after filtering (Step 3b: Combined After Filter)
 if (exists("record_countries_at_step")) {
   tryCatch({
     # Use country-specific drop reasons if available
@@ -221,7 +232,7 @@ if (exists("record_countries_at_step")) {
       if (exists("log_message")) {
         log_message("Using country-specific drop reasons for " %+% nrow(step3b_drop_reasons) %+% " countries at step 3b")
       }
-      record_countries_at_step(full_data, "Step_3a_After_Case_Filter",
+      record_countries_at_step(full_data, "Step_3b_Combined_After_Filter",
                                drop_reason = step3b_drop_reasons)
       # Clean up
       rm(step3b_drop_reasons, envir = .GlobalEnv)
@@ -230,7 +241,7 @@ if (exists("record_countries_at_step")) {
         log_message("No countries dropped at step 3b filtering")
       }
       # Record final countries without drop reasons (no countries were dropped)
-      record_countries_at_step(full_data, "Step_3a_After_Case_Filter")
+      record_countries_at_step(full_data, "Step_3b_Combined_After_Filter")
     }
   }, error = function(e) {
     if (exists("log_message")) {
