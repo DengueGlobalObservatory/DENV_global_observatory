@@ -47,7 +47,7 @@ Each generated country page is a small wrapper (`pages/country/<slug>.qmd`) that
 
 - Updated country time-series uncertainty in `_country-template.qmd`:
   - Replaced thick bar-style uncertainty marks with whisker-style error lines.
-  - Whiskers only appear for estimated months where CI exists.
+  - Whiskers only appear for estimated months where an interval exists.
   - Verified on Afghanistan page render.
 
 ## Inclusion Logic Used for Launch

@@ -132,17 +132,6 @@ full_data_season_aligned <- full_data %>%
     Month < mean_low_month ~ paste0((Year-1), "/", Year))
     )
 
-# Record countries before seasonal filtering (Step 3c: Seasonal Before Filter)
-if (exists("record_countries_at_step")) {
-  tryCatch({
-    record_countries_at_step(full_data_season_aligned, "Step_3c_Seasonal_Before_Filter")
-  }, error = function(e) {
-    if (exists("log_message")) {
-      log_message("Warning: Country tracking failed at Step 3c Before Filter: " %+% conditionMessage(e), level = "WARNING")
-    }
-  })
-}
-  
 #--------------- Filtering by season instead of calendar year
 #' Filtering criteria:
 #'  Coverage: remove locations with < 12 data points per season. 
@@ -428,7 +417,7 @@ full_data_average_season <- full_data_season_monthly_proportions %>%
     Ave_monthly_proportion
   )
 
-# Record countries after seasonal filtering (Step 3c: Seasonal After Filter)
+# Record countries after seasonal filtering (Step 3b: After Seasonal Filter)
 if (exists("record_countries_at_step")) {
   tryCatch({
     # Use country-specific drop reasons if available
@@ -436,7 +425,7 @@ if (exists("record_countries_at_step")) {
       if (exists("log_message")) {
         log_message("Using country-specific drop reasons for " %+% nrow(seasonal_drop_reasons) %+% " countries")
       }
-      record_countries_at_step(full_data_average_season, "Step_3c_Seasonal_After_Filter",
+      record_countries_at_step(full_data_average_season, "Step_3b_After_Seasonal_filter",
                                drop_reason = seasonal_drop_reasons)
       # Clean up
       rm(seasonal_drop_reasons, envir = .GlobalEnv)
@@ -445,7 +434,7 @@ if (exists("record_countries_at_step")) {
         log_message("Warning: No seasonal_drop_reasons found, using generic drop reason", level = "WARNING")
       }
       # Fallback to generic reason
-      record_countries_at_step(full_data_average_season, "Step_3c_Seasonal_After_Filter",
+      record_countries_at_step(full_data_average_season, "Step_3b_After_Seasonal_filter",
                                drop_reason = "Filtered: incomplete seasons, <5 cases/month average, or <3 seasons")
     }
   }, error = function(e) {

@@ -167,7 +167,7 @@ format:
 <details class="faq-item">
 <summary>Do you show uncertainty?</summary>
 <div class="faq-answer">
-<p>While we do not currently visualise uncertainty all estimates should be considered approximate values.</p>
+<p>On the country pages we visualise 95% prediction intervals as whiskers on the estimated months of the current-year time series. The intervals are derived from a retrospective leave-one-season-out validation.Observed months are shown without uncertainty. </p>
 </div>
 </details>
 

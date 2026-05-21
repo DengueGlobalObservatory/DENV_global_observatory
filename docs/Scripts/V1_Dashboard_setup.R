@@ -128,6 +128,39 @@ data <- data %>%
   ) %>%
   dplyr::select(-is_future)
 
+# ----- Validation-calibrated 95% / 50% prediction intervals --------------------
+# Country-page uncertainty whiskers use empirical relative-error quantiles from
+# the retrospective LOSO validation (Scripts/validation/ORC_nowcast_validation.R),
+# Bounds are populated only for estimated months (source == "Estimates").
+
+source("Scripts/utils/apply_calibrated_intervals.R")
+
+calibrated_lookups <- load_calibrated_lookups("Assets/Stable")
+
+if (is.null(calibrated_lookups$country) &&
+    is.null(calibrated_lookups$region) &&
+    is.null(calibrated_lookups$global)) {
+  warning(
+    "No calibrated_prediction_intervals_*.csv found under Assets/Stable. ",
+    "Country pages will render without uncertainty whiskers. ",
+    "Run Scripts/validation/ORC_nowcast_validation.R to (re)build the lookups."
+  )
+  data$cutoff_month <- NA_integer_
+  data$prediction_month <- NA_integer_
+  data$lower95 <- NA_real_
+  data$upper95 <- NA_real_
+  data$lower50 <- NA_real_
+  data$upper50 <- NA_real_
+  data$interval_source <- NA_character_
+} else {
+  data <- apply_calibrated_intervals(
+    data,
+    lookup_country = calibrated_lookups$country,
+    lookup_region = calibrated_lookups$region,
+    lookup_global = calibrated_lookups$global
+  )
+}
+
 
 # ----- Build regional Summary
 

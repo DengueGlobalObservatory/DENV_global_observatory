@@ -313,6 +313,23 @@ Once the total number of cases expected for that season has been calculated, the
 This method is here used here for nowcasting, the process of filling missing data gaps to date.
 </p>
 </div>
+<h2 class="anchored">
+Uncertainty around nowcasted months
+</h2>
+<div class="faq-answer">
+<p>
+We quantified uncertainty for the proportion-based nowcast using empirically calibrated prediction intervals derived from a retrospective leave-one-season-out validation. For each country with at least three complete seasons, we iteratively withheld one season, estimated the mean monthly and cumulative seasonal proportions from the remaining seasons, and applied the operational nowcasting algorithm at each information cutoff <em>k</em> (last observed season month, <em>k</em> = 1, …, 11). For each withheld season and cutoff we then compared predicted and observed monthly case counts for all subsequent months.
+</p>
+<p>
+Forecast errors were summarised as signed relative residuals, defined as the difference between the predicted and observed count divided by the observed count, and computed only when the observed count was greater than zero. We estimated the 2.5th, 25th, 75th, and 97.5th percentiles of these relative residuals separately for each country, cutoff month, and prediction month. Strata with fewer than five non-missing residuals were excluded from the operational lookup table to avoid unstable quantile estimates. Region- and global-level residual quantiles were computed in the same way for diagnostic use.
+</p>
+<p>
+At deployment, intervals around a point forecast <em>Ĉ</em> are constructed multiplicatively from the stored quantiles: the lower limit is max(0, <em>Ĉ</em>(1 + q<sub>α</sub>)) and the upper limit is max(0, <em>Ĉ</em>(1 + q<sub>1−α</sub>)), yielding 50% intervals from the 25th and 75th residual percentiles and 95% intervals from the 2.5th and 97.5th percentiles. This approach anchors uncertainty to historical forecast error for the same country and timing within the season rather than assuming a parametric error model.
+</p>
+<p>
+On country pages we display the 95% interval as whiskers on estimated months of the current-year time series. When a country–cutoff–prediction-month cell has fewer than five validation residuals, the dashboard falls back to the corresponding region-level quantiles, and then to global quantiles, so that all estimated months still carry an interval. Coverage statistics reported in the validation summary are computed from the country-only lookup.
+</p>
+</div>
 </div>
 
 

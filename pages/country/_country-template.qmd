@@ -68,16 +68,11 @@ ts_current <- country_df %>%
         dplyr::coalesce(as.character(Data_status), "") == "Unobserved" ~ "Estimated",
       TRUE ~ "Observed"
     ),
-    lower95 = dplyr::if_else(
-      status == "Estimated" & !is.na(nb_size) & !is.na(cases),
-      as.numeric(stats::qnbinom(0.025, size = nb_size, mu = pmax(cases, 1e-6))),
-      NA_real_
-    ),
-    upper95 = dplyr::if_else(
-      status == "Estimated" & !is.na(nb_size) & !is.na(cases),
-      as.numeric(stats::qnbinom(0.975, size = nb_size, mu = pmax(cases, 1e-6))),
-      NA_real_
-    )
+    # Validation-calibrated 95% prediction intervals applied in V1_Dashboard_setup.R
+    # (Scripts/utils/apply_calibrated_intervals.R). Bounds are non-NA only for
+    # estimated months; observed months render without whiskers.
+    lower95 = dplyr::if_else(status == "Estimated", as.numeric(lower95), NA_real_),
+    upper95 = dplyr::if_else(status == "Estimated", as.numeric(upper95), NA_real_)
   )
 
 hist_csv_path <- if (file.exists("Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv")) {
@@ -354,7 +349,7 @@ htmltools::div(
         class = "country-ts-swatch",
         style = "background-color: rgba(13, 92, 72, 0.14); border-color: rgba(13, 92, 72, 0.14);"
       ),
-      " Uncertainty: 95% confidence interval"
+      " Uncertainty: 95% prediction interval (validation-calibrated)"
     )
   )
 )
