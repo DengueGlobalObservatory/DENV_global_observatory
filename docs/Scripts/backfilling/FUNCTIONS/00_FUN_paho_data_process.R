@@ -53,14 +53,16 @@ apply_reporting_correction <- function(df,
                                        cases_col = "total_den",
                                        output_col = "total_corrected_cases") {
   
-  # Calculate onset date (Monday of the EW) and reporting delay
-  df <- df %>%
-    mutate(
-      iso_week = paste0(year, "-W", str_pad(EW, 2, pad = "0")),
-      onset_date = ISOweek2date(paste0(iso_week, "-1")),
-      year = year(onset_date),
-      d = round(as.numeric(difftime(ymd(ext_date), onset_date, units = "weeks")), 0)
-    )
+  # Calculate onset date (Monday of the EW) and reporting delay only if needed
+  if (!"onset_date" %in% names(df)) {
+    df <- df %>%
+      mutate(
+        iso_week = paste0(year, "-W", str_pad(EW, 2, pad = "0")),
+        onset_date = ISOweek2date(paste0(iso_week, "-1")),
+        year = year(onset_date),
+        d = round(as.numeric(difftime(ymd(ext_date), onset_date, units = "weeks")), 0)
+      )
+  }
   
   # Load and clean correction factors
   rf_df <- read.csv("Assets/Stable/emp_est_PAHO_report_factor.csv") %>%
@@ -120,6 +122,16 @@ apply_reporting_correction <- function(df,
 
 compute_monthcumm_cases <- function(df) {
   
+  
+  # Calculate onset date (Monday of the EW) and reporting delay
+  df <- df %>%
+    mutate(
+      iso_week = paste0(year, "-W", str_pad(EW, 2, pad = "0")),
+      onset_date = ISOweek2date(paste0(iso_week, "-1")),
+      year = year(onset_date),
+      d = round(as.numeric(difftime(ymd(ext_date), onset_date, units = "weeks")), 0)
+    )
+  
   df_monthcumm <- df %>%
     mutate(
       month = format(onset_date, "%B"), # add text month 
@@ -133,18 +145,29 @@ compute_monthcumm_cases <- function(df) {
     # this replaces those miss assignments as NAs
     mutate(
       total_den = case_when(
-        EW == 1 & month_num == 12 ~ NA, 
+        EW == 1 & month_num == 12 ~ NA,
         TRUE ~ total_den
-    ), 
-    total_corrected_cases = case_when(
-      EW == 1 & month_num == 12 ~ NA, 
-      TRUE ~ total_corrected_cases
-    ),
-    correction_applied = case_when(
-      EW == 1 & month_num == 12 ~ NA, 
-      TRUE ~ correction_applied
-    )) %>%
+      )
+    ) %>%
     ungroup()
+  
+  if ("total_corrected_cases" %in% names(df_monthcumm)) {
+    df_monthcumm <- df_monthcumm %>%
+    # select cumm month value
+    group_by(country, year, month) %>% 
+    slice_max(order_by = EW, n = 1, with_ties = FALSE) %>%
+      mutate(
+        total_corrected_cases = case_when(
+          EW == 1 & month_num == 12 ~ NA,
+          TRUE ~ total_corrected_cases
+        ),
+        correction_applied = case_when(
+          EW == 1 & month_num == 12 ~ NA,
+          TRUE ~ correction_applied
+        )
+      )
+  }
+  
   return(df_monthcumm)
 }
 
@@ -175,12 +198,11 @@ compute_monthcumm_cases <- function(df) {
 
 PAHO_incid_monthly <- function(df) {
    
+   # add date column
    df <- df %>%
       mutate(
-        month_num = month(onset_date),    # add number month
         date = make_date(year, month_num, 1)
-      ) %>%
-      dplyr::select(country, date, onset_date, EW, total_corrected_cases, total_den, correction_applied)
+      ) 
     
    # Create complete monthly sequence for each country
    full_df <- df %>%
@@ -207,38 +229,44 @@ PAHO_incid_monthly <- function(df) {
         month = month.name[month_num]
       ) %>%
       group_by(country) %>%
-      # calculate the corrected monthly cases
-      mutate(
-        lag_cum_corr = lag(total_corrected_cases),
-        computed_monthly_cases_corr = case_when(
-          month_num == 1 ~ total_corrected_cases,
-          TRUE ~ total_corrected_cases - lag_cum_corr
-        ),
-        missing_reason = case_when(
-          is.na(total_corrected_cases) ~ "current_month_missing",
-          is.na(lag_cum_corr) ~ "previous_month_missing",
-          TRUE ~ "not_missing"
-        )
-      ) %>%
-      # calculate the uncorrected monthly cases
+      # always calculate uncorrected monthly cases
       mutate(
         lag_cum = lag(total_den),
         computed_monthly_cases = case_when(
           month_num == 1 ~ total_den,
           TRUE ~ total_den - lag_cum
-        ) ) %>%
-      ungroup() %>%
-      dplyr::select(
-        country, year, month, month_num,  onset_date,EW,
-        cumm_monthly_cases_corr = total_corrected_cases,
-        cumm_monthly_cases = total_den,
-        correction_applied,
-        last_month_cases_corr = lag_cum_corr,
-        computed_monthly_cases_corr = computed_monthly_cases_corr,
-        missing_reason,
-        last_month_cases = lag_cum,
-        computed_monthly_cases = computed_monthly_cases
+        )
       ) %>%
+      ungroup()
+    
+    if ("total_corrected_cases" %in% names(joined_df)) {
+      joined_df <- joined_df %>%
+        group_by(country) %>%
+        mutate(
+          lag_cum_corr = lag(total_corrected_cases),
+          computed_monthly_cases_corr = case_when(
+            month_num == 1 ~ total_corrected_cases,
+            TRUE ~ total_corrected_cases - lag_cum_corr
+          ),
+          missing_reason = case_when(
+            is.na(total_corrected_cases) ~ "current_month_missing",
+            is.na(lag_cum_corr) ~ "previous_month_missing",
+            TRUE ~ "not_missing"
+          )
+        ) %>%
+        ungroup()
+    } else {
+      joined_df <- joined_df %>%
+        mutate(
+          total_corrected_cases = NA_real_,
+          correction_applied = if ("correction_applied" %in% names(joined_df)) correction_applied else NA,
+          lag_cum_corr = NA_real_,
+          computed_monthly_cases_corr = NA_real_,
+          missing_reason = NA_character_
+        )
+    }
+    
+    joined_df <- joined_df %>%
       distinct()
 
     return(joined_df)
