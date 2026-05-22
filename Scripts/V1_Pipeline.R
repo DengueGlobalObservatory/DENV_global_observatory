@@ -382,6 +382,11 @@ log_message("Saved nowcast output: " %+% nowcast_path)
 write.csv(full_data_average_season, file = season_path, row.names = FALSE)
 log_message("Saved average season output: " %+% season_path)
 
+# Season-monthly proportions (used by retrospective validation; one row per country-season-month)
+proportions_path <- file.path(run_dir, "full_data_season_monthly_proportions.csv")
+write.csv(full_data_season_monthly_proportions, file = proportions_path, row.names = FALSE)
+log_message("Saved season-monthly proportions: " %+% proportions_path)
+
 # Export country tracking (if it was initialized)
 if (exists("export_country_tracking")) {
   tryCatch({

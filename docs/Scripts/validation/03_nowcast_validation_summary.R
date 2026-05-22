@@ -5,16 +5,11 @@
 # Reads:  Output/validation/validation_detail.csv (from 03_nowcast_validation_ind.R)
 # Writes: summary_country.csv, summary_pair.csv, summary_country_pair.csv,
 #         quantiles_country.csv, quantiles_region.csv, quantiles_global.csv,
-#         calibrated_prediction_intervals.csv (country; Assets/Stable mirror),
-#         calibrated_prediction_intervals_region.csv (Assets/Stable mirror),
-#         calibrated_prediction_intervals_global.csv (Assets/Stable mirror),
+#         calibrated_prediction_intervals.csv (also Assets/Stable mirror),
 #         coverage_summary.csv
 # All three summary_* tables expose mean_monthly_cases and burden-scaled
 # RMSE_scaled = RMSE / mean_monthly_cases. Country and country×pair use the
 # country-wide mean_monthly_cases; global pair uses the stratum-pooled mean.
-# The three Assets/Stable lookups are consumed by Scripts/V1_Dashboard_setup.R
-# via Scripts/utils/apply_calibrated_intervals.R for country-page uncertainty
-# whiskers (country → region → global fallback).
 # =============================================================================
 
 library(tidyverse)
@@ -56,7 +51,6 @@ mean_cases <- detail %>%
 summary_country <- summary_country %>%
   left_join(mean_cases, by = "iso3") %>%
   mutate(
-    # calculate scaled RMSE
     RMSE_scaled = RMSE / mean_monthly_cases,
     z_RMSE = as.numeric(scale(RMSE_scaled)),
     z_MRE = as.numeric(scale(abs(MRE_signed)))
@@ -140,18 +134,8 @@ quantiles_global <- detail %>%
   group_by(cutoff_month, prediction_month) %>%
   reframe(qcols(relative_error))
 
-# --- Operational lookups: country / region / global; drop sparse cells -----
-# Country lookup is the primary table used for validation coverage statistics
-# (methods). Region and global mirrors exist only as runtime fallbacks for the
-# observatory when a country × cutoff × prediction-month cell has < MIN_OBS
-# residuals; they are NOT used in the coverage calculation below.
+# --- Operational lookup: country only; drop sparse cells -------------------
 calibrated_prediction_intervals <- quantiles_country %>%
-  filter(n_obs >= MIN_OBS)
-
-calibrated_prediction_intervals_region <- quantiles_region %>%
-  filter(n_obs >= MIN_OBS)
-
-calibrated_prediction_intervals_global <- quantiles_global %>%
   filter(n_obs >= MIN_OBS)
 
 if (!dir.exists("Assets/Stable")) {
@@ -165,11 +149,7 @@ write_csv(quantiles_country, file.path(out_dir, "quantiles_country.csv"))
 write_csv(quantiles_region, file.path(out_dir, "quantiles_region.csv"))
 write_csv(quantiles_global, file.path(out_dir, "quantiles_global.csv"))
 write_csv(calibrated_prediction_intervals, file.path(out_dir, "calibrated_prediction_intervals.csv"))
-write_csv(calibrated_prediction_intervals_region, file.path(out_dir, "calibrated_prediction_intervals_region.csv"))
-write_csv(calibrated_prediction_intervals_global, file.path(out_dir, "calibrated_prediction_intervals_global.csv"))
 write_csv(calibrated_prediction_intervals, "Assets/Stable/calibrated_prediction_intervals.csv")
-write_csv(calibrated_prediction_intervals_region, "Assets/Stable/calibrated_prediction_intervals_region.csv")
-write_csv(calibrated_prediction_intervals_global, "Assets/Stable/calibrated_prediction_intervals_global.csv")
 
 # --- Empirical coverage of calibrated 95% / 50% intervals --------------------
 # Methods: L = max(0, C_hat * (1 + q_alpha)), U = max(0, C_hat * (1 + q_{1-alpha}))
