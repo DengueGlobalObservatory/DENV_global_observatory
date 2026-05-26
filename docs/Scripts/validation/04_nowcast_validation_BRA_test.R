@@ -2,7 +2,8 @@ library(dplyr)
 library(readr)
 library(stringr)
 
-source("Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R")
+# Legacy helpers (full moving-window validation); kept for this ad hoc country test only.
+source("Scripts/validation/FUNCTIONS/00_FUN_validation_metrics_legacy_BRA.R")
 
 prep <- prepare_validation_dataset()
 validation_data <- prep$validation_data
