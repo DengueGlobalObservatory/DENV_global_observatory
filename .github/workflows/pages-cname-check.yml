@@ -1,0 +1,26 @@
+# GitHub Pages serves from docs/ and requires docs/CNAME for custom domains.
+name: GitHub Pages CNAME check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "CNAME"
+      - "_quarto.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - "CNAME"
+      - "_quarto.yml"
+
+jobs:
+  cname:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify docs/CNAME for GitHub Pages
+        run: |
+          test -f docs/CNAME || { echo "::error::Missing docs/CNAME (required for globaldengueobservatory.org)"; exit 1; }
+          grep -qxF 'globaldengueobservatory.org' docs/CNAME || { echo "::error::docs/CNAME must contain exactly: globaldengueobservatory.org"; exit 1; }
