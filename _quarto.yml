@@ -4,6 +4,7 @@ project:
   resources:
     - Assets/
     - Scripts/
+    - CNAME
   render: 
     - index.qmd
     - pages/country-index.qmd
