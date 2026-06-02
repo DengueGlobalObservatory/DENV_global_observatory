@@ -1,0 +1,211 @@
+[2026-06-02 13:54:43] INFO: Logging initialized.
+[2026-06-02 13:54:43] INFO: =============================================
+[2026-06-02 13:54:43] INFO: Created run directory: Output/2026_06_02
+[2026-06-02 13:54:43] INFO: Log file: Output/2026_06_02/pipeline_log_20260602_135443.txt
+[2026-06-02 13:54:43] INFO: R version: R version 4.4.1 (2024-06-14)
+[2026-06-02 13:54:43] INFO: Working directory: /home/runner/work/DENV_global_observatory/DENV_global_observatory
+[2026-06-02 13:54:43] INFO: =============================================
+[2026-06-02 13:54:43] INFO: Step 2: Opening dengue-related data sources...
+[2026-06-02 13:54:43] INFO: Starting compile_PAHO_github()...
+[2026-06-02 13:54:43] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2026-06-02 13:54:43] INFO: Latest available folder: DL_20260602
+[2026-06-02 13:54:44] INFO: Found 53 CSV files in latest folder.
+[2026-06-02 13:54:44] INFO: Reading file: PAHO_2024_2026_W10_202606021211.csv
+[2026-06-02 13:54:44] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:54:44] INFO: PAHO_2024_2026_W10_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:54:44] INFO: Reading file: PAHO_2024_2026_W11_202606021211.csv
+[2026-06-02 13:54:45] INFO: PAHO_2024_2026_W11_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:54:45] INFO: Reading file: PAHO_2024_2026_W12_202606021211.csv
+[2026-06-02 13:54:45] INFO: PAHO_2024_2026_W12_202606021211.csv read successfully with 132 rows.
+[2026-06-02 13:54:45] INFO: Reading file: PAHO_2024_2026_W13_202606021211.csv
+[2026-06-02 13:54:45] INFO: PAHO_2024_2026_W13_202606021211.csv read successfully with 132 rows.
+[2026-06-02 13:54:45] INFO: Reading file: PAHO_2024_2026_W14_202606021211.csv
+[2026-06-02 13:54:46] INFO: PAHO_2024_2026_W14_202606021211.csv read successfully with 132 rows.
+[2026-06-02 13:54:46] INFO: Reading file: PAHO_2024_2026_W15_202606021211.csv
+[2026-06-02 13:54:46] INFO: PAHO_2024_2026_W15_202606021211.csv read successfully with 132 rows.
+[2026-06-02 13:54:46] INFO: Reading file: PAHO_2024_2026_W16_202606021211.csv
+[2026-06-02 13:54:46] INFO: PAHO_2024_2026_W16_202606021211.csv read successfully with 133 rows.
+[2026-06-02 13:54:46] INFO: Reading file: PAHO_2024_2026_W17_202606021211.csv
+[2026-06-02 13:54:46] INFO: PAHO_2024_2026_W17_202606021211.csv read successfully with 133 rows.
+[2026-06-02 13:54:46] INFO: Reading file: PAHO_2024_2026_W18_202606021211.csv
+[2026-06-02 13:54:47] INFO: PAHO_2024_2026_W18_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:47] INFO: Reading file: PAHO_2024_2026_W19_202606021211.csv
+[2026-06-02 13:54:47] INFO: PAHO_2024_2026_W19_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:47] INFO: Reading file: PAHO_2024_2026_W1_202606021211.csv
+[2026-06-02 13:54:48] INFO: PAHO_2024_2026_W1_202606021211.csv read successfully with 125 rows.
+[2026-06-02 13:54:48] INFO: Reading file: PAHO_2024_2026_W20_202606021211.csv
+[2026-06-02 13:54:48] INFO: PAHO_2024_2026_W20_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:48] INFO: Reading file: PAHO_2024_2026_W21_202606021211.csv
+[2026-06-02 13:54:48] INFO: PAHO_2024_2026_W21_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:48] INFO: Reading file: PAHO_2024_2026_W22_202606021211.csv
+[2026-06-02 13:54:48] INFO: PAHO_2024_2026_W22_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:48] INFO: Reading file: PAHO_2024_2026_W23_202606021211.csv
+[2026-06-02 13:54:49] INFO: PAHO_2024_2026_W23_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:49] INFO: Reading file: PAHO_2024_2026_W24_202606021211.csv
+[2026-06-02 13:54:49] INFO: PAHO_2024_2026_W24_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:49] INFO: Reading file: PAHO_2024_2026_W25_202606021211.csv
+[2026-06-02 13:54:49] INFO: PAHO_2024_2026_W25_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:49] INFO: Reading file: PAHO_2024_2026_W26_202606021211.csv
+[2026-06-02 13:54:50] INFO: PAHO_2024_2026_W26_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:50] INFO: Reading file: PAHO_2024_2026_W27_202606021211.csv
+[2026-06-02 13:54:50] INFO: PAHO_2024_2026_W27_202606021211.csv read successfully with 134 rows.
+[2026-06-02 13:54:50] INFO: Reading file: PAHO_2024_2026_W28_202606021211.csv
+[2026-06-02 13:54:50] INFO: PAHO_2024_2026_W28_202606021211.csv read successfully with 135 rows.
+[2026-06-02 13:54:50] INFO: Reading file: PAHO_2024_2026_W29_202606021211.csv
+[2026-06-02 13:54:51] INFO: PAHO_2024_2026_W29_202606021211.csv read successfully with 135 rows.
+[2026-06-02 13:54:51] INFO: Reading file: PAHO_2024_2026_W2_202606021211.csv
+[2026-06-02 13:54:51] INFO: PAHO_2024_2026_W2_202606021211.csv read successfully with 128 rows.
+[2026-06-02 13:54:51] INFO: Reading file: PAHO_2024_2026_W30_202606021211.csv
+[2026-06-02 13:54:52] INFO: PAHO_2024_2026_W30_202606021211.csv read successfully with 135 rows.
+[2026-06-02 13:54:52] INFO: Reading file: PAHO_2024_2026_W31_202606021211.csv
+[2026-06-02 13:54:52] INFO: PAHO_2024_2026_W31_202606021211.csv read successfully with 136 rows.
+[2026-06-02 13:54:52] INFO: Reading file: PAHO_2024_2026_W32_202606021211.csv
+[2026-06-02 13:54:52] INFO: PAHO_2024_2026_W32_202606021211.csv read successfully with 136 rows.
+[2026-06-02 13:54:52] INFO: Reading file: PAHO_2024_2026_W33_202606021211.csv
+[2026-06-02 13:54:53] INFO: PAHO_2024_2026_W33_202606021211.csv read successfully with 136 rows.
+[2026-06-02 13:54:53] INFO: Reading file: PAHO_2024_2026_W34_202606021211.csv
+[2026-06-02 13:54:53] INFO: PAHO_2024_2026_W34_202606021211.csv read successfully with 136 rows.
+[2026-06-02 13:54:53] INFO: Reading file: PAHO_2024_2026_W35_202606021211.csv
+[2026-06-02 13:54:53] INFO: PAHO_2024_2026_W35_202606021211.csv read successfully with 136 rows.
+[2026-06-02 13:54:53] INFO: Reading file: PAHO_2024_2026_W36_202606021211.csv
+[2026-06-02 13:54:54] INFO: PAHO_2024_2026_W36_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:54] INFO: Reading file: PAHO_2024_2026_W37_202606021211.csv
+[2026-06-02 13:54:54] INFO: PAHO_2024_2026_W37_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:54] INFO: Reading file: PAHO_2024_2026_W38_202606021211.csv
+[2026-06-02 13:54:54] INFO: PAHO_2024_2026_W38_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:54] INFO: Reading file: PAHO_2024_2026_W39_202606021211.csv
+[2026-06-02 13:54:55] INFO: PAHO_2024_2026_W39_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:55] INFO: Reading file: PAHO_2024_2026_W3_202606021211.csv
+[2026-06-02 13:54:55] INFO: PAHO_2024_2026_W3_202606021211.csv read successfully with 128 rows.
+[2026-06-02 13:54:55] INFO: Reading file: PAHO_2024_2026_W40_202606021211.csv
+[2026-06-02 13:54:55] INFO: PAHO_2024_2026_W40_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:55] INFO: Reading file: PAHO_2024_2026_W41_202606021211.csv
+[2026-06-02 13:54:56] INFO: PAHO_2024_2026_W41_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:56] INFO: Reading file: PAHO_2024_2026_W42_202606021211.csv
+[2026-06-02 13:54:56] INFO: PAHO_2024_2026_W42_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:56] INFO: Reading file: PAHO_2024_2026_W43_202606021211.csv
+[2026-06-02 13:54:57] INFO: PAHO_2024_2026_W43_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:57] INFO: Reading file: PAHO_2024_2026_W44_202606021211.csv
+[2026-06-02 13:54:57] INFO: PAHO_2024_2026_W44_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:57] INFO: Reading file: PAHO_2024_2026_W45_202606021211.csv
+[2026-06-02 13:54:57] INFO: PAHO_2024_2026_W45_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:57] INFO: Reading file: PAHO_2024_2026_W46_202606021211.csv
+[2026-06-02 13:54:58] INFO: PAHO_2024_2026_W46_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:58] INFO: Reading file: PAHO_2024_2026_W47_202606021211.csv
+[2026-06-02 13:54:58] INFO: PAHO_2024_2026_W47_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:58] INFO: Reading file: PAHO_2024_2026_W48_202606021211.csv
+[2026-06-02 13:54:58] INFO: PAHO_2024_2026_W48_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:58] INFO: Reading file: PAHO_2024_2026_W49_202606021211.csv
+[2026-06-02 13:54:59] INFO: PAHO_2024_2026_W49_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:59] INFO: Reading file: PAHO_2024_2026_W4_202606021211.csv
+[2026-06-02 13:54:59] INFO: PAHO_2024_2026_W4_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:54:59] INFO: Reading file: PAHO_2024_2026_W50_202606021211.csv
+[2026-06-02 13:54:59] INFO: PAHO_2024_2026_W50_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:54:59] INFO: Reading file: PAHO_2024_2026_W51_202606021211.csv
+[2026-06-02 13:55:00] INFO: PAHO_2024_2026_W51_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:55:00] INFO: Reading file: PAHO_2024_2026_W52_202606021211.csv
+[2026-06-02 13:55:00] INFO: PAHO_2024_2026_W52_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:55:00] INFO: Reading file: PAHO_2024_2026_W53_202606021211.csv
+[2026-06-02 13:55:01] INFO: PAHO_2024_2026_W53_202606021211.csv read successfully with 137 rows.
+[2026-06-02 13:55:01] INFO: Reading file: PAHO_2024_2026_W5_202606021211.csv
+[2026-06-02 13:55:01] INFO: PAHO_2024_2026_W5_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:55:01] INFO: Reading file: PAHO_2024_2026_W6_202606021211.csv
+[2026-06-02 13:55:01] INFO: PAHO_2024_2026_W6_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:55:01] INFO: Reading file: PAHO_2024_2026_W7_202606021211.csv
+[2026-06-02 13:55:02] INFO: PAHO_2024_2026_W7_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:55:02] INFO: Reading file: PAHO_2024_2026_W8_202606021211.csv
+[2026-06-02 13:55:02] INFO: PAHO_2024_2026_W8_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:55:02] INFO: Reading file: PAHO_2024_2026_W9_202606021211.csv
+[2026-06-02 13:55:03] INFO: PAHO_2024_2026_W9_202606021211.csv read successfully with 131 rows.
+[2026-06-02 13:55:03] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:55:03] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:55:03] INFO: ✅ PAHO compilation complete for week 20260602
+[2026-06-02 13:55:03] INFO: Rows: 7114 Cols: 19
+[2026-06-02 13:55:03] INFO: Total duration: 19.92 seconds
+[2026-06-02 13:55:03] INFO: Start WHO - API download...
+[2026-06-02 13:55:03] INFO: WHO - Opening file:dengue-global-data-2026-05-16.xlsx
+
+[2026-06-02 13:55:04] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:55:04] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:55:04] INFO: Start SEARO - API download...
+[2026-06-02 13:55:04] INFO: SEARO - Opening file:SEARO_National_data_20260602_1158.csv
+
+[2026-06-02 13:55:05] INFO: Open Open Dengue 
+[2026-06-02 13:55:05] INFO: Open Dengue complete
+[2026-06-02 13:55:05] INFO: Loaded datasets — OD_national: 60060 rows, PAHO: 7114 rows, SEARO: 888 rows, WHO: 11492 rows
+[2026-06-02 13:55:05] INFO: Completed 01_dengue_data.R
+[2026-06-02 13:55:05] INFO: All expected data objects are present.
+[2026-06-02 13:55:05] INFO: Object sizes — OD_national: 60060 rows, paho: 7114 rows, searo: 888 rows, who: 11492 rows
+[2026-06-02 13:55:05] INFO: Country tracking initialized with 211 unique countries (by iso3)
+[2026-06-02 13:55:05] INFO: Country tracking initialized with 346 countries
+[2026-06-02 13:55:05] INFO: Step 3: selected and combine historic data
+[2026-06-02 13:55:05] INFO: Step 3: selecting historic data (simplified: OD_national preferred, WHO as fallback)
+[2026-06-02 13:55:06] INFO: OpenDengue records prepared: 25740
+[2026-06-02 13:55:06] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-06-02 13:55:06] INFO: Step Step_2_Cleaned_Data: 211 countries present
+[2026-06-02 13:55:06] INFO: WHO records prepared: 10239
+[2026-06-02 13:55:06] INFO: Combined dataset rows: 35979
+[2026-06-02 13:55:06] INFO: Country names normalized to canonical names per iso3
+[2026-06-02 13:55:14] INFO: Filtered combined dataset rows: 18276
+[2026-06-02 13:55:14] INFO: Removed all-zero years only - seasonal filtering will handle completeness requirements.
+[2026-06-02 13:55:14] INFO: Finished combining OpenDengue and WHO data in 01_select_historic_data.R script.
+[2026-06-02 13:55:14] INFO: Created drop reasons for 67 countries dropped at step 3b filtering (all-zero years only)
+[2026-06-02 13:55:14] INFO: Using country-specific drop reasons for 67 countries at step 3b
+[2026-06-02 13:55:14] INFO: Step Step_3a_After_Case_Filter: 144 countries present
+[2026-06-02 13:55:14] INFO: Step 3: define average season
+[2026-06-02 13:55:14] INFO: Running 02_identify_seasonal_baseline.
+[2026-06-02 13:55:14] INFO: Step 3c Filter 1 (complete seasons): 144 countries before, 120 countries after, 24 dropped
+[2026-06-02 13:55:14] INFO: Step 3c Filter 2 (min cases): 120 countries before, 115 countries after, 5 dropped
+[2026-06-02 13:55:14] INFO: Step 3c Filter 3 (min seasons): 115 countries before, 97 countries after, 18 dropped
+[2026-06-02 13:55:14] INFO: Created drop reasons for 47 countries dropped at seasonal filtering
+[2026-06-02 13:55:18] INFO: Using country-specific drop reasons for 47 countries
+[2026-06-02 13:55:18] INFO: Step Step_3b_After_Seasonal_filter: 97 countries present
+[2026-06-02 13:55:18] INFO: Seasonal baseline identified for 97 locations.
+[2026-06-02 13:55:18] INFO: No multiple observations per country-month found - each country-month has unique season_nMonth
+[2026-06-02 13:55:18] INFO: Locations with monthly NB parameters: 96 (AFG, ATG, ARG, ABW, AUS, BHS, BGD, BRB, BLZ, BTN, BOL, BRA, VGB, BRN, BFA, KHM, BES, CYM, CHN, COL, COK, CRI, CIV, CUB, CUW, DMA, DOM, ECU, SLV, ERI, ETH, FJI, GUF, PYF, GRD, GLP, GTM, GUY, HTI, HND, IND, IDN, JAM, KEN, KIR, LAO, MYS, MDV, MHL, MTQ, MRT, MEX, FSM, MMR, NPL, NCL, NIC, OMN, PAK, PLW, PAN, PRY, PER, PHL, PRI, REU, MAF, WSM, SAU, SEN, SYC, SGP, SXM, SLB, LKA, BLM, KNA, LCA, VCT, SDN, SUR, TWN, TZA, THA, TLS, TON, TTO, TCA, TUV, USA, URY, VUT, VEN, VNM, WLF, YEM)
+[2026-06-02 13:55:18] INFO: Locations with cumulative NB parameters (for real-time severity): 96 (AFG, ATG, ARG, ABW, AUS, BHS, BGD, BRB, BLZ, BTN, BOL, BRA, VGB, BRN, BFA, KHM, BES, CYM, CHN, COL, COK, CRI, CIV, CUB, CUW, DMA, DOM, ECU, SLV, ERI, ETH, FJI, GUF, PYF, GRD, GLP, GTM, GUY, HTI, HND, IND, IDN, JAM, KEN, KIR, LAO, MYS, MDV, MHL, MTQ, MRT, MEX, FSM, MMR, NPL, NCL, NIC, OMN, PAK, PLW, PAN, PRY, PER, PHL, PRI, REU, MAF, WSM, SAU, SEN, SYC, SGP, SXM, SLB, LKA, BLM, KNA, LCA, VCT, SDN, SUR, TWN, TZA, THA, TLS, TON, TTO, TCA, TUV, USA, URY, VUT, VEN, VNM, WLF, YEM)
+[2026-06-02 13:55:18] WARNING: Warning: 1 locations missing cumulative NB parameters (real-time severity unavailable): CHL
+[2026-06-02 13:55:18] INFO: Cumulative NB mean range: 1.2 to 2148521.7 (median: 1191.7)
+[2026-06-02 13:55:18] INFO: Completed 02_identify_seasonal_baseline.
+[2026-06-02 13:55:18] INFO: Step 4: select current season data and backfill
+[2026-06-02 13:55:19] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] INFO: Recorded 48 countries after PAHO correction
+[2026-06-02 13:55:19] INFO: PAHO monthly rows after correction: 1269
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] INFO: PAHO countries with data for 2026: 41/48
+[2026-06-02 13:55:19] WARNING: Warning: 7 PAHO countries without data for current year (2026): ABW, BHS, BES, CUB, CUW, NIC, SXM
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] INFO: Recorded 48 countries after PAHO negative value handling
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] WARNING: missing value where TRUE/FALSE needed
+[2026-06-02 13:55:19] INFO: Combined country-month rows across sources: 13642
+[2026-06-02 13:55:20] INFO: Country names normalized to canonical names per iso3 (before completeness expansion)
+[2026-06-02 13:55:20] INFO: Years present in data after filtering (Year > 2024): 2025, 2026
+[2026-06-02 13:55:20] INFO: Current data rows after completeness expansion: 4704
+[2026-06-02 13:55:20] INFO: Step Step_4_Current_Data: 196 countries present
+[2026-06-02 13:55:20] INFO: All 196 countries have current year (2026) included
+[2026-06-02 13:55:20] INFO: Step 5: Nowcast missing recent months
+[2026-06-02 13:55:21] INFO: Running 03_proportion_nowcast.
+[2026-06-02 13:55:21] INFO: Countries in seasonal baseline: 97
+[2026-06-02 13:55:21] INFO: Countries in current data: 196
+[2026-06-02 13:55:21] INFO: Countries in both: 90
+[2026-06-02 13:55:21] INFO: Countries only in seasonal: 7
+[2026-06-02 13:55:21] INFO: Countries only in current: 106
+[2026-06-02 13:55:21] INFO: Merged historic and current data rows: 4788
+[2026-06-02 13:55:21] INFO: Unique countries after merge: 203
+[2026-06-02 13:55:22] INFO: Nowcasting completed; estimated rows: 169
+[2026-06-02 13:55:22] INFO: Completed 03_proportion_nowcast.
+[2026-06-02 13:55:22] INFO: Step Step_5_Merge_and_Nowcast: 97 countries present
+[2026-06-02 13:55:22] INFO: Excluded 106 countries without seasonal averages from final output
+[2026-06-02 13:55:22] INFO: Excluded countries: AGO, AIA, ALB, AND, ARM, AUT, AZE, BDI, BEL, BEN, BGR, BIH, BLR, BMU, BWA, CAF, CAN, CHE, CMR, COD, COG, COM, CPV, CYP, CZE, DEU, DNK, ESP, EST, FIN, FRA, GAB, GBR, GEO, GHA, GIN, GMB, GNB, GNQ, GRC, GUM, HRV, HUN, IRL, IRN, ISL, ISR, ITA, KAZ, KGZ, LBR, LIE, LSO, LTU, LUX, LVA, MCO, MDA, MDG, MDR, MKD, MLI, MLT, MNE, MNP, MOZ, MSR, MUS, MWI, MYT, NAM, NER, NGA, NIU, NLD, NOR, NRU, PCN, POL, PRT, ROU, RUS, RWA, SLE, SMR, SRB, SSD, STP, SVK, SVN, SWE, SWZ, TCD, TGO, TJK, TKL, TKM, TUR, UGA, UKR, UZB, VAT, VIR, ZAF, ZMB, ZWE
+[2026-06-02 13:55:22] INFO: Step 6: post processing
+[2026-06-02 13:55:22] INFO: Step Step_6_Final: 97 countries present
+[2026-06-02 13:55:23] INFO: Saving outputs to Output/2026_06_02
+[2026-06-02 13:55:23] INFO: Saved backfill output: Output/2026_06_02/DENV_cases_backfill_output.csv
+[2026-06-02 13:55:23] INFO: Saved nowcast output: Output/2026_06_02/DENV_cases_nowcast_output.csv
+[2026-06-02 13:55:23] INFO: Saved average season output: Output/2026_06_02/DENV_average_season.csv
+[2026-06-02 13:55:23] INFO: Saved season-monthly proportions: Output/2026_06_02/full_data_season_monthly_proportions.csv
+[2026-06-02 13:55:23] INFO: Country tracking exported to: Output/2026_06_02/country_tracking.csv
+[2026-06-02 13:55:23] INFO: Summary statistics exported to: Output/2026_06_02/country_tracking_summary.csv
