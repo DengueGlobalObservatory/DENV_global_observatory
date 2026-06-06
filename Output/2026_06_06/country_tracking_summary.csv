@@ -1,0 +1,8 @@
+step,n_countries
+Step_1_Historic_Data,211
+Step_2_Cleaned_Data,211
+Step_3a_After_Case_Filter,144
+Step_3b_After_Seasonal_filter,97
+Step_4_Current_Data,196
+Step_5_Merge_and_Nowcast,97
+Step_6_Final,97
