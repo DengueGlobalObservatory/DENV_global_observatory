@@ -107,23 +107,53 @@ if (nrow(validation_detail) == 0) {
   stop("Validation produced zero rows; check input data and filters.")
 }
 
-# --- Errors (methods): absolute, squared, relative --------------------------
+# --- Mean actual cases by country × prediction month (burden reference) -------
+# Denominator for uAPE / uRMSE: average monthly burden in the month being
+# predicted, computed separately for each iso3.
+burden_ref <- mean_actual_by_prediction_month(
+  validation_data,
+  month_col = "season_nMonth",
+  cases_col = "cases",
+  by_country = TRUE
+)
+
+# --- Errors (methods): absolute, squared, relative, burden-normalized --------
 # relative_error only defined when actual_cases > 0 (division by zero guard).
+# scaled_* divide by mean_actual_predicted_month for the row's iso3 and
+# prediction_month (uAPE / uRMSE components).
 validation_detail <- validation_detail %>%
+  left_join(burden_ref, by = c("iso3", "prediction_month")) %>%
   mutate(
     absolute_error = predicted_cases - actual_cases,
     squared_error = absolute_error^2,
     relative_error = if_else(
       actual_cases > 0,
-      (predicted_cases - actual_cases) / actual_cases,
+      absolute_error / actual_cases,
+      NA_real_
+    ),
+    absolute_percent_error = if_else(
+      actual_cases > 0,
+      (abs(absolute_error) / actual_cases) * 100,
+      NA_real_
+    ),
+    scaled_absolute_percent_error = if_else(
+      mean_actual_predicted_month > 0,
+      abs(absolute_error) / mean_actual_predicted_month,
+      NA_real_
+    ),
+    scaled_squared_error = if_else(
+      mean_actual_predicted_month > 0,
+      squared_error / mean_actual_predicted_month^2,
       NA_real_
     )
   ) %>%
   dplyr::select(
     iso3, country, Region, season, cutoff_month, prediction_month, Month,
-    actual_cases, predicted_total, predicted_cases,
-    absolute_error, squared_error, relative_error
+    actual_cases, predicted_total, predicted_cases, mean_actual_predicted_month,
+    absolute_error, squared_error, relative_error, absolute_percent_error,
+    scaled_absolute_percent_error, scaled_squared_error
   )
 
 write_csv(validation_detail, file.path(out_dir, "validation_detail.csv"))
 message("Wrote ", file.path(out_dir, "validation_detail.csv"), " (nrow = ", nrow(validation_detail), ")")
+

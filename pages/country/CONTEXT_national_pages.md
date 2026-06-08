@@ -31,6 +31,11 @@ This file is the working context for future edits to national pages and the shar
 - National pages are currently configured to include countries from the All Countries list that have enough current-year data.
 - Countries with "Current year data ... not been reported yet" are excluded from `country-config.csv`.
 
+## Recently Added National Pages
+
+- Ethiopia (`ethiopia`, `ETH`)
+- Tanzania (`tanzania`, `TZA`)
+
 ## Editing Rules
 
 - Change shared behavior/layout in `_country-template.qmd`.

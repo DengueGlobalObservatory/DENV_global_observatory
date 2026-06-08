@@ -166,6 +166,45 @@ if (exists("data") && "Ave_season_monthly_cases" %in% names(data)) {
   log_message("Warning: Ave_season_monthly_cases column not found in data - cannot filter", level = "WARNING")
 }
 
+# Exclude countries with no usable current-season signal:
+# no observed cases AND no nowcast estimate. These cannot be estimated in the
+# current framework and would otherwise appear as entirely "Unobserved" in the GDO.
+if (exists("data") && all(c("Data_status", "source", "Year") %in% names(data))) {
+  countries_before_signal_filter <- data %>%
+    dplyr::select(country, iso3) %>% dplyr::distinct()
+  
+  data <- data %>%
+    dplyr::group_by(iso3) %>%
+    dplyr::filter(
+      any(Year == current_year &
+            (Data_status == "Observed" |
+               (!is.na(source) & source == "Estimates")))
+    ) %>%
+    dplyr::ungroup()
+  
+  excluded_no_signal <- countries_before_signal_filter %>%
+    dplyr::filter(!iso3 %in% unique(data$iso3))
+  
+  if (nrow(excluded_no_signal) > 0) {
+    log_message("Excluded " %+% nrow(excluded_no_signal) %+%
+                  " countries with no observed/estimated current-season data: " %+%
+                  paste(excluded_no_signal$iso3, collapse = ", "))
+    if (exists("record_countries_at_step")) {
+      tryCatch({
+        record_countries_at_step(
+          data, "Step_5_After_Signal_Filter",
+          drop_reason = excluded_no_signal %>%
+            dplyr::mutate(drop_reason = "Excluded: no observed/estimated current-season data") %>%
+            dplyr::select(iso3, drop_reason)
+        )
+      }, error = function(e) {
+        log_message("Warning: Could not record signal-filtered countries: " %+%
+                      conditionMessage(e), level = "WARNING")
+      })
+    }
+  }
+}
+
 #------ Step 6: Post-processing 
 log_message( "Step 6: post processing")
 

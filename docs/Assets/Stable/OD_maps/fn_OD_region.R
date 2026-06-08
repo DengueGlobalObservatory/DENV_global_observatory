@@ -159,7 +159,7 @@ get_od_regions <- function(iso3_vector) {
         TRUE ~ "Other"
       )
     ) %>%
-    select(ISO_A0, country_name, od_region)
+    dplyr::select(ISO_A0, country_name, od_region)
   
   return(df)
 }
@@ -178,7 +178,7 @@ add_od_regions <- function(df, iso_col = "ISO_A0") {
   # Join back to original dataframe
   result <- df %>%
     left_join(regions, by = iso_col) %>%
-    select(-country_name)
+    dplyr::select(-country_name)
   
   return(result)
 }

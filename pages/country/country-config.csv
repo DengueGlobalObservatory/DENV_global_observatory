@@ -24,6 +24,7 @@ DOM,Dominican Republic,Caribbean,../caribbean.html,../../Assets/Stable/country_m
 ECU,Ecuador,South America,../southamerica.html,../../Assets/Stable/country_maps/ecu.png,ecuador,TRUE
 SLV,El Salvador,North & Central America,../centralamericamexico.html,../../Assets/Stable/country_maps/slv.png,el-salvador,TRUE
 ERI,Eritrea,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/eri.png,eritrea,TRUE
+ETH,Ethiopia,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/eth.png,ethiopia,TRUE
 FJI,Fiji,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/fji.png,fiji,TRUE
 GUF,French Guiana,South America,../southamerica.html,../../Assets/Stable/country_maps/guf.png,french-guiana,TRUE
 PYF,French Polynesia,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/pyf.png,french-polynesia,TRUE
@@ -69,6 +70,7 @@ LKA,Sri Lanka,South Asia,../southasia.html,../../Assets/Stable/country_maps/lka.
 SDN,Sudan,"Europe, Middle East & North Africa",../europemiddleeastnorthafrica.html,../../Assets/Stable/country_maps/sdn.png,sudan,TRUE
 SUR,Suriname,South America,../southamerica.html,../../Assets/Stable/country_maps/sur.png,suriname,TRUE
 THA,Thailand,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/tha.png,thailand,TRUE
+TZA,Tanzania,Sub-Saharan Africa,../sub-saharanafrica.html,../../Assets/Stable/country_maps/tza.png,tanzania,TRUE
 TLS,Timor-Leste,East & Southeast Asia,../eastsoutheastasia.html,../../Assets/Stable/country_maps/tls.png,timor-leste,TRUE
 TON,Tonga,Pacific Islands,../pacificislands.html,../../Assets/Stable/country_maps/ton.png,tonga,TRUE
 TTO,Trinidad And Tobago,Caribbean,../caribbean.html,../../Assets/Stable/country_maps/tto.png,trinidad-and-tobago,TRUE

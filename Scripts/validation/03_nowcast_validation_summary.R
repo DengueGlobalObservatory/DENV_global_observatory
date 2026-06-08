@@ -7,9 +7,11 @@
 #         quantiles_country.csv, quantiles_region.csv, quantiles_global.csv,
 #         calibrated_prediction_intervals.csv (also Assets/Stable mirror),
 #         coverage_summary.csv
-# All three summary_* tables expose mean_monthly_cases and burden-scaled
-# RMSE_scaled = RMSE / mean_monthly_cases. Country and country×pair use the
-# country-wide mean_monthly_cases; global pair uses the stratum-pooled mean.
+# All three summary_* tables expose:
+#   - MAE, RMSE, MAPE (raw case / actual-relative errors)
+#   - uMAE, uRMSE, uMAPE (divided by mean_actual_predicted_month for the
+#     target season month; row components from 03_nowcast_validation_ind.R)
+#   - mean_monthly_cases, RMSE_scaled (legacy country / stratum scaling)
 # =============================================================================
 
 library(tidyverse)
@@ -35,7 +37,10 @@ summary_country <- detail %>%
     n_seasons = n_distinct(season),
     n_predictions = n(),
     MAE = mean(abs(absolute_error), na.rm = TRUE),
+    MAPE = mean(absolute_percent_error, na.rm = TRUE),
     RMSE = sqrt(mean(squared_error, na.rm = TRUE)),
+    uMAPE = mean(scaled_absolute_percent_error, na.rm = TRUE),
+    uRMSE = sqrt(mean(scaled_squared_error, na.rm = TRUE)),
     MRE_signed = mean(relative_error, na.rm = TRUE),
     MRE_abs = mean(abs(relative_error), na.rm = TRUE),
     .groups = "drop"
@@ -84,7 +89,12 @@ summary_pair <- detail %>%
     n_predictions = n(),
     MAE = mean(abs(absolute_error), na.rm = TRUE),
     RMSE = sqrt(mean(squared_error, na.rm = TRUE)),
+    MAPE = mean(absolute_percent_error, na.rm = TRUE),
+    uMAE = mean(scaled_absolute_percent_error, na.rm = TRUE),
+    uMAPE = mean(scaled_absolute_percent_error, na.rm = TRUE),
+    uRMSE = sqrt(mean(scaled_squared_error, na.rm = TRUE)),
     mean_monthly_cases = mean(actual_cases, na.rm = TRUE),
+    mean_actual_predicted_month = dplyr::first(mean_actual_predicted_month),
     RMSE_scaled = RMSE / mean_monthly_cases,
     MRE_signed = mean(relative_error, na.rm = TRUE),
     MRE_abs = mean(abs(relative_error), na.rm = TRUE),
@@ -101,6 +111,11 @@ summary_country_pair <- detail %>%
     n_seasons = n_distinct(season),
     MAE = mean(abs(absolute_error), na.rm = TRUE),
     RMSE = sqrt(mean(squared_error, na.rm = TRUE)),
+    MAPE = mean(absolute_percent_error, na.rm = TRUE),
+    uMAE = mean(scaled_absolute_percent_error, na.rm = TRUE),
+    uMAPE = mean(scaled_absolute_percent_error, na.rm = TRUE),
+    uRMSE = sqrt(mean(scaled_squared_error, na.rm = TRUE)),
+    mean_actual_predicted_month = dplyr::first(mean_actual_predicted_month),
     MRE_signed = mean(relative_error, na.rm = TRUE),
     MRE_abs = mean(abs(relative_error), na.rm = TRUE),
     .groups = "drop"

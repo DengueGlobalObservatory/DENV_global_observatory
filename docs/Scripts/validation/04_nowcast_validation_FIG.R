@@ -3,8 +3,8 @@
 # Publication-style diagnostic figures for retrospective validation
 # =============================================================================
 # Prerequisites: run 03_nowcast_validation_ind.R, 03_nowcast_validation_summary.R,
-# and (for snapshot figure) 03_nowcast_validation_snapshots.R.
-# Writes six PNGs to Output/validation/ at 220 dpi.
+# and optionally 03_nowcast_validation_snapshots.R (estimate vs observed).
+# Writes six PNGs to Output/validation/ at 300 dpi.
 # =============================================================================
 
 library(tidyverse)
@@ -21,7 +21,7 @@ pair_path <- file.path(out_dir, "summary_pair.csv")
 country_path <- file.path(out_dir, "summary_country.csv")
 coverage_path <- file.path(out_dir, "coverage_summary.csv")
 calib_path <- file.path(out_dir, "calibrated_prediction_intervals.csv")
-snap_detail_path <- file.path(out_dir, "snapshot_convergence_detail.csv")
+snap_path <- file.path(out_dir, "estimate_vs_observed.csv")
 
 stopifnot(file.exists(detail_path), file.exists(pair_path), file.exists(country_path))
 stopifnot(file.exists(coverage_path))
@@ -32,17 +32,21 @@ summary_country <- read_csv(country_path, show_col_types = FALSE)
 coverage_summary <- read_csv(coverage_path, show_col_types = FALSE)
 calib <- if (file.exists(calib_path)) read_csv(calib_path, show_col_types = FALSE) else tibble()
 
-# --- Fig 1: Heatmap — median |relative error| by (cutoff, prediction month) --
-# Cell-level medians summarise spread at each operational pair (not horizon).
-heat_df <- detail %>%
-  filter(is.finite(relative_error)) %>%
-  group_by(cutoff_month, prediction_month) %>%
-  dplyr::summarise(med_abs_rel = median(abs(relative_error), na.rm = TRUE), .groups = "drop")
 
-p1 <- heat_df %>%
+# ---Fig 1. Heat Maps -------------------------
+
+## 1. Fig. Global — median |relative error| by (cutoff, prediction month) ------------------------------------
+# Cell-level medians summarise spread at each operational pair (not horizon).
+
+p1 <- detail %>% # data prep 
+  filter(is.finite(relative_error)) %>%
+  ungroup() %>%
+  group_by(cutoff_month, prediction_month) %>%
+  dplyr::summarise(med_abs_rel = median(abs(relative_error),.groups = "drop")) %>%
+  # plot
   ggplot(aes(x = as.factor(cutoff_month), y = as.factor(prediction_month), fill = med_abs_rel)) +
   geom_tile() +
-  scale_fill_viridis_c(option = "plasma", na.value = "grey90", limits = c(0, 2)) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90", limits = c(0, 1)) +
   coord_fixed(ratio = 1) +
   labs(
     x = "Last observation month (season month)",
@@ -53,16 +57,14 @@ p1 <- heat_df %>%
 
 ggsave(file.path(out_dir, "fig_error_heatmap_cutoff_pred.png"), p1, width = 8, height = 6.5, dpi = dpi)
 
+## --- 2. Fig - one country per tier --
 # For each included country (pick_tiers), generate a heatmap for relative error by cutoff month and prediction month,
 # then panel these plots in a single row using cowplot::plot_grid.
 
 # Explicitly select Brazil (good), Afghanistan (moderate), and China (poor) from summary_country
 pick_tiers <- summary_country %>%
   dplyr::filter(
-    (iso3 == "BRA" )|
-      (iso3 == "AFG" ) |
-      (iso3 == "CHN" )
-  ) %>%
+    (iso3 == "BRA" )| (iso3 == "AFG" )| (iso3 == "CHN" )) %>%
   dplyr::select(iso3, country, performance_tier, composite_score)
 
 # Generate heatmap per picked country, store in a list
@@ -75,9 +77,7 @@ p1_each_country <- purrr::map2(
       dplyr::summarise(med_abs_rel = median(abs(relative_error), na.rm = TRUE), .groups = "drop")
     plot_title <- paste0(
       cur_country, " (", 
-      unique(pick_tiers$performance_tier[pick_tiers$iso3 == cur_iso3]), 
-      ", score = ", signif(pick_tiers$composite_score[pick_tiers$iso3 == cur_iso3], 3), 
-      ")"
+      unique(pick_tiers$performance_tier[pick_tiers$iso3 == cur_iso3]),")"
     )
     ggplot(heat_df_country, aes(x = as.factor(cutoff_month), y = as.factor(prediction_month) , fill = med_abs_rel)) +
       geom_tile() +
@@ -97,6 +97,7 @@ p1_each_country <- purrr::map2(
 # Combine plots into a single row panel
 p1_country_panel <- cowplot::plot_grid(p1_each_country[[2]],p1_each_country[[1]], p1_each_country[[3]], nrow = 1)
 
+## --- 3. Fig - global plot + one country per tier --
 # Combine the main heatmap (p1) above the panel of country heatmaps
 p1_country_summary <- cowplot::plot_grid(
   p1, 
@@ -107,7 +108,94 @@ p1_country_summary <- cowplot::plot_grid(
 )
 
 # Save the combined panel plot
-ggsave(file.path(out_dir, "fig_error_heatmap_cutoff_pred_country_panel.png"), p1_country_panel, width = 8 * length(p1_each_country), height = 6.5, dpi = dpi)
+ggsave(file.path(out_dir, "fig_error_heatmap_cutoff_pred_country_global_panel.png"), p1_country_summary, width = 8 * length(p1_each_country), height = 6.5, dpi = dpi)
+
+## --- 4. Fig -  one median plot per tier --
+
+summary_country$performance_tier <- as.factor(summary_country$performance_tier)
+tier_list <- summary_country %>%
+  dplyr::select(iso3, composite_score, performance_tier)
+
+p4.1 <- detail %>%
+  left_join(tier_list) %>%
+  filter( performance_tier == "Good" ) %>%
+  filter(is.finite(relative_error)) %>%
+  ungroup() %>%
+  group_by(cutoff_month, prediction_month) %>%
+  dplyr::summarise(med_abs_rel = median(abs(relative_error),.groups = "drop")) %>%
+  # plot
+  ggplot(aes(x = as.factor(cutoff_month), y = as.factor(prediction_month), fill = med_abs_rel)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90",  limits = c(0,1)) +
+  coord_fixed(ratio = 1) +
+  labs(
+    title = "Good",
+    x = "Last observation month (season month)",
+    y = "Prediction month (season month)",
+    fill = "Median\n|rel. err.|"
+  ) +
+  theme_cowplot() +
+  theme(legend.position = "none")
+
+  
+p4.2 <- detail %>%
+  left_join(tier_list) %>%
+  filter( performance_tier == "Moderate" ) %>%
+  filter(is.finite(relative_error)) %>%
+  ungroup() %>%
+  group_by(cutoff_month, prediction_month) %>%
+  dplyr::summarise(med_abs_rel = median(abs(relative_error),.groups = "drop")) %>%
+  # plot
+  ggplot(aes(x = as.factor(cutoff_month), y = as.factor(prediction_month), fill = med_abs_rel)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90", limits = c(0,1)) +
+  coord_fixed(ratio = 1) +
+  labs(
+    title = "Moderate", 
+    x = "Last observation month (season month)",
+    y = "Prediction month (season month)",
+    fill = "Median\n|rel. err.|"
+  ) +
+  theme_cowplot() +
+  theme(legend.position = "none")
+
+p4.3 <- detail %>%
+  left_join(tier_list) %>%
+  filter( performance_tier == "Poor" ) %>%
+  filter(is.finite(relative_error)) %>%
+  ungroup() %>%
+  group_by(cutoff_month, prediction_month) %>%
+  dplyr::summarise(med_abs_rel = median(abs(relative_error),.groups = "drop")) %>%
+  # plot
+  ggplot(aes(x = as.factor(cutoff_month), y = as.factor(prediction_month), fill = med_abs_rel)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey90",limits = c(0,1)) +
+  coord_fixed(ratio = 1) +
+  labs(
+    title = "Poor", 
+    x = "Last observation month (season month)",
+    y = "Prediction month (season month)",
+    fill = "Median\n|rel. err.|"
+  ) +
+  theme_cowplot() +
+  theme(legend.position = "none")
+
+
+heatmap_4 <- plot_grid(p4.1, p4.2, p4.3, rows = 1, labels = c("C", "D", "E"))
+
+heatmap_panel <- plot_grid(p1, heatmap_4, rows = 2, labels = c("A", ""))
+
+
+tier_summary <- summary_country %>%
+  group_by(performance_tier) %>%
+  dplyr::summarise(
+    mean_z = mean(composite_score), 
+    median_z = median(composite_score), 
+    mean_MRE = mean(MRE_abs), 
+    median_MRE = median(MRE_abs),
+    mean_s_RMSE = mean(RMSE_scaled),
+    median_s_RMSE = median (RMSE_scaled)
+  )
 
 # --- Fig 2: Nominal vs empirical coverage ------------------------------------
 p2 <- coverage_summary %>%
@@ -133,8 +221,13 @@ world_sf <- rnaturalearth::ne_countries(scale = 50, type = "countries", returncl
 map_df <- summary_country %>%
   transmute(iso_a3 = iso3, performance_tier, RMSE_scaled)
 
+
 tier_scale <- scale_fill_manual(
-  values = c(Good = "#2ca25f", Moderate = "#fdae6b", Poor = "#de2d26"),
+  values = c(
+    Good = "#0d0887",      # plasma bottom (dark blue)
+    Moderate = "#cc4678",  # plasma midpoint (vivid purple-pink)
+    Poor = "#f0f921"       # plasma top (bright yellow)
+  ),
   na.value = "grey90",
   name = "Tier"
 )
@@ -145,8 +238,11 @@ p3 <- world_sf %>%
   geom_sf(aes(fill = performance_tier), colour = "grey70", linewidth = 0.08) +
   tier_scale +
   theme_cowplot() +
-  theme(legend.position = "bottom") +
-  labs(title = "Country performance tier (composite z-score tertiles)")
+  theme(legend.position = "top") 
+
+p_test_row_1 <- plot_grid(p1,p3, rows = 1, labels = "AUTO")
+
+plot_grid(p_test_row_1, heatmap_4, rows = 2)
 
 ggsave(file.path(out_dir, "fig_country_tier_map.png"), p3, width = 11, height = 6, dpi = dpi)
 
@@ -165,12 +261,12 @@ p3b <- world_sf %>%
   left_join(score_df, by = "iso_a3") %>%
   ggplot() +
   geom_sf(aes(fill = composite_score), colour = "grey70", linewidth = 0.08) +
-  scale_fill_gradient2(
-    low = "#2ca25f", mid = "#f7f7f7", high = "#de2d26",
-    midpoint = 0, limits = c(-score_limit, score_limit),
+  scale_fill_viridis_c(
+    option = "plasma",
+    limits = c(-score_limit, score_limit),
     na.value = "grey90",
     name = "Composite\nz-score"
-  ) +
+  )+
   theme_cowplot() +
   theme(legend.position = "bottom") +
   labs(title = "Country composite performance score (lower = better)")
@@ -178,7 +274,47 @@ p3b <- world_sf %>%
 ggsave(file.path(out_dir, "fig_country_score_map.png"), p3b, width = 11, height = 6, dpi = dpi)
 
 # --- Fig 4: RMSE_scaled distribution by Region ------------------------------
+# Count countries per region and update region labels
+region_counts <- summary_country %>%
+  filter(is.finite(RMSE_scaled)) %>%
+  group_by(Region) %>%
+  summarise(n_countries = n_distinct(iso3)) %>%
+  mutate(region_lab = paste0(Region, " (n=", n_countries, ")"))
+
+# Map original Region to labeled Region for plotting
+region_lab_lookup <- setNames(region_counts$region_lab, region_counts$Region)
+
+summary_country <- summary_country %>%
+  mutate(Region_lab = region_lab_lookup[Region])
+
 p4 <- summary_country %>%
+  filter(is.finite(RMSE_scaled)) %>%
+  ggplot(aes(x = Region_lab, y = RMSE_scaled, fill = Region_lab)) +
+  geom_violin(alpha = 0.85, outlier.size = 0.6, coef = 1.5) +
+  coord_flip() +
+  guides(fill = "none") +
+  theme_cowplot() +
+  labs(
+    x = NULL,
+    y = "RMSE_scaled"
+  )
+
+ggsave(file.path(out_dir, "fig_rmse_by_region_boxplot.png"), p4, width = 9, height = 6, dpi = dpi)
+
+p4_pairs_regions <- summary_country_pair %>%
+  filter(is.finite(RMSE_scaled)) %>%
+  ggplot(aes(x = Region, y = RMSE_scaled, fill = Region)) +
+  geom_boxplot(alpha = 0.85, outlier.size = 0.6, coef = 1.5) +
+  ylim(0,30)+
+  coord_flip() +
+  guides(fill = "none") +
+  theme_cowplot() +
+  labs(
+    x = NULL,
+    y = "Burden Scaled MSE"
+  )
+
+summary_country_pair %>%
   filter(is.finite(RMSE_scaled)) %>%
   ggplot(aes(x = Region, y = RMSE_scaled, fill = Region)) +
   geom_boxplot(alpha = 0.85, outlier.size = 0.6, coef = 1.5) +
@@ -186,12 +322,9 @@ p4 <- summary_country %>%
   guides(fill = "none") +
   theme_cowplot() +
   labs(
-    title = "Burden-scaled RMSE (RMSE / mean monthly cases) by region",
     x = NULL,
-    y = "RMSE_scaled"
+    y = "Burden Scaled MSE"
   )
-
-ggsave(file.path(out_dir, "fig_rmse_by_region_boxplot.png"), p4, width = 9, height = 6, dpi = dpi)
 
 # --- Fig 5: Example nowcast “fans” (Good / Moderate / Poor if available) -----
 # One country per tier (first row when sorted by composite_score within tier),
@@ -244,37 +377,34 @@ if (nrow(pick_tiers) == 0) {
   ggsave(file.path(out_dir, "fig_nowcast_fans.png"), p5, width = 12, height = 8, dpi = dpi)
 }
 
-# --- Fig 6: Snapshot convergence (largest initial revision examples) -----------
-if (!file.exists(snap_detail_path)) {
-  message("Skipping snapshot figure: missing snapshot_convergence_detail.csv.")
+# --- Fig 6: Estimate vs observed when counts later appear ----------------------
+if (!file.exists(snap_path)) {
+  message("Skipping snapshot figure: missing estimate_vs_observed.csv.")
 } else {
-  snap_detail <- read_csv(snap_detail_path, show_col_types = FALSE)
-  if (nrow(snap_detail) == 0) {
-    message("Skipping snapshot figure: no rows in snapshot detail.")
+  snap_df <- read_csv(snap_path, show_col_types = FALSE)
+  if (nrow(snap_df) == 0) {
+    message("Skipping snapshot figure: no rows in estimate_vs_observed.")
   } else {
-    # Rank country–months by how far the first snapshot was from the final value
-    snap_examples <- snap_detail %>%
+    snap_examples <- snap_df %>%
       group_by(iso3, country, Year, Month) %>%
-      dplyr::summarise(start_diff = dplyr::first(abs_diff_to_final), .groups = "drop") %>%
-      dplyr::arrange(desc(start_diff)) %>%
+      dplyr::summarise(max_abs_err = max(error_abs, na.rm = TRUE), .groups = "drop") %>%
+      dplyr::arrange(desc(max_abs_err)) %>%
       slice_head(n = 6)
 
-    p6 <- snap_detail %>%
+    p6 <- snap_df %>%
       inner_join(snap_examples, by = c("iso3", "country", "Year", "Month")) %>%
-      ggplot(aes(x = snapshot_date, y = cases_nowcast, colour = country,
-                 group = interaction(iso3, Year, Month))) +
-      geom_line(linewidth = 0.6, alpha = 0.85) +
-      geom_point(size = 1) +
+      ggplot(aes(x = estimate_timing, y = error_signed, fill = country)) +
+      geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+      facet_wrap(vars(country, target_ym), scales = "free_y", ncol = 3) +
       theme_cowplot() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(
-        title = "Snapshot convergence (selected country–months with largest initial |error|)",
-        x = "Pipeline snapshot (run date)",
-        y = "Nowcast estimate (unobserved months)",
-        colour = "Country"
+        title = "Estimate vs first observed (largest |error| country–months)",
+        x = "Pipeline run timing within month",
+        y = "Observed − estimate (cases)",
+        fill = "Country"
       )
 
-    ggsave(file.path(out_dir, "fig_snapshot_convergence.png"), p6, width = 11, height = 5.5, dpi = dpi)
+    ggsave(file.path(out_dir, "fig_estimate_vs_observed.png"), p6, width = 11, height = 5.5, dpi = dpi)
   }
 }
 

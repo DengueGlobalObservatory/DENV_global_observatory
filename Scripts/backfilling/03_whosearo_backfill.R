@@ -6,189 +6,361 @@
 
 library(lubridate)
 library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(ISOweek)
+library(stringr)
 
 # region add format
 source("Assets/Stable/OD_maps/fn_OD_region.R")
+source("Scripts/backfilling/FUNCTIONS/00_FUN_whosearo_backfill.R")
 
-# ---- WHO----
+# ---- Analysis parameters ----
+# Broad row-level window (months) and RF summary cutoff (months; summaries use d < this)
+max_delay_months_completeness <- 18L
+max_delay_months_rf_summary <- 3L
+max_delay_weeks_completeness <- as.integer(
+  ceiling(max_delay_months_completeness * 30.44 / 7)
+)
+
+# -------------------------------- WHO ---------------------------------------------------------------
 ##---- import data set ----
 
 who <- download_and_standardise("WHO")
-
+who_raw <- who
+who <- who %>%
+  mutate(iso3 = iso3c)
 who$ISO_A0 <- who$iso3
 who <- add_od_regions(who)
 
-##---- Review data -----
-
-str(who)
-
-# select required data columns 
-
+# WHO uses non-standard iso3 MDR for Autonomous Region of Madeira (see 01_select_historic_data.R).
+# countrycode cannot map MDR, so add_od_regions assigns "Other"; override name and region here.
 who <- who %>%
-  dplyr::select(iso3,country,s,t,tr,total_den, od_region, date)
-    # note that s = year, t = month , R_t (need to change) is reporting time 
+  mutate(
+    country = if_else(iso3 == "MDR", "Autonomous Region of Madeira", country),
+    od_region = if_else(
+      iso3 == "MDR",
+      get_od_regions("PRT")$od_region[1],
+      od_region
+    )
+  )
 
+# s = calendar year, t = month, tr = reporting snapshot date
+who <- who %>%
+  select(iso3, country, s, t, tr, total_den, od_region)
 
-##---- Split into reporting and validated data ----
+##---- Split into reporting and final data ----
+# Final: latest snapshot (assumed stable).
+# Reporting: earlier snapshots for country-months at least one year old.
 
-# this is the most recent version of the data 
 validation_date <- max(who$tr)
-# for the reportig data only data from 1 year prior can be used 
-max_reporting_date <- validation_date- years(1) 
+max_reporting_date <- validation_date - years(1)
 
-# final data
 v_who <- who %>%
-  filter( tr == validation_date) %>%
+  filter(tr == validation_date) %>%
   mutate(total_den_F = total_den) %>%
-  select(-c(total_den,tr))
-
-# reporting data 
+  select(-c(total_den, tr))
 
 r_who <- who %>%
-  filter( tr < max_reporting_date)
+  filter(tr < max_reporting_date)
 
 ## ---- calculate delay ----
-
-# the delay in reporting is the differnce between the "date" and the "tr".
-## it is reported in months 
+# Delay in months between the case month (s, t) and the reporting snapshot (tr).
 
 r_who <- r_who %>%
   mutate(
-    d = as.integer(round(as.numeric(tr - as.Date(date)) / 30.44)),
+    d = as.integer(round(
+      as.numeric(tr - make_date(year = s, month = t, day = 1)) / 30.44
+    )),
     d_scale = "month"
   )
 
-## ---- add final case data ----
+## ---- join partial and final counts ----
 
 d_who <- r_who %>%
-  left_join(v_who)
+  left_join(v_who, by = c("iso3", "country","od_region", "s", "t"))
 
-## ----- calculate impact of delay on reporting (at each observation) ----
+## ---- classify zero / missing pairs and derived metrics ----
+# Zero pairs are kept in the data but handled differently from ratio analysis:
+#   both_zero         — no transmission in partial or final count
+#   zero_to_positive  — under-reported at this delay (ratio undefined)
+#   positive_to_zero  — count revised down to zero in final data
+#   both_positive     — eligible for reporting-factor (rf) calculation
+#   missing           — no partial count, final count, or failed join
 
 d_who <- d_who %>%
-  filter( d <= 12) %>% # limit to within a year 
+  filter(d <= max_delay_months_completeness) %>%
   mutate(
+    zero_class = case_when(
+      is.na(total_den) | is.na(total_den_F)      ~ "missing",
+      total_den == 0 & total_den_F == 0          ~ "both_zero",
+      total_den == 0 & total_den_F > 0           ~ "zero_to_positive",
+      total_den > 0 & total_den_F == 0           ~ "positive_to_zero",
+      TRUE                                       ~ "both_positive"
+    ),
+    case_class = case_when(
+      total_den_F > 5                            ~ ">5",
+      total_den_F <= 5 & total_den_F >0          ~ "<=5",
+      total_den_F == 0                           ~ "zero"
+
+    ),
+    final_positive = !is.na(total_den_F) & total_den_F > 0,
+    partial_positive = !is.na(total_den) & total_den > 0,
     case_diff = total_den_F - total_den,
-    diff_ratio = case_diff / total_den_F,
-    case_complete = total_den / total_den_F,
-    rf = total_den_F/total_den
+    diff_ratio = if_else(total_den_F > 0, case_diff / total_den_F, NA_real_),
+    case_complete = if_else(total_den_F > 0, total_den / total_den_F, NA_real_),
+    rf = if_else(zero_class == "both_positive", total_den_F / total_den, NA_real_)
   )
 
-# quick look
-d_who %>%
-  ggplot(aes(x =d, y = rf, colour = country))+
-    geom_smooth() +
-    geom_point() +
-    geom_hline(yintercept = 1) +
-    theme_cowplot() +
-    theme(
-    legend.position = "blank") 
+## ---- summary tables (stored as objects) ----
 
-d_who %>%
-  ggplot(aes( x= d, y = diff_ratio, colour = country))+ 
-  geom_smooth()
+# Overall makeup of zero classes across all delays <= max_delay_months_completeness
+who_zero_summary <- d_who %>%
+  count(zero_class, name = "n") %>%
+  mutate(pct = 100 * n / sum(n))
 
+# Zero-class counts by country 
+who_zero_by_country_delay <- d_who %>%
+  count(iso3, country, od_region, zero_class, name = "n") %>%
+  group_by(iso3, country, od_region) %>%
+  mutate(pct_within_delay = 100 * n / sum(n)) %>%
+  ungroup()
 
-## --- country/dealy summaries ----
-
-d_who_summary <- d_who %>%
-  filter(is.finite(rf)) %>%
-  filter (rf < 100) %>% # remove extream outliners and non-"normal" reporting
-  group_by(iso3,country, d) %>%
+# Part A: detection / concordance metrics (zeros included), all delays <= completeness window
+who_detection_summary <- d_who %>%
+  group_by(iso3, country, od_region, d) %>%
   summarise(
-    od_region = dplyr::first(od_region),
-    u_rf    = mean(rf, na.rm = TRUE),
-    med_rf  = median(rf, na.rm = TRUE),
-    max_rf  = max(rf, na.rm = TRUE),
-    min_rf  = min(rf, na.rm = TRUE),
-    sd_rf   = sd(rf, na.rm = TRUE),
-    n_rf    = n(),
+    n_months = n(),
+    n_both_zero = sum(zero_class == "both_zero"),
+    n_zero_to_positive = sum(zero_class == "zero_to_positive"),
+    n_positive_to_zero = sum(zero_class == "positive_to_zero"),
+    n_both_positive = sum(zero_class == "both_positive"),
+    n_missing = sum(zero_class == "missing"),
+    pct_both_zero = 100 * mean(zero_class == "both_zero"),
+    pct_zero_to_positive = 100 * mean(zero_class == "zero_to_positive"),
+    pct_final_positive = 100 * mean(final_positive),
+    detection_rate = if_else(
+      sum(final_positive) > 0,
+      100 * sum(partial_positive & final_positive) / sum(final_positive),
+      NA_real_
+    ),
     .groups = "drop"
   )
 
-# view summary 
+# Part B: reporting-factor magnitudes on both_positive rows only (RF summary delay window)
+# Summarised three ways to compare the effect of small final counts
 
-d_who_summary %>%
-  ggplot(aes( x= d, y=u_rf, colour = country))+ 
-  geom_line() + 
-  # geom_ribbon(
-  #   aes(
-  #     ymax = (med_rf + 2*sd_rf),
-  #     ymin = (med_rf - 2*sd_rf),
-  #     fill = country
-  #     ), alpha = 0.5) + 
-  facet_wrap(~who_region) + 
-  theme_cowplot()
+## by country
+who_rf_summary_country <- bind_rows(
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+
+## by region  
+who_rf_summary_region <- bind_rows(
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
 
 
-# Publication Figure
+## globally 
+who_rf_summary_global <- bind_rows(
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_who %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
 
-country_order <- d_who_summary %>%
-  filter(u_rf >= 0.95, u_rf <= 1.05) %>%
-  group_by(iso3, country, od_region) %>%
-  summarise(d_near1 = min(d), .groups = "drop")
 
+## ---- figures (stored as objects) ----
 
-d_who_summary %>%
-  filter(od_region != "Other") %>%
-  left_join(country_order, by = c("iso3", "country", "od_region")) %>%
+# Table for forest plot: global estimate plus one row per region, by case stratum
+who_rf_forest_data <- bind_rows(
+  who_rf_summary_global %>% mutate(od_region = "Global"),
+  who_rf_summary_region
+) %>%
   mutate(
-    d_near1 = if_else(is.na(d_near1), Inf, as.numeric(d_near1)), 
-    Mean_Reporting_Factor= case_when(
-      u_rf >= 0.95 & u_rf <= 1.05 ~ "Near 1",
-      u_rf < 0.99 ~ "Over-reporting (less than 0.95)",
-      u_rf > 1.05 ~ "Under-reporting (greater than 1.05)"
-    )) %>%
-  ggplot(aes(x = as.factor(d), y = reorder(country, d_near1, FUN = function(x) -min(x)), fill = Mean_Reporting_Factor)) +
-    geom_tile(color = "white", size = 0.3) +
-    theme_cowplot()+
-    labs(fill = "Mean Reporting Factor", x = "Delay (months)", y = "") +
-  scale_fill_manual(
-    values = c(
-      "Under-reporting (greater than 1.05)" = "#F2E55C",  # Light yellow
-      "Near 1" = "#5F8F73",                               # Medium green
-      "Over-reporting (less than 0.9)" = "#8C3B12"       # Dark orange
-    )) +
-    theme(
-      legend.position = "top"    ) +
-  facet_grid(
-    od_region ~ ., 
-    scales = "free_y", 
-    space = "free_y"
+    rf_stratum = factor(
+      rf_stratum,
+      levels = c("all_both_positive", "final_gte_5", "final_lte_5"),
+      labels = c("All both positive", "Final > 5 cases", "Final <= 5 cases")
+    ),
+    rf_lo = u_rf - sd_rf,
+    rf_hi = u_rf + sd_rf
+  ) %>%
+  filter(!is.na(u_rf)) %>%
+  mutate(
+    od_region = factor(
+      od_region,
+      levels = c("Global", sort(setdiff(unique(od_region), "Global")))
+    )
+  )
+# Forest plot: mean RF (RF summary delay window) with +/- 1 SD whiskers
+who_rf_forest_plot <- who_rf_forest_data %>%
+  mutate(
+    y_base = as.numeric(od_region),
+    y_plot = y_base + case_when(
+      rf_stratum == "Final > 3 cases"  ~  0.25,
+      rf_stratum == "Final <= 3 cases" ~  0.00,
+      TRUE                             ~ -0.25
+    )
+  ) %>%
+  ggplot(aes(x = u_rf, y = y_plot, color = rf_stratum)) +
+  geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.3, colour = "grey40") +
+  geom_errorbarh(
+    aes(xmin = rf_lo, xmax = rf_hi),
+    height = 0.08,
+    linewidth = 0.4
   ) +
+  geom_point(size = 2) +
+  scale_y_continuous(
+    breaks = sort(unique(as.numeric(who_rf_forest_data$od_region))),
+    labels = levels(who_rf_forest_data$od_region)
+  ) +
+  scale_color_manual(
+    values = c(
+      "All both positive" = "grey30",
+      "Final > 5 cases"   = "#2166ac",
+      "Final <= 5 cases"  = "#b2182b"
+    ),
+    name = "Case stratum"
+  ) +
+  labs(
+    x = "Reporting factor (final / partial)",
+    y = NULL,
+    color = "Case stratum"
+  ) +
+  theme_cowplot() +
   theme(
-    strip.text.y = element_text(angle = 0, size = 8, face = "bold"),
-    strip.background = element_rect(colour = "grey80", fill = "grey95"),
-    axis.text = element_text(size = 6),
-    axis.title = element_text(size = 8),
-    legend.title = element_text("Mean Reporting Factor", size = 8),
-    legend.text = element_text(size = 7),
-    legend.key.size = unit(0.35, "cm")
-  ) 
+    legend.position = "top",
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 10),
+    legend.key.size = unit(0.35, "cm"),
+    axis.text.y = element_text(size = 10)
+  )
 
-## --- calculated empirical rf with uncertainty ----
 
-# ---- SEARO----
+
+# --------------------------------- SEARO ------------------------------------------------------------------
 ##---- import data set ----
 
 searo <- download_and_standardise("SEARO")
-
+searo_raw <- searo
 searo <- searo %>%
   mutate(iso3 = iso3c)
 searo$ISO_A0 <- searo$iso3
 searo <- add_od_regions(searo)
 
-##---- Review data -----
-
-str(searo)
-
-# select required data columns
-
 searo <- searo %>%
-  dplyr::select(iso3, country, s, t, tr, total_den, od_region) %>%
-  mutate(date = make_date(year = s, month = t, day = 1))
+  select(iso3, country, s, t, tr, total_den, od_region)
 
-##---- Split into reporting and validated data ----
+##---- Split into reporting and final data ----
 
 validation_date <- max(searo$tr)
 max_reporting_date <- validation_date - years(1)
@@ -201,110 +373,598 @@ v_searo <- searo %>%
 r_searo <- searo %>%
   filter(tr < max_reporting_date)
 
+if (nrow(r_searo) == 0) {
+  stop(
+    "SEARO: no reporting snapshots (tr < ", max_reporting_date,
+    "). Cannot compare partial and final counts; analysis stopped."
+  )
+}
+
 ## ---- calculate delay ----
 
 r_searo <- r_searo %>%
   mutate(
-    d = as.integer(round(as.numeric(tr - as.Date(date)) / 30.44)),
+    d = as.integer(round(
+      as.numeric(tr - make_date(year = s, month = t, day = 1)) / 30.44
+    )),
     d_scale = "month"
   )
 
-## ---- add final case data ----
+## ---- join partial and final counts ----
 
 d_searo <- r_searo %>%
-  left_join(v_searo)
+  left_join(v_searo, by = c("iso3", "country", "od_region", "s", "t"))
 
-## ----- calculate impact of delay on reporting (at each observation) ----
+## ---- classify zero / missing pairs and derived metrics ----
 
 d_searo <- d_searo %>%
-  filter(d <= 12) %>%
+  filter(d <= max_delay_months_completeness) %>%
   mutate(
+    zero_class = case_when(
+      is.na(total_den) | is.na(total_den_F)      ~ "missing",
+      total_den == 0 & total_den_F == 0          ~ "both_zero",
+      total_den == 0 & total_den_F > 0           ~ "zero_to_positive",
+      total_den > 0 & total_den_F == 0           ~ "positive_to_zero",
+      TRUE                                       ~ "both_positive"
+    ),
+    case_class = case_when(
+      total_den_F > 5                            ~ ">5",
+      total_den_F <= 5 & total_den_F > 0         ~ "<=5",
+      total_den_F == 0                           ~ "zero"
+    ),
+    final_positive = !is.na(total_den_F) & total_den_F > 0,
+    partial_positive = !is.na(total_den) & total_den > 0,
     case_diff = total_den_F - total_den,
-    diff_ratio = case_diff / total_den_F,
-    case_complete = total_den / total_den_F,
-    rf = total_den_F / total_den
+    diff_ratio = if_else(total_den_F > 0, case_diff / total_den_F, NA_real_),
+    case_complete = if_else(total_den_F > 0, total_den / total_den_F, NA_real_),
+    rf = if_else(zero_class == "both_positive", total_den_F / total_den, NA_real_)
   )
 
-d_searo %>%
-  ggplot(aes(x = d, y = rf, colour = country)) +
-  geom_smooth() +
-  geom_point() +
-  geom_hline(yintercept = 1) +
-  theme_cowplot() +
-  theme(legend.position = "blank")
+## ---- summary tables (stored as objects) ----
 
-d_searo %>%
-  ggplot(aes(x = d, y = diff_ratio, colour = country)) +
-  geom_smooth()
+searo_zero_summary <- d_searo %>%
+  count(zero_class, name = "n") %>%
+  mutate(pct = 100 * n / sum(n))
 
-## --- country/delay summaries ----
+searo_zero_by_country <- d_searo %>%
+  count(iso3, country, od_region, zero_class, name = "n") %>%
+  group_by(iso3, country, od_region) %>%
+  mutate(pct_within_delay = 100 * n / sum(n)) %>%
+  ungroup()
 
-d_searo_summary <- d_searo %>%
-  filter(is.finite(rf)) %>%
-  filter(rf < 100) %>%
-  group_by(iso3, country, d) %>%
+searo_detection_summary <- d_searo %>%
+  group_by(iso3, country, od_region, d) %>%
   summarise(
-    od_region = dplyr::first(od_region),
+    n_months = n(),
+    n_both_zero = sum(zero_class == "both_zero"),
+    n_zero_to_positive = sum(zero_class == "zero_to_positive"),
+    n_positive_to_zero = sum(zero_class == "positive_to_zero"),
+    n_both_positive = sum(zero_class == "both_positive"),
+    n_missing = sum(zero_class == "missing"),
+    pct_both_zero = 100 * mean(zero_class == "both_zero"),
+    pct_zero_to_positive = 100 * mean(zero_class == "zero_to_positive"),
+    pct_final_positive = 100 * mean(final_positive),
+    detection_rate = if_else(
+      sum(final_positive) > 0,
+      100 * sum(partial_positive & final_positive) / sum(final_positive),
+      NA_real_
+    ),
+    .groups = "drop"
+  )
+
+# Part B: RF on both_positive rows (RF summary delay window), three case strata
+
+searo_rf_summary_country <- bind_rows(
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+
+# SEARO-wide regional summary (equivalent to Global in WHO)
+searo_rf_summary_region <- bind_rows(
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_searo %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+
+## ---- figures (stored as objects) ----
+
+# Forest plot: SEARO regional estimate plus one row per country
+searo_rf_forest_data <- bind_rows(
+  searo_rf_summary_region %>% mutate(country = "SEARO"),
+  searo_rf_summary_country %>% select(country, rf_stratum, u_rf, med_rf, min_rf, max_rf, sd_rf, n_rf)
+) %>%
+  mutate(
+    rf_stratum = factor(
+      rf_stratum,
+      levels = c("all_both_positive", "final_gte_5", "final_lte_5"),
+      labels = c("All both positive", "Final > 5 cases", "Final <= 5 cases")
+    ),
+    rf_lo = u_rf - sd_rf,
+    rf_hi = u_rf + sd_rf
+  ) %>%
+  filter(!is.na(u_rf)) %>%
+  mutate(
+    country = factor(
+      country,
+      levels = c("SEARO", sort(setdiff(unique(country), "SEARO")))
+    )
+  )
+
+searo_rf_forest_plot <- searo_rf_forest_data %>%
+  mutate(
+    y_base = as.numeric(country),
+    y_plot = y_base + case_when(
+      rf_stratum == "Final > 5 cases"  ~  0.25,
+      rf_stratum == "Final <= 5 cases" ~  0.00,
+      TRUE                             ~ -0.25
+    )
+  ) %>%
+  ggplot(aes(x = u_rf, y = y_plot, color = rf_stratum)) +
+  geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.3, colour = "grey40") +
+  geom_errorbarh(
+    aes(xmin = rf_lo, xmax = rf_hi),
+    height = 0.08,
+    linewidth = 0.4
+  ) +
+  geom_point(size = 2) +
+  scale_y_continuous(
+    breaks = sort(unique(as.numeric(searo_rf_forest_data$country))),
+    labels = levels(searo_rf_forest_data$country)
+  ) +
+  scale_color_manual(
+    values = c(
+      "All both positive" = "grey30",
+      "Final > 5 cases"   = "#2166ac",
+      "Final <= 5 cases"  = "#b2182b"
+    ),
+    name = "Case stratum"
+  ) +
+  labs(
+    x = "Reporting factor (final / partial)",
+    y = NULL,
+    color = "Case stratum"
+  ) +
+  theme_cowplot() +
+  theme(
+    legend.position = "top",
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 7),
+    legend.key.size = unit(0.35, "cm"),
+    axis.text.y = element_text(size = 8)
+  )
+
+
+# --------------------------------- PAHO -------------------------------------------------------------------
+##---- import data set ----
+
+# Fast load: uses DENV_data_delay PAHO_crawler_dataPROC when present, else cached/GitHub
+# Default snapshot window is 30 months (18 months analysis + 12 months reporting lag)
+paho <- download_and_standardise(
+  "PAHO",
+  use_cache = TRUE,
+  refresh_cache = FALSE
+)
+paho_raw <- paho
+paho <- paho %>%
+  mutate(iso3 = iso3c)
+paho$ISO_A0 <- paho$iso3
+paho <- add_od_regions(paho)
+paho <- paho %>%
+  mutate(country = if_else(iso3 == "MAF", "Saint Martin", country)) %>%
+  filter( od_region != "Other") %>%
+  select(iso3, country, s, t, tr, total_den, od_region)
+
+##---- Split into reporting and final data ----
+# PAHO is weekly; reporting snapshots are at least 52 weeks before validation.
+
+validation_date_paho <- max(paho$tr)
+max_reporting_date_paho <- validation_date_paho - weeks(52)
+
+v_paho <- paho %>%
+  filter(tr == validation_date_paho) %>%
+  mutate(total_den_F = total_den) %>%
+  select(-c(total_den, tr))
+
+r_paho <- paho %>%
+  filter(tr < max_reporting_date_paho)
+
+if (nrow(r_paho) == 0) {
+  stop(
+    "PAHO: no reporting snapshots (tr < ", max_reporting_date_paho,
+    "). Cannot compare partial and final counts; analysis stopped."
+  )
+}
+
+## ---- calculate delay (weeks) ----
+
+r_paho <- r_paho %>%
+  mutate(
+    onset_date = ISOweek::ISOweek2date(
+      paste0(s, "-W", stringr::str_pad(t, 2, pad = "0"), "-1")
+    ),
+    d_week = as.integer(round(as.numeric(difftime(tr, onset_date, units = "weeks")))),
+    d_scale = "week"
+  )
+
+## ---- join partial and final counts (weekly) ----
+
+d_paho_weekly <- r_paho %>%
+  left_join(v_paho, by = c("iso3", "country", "od_region", "s", "t"))
+
+## ---- weekly RF and zero classification ----
+
+d_paho_weekly <- d_paho_weekly %>%
+  filter(d_week <= max_delay_weeks_completeness) %>%
+  mutate(
+    zero_class = case_when(
+      is.na(total_den) | is.na(total_den_F)      ~ "missing",
+      total_den == 0 & total_den_F == 0          ~ "both_zero",
+      total_den == 0 & total_den_F > 0           ~ "zero_to_positive",
+      total_den > 0 & total_den_F == 0           ~ "positive_to_zero",
+      TRUE                                       ~ "both_positive"
+    ),
+    ew_year = s,
+    ew = t,
+    final_positive = !is.na(total_den_F) & total_den_F > 0,
+    partial_positive = !is.na(total_den) & total_den > 0,
+    case_diff = total_den_F - total_den,
+    rf = if_else(zero_class == "both_positive", total_den_F / total_den, NA_real_)
+  )
+
+## ---- assign weeks to months (3-day week-end rule) ----
+
+d_paho_monthly <- d_paho_weekly %>%
+  paho_assign_epiweek_to_month() %>%
+  mutate(
+    d = as.integer(round(as.numeric(tr - month_date) / 30.44)),
+    d_scale = "month"
+  )
+
+## ---- summary tables (stored as objects) ----
+
+paho_zero_summary <- d_paho_monthly %>%
+  count(zero_class, name = "n") %>%
+  mutate(pct = 100 * n / sum(n))
+
+paho_zero_by_country <- d_paho_monthly %>%
+  count(iso3, country, od_region, zero_class, name = "n") %>%
+  group_by(iso3, country, od_region) %>%
+  mutate(pct_within_delay = 100 * n / sum(n)) %>%
+  ungroup()
+
+paho_detection_summary <- d_paho_monthly %>%
+  group_by(iso3, country, od_region, d) %>%
+  summarise(
+    n_obs = n(),
+    n_both_zero = sum(zero_class == "both_zero"),
+    n_zero_to_positive = sum(zero_class == "zero_to_positive"),
+    n_positive_to_zero = sum(zero_class == "positive_to_zero"),
+    n_both_positive = sum(zero_class == "both_positive"),
+    n_missing = sum(zero_class == "missing"),
+    pct_both_zero = 100 * mean(zero_class == "both_zero"),
+    pct_zero_to_positive = 100 * mean(zero_class == "zero_to_positive"),
+    pct_final_positive = 100 * mean(final_positive),
+    detection_rate = if_else(
+      sum(final_positive) > 0,
+      100 * sum(partial_positive & final_positive) / sum(final_positive),
+      NA_real_
+    ),
+    .groups = "drop"
+  )
+
+paho_rf_summary_country <- bind_rows(
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    group_by(iso3, country, od_region) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+
+paho_rf_summary_region <- bind_rows(
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    group_by(od_region) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+
+
+# PAHO wide summary 
+
+paho_rf_summary_paho <- bind_rows(
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    summarise(
+      rf_stratum = "all_both_positive",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F > 5) %>%
+    summarise(
+      rf_stratum = "final_gte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    ),
+  d_paho_monthly %>%
+    filter(zero_class == "both_positive", d < max_delay_months_rf_summary, total_den_F <= 5) %>%
+    summarise(
+      rf_stratum = "final_lte_5",
+      u_rf = mean(rf, na.rm = TRUE),
+      med_rf = median(rf, na.rm = TRUE),
+      min_rf = min(rf, na.rm = TRUE),
+      max_rf = max(rf, na.rm = TRUE),
+      sd_rf = sd(rf, na.rm = TRUE),
+      n_rf = n(),
+      .groups = "drop"
+    )
+)
+## ---- WHO vs PAHO delay comparison (shared countries) ----
+
+who_paho_shared_iso3 <- intersect(unique(d_who$iso3), unique(d_paho_monthly$iso3))
+
+who_paho_rf_compare <- bind_rows(
+  d_who %>%
+    filter(iso3 %in% who_paho_shared_iso3, zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    mutate(
+      data_source = "WHO",
+      delay = d,
+      delay_unit = "month",
+      month_s = s,
+      month_t = t,
+      ew_year = NA_integer_,
+      ew = NA_integer_
+    ),
+  d_paho_monthly %>%
+    filter(iso3 %in% who_paho_shared_iso3, zero_class == "both_positive", d < max_delay_months_rf_summary) %>%
+    mutate(data_source = "PAHO", delay = d, delay_unit = "month")
+) %>%
+  select(
+    data_source, iso3, country, od_region, delay, delay_unit,
+    month_s, month_t, ew_year, ew, total_den, total_den_F, rf, zero_class
+  )
+
+who_paho_rf_summary_country <- who_paho_rf_compare %>%
+  group_by(data_source, iso3, country, od_region) %>%
+  summarise(
     u_rf = mean(rf, na.rm = TRUE),
     med_rf = median(rf, na.rm = TRUE),
-    max_rf = max(rf, na.rm = TRUE),
-    min_rf = min(rf, na.rm = TRUE),
     sd_rf = sd(rf, na.rm = TRUE),
     n_rf = n(),
     .groups = "drop"
   )
 
-d_searo_summary %>%
-  ggplot(aes(x = d, y = u_rf, colour = country)) +
-  geom_line() +
-  facet_wrap(~od_region) +
-  theme_cowplot()
+## ---- figures (stored as objects) ----
 
-# Publication Figure (SEARO)
+paho_forest_labels <- c(
+  sort(unique(paho_rf_summary_region$od_region)),
+  paho_rf_summary_country %>%
+    arrange(od_region, country) %>%
+    pull(country) %>%
+    unique()
+)
 
-country_order_searo <- d_searo_summary %>%
-  filter(u_rf >= 0.95, u_rf <= 1.05) %>%
-  group_by(iso3, country, od_region) %>%
-  summarise(d_near1 = min(d), .groups = "drop")
-
-d_searo_summary %>%
-  filter(od_region != "Other") %>%
-  left_join(country_order_searo, by = c("iso3", "country", "od_region")) %>%
+paho_rf_forest_data <- bind_rows(
+  paho_rf_summary_region %>%
+    mutate(plot_label = od_region, level_type = "region"),
+  paho_rf_summary_country %>%
+    mutate(plot_label = country, level_type = "country")
+) %>%
   mutate(
-    d_near1 = if_else(is.na(d_near1), Inf, as.numeric(d_near1)),
-    Mean_Reporting_Factor = case_when(
-      u_rf >= 0.95 & u_rf <= 1.05 ~ "Near 1",
-      u_rf < 0.99 ~ "Over-reporting (less than 0.95)",
-      u_rf > 1.05 ~ "Under-reporting (greater than 1.05)"
+    rf_stratum = factor(
+      rf_stratum,
+      levels = c("all_both_positive", "final_gte_5", "final_lte_5"),
+      labels = c("All both positive", "Final > 5 cases", "Final <= 5 cases")
+    ),
+    rf_lo = u_rf - sd_rf,
+    rf_hi = u_rf + sd_rf
+  ) %>%
+  filter(!is.na(u_rf)) %>%
+  mutate(plot_label = factor(plot_label, levels = paho_forest_labels))
+
+paho_rf_forest_plot <- paho_rf_forest_data %>%
+  mutate(
+    y_base = as.numeric(plot_label),
+    y_plot = y_base + case_when(
+      rf_stratum == "Final > 5 cases"  ~  0.25,
+      rf_stratum == "Final <= 5 cases" ~  0.00,
+      TRUE                             ~ -0.25
     )
   ) %>%
-  ggplot(aes(
-    x = as.factor(d),
-    y = reorder(country, d_near1, FUN = function(x) -min(x)),
-    fill = Mean_Reporting_Factor
-  )) +
-  geom_tile(color = "white", size = 0.3) +
-  theme_cowplot() +
-  labs(fill = "Mean Reporting Factor", x = "Delay (months)", y = "") +
-  scale_fill_manual(
+  ggplot(aes(x = u_rf, y = y_plot, color = rf_stratum)) +
+  geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.3, colour = "grey40") +
+  geom_errorbarh(aes(xmin = rf_lo, xmax = rf_hi), height = 0.08, linewidth = 0.4) +
+  geom_point(size = 2) +
+  scale_y_continuous(
+    breaks = sort(unique(as.numeric(paho_rf_forest_data$plot_label))),
+    labels = levels(paho_rf_forest_data$plot_label)
+  ) +
+  scale_color_manual(
     values = c(
-      "Under-reporting (greater than 1.05)" = "#F2E55C",
-      "Near 1" = "#5F8F73",
-      "Over-reporting (less than 0.9)" = "#8C3B12"
+      "All both positive" = "grey30",
+      "Final > 5 cases"   = "#2166ac",
+      "Final <= 5 cases"  = "#b2182b"
+    ),
+    name = "Case stratum"
+  ) +
+  labs(
+    x = "Reporting factor (final / partial)",
+    y = NULL,
+    color = "Case stratum",
+    title = paste0(
+      "PAHO reporting factor by OD region and country (monthly delay < ",
+      max_delay_months_rf_summary, ")"
     )
   ) +
-  theme(legend.position = "top") +
-  facet_grid(
-    od_region ~ .,
-    scales = "free_y",
-    space = "free_y"
-  ) +
+  theme_cowplot() +
   theme(
-    strip.text.y = element_text(angle = 0, size = 8, face = "bold"),
-    strip.background = element_rect(colour = "grey80", fill = "grey95"),
-    axis.text = element_text(size = 6),
-    axis.title = element_text(size = 8),
+    legend.position = "top",
     legend.title = element_text(size = 8),
     legend.text = element_text(size = 7),
-    legend.key.size = unit(0.35, "cm")
+    legend.key.size = unit(0.35, "cm"),
+    axis.text.y = element_text(size = 7)
   )
+
+who_paho_rf_compare_plot <- who_paho_rf_summary_country %>%
+  ggplot(aes(x = u_rf, y = iso3, color = data_source)) +
+  geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.3, colour = "grey40") +
+  geom_point(position = position_dodge(width = 0.5), size = 2) +
+  facet_wrap(~od_region, scales = "free_y") +
+  labs(
+    x = paste0(
+      "Mean reporting factor (delay < ", max_delay_months_rf_summary, " months)"
+    ),
+    y = NULL,
+    color = NULL,
+    title = "WHO vs PAHO mean RF in shared countries"
+  ) +
+  theme_cowplot() +
+  theme(legend.position = "top", axis.text.y = element_text(size = 7))

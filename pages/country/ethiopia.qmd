@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Ethiopia"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "ETH"
+  country_name: "Ethiopia"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/eth.png"
+  slug: "ethiopia"
+---
+
+{{< include _country-template.qmd >}}

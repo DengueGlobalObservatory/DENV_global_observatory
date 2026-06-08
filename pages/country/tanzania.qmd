@@ -1,0 +1,17 @@
+---
+title: ""
+pagetitle: "Tanzania"
+format: html
+page-layout: full
+title-block-style: none
+self-contained: true
+params:
+  iso3: "TZA"
+  country_name: "Tanzania"
+  region: "Sub-Saharan Africa"
+  region_href: "../sub-saharanafrica.html"
+  map_src: "../../Assets/Stable/country_maps/tza.png"
+  slug: "tanzania"
+---
+
+{{< include _country-template.qmd >}}
