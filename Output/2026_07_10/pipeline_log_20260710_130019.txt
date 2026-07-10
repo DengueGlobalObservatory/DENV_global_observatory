@@ -1,0 +1,156 @@
+[2026-07-10 13:00:19] INFO: Logging initialized.
+[2026-07-10 13:00:19] INFO: =============================================
+[2026-07-10 13:00:19] INFO: Created run directory: Output/2026_07_10
+[2026-07-10 13:00:19] INFO: Log file: Output/2026_07_10/pipeline_log_20260710_130019.txt
+[2026-07-10 13:00:19] INFO: R version: R version 4.4.1 (2024-06-14)
+[2026-07-10 13:00:19] INFO: Working directory: /home/runner/work/DENV_global_observatory/DENV_global_observatory
+[2026-07-10 13:00:19] INFO: =============================================
+[2026-07-10 13:00:19] INFO: Step 2: Opening dengue-related data sources...
+[2026-07-10 13:00:19] INFO: Starting compile_PAHO_github()...
+[2026-07-10 13:00:19] INFO: Querying GitHub API for data folders: https://api.github.com/repos/DengueGlobalObservatory/PAHO-crawler/contents/data
+[2026-07-10 13:00:19] INFO: Latest available folder: DL_20260710
+[2026-07-10 13:00:19] INFO: Found 53 CSV files in latest folder.
+[2026-07-10 13:00:19] INFO: Reading file: PAHO_2024_2026_W10_202607101112.csv
+[2026-07-10 13:00:20] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-07-10 13:00:20] INFO: PAHO_2024_2026_W10_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:20] INFO: Reading file: PAHO_2024_2026_W11_202607101112.csv
+[2026-07-10 13:00:20] INFO: PAHO_2024_2026_W11_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:20] INFO: Reading file: PAHO_2024_2026_W12_202607101112.csv
+[2026-07-10 13:00:20] INFO: PAHO_2024_2026_W12_202607101112.csv read successfully with 136 rows.
+[2026-07-10 13:00:20] INFO: Reading file: PAHO_2024_2026_W13_202607101112.csv
+[2026-07-10 13:00:21] INFO: PAHO_2024_2026_W13_202607101112.csv read successfully with 136 rows.
+[2026-07-10 13:00:21] INFO: Reading file: PAHO_2024_2026_W14_202607101112.csv
+[2026-07-10 13:00:21] INFO: PAHO_2024_2026_W14_202607101112.csv read successfully with 136 rows.
+[2026-07-10 13:00:21] INFO: Reading file: PAHO_2024_2026_W15_202607101112.csv
+[2026-07-10 13:00:21] INFO: PAHO_2024_2026_W15_202607101112.csv read successfully with 136 rows.
+[2026-07-10 13:00:21] INFO: Reading file: PAHO_2024_2026_W16_202607101112.csv
+[2026-07-10 13:00:21] INFO: PAHO_2024_2026_W16_202607101112.csv read successfully with 137 rows.
+[2026-07-10 13:00:21] INFO: Reading file: PAHO_2024_2026_W17_202607101112.csv
+[2026-07-10 13:00:22] INFO: PAHO_2024_2026_W17_202607101112.csv read successfully with 137 rows.
+[2026-07-10 13:00:22] INFO: Reading file: PAHO_2024_2026_W18_202607101112.csv
+[2026-07-10 13:00:22] INFO: PAHO_2024_2026_W18_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:22] INFO: Reading file: PAHO_2024_2026_W19_202607101112.csv
+[2026-07-10 13:00:22] INFO: PAHO_2024_2026_W19_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:22] INFO: Reading file: PAHO_2024_2026_W1_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W1_202607101112.csv read successfully with 129 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W20_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W20_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W21_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W21_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W22_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W22_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W23_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W23_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W24_202607101112.csv
+[2026-07-10 13:00:23] INFO: PAHO_2024_2026_W24_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:23] INFO: Reading file: PAHO_2024_2026_W25_202607101112.csv
+[2026-07-10 13:00:24] INFO: PAHO_2024_2026_W25_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:24] INFO: Reading file: PAHO_2024_2026_W26_202607101112.csv
+[2026-07-10 13:00:24] INFO: PAHO_2024_2026_W26_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:24] INFO: Reading file: PAHO_2024_2026_W27_202607101112.csv
+[2026-07-10 13:00:24] INFO: PAHO_2024_2026_W27_202607101112.csv read successfully with 138 rows.
+[2026-07-10 13:00:24] INFO: Reading file: PAHO_2024_2026_W28_202607101112.csv
+[2026-07-10 13:00:24] INFO: PAHO_2024_2026_W28_202607101112.csv read successfully with 139 rows.
+[2026-07-10 13:00:24] INFO: Reading file: PAHO_2024_2026_W29_202607101112.csv
+[2026-07-10 13:00:24] INFO: PAHO_2024_2026_W29_202607101112.csv read successfully with 139 rows.
+[2026-07-10 13:00:24] INFO: Reading file: PAHO_2024_2026_W2_202607101112.csv
+[2026-07-10 13:00:25] INFO: PAHO_2024_2026_W2_202607101112.csv read successfully with 132 rows.
+[2026-07-10 13:00:25] INFO: Reading file: PAHO_2024_2026_W30_202607101112.csv
+[2026-07-10 13:00:25] INFO: PAHO_2024_2026_W30_202607101112.csv read successfully with 139 rows.
+[2026-07-10 13:00:25] INFO: Reading file: PAHO_2024_2026_W31_202607101112.csv
+[2026-07-10 13:00:25] INFO: PAHO_2024_2026_W31_202607101112.csv read successfully with 140 rows.
+[2026-07-10 13:00:25] INFO: Reading file: PAHO_2024_2026_W32_202607101112.csv
+[2026-07-10 13:00:25] INFO: PAHO_2024_2026_W32_202607101112.csv read successfully with 140 rows.
+[2026-07-10 13:00:25] INFO: Reading file: PAHO_2024_2026_W33_202607101112.csv
+[2026-07-10 13:00:25] INFO: PAHO_2024_2026_W33_202607101112.csv read successfully with 140 rows.
+[2026-07-10 13:00:25] INFO: Reading file: PAHO_2024_2026_W34_202607101112.csv
+[2026-07-10 13:00:26] INFO: PAHO_2024_2026_W34_202607101112.csv read successfully with 140 rows.
+[2026-07-10 13:00:26] INFO: Reading file: PAHO_2024_2026_W35_202607101112.csv
+[2026-07-10 13:00:26] INFO: PAHO_2024_2026_W35_202607101112.csv read successfully with 140 rows.
+[2026-07-10 13:00:26] INFO: Reading file: PAHO_2024_2026_W36_202607101112.csv
+[2026-07-10 13:00:26] INFO: PAHO_2024_2026_W36_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:26] INFO: Reading file: PAHO_2024_2026_W37_202607101112.csv
+[2026-07-10 13:00:26] INFO: PAHO_2024_2026_W37_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:26] INFO: Reading file: PAHO_2024_2026_W38_202607101112.csv
+[2026-07-10 13:00:27] INFO: PAHO_2024_2026_W38_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:27] INFO: Reading file: PAHO_2024_2026_W39_202607101112.csv
+[2026-07-10 13:00:27] INFO: PAHO_2024_2026_W39_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:27] INFO: Reading file: PAHO_2024_2026_W3_202607101112.csv
+[2026-07-10 13:00:27] INFO: PAHO_2024_2026_W3_202607101112.csv read successfully with 132 rows.
+[2026-07-10 13:00:27] INFO: Reading file: PAHO_2024_2026_W40_202607101112.csv
+[2026-07-10 13:00:27] INFO: PAHO_2024_2026_W40_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:27] INFO: Reading file: PAHO_2024_2026_W41_202607101112.csv
+[2026-07-10 13:00:27] INFO: PAHO_2024_2026_W41_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:27] INFO: Reading file: PAHO_2024_2026_W42_202607101112.csv
+[2026-07-10 13:00:28] INFO: PAHO_2024_2026_W42_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:28] INFO: Reading file: PAHO_2024_2026_W43_202607101112.csv
+[2026-07-10 13:00:28] INFO: PAHO_2024_2026_W43_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:28] INFO: Reading file: PAHO_2024_2026_W44_202607101112.csv
+[2026-07-10 13:00:28] INFO: PAHO_2024_2026_W44_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:28] INFO: Reading file: PAHO_2024_2026_W45_202607101112.csv
+[2026-07-10 13:00:28] INFO: PAHO_2024_2026_W45_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:28] INFO: Reading file: PAHO_2024_2026_W46_202607101112.csv
+[2026-07-10 13:00:29] INFO: PAHO_2024_2026_W46_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:29] INFO: Reading file: PAHO_2024_2026_W47_202607101112.csv
+[2026-07-10 13:00:29] INFO: PAHO_2024_2026_W47_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:29] INFO: Reading file: PAHO_2024_2026_W48_202607101112.csv
+[2026-07-10 13:00:29] INFO: PAHO_2024_2026_W48_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:29] INFO: Reading file: PAHO_2024_2026_W49_202607101112.csv
+[2026-07-10 13:00:29] INFO: PAHO_2024_2026_W49_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:29] INFO: Reading file: PAHO_2024_2026_W4_202607101112.csv
+[2026-07-10 13:00:29] INFO: PAHO_2024_2026_W4_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:29] INFO: Reading file: PAHO_2024_2026_W50_202607101112.csv
+[2026-07-10 13:00:30] INFO: PAHO_2024_2026_W50_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:30] INFO: Reading file: PAHO_2024_2026_W51_202607101112.csv
+[2026-07-10 13:00:30] INFO: PAHO_2024_2026_W51_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:30] INFO: Reading file: PAHO_2024_2026_W52_202607101112.csv
+[2026-07-10 13:00:30] INFO: PAHO_2024_2026_W52_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:30] INFO: Reading file: PAHO_2024_2026_W53_202607101112.csv
+[2026-07-10 13:00:30] INFO: PAHO_2024_2026_W53_202607101112.csv read successfully with 141 rows.
+[2026-07-10 13:00:30] INFO: Reading file: PAHO_2024_2026_W5_202607101112.csv
+[2026-07-10 13:00:31] INFO: PAHO_2024_2026_W5_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:31] INFO: Reading file: PAHO_2024_2026_W6_202607101112.csv
+[2026-07-10 13:00:31] INFO: PAHO_2024_2026_W6_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:31] INFO: Reading file: PAHO_2024_2026_W7_202607101112.csv
+[2026-07-10 13:00:31] INFO: PAHO_2024_2026_W7_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:31] INFO: Reading file: PAHO_2024_2026_W8_202607101112.csv
+[2026-07-10 13:00:31] INFO: PAHO_2024_2026_W8_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:31] INFO: Reading file: PAHO_2024_2026_W9_202607101112.csv
+[2026-07-10 13:00:32] INFO: PAHO_2024_2026_W9_202607101112.csv read successfully with 135 rows.
+[2026-07-10 13:00:32] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-07-10 13:00:32] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-07-10 13:00:32] INFO: ✅ PAHO compilation complete for week 20260710
+[2026-07-10 13:00:32] INFO: Rows: 7326 Cols: 19
+[2026-07-10 13:00:32] INFO: Total duration: 12.81 seconds
+[2026-07-10 13:00:32] INFO: Start WHO - API download...
+[2026-07-10 13:00:32] INFO: WHO - Opening file:dengue-global-data-2026-06-29.xlsx
+
+[2026-07-10 13:00:32] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-07-10 13:00:32] WARNING: Cannot determine terminal size (system error 25, Inappropriate ioctl for device) @tty.c:31 (clic_tty_size)
+[2026-07-10 13:00:32] INFO: Start SEARO - API download...
+[2026-07-10 13:00:39] ERROR: Missing expected data objects: OD_national, searo
+[2026-07-10 13:00:39] INFO: Step 3: selected and combine historic data
+[2026-07-10 13:00:39] INFO: Step 3: selecting historic data (simplified: OD_national preferred, WHO as fallback)
+[2026-07-10 13:00:40] INFO: Step 3: define average season
+[2026-07-10 13:00:40] INFO: Running 02_identify_seasonal_baseline.
+[2026-07-10 13:00:40] INFO: Step 4: select current season data and backfill
+[2026-07-10 13:00:40] INFO: Running 02_PAHO_monthly_cases_and_source_selection.
+[2026-07-10 13:00:40] WARNING: argument "e" is missing, with no default
+[2026-07-10 13:00:40] INFO: Recorded 49 countries after PAHO correction
+[2026-07-10 13:00:41] INFO: PAHO monthly rows after correction: 1372
+[2026-07-10 13:00:41] WARNING: argument "e" is missing, with no default
+[2026-07-10 13:00:41] WARNING: argument "e" is missing, with no default
+[2026-07-10 13:00:41] INFO: PAHO countries with data for 2026: 43/49
+[2026-07-10 13:00:41] WARNING: Warning: 6 PAHO countries without data for current year (2026): ABW, BES, CUB, CUW, NIC, SXM
+[2026-07-10 13:00:41] WARNING: argument "e" is missing, with no default
+[2026-07-10 13:00:41] INFO: Recorded 49 countries after PAHO negative value handling
+[2026-07-10 13:00:41] INFO: Step 5: Nowcast missing recent months
+[2026-07-10 13:00:41] INFO: Running 03_proportion_nowcast.
+[2026-07-10 13:00:41] WARNING: Warning: Ave_season_monthly_cases column not found in data - cannot filter
+[2026-07-10 13:00:41] INFO: Step 6: post processing
+[2026-07-10 13:00:41] INFO: Saving outputs to Output/2026_07_10
+[2026-07-10 13:00:41] INFO: Saved backfill output: Output/2026_07_10/DENV_cases_backfill_output.csv
+[2026-07-10 13:00:41] INFO: Saved nowcast output: Output/2026_07_10/DENV_cases_nowcast_output.csv
+[2026-07-10 13:00:41] INFO: Saved average season output: Output/2026_07_10/DENV_average_season.csv
+[2026-07-10 13:00:41] INFO: Saved season-monthly proportions: Output/2026_07_10/full_data_season_monthly_proportions.csv
+[2026-07-10 13:00:41] WARNING: argument "e" is missing, with no default
