@@ -167,7 +167,18 @@ compute_monthcumm_cases <- function(df) {
         )
       )
   }
-  
+
+  # applied = corrected-or-raw (V2 only); apply the same Dec/Jan mislabel rule
+  if ("total_applied_cases" %in% names(df_monthcumm)) {
+    df_monthcumm <- df_monthcumm %>%
+      mutate(
+        total_applied_cases = case_when(
+          EW == 1 & month_num == 12 ~ NA,
+          TRUE ~ total_applied_cases
+        )
+      )
+  }
+
   return(df_monthcumm)
 }
 
@@ -265,7 +276,21 @@ PAHO_incid_monthly <- function(df) {
           missing_reason = NA_character_
         )
     }
-    
+
+    # applied monthly series (V2 only): never NA for lack of RF, so no lag-NA cascade
+    if ("total_applied_cases" %in% names(joined_df)) {
+      joined_df <- joined_df %>%
+        group_by(country) %>%
+        mutate(
+          lag_cum_applied = lag(total_applied_cases),
+          computed_monthly_cases_applied = case_when(
+            month_num == 1 ~ total_applied_cases,
+            TRUE ~ total_applied_cases - lag_cum_applied
+          )
+        ) %>%
+        ungroup()
+    }
+
     joined_df <- joined_df %>%
       distinct()
 

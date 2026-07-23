@@ -81,6 +81,8 @@ flowchart TB
   ReadSEARO --> searo[searo df]
 ```
 
+Reporting delay (`d`) is computed at load for PAHO (weeks between download epiweek and onset epiweek) and WHO/SEARO (months between download month and observation month). PAHO also carries `d_unit = "week"`; WHO and SEARO use `d_unit = "month"`.
+
 ------------------------------------------------------------------------
 
 ## 4. Historic Data Selection (Step 3)
@@ -123,30 +125,56 @@ Outputs include `Ave_season_monthly_cases`, `Ave_monthly_proportion`, `Ave_cum_m
 
 ## 6. Backfilling and Source Selection (Step 4)
 
-Backfilling and current-season merge are in [`Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R`](Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R) and [`Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R`](Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R). PAHO reporting correction uses `Assets/Stable/emp_est_PAHO_report_factor.csv`. Factors outside bounds are replaced with 1.000001 (no correction).
+Step 4 is implemented in [`Scripts/backfilling/02_V2_monthly_source_selection.R`](Scripts/backfilling/02_V2_monthly_source_selection.R), which sources [`Scripts/backfilling/02_V2_backfilling.R`](Scripts/backfilling/02_V2_backfilling.R) for delay correction and [`Scripts/backfilling/FUNCTIONS/00_FUN_apply_delay_correction.R`](Scripts/backfilling/FUNCTIONS/00_FUN_apply_delay_correction.R) for the shared PAHO/WHO correction logic. PAHO monthly aggregation remains in [`Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R`](Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R).
+
+**Reporting-factor lookups:** stable tables `Assets/Stable/paho_rf_lookup.csv` and `Assets/Stable/who_rf_lookup.csv` (refreshed from crawler snapshots via [`Scripts/backfilling/00_RF_calculate.R`](Scripts/backfilling/00_RF_calculate.R)). SEARO is not corrected in production (no lookup applied).
+
+**Correction rules (per row, joined on `iso3` + `d`):**
+
+| Rule | PAHO | WHO Global |
+|------|------|------------|
+| Minimum paired observations (`n_rf`) | 20 | 3 |
+| Maximum factor | 5 | 5 |
+| Use median when `sd_rf` > 1.5, else mean | Yes | Yes |
+| Country exclusions | Belize (`BLZ`) | None |
+| Rows excluded / no match | Keep raw via applied column | Keep raw via applied column |
+
+**Three-column case design:** each corrected row carries raw cases, corrected cases (NA when excluded), and **applied** cases (`coalesce(corrected, raw)`). Downstream steps and published totals use applied cases only, so missing or excluded factors never drop a country-month.
+
+**PAHO path:** weekly cumulative `total_den` → weekly correction → monthly cumulative applied counts → monthly incident cases (`computed_monthly_cases_applied`). Negative monthly differences fall back to uncorrected monthly values; values &lt; 1 set to NA.
+
+**WHO path:** monthly `cases` corrected in place; `cases_applied` passed to source selection.
+
+**Audit outputs:** weekly PAHO and monthly WHO correction tables written to `Output/YYYY_MM_DD/inital_rf_correction/`. `DENV_cases_backfill_output.csv` retains `raw_cases`, `corrected_cases`, `rf`, `correction_applied`, and `correction_reason` for the winning source per country-month.
 
 ``` mermaid
 flowchart TB
-  subgraph paho_correction [PAHO reporting correction]
-    Load[Load emp_est_PAHO_report_factor.csv]
-    Load --> Check{rf in 0.9 to 3 and not NA?}
-    Check -->|No| NoCorr[Use factor = 1.000001]
-    Check -->|Yes| Apply[Apply correction]
-    Apply --> Neg{Negative corrected value?}
-    Neg -->|Yes| Fallback[Use uncorrected]
-    Fallback --> StillNeg{Still negative?}
-    StillNeg -->|Yes| NAval[Set to NA]
-    StillNeg -->|No| Monthly[Convert to monthly incident]
-    Neg -->|No| Monthly
-    NoCorr --> Monthly
-    NAval --> Monthly
+  subgraph backfill [02_V2_backfilling.R]
+    PAHOin[paho with d weeks] --> PAHOcorr[apply_delay_correction PAHO]
+    WHOin[who with d months] --> WHOcorr[apply_delay_correction WHO]
+    PAHOcorr --> Audit[Write correction audit CSVs]
+    WHOcorr --> Audit
   end
-  Monthly --> Merge[Merge PAHO SEARO WHO]
-  Merge --> Priority[Per country-month: prefer non-WHO then non-NA]
-  Priority --> current_data[current_data df]
+  subgraph monthly [02_V2_monthly_source_selection.R]
+    PAHOcorr --> MonthCumm[compute_monthcumm_cases]
+    MonthCumm --> MonthIncid[PAHO_incid_monthly applied series]
+    MonthIncid --> NegHandle[Negative monthly handling]
+    NegHandle --> paho_add[paho_add]
+    WHOcorr --> who_add[who_add]
+    searo[searo uncorrected] --> searo_add[searo_add]
+    paho_add --> Merge[bind_rows PAHO SEARO WHO]
+    who_add --> Merge
+    searo_add --> Merge
+    Merge --> Priority[Per country-month: fewest NA then source priority]
+    Priority --> current_data[current_data with audit cols]
+  end
 ```
 
-Multi-source merge priority: for each country-month, prefer PAHO/SEARO over WHO; among non-NA values, prefer the source that appears first after ordering by `is.na(cases)` and `source == "WHO"`.
+**Multi-source merge priority:** for each country-month, prefer the row with the fewest missing applied cases; ties broken by source priority — PAHO/SEARO over WHO for most countries; **Indonesia (`IDN`) prefers WHO** from June 2025 onward. SEARO zeros are treated as NA; SEARO rows for Indonesia from June 2025 onward are dropped.
+
+**Country tracking sub-steps:** `Step_4a_PAHO_After_Correction`, `Step_4b_WHO_After_Correction`, `Step_4b_PAHO_After_Negative_Handling`, then `Step_4_Current_Data`.
+
+Legacy V1 backfill ([`02_PAHO_monthly_cases_and_source_selection.R`](Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R) + `emp_est_PAHO_report_factor.csv`) remains in the repository but is no longer sourced by the pipeline.
 
 ------------------------------------------------------------------------
 
@@ -611,8 +639,13 @@ flowchart TB
 | [Scripts/data_sourcing/01_dengue_data.R](Scripts/data_sourcing/01_dengue_data.R)                                                     | Data ingestion (PAHO, WHO, SEARO, OpenDengue)           |
 | [Scripts/data_sourcing/01_select_historic_data.R](Scripts/data_sourcing/01_select_historic_data.R)                                   | Historic OD + WHO selection and deduplication            |
 | [Scripts/seasonal_baseline/02_identify_seasonal_baseline.R](Scripts/seasonal_baseline/02_identify_seasonal_baseline.R)               | Seasonal baseline and NB params                         |
-| [Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R](Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R) | Backfill and source merge                               |
-| [Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R](Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R)                 | PAHO-specific reporting correction transforms           |
+| [Scripts/backfilling/02_V2_monthly_source_selection.R](Scripts/backfilling/02_V2_monthly_source_selection.R)                         | V2 backfill, source merge, current_data output          |
+| [Scripts/backfilling/02_V2_backfilling.R](Scripts/backfilling/02_V2_backfilling.R)                                                   | PAHO + WHO delay correction and audit CSVs                |
+| [Scripts/backfilling/FUNCTIONS/00_FUN_apply_delay_correction.R](Scripts/backfilling/FUNCTIONS/00_FUN_apply_delay_correction.R)     | Source-aware RF join, rules, raw/corrected/applied cols |
+| [Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R](Scripts/backfilling/FUNCTIONS/00_FUN_paho_data_process.R)                 | PAHO monthly cumulative/incident transforms             |
+| [Scripts/backfilling/00_RF_calculate.R](Scripts/backfilling/00_RF_calculate.R)                                                       | Monthly empirical RF refresh from crawlers              |
+| [Assets/Stable/paho_rf_lookup.csv](Assets/Stable/paho_rf_lookup.csv)                                                                 | Stable PAHO RF lookup (weekly d)                        |
+| [Assets/Stable/who_rf_lookup.csv](Assets/Stable/who_rf_lookup.csv)                                                                   | Stable WHO RF lookup (monthly d)                        |
 | [Scripts/nowcasting/03_proportion_nowcast.R](Scripts/nowcasting/03_proportion_nowcast.R)                                             | Proportion nowcasting                                   |
 | [Scripts/utils/logging.R](Scripts/utils/logging.R)                                                                                   | Pipeline logging                                        |
 | [Scripts/utils/country_tracking.R](Scripts/utils/country_tracking.R)                                                                 | Country attrition tracking per pipeline step            |

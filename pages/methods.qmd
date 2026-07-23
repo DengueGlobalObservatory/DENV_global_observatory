@@ -27,7 +27,7 @@ format:
 <p>PAHO PLISA Pan American National Dengue Data:<br>
 <a href="https://github.com/DengueGlobalObservatory/PAHO-crawler">https://github.com/DengueGlobalObservatory/PAHO-crawler</a></p>
 
-<p>Data from the regional (PAHO, SEARO) and global (WHO) databases are combined to create a single data frame for the current year. For countries included in both the regional and global databases, the regional database is prioritised.</p>
+<p>We combine data from these dashboards into a single monthly view for each country. Where the same country appears in more than one source, we choose the most complete and reliable record, generally favouring regional dashboards over the global WHO dashboard.</p>
 
 <p><strong>Historical Data</strong></p>
 
@@ -37,21 +37,15 @@ format:
 <h2>Backfilling</h2>
 
 <div class="faq-answer">
-<p>Surveillance systems, such as mandatory passive reporting systems used to track dengue, are extensive networks that involve point-of-care testing, laboratory facilities, local and regional public health agencies, national public health authorities, and international cooperation. This complexity means that identifying cases and incorporating them into a multinational data system involves multiple people across various agencies, and the process can take anywhere from days to months. Because of this, to obtain an accurate estimate of current and recent cases, we need to account for cases that have not yet been reported. This process is known as backfilling. Currently, we limit our backfilling to the nations included in the Americas (PAHO), due to data availability. We are working to provide similar backfilling for other regions.</p>
+<p>It takes time for dengue cases to move through laboratories and reporting systems before they appear on public dashboards. Recent weeks and months therefore often show fewer cases than will eventually be reported. <strong>Backfilling</strong> adjusts for this reporting delay so that current totals better reflect the true burden.</p>
 
-<p><strong>Estimating the reporting factor of American Nations</strong></p>
+<p>We estimate, for each country, how incomplete reporting tends to be at different time lags. This is done by comparing many past dashboard downloads: early reports for a given month are compared with later, more complete reports for the same month. From these comparisons we derive <strong>reporting factors</strong> that scale up under-reported counts.</p>
 
-<p>For American nations, reporting factors were empirically estimated from the PAHO DENV cases dashboard <a href="https://www3.paho.org/data/index.php/en/mnu-topics/indicadores-dengue-en/dengue-nacional-en/252-dengue-pais-ano-en.html">PLISA Health Information Platform for the Americas</a>. The dashboard was downloaded weekly from June 2022 to April 2024. Additionally, DENV case data for the same period was downloaded again in July 2025. Using this data, the ratio of under- or over-reporting of cases (reporting factor) for each country at each reporting delay could be estimated using the following equation:</p>
+<p>As of June 2026, this adjustment is applied to data from the <strong>PAHO</strong> dashboard (Americas) and the <strong>WHO Global</strong> dashboard. Data from the <strong>SEARO</strong> dashboard are included using the reported figures directly, without this adjustment, until enough historical data are available to estimate reliable factors for that region.</p>
 
-<p>$$\mathbf{f}_{c,d} = (\frac{1}{T} \sum_{t=i}^{T} \left( \frac{N_{t,c,d}}{V_{t,c}} \right))/1$$</p>
+<p>Correction is applied only where we have sufficient historical evidence and the estimated adjustment is within reasonable bounds. Where correction is not appropriate — for example, because reporting patterns are too irregular — we use the original reported count rather than omitting the country or month. Belize is excluded from PAHO correction because of unstable reporting-delay patterns.</p>
 
-<p>where N is the number of DENV cases for a given country (c), at a given epiweek (t) for a particular delay (d), V is the validated count of DENV cases for a given country (c), at a given epiweek (t), and f is the reporting factor for a given country (c), at a given epiweek (t) for a given delay (d). T is the total number of observations recorded.</p>
-
-<p><strong>Correcting DENV cases</strong></p>
-
-<p>For PAHO nations, this case count was multiplied by the average reporting factor at the corresponding delay and country. Four nations (Belize, Dominica, Barbados, and Paraguay) did not undergo this correction due to the complex nature of reporting factors in those countries. These corrections resulted in small differences in the monthly and overall case counts.</p>
-
-<p>This process will soon be available and applied in other regions</p>
+<p>For PAHO, weekly cumulative counts are converted to monthly cases after adjustment. The corrected and uncorrected series are then combined with SEARO and WHO data to produce the monthly country totals shown in the Observatory.</p>
 </div>
 
 <h2>Defining the Dengue Season</h2>

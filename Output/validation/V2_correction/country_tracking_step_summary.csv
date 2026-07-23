@@ -1,0 +1,11 @@
+step,n_countries_differ
+step_4b_who_after_correction,196
+step_1_historic_data,0
+step_2_cleaned_data,0
+step_3a_after_case_filter,0
+step_3b_after_seasonal_filter,0
+step_4_current_data,0
+step_4a_paho_after_correction,0
+step_4b_paho_after_negative_handling,0
+step_5_merge_and_nowcast,0
+step_6_final,0

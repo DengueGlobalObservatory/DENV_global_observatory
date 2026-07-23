@@ -1,0 +1,248 @@
+---
+title: "V1 vs V2 Delay Correction Validation"
+author: "DENV Global Observatory"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(knitr)
+library(scales)
+
+# rmarkdown sets wd to this file's directory — walk up to repo root.
+find_project_root <- function() {
+  if (dir.exists("Output") && dir.exists("Scripts")) {
+    return(normalizePath("."))
+  }
+  start <- if (nzchar(knitr::current_input(dir = TRUE))) {
+    knitr::current_input(dir = TRUE)
+  } else {
+    getwd()
+  }
+  dir <- start
+  for (i in seq_len(10)) {
+    if (dir.exists(file.path(dir, "Output")) &&
+        dir.exists(file.path(dir, "Scripts"))) {
+      return(normalizePath(dir))
+    }
+    parent <- dirname(dir)
+    if (identical(parent, dir)) break
+    dir <- parent
+  }
+  stop("Cannot find project root (expected Output/ and Scripts/ in an ancestor directory).")
+}
+
+project_root <- find_project_root()
+setwd(project_root)
+
+val_dir <- file.path(project_root, "Output", "validation", "V2_correction")
+
+read_val <- function(fname) {
+  path <- file.path(val_dir, fname)
+  if (!file.exists(path)) {
+    stop("Missing ", path, " — run 01_V2_correction_validation.R first.")
+  }
+  read_csv(path, show_col_types = FALSE)
+}
+```
+
+# Overview
+
+This report compares pipeline outputs from **V1** (PAHO-only `apply_reporting_correction`) and **V2** (`apply_delay_correction` for PAHO and WHO) for the same run date.
+
+Run the analysis script first:
+
+```r
+source("Scripts/validation/V2_correction/01_V2_correction_validation.R")
+```
+
+Default snapshot directories (edit `run_date` in the R script to change):
+
+- `Output/2026_06_11_V1/`
+- `Output/2026_06_11_V2/`
+
+# Run metadata
+
+```{r metadata}
+meta <- read_val("run_metadata.csv")
+kable(meta)
+```
+
+# Files unchanged by correction
+
+Season averages and historical monthly proportions are upstream of Step 4; row counts should match.
+
+```{r unchanged}
+kable(read_val("unchanged_files_summary.csv"))
+```
+
+# Backfill output (`DENV_cases_backfill_output.csv`)
+
+```{r backfill-summary}
+backfill_diffs <- read_val("backfill_case_diffs.csv")
+source_switches <- read_val("backfill_source_switches.csv")
+
+kable(
+  meta %>%
+    filter(dataset == "backfill") %>%
+    select(n_v1, n_v2, n_joined, n_only_v1, n_only_v2,
+           n_identical, n_case_diffs, n_source_switches,
+           median_abs_delta, max_abs_delta)
+)
+```
+
+## Case differences by source
+
+```{r backfill-by-source}
+kable(
+  read_val("case_diffs_by_source.csv") %>%
+    filter(dataset == "backfill")
+)
+```
+
+## Source selection switches
+
+Rows where the winning source differs for the same country–month (`r nrow(source_switches)` total).
+
+```{r source-switches}
+if (nrow(source_switches) > 0) {
+  kable(source_switches)
+} else {
+  cat("No source switches.")
+}
+```
+
+## Largest backfill deltas
+
+```{r backfill-top}
+kable(
+  backfill_diffs %>%
+    filter(!is.na(cases_v1), !is.na(cases_v2)) %>%
+    arrange(desc(abs_delta)) %>%
+    select(iso3, Year, Month, source_v1, source_v2, cases_v1, cases_v2, delta,
+           correction_reason) %>%
+    head(20)
+)
+```
+
+```{r backfill-hist, fig.height=4}
+backfill_diffs %>%
+  filter(!is.na(cases_v1), !is.na(cases_v2), abs_delta > 0) %>%
+  ggplot(aes(abs_delta)) +
+  geom_histogram(bins = 40, fill = "steelblue", colour = "white") +
+  scale_x_continuous(labels = comma) +
+  labs(
+    title = "Backfill |V2 − V1| case differences",
+    x = "Absolute case difference",
+    y = "Country–months"
+  ) +
+  theme_minimal()
+```
+
+# Nowcast output (`DENV_cases_nowcast_output.csv`)
+
+Correction propagates through merge and nowcast; expect similar diff counts to backfill.
+
+```{r nowcast-summary}
+nowcast_diffs <- read_val("nowcast_case_diffs.csv")
+
+kable(
+  meta %>%
+    filter(dataset == "nowcast") %>%
+    select(n_v1, n_v2, n_joined, n_only_v1, n_only_v2,
+           n_identical, n_case_diffs, n_source_switches,
+           median_abs_delta, max_abs_delta)
+)
+```
+
+```{r nowcast-by-source}
+kable(
+  read_val("case_diffs_by_source.csv") %>%
+    filter(dataset == "nowcast")
+)
+```
+
+```{r nowcast-top}
+kable(
+  nowcast_diffs %>%
+    filter(!is.na(cases_v1), !is.na(cases_v2)) %>%
+    arrange(desc(abs_delta)) %>%
+    select(iso3, Year, Month, source, Data_status, cases_v1, cases_v2, delta) %>%
+    head(15)
+)
+```
+
+# Country tracking
+
+Step-level inclusion flags; V2 WHO correction should increase `step_4b_who_after_correction` relative to V1.
+
+```{r tracking-steps}
+kable(read_val("country_tracking_step_summary.csv"))
+```
+
+```{r tracking-diffs}
+diffs <- read_val("country_tracking_diffs.csv")
+if (nrow(diffs) > 0) {
+  kable(
+    diffs %>%
+      select(iso3, country, step, value_v1, value_v2,
+             final_status_v1, final_status_v2) %>%
+      head(30)
+  )
+} else {
+  cat("No country-tracking differences.")
+}
+```
+
+Pipeline funnel summaries:
+
+```{r tracking-summary}
+kable(read_val("country_tracking_summary_v1.csv"))
+kable(read_val("country_tracking_summary_v2.csv"))
+```
+
+# V2 correction audit
+
+Summary of PAHO weekly and WHO monthly correction from `inital_rf_correction/` (V2 run only).
+
+```{r audit}
+audit <- read_val("correction_audit_summary.csv")
+if (nrow(audit) > 0) {
+  kable(audit)
+} else {
+  cat("No audit files found under V2 output.")
+}
+```
+
+# Belize (BLZ) spot-check
+
+Belize is excluded from PAHO correction in V2. Applied cases should equal raw; V1 and V2 case counts should match.
+
+```{r belize}
+belize <- read_val("belize_backfill_check.csv")
+kable(
+  belize %>%
+    summarise(
+      n_rows = n(),
+      n_v1_eq_v2 = sum(belize_expected, na.rm = TRUE),
+      n_applied_eq_raw = sum(cases_v2 == raw_cases, na.rm = TRUE),
+      n_corrected_na = sum(is.na(corrected_cases), na.rm = TRUE)
+    )
+)
+```
+
+# Countries with largest total impact
+
+```{r country-impact}
+kable(
+  read_val("case_diffs_by_country.csv") %>%
+    filter(dataset == "backfill") %>%
+    head(15)
+)
+```

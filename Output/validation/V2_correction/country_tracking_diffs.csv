@@ -1,0 +1,197 @@
+iso3,country,value_v1,value_v2,step,differs,final_status_v1,final_status_v2
+AFG,Afghanistan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ALB,Albania,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+AND,Andorra,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+AGO,Angola,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+AIA,Anguilla,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ATG,Antigua and Barbuda,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ARG,Argentina,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ARM,Armenia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ABW,Aruba,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+AUS,Australia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+AUT,Austria,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+AZE,Azerbaijan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BHS,Bahamas,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BGD,Bangladesh,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BRB,Barbados,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BLR,Belarus,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BEL,Belgium,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BLZ,Belize,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BEN,Benin,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BMU,Bermuda,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BTN,Bhutan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BOL,Bolivia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BES,"Bonaire, Saint Eustatius and Saba",FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+BIH,Bosnia and Herzegovina,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BWA,Botswana,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BRA,Brazil,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BGR,Bulgaria,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+BFA,Burkina Faso,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BDI,Burundi,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CPV,Cabo Verde,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+KHM,Cambodia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+CMR,Cameroon,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CAN,Canada,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CYM,Cayman Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+CAF,Central African Republic,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TCD,Chad,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CHL,Chile,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+CHN,China,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+COL,Colombia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+COM,Comoros,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+COG,Congo,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+COK,Cook Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+CRI,Costa Rica,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+HRV,Croatia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CUB,Cuba,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+CUW,Curaçao,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+CYP,Cyprus,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CZE,Czechia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CIV,Côte d'Ivoire,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+COD,Democratic Republic of the Congo,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+DNK,Denmark,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+DMA,Dominica,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+DOM,Dominican Republic,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ECU,Ecuador,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SLV,El Salvador,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+GNQ,Equatorial Guinea,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ERI,Eritrea,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+EST,Estonia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SWZ,Eswatini,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ETH,Ethiopia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+FJI,Fiji,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+FIN,Finland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+FRA,France,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GUF,French Guiana,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PYF,French Polynesia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+GAB,Gabon,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GMB,Gambia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GEO,Georgia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+DEU,Germany,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GHA,Ghana,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GRC,Greece,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GRD,Grenada,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+GLP,Guadeloupe,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+GUM,Guam,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GTM,Guatemala,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+GIN,Guinea,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GNB,Guinea-Bissau,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GUY,Guyana,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+HTI,Haiti,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+VAT,Holy See,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+HND,Honduras,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+HUN,Hungary,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ISL,Iceland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+IND,India,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+IRN,Iran (Islamic Republic of),FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+IRL,Ireland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ISR,Israel,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ITA,Italy,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+JAM,Jamaica,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+KAZ,Kazakhstan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+KEN,Kenya,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+KIR,Kiribati,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+KGZ,Kyrgyzstan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LAO,Lao People's Democratic Republic,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+LVA,Latvia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LSO,Lesotho,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LBR,Liberia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LIE,Liechtenstein,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LTU,Lithuania,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LUX,Luxembourg,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MDG,Madagascar,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MWI,Malawi,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MYS,Malaysia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MDV,Maldives,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MLI,Mali,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MLT,Malta,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MHL,Marshall Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MTQ,Martinique,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MRT,Mauritania,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MUS,Mauritius,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MYT,Mayotte,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MEX,Mexico,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+FSM,Micronesia (Federated States of),FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MCO,Monaco,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MNE,Montenegro,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MSR,Montserrat,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MOZ,Mozambique,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MMR,Myanmar,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+NAM,Namibia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NRU,Nauru,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NPL,Nepal,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+NLD,Netherlands (Kingdom of the),FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NCL,New Caledonia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+NIC,Nicaragua,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+NER,Niger,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NGA,Nigeria,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NIU,Niue,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MKD,North Macedonia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+MNP,Northern Mariana Islands (Commonwealth of the),FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+NOR,Norway,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+PAK,Pakistan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PLW,Palau,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PAN,Panama,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PRY,Paraguay,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PER,Peru,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+PCN,Pitcairn Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+POL,Poland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+PRT,Portugal,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+PRI,Puerto Rico,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MDA,Republic of Moldova,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ROU,Romania,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+RUS,Russian Federation,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+RWA,Rwanda,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+REU,Réunion,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+BLM,Saint Barthelemy,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+KNA,Saint Kitts and Nevis,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+LCA,Saint Lucia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+MAF,Saint Martin (French part),FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+VCT,Saint Vincent and the Grenadines,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+WSM,Samoa,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SMR,San Marino,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+STP,Sao Tome and Principe,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SAU,Saudi Arabia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after merge/nowcast,Dropped after merge/nowcast
+SEN,Senegal,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SRB,Serbia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SYC,Seychelles,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SLE,Sierra Leone,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SGP,Singapore,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SXM,Sint Maarten,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SVK,Slovakia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SVN,Slovenia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SLB,Solomon Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ZAF,South Africa,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+SSD,South Sudan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ESP,Spain,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+LKA,Sri Lanka,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SDN,Sudan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SUR,Suriname,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+SWE,Sweden,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+CHE,Switzerland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TJK,Tajikistan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+THA,Thailand,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TLS,Timor-Leste,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TGO,Togo,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TKL,Tokelau,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TON,Tonga,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TTO,Trinidad and Tobago,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TKM,Turkmenistan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TCA,Turks and Caicos Islands,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TUV,Tuvalu,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+TUR,Türkiye,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+UGA,Uganda,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+UKR,Ukraine,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+GBR,United Kingdom of Great Britain and Northern Ireland,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+TZA,United Republic of Tanzania,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+USA,United States of America,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+URY,Uruguay,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+UZB,Uzbekistan,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+VUT,Vanuatu,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+VEN,Venezuela,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+VNM,Viet Nam,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+VGB,Virgin Islands (UK),FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+VIR,Virgin Islands (US),FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+WLF,Wallis and Futuna,FALSE,TRUE,step_4b_who_after_correction,TRUE,Included,Included
+ZMB,Zambia,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection
+ZWE,Zimbabwe,FALSE,TRUE,step_4b_who_after_correction,TRUE,Dropped after current data selection,Dropped after current data selection

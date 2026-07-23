@@ -108,6 +108,9 @@ initialize_country_tracking <- function(countries_df, step_name = "Step_1_Histor
         step_2_cleaned_data = FALSE,
         step_3a_after_case_filter = FALSE,
         step_3b_after_seasonal_filter = FALSE,
+        step_4a_paho_after_correction = FALSE,
+        step_4b_who_after_correction = FALSE,
+        step_4b_paho_after_negative_handling = FALSE,
         step_4_current_data = FALSE,
         step_5_merge_and_nowcast = FALSE,
         step_6_final = FALSE,
@@ -134,6 +137,9 @@ initialize_country_tracking <- function(countries_df, step_name = "Step_1_Histor
           step_2_cleaned_data = FALSE,
           step_3a_after_case_filter = FALSE,
           step_3b_after_seasonal_filter = FALSE,
+          step_4a_paho_after_correction = FALSE,
+          step_4b_who_after_correction = FALSE,
+          step_4b_paho_after_negative_handling = FALSE,
           step_4_current_data = FALSE,
           step_5_merge_and_nowcast = FALSE,
           step_6_final = FALSE,
@@ -241,6 +247,9 @@ record_countries_at_step <- function(countries_df, step_name, drop_reason = NA_c
     "Step_2_Cleaned_Data" = "step_2_cleaned_data",
     "Step_3a_After_Case_Filter" = "step_3a_after_case_filter",
     "Step_3b_After_Seasonal_filter" = "step_3b_after_seasonal_filter",
+    "Step_4a_PAHO_After_Correction" = "step_4a_paho_after_correction",
+    "Step_4b_WHO_After_Correction" = "step_4b_who_after_correction",
+    "Step_4b_PAHO_After_Negative_Handling" = "step_4b_paho_after_negative_handling",
     "Step_4_Current_Data" = "step_4_current_data",
     "Step_5_Merge_and_Nowcast" = "step_5_merge_and_nowcast",
     "Step_6_Final" = "step_6_final"
@@ -300,6 +309,8 @@ record_countries_at_step <- function(countries_df, step_name, drop_reason = NA_c
       # Find countries that were present in at least one previous step but not in current step
       previous_steps <- c("step_1_historic_data", "step_2_cleaned_data",
                          "step_3a_after_case_filter", "step_3b_after_seasonal_filter",
+                         "step_4a_paho_after_correction", "step_4b_who_after_correction",
+                         "step_4b_paho_after_negative_handling",
                          "step_4_current_data", "step_5_merge_and_nowcast")
       previous_steps <- previous_steps[previous_steps != step_col_final]
       previous_steps <- previous_steps[previous_steps %in% names(env$tracking_df)]
@@ -412,6 +423,18 @@ export_country_tracking <- function(output_path) {
     return(invisible(NULL))
   }
   
+  # Ensure Step 4 sub-step columns exist (older in-session tracking may lack them)
+  step4_sub_cols <- c(
+    "step_4a_paho_after_correction",
+    "step_4b_who_after_correction",
+    "step_4b_paho_after_negative_handling"
+  )
+  for (col in step4_sub_cols) {
+    if (!col %in% names(env$tracking_df)) {
+      env$tracking_df[[col]] <- FALSE
+    }
+  }
+
   # Add final status
   tracking_export <- env$tracking_df %>%
     dplyr::mutate(
@@ -419,6 +442,9 @@ export_country_tracking <- function(output_path) {
         step_6_final ~ "Included",
         step_5_merge_and_nowcast ~ "Dropped after merge/nowcast",
         step_4_current_data ~ "Dropped after current data selection",
+        step_4b_paho_after_negative_handling ~ "Present at PAHO negative handling only",
+        step_4b_who_after_correction ~ "Present at WHO correction only",
+        step_4a_paho_after_correction ~ "Present at PAHO correction only",
         step_3b_after_seasonal_filter ~ "Dropped after seasonal filtering",
         step_3a_after_case_filter ~ "Dropped after case filtering",
         step_2_cleaned_data ~ "Dropped after cleaned data step",
@@ -435,6 +461,9 @@ export_country_tracking <- function(output_path) {
       "Step_2_Cleaned_Data",
       "Step_3a_After_Case_Filter",
       "Step_3b_After_Seasonal_filter",
+      "Step_4a_PAHO_After_Correction",
+      "Step_4b_WHO_After_Correction",
+      "Step_4b_PAHO_After_Negative_Handling",
       "Step_4_Current_Data",
       "Step_5_Merge_and_Nowcast",
       "Step_6_Final"
@@ -444,6 +473,9 @@ export_country_tracking <- function(output_path) {
       sum(tracking_export$step_2_cleaned_data, na.rm = TRUE),
       sum(tracking_export$step_3a_after_case_filter, na.rm = TRUE),
       sum(tracking_export$step_3b_after_seasonal_filter, na.rm = TRUE),
+      sum(tracking_export$step_4a_paho_after_correction, na.rm = TRUE),
+      sum(tracking_export$step_4b_who_after_correction, na.rm = TRUE),
+      sum(tracking_export$step_4b_paho_after_negative_handling, na.rm = TRUE),
       sum(tracking_export$step_4_current_data, na.rm = TRUE),
       sum(tracking_export$step_5_merge_and_nowcast, na.rm = TRUE),
       sum(tracking_export$step_6_final, na.rm = TRUE)

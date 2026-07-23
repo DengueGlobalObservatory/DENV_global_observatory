@@ -1,0 +1,12 @@
+source,correction_applied,correction_excluded,correction_reason,n_rows,n_countries,total_raw,total_applied,total_impact
+paho_weekly,FALSE,TRUE,country_excluded,159,1,98694,98694,0
+paho_weekly,FALSE,TRUE,insufficient_n_rf,18,8,376,376,0
+paho_weekly,FALSE,TRUE,no_lookup_match,4496,49,531045609,531045609,0
+paho_weekly,FALSE,TRUE,rf_exceeds_max,3,1,0,0,0
+paho_weekly,TRUE,FALSE,applied_mean,2644,37,163609364,166423844,2814480
+paho_weekly,TRUE,FALSE,applied_median,6,1,0,0,0
+who_monthly,FALSE,FALSE,applied_mean,56,14,0,0,0
+who_monthly,FALSE,TRUE,insufficient_n_rf,147,81,229708,229708,0
+who_monthly,FALSE,TRUE,no_lookup_match,10384,197,41557637,41557637,0
+who_monthly,TRUE,FALSE,applied_mean,882,101,3033850,3219787,185937
+who_monthly,TRUE,FALSE,applied_median,23,16,19148,30871,11723
