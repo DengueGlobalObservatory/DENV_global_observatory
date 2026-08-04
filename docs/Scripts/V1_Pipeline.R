@@ -111,10 +111,15 @@ source("Scripts/seasonal_baseline/02_identify_seasonal_baseline.R")
 
 
 #------ Step 4: Data selection and Backfilling  
+        # 08-june-2026 this has been updated to include backfilling/correction for WHO and PAHO 
+
 log_message( "Step 4: select current season data and backfill")
 
+# V1 step
+# source("Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
 
-source("Scripts/backfilling/02_PAHO_monthly_cases_and_source_selection.R")
+# V2 step
+source("Scripts/backfilling/02_V2_monthly_source_selection.R")
 
 #------ Step 5: Nowcasting to Date 
 log_message( "Step 5: Nowcast missing recent months")

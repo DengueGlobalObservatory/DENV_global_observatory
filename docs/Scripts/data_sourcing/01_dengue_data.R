@@ -23,6 +23,7 @@ library(jsonlite)
 library(dplyr)
 library(readxl)
 library(opendenguedata)
+library(ISOweek)
 
 if (!exists("log_message")) {
   source("Scripts/utils/logging.R")
@@ -35,6 +36,20 @@ source("Scripts/data_sourcing/FUNCTIONS/00_FUN_realtime_data_download.R")
 #---- PAHO data selection, process, and save 
 
 paho <- compile_PAHO_github()
+
+# add reporting delay
+# Delay is weeks between download Epiweek and observation Epiweek 
+
+paho <- paho %>%
+  mutate(
+    iso_week = paste0(year, "-W", str_pad(EW, 2, pad = "0")),
+    onset_date = ISOweek2date(paste0(iso_week, "-1")),
+    year = year(onset_date),
+    d = round(as.numeric(difftime(ymd(ext_date), onset_date, units = "weeks")), 0)
+  )
+# add unit
+paho$d_unit <- "week"
+
 
 #---- WHO -API
 log_message("Start WHO - API download...")
