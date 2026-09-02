@@ -1,0 +1,9 @@
+region,n_countries,total_cases,median_country_mean,n_endemic,n_emerging,n_signal_strong,n_signal_moderate,n_signal_weak,seasons_min,seasons_median,seasons_max
+South America,13,40483001,2765.016042780752,9,4,6,2,5,4,15,16
+East & Southeast Asia,13,10475709,1420.893939393939,8,5,5,4,4,9,16,16
+North & Central America,9,5756877,1695.2994923857866,9,0,0,3,6,14,16,16
+South Asia,8,4837582,2440.190355329953,6,2,4,2,2,5,16,16
+Sub-Saharan Africa,9,673326,276.66292134831497,0,9,5,3,1,3,6,10
+Caribbean,25,621753,59.076923076923066,7,18,8,12,5,3,11,16
+"Europe, Middle East & North Africa",4,415027,634.891811454312,1,3,1,2,1,5,8,14
+Pacific Islands,15,319868,74.05357142857143,6,9,3,4,8,5,9,15
