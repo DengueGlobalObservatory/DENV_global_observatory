@@ -1177,3 +1177,8 @@ searo_rf_forest_plot <- searo_rf_forest_data %>%
     legend.key.size = unit(0.35, "cm"),
     axis.text.y = element_text(size = 8)
   )
+
+# ---- SAVE MANUSCRIPT FIGURES ----
+
+ggsave("FIG_rf_compare_plot.tiff", who_paho_rf_compare_plot,dpi = 300, bg = "white")
+ggsave("FIG_rf_who_plot.tiff", who_rf_plot,dpi = 300, bg = "white")
