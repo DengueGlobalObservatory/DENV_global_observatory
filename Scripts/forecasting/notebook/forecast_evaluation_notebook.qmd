@@ -271,9 +271,77 @@ if (is.null(summary_country)) {
 }
 ```
 
+::: {.callout-warning title="Coverage flags — countries that will constrain the backtest"}
+
+```{r}
+#| label: coverage-flags
+#| output: asis
+
+if (is.null(panel) || is.null(summary_country)) {
+  pending("Scripts/forecasting/01_prepare_training_data.R and 02_data_summary.R")
+} else {
+  fmt_iso <- function(x) {
+    if (length(x) == 0) return("_none_")
+    paste0("`", paste(sort(x), collapse = "`, `"), "`")
+  }
+
+  # 1. No observed / corrected / estimated month in 2026.
+  in_2026 <- panel %>%
+    filter(Year == 2026, data_status != "gap") %>%
+    distinct(iso3) %>%
+    pull(iso3)
+  no_2026 <- setdiff(unique(panel$iso3), in_2026)
+
+  # 2. Fewer than 60 months (5 years) of actual data, whatever the span.
+  thin <- summary_country %>%
+    filter(n_months < 60) %>%
+    arrange(n_months)
+
+  # 3. Gap months inside the last 5 years.
+  cutoff <- max(panel$date) %m-% years(5)
+  gaps_5y <- panel %>%
+    filter(date >= cutoff, data_status == "gap") %>%
+    count(iso3, name = "gap_months") %>%
+    arrange(desc(gap_months))
+  heavy <- gaps_5y %>% filter(gap_months >= 12)
+  light <- gaps_5y %>% filter(gap_months < 12)
+
+  cat(sprintf(
+    "**No data in 2026** (%d) -- seasonal profile only, no current-season observation; carried for history but not available for prospective scoring: %s\n\n",
+    length(no_2026), fmt_iso(no_2026)
+  ))
+
+  cat(sprintf(
+    "**Under 5 years of actual data** (%d) -- too thin for a fixed 5-year window; candidates to default to the seasonal baseline:\n\n",
+    nrow(thin)
+  ))
+  cat("| iso3 | months | complete seasons | span (yr) |\n")
+  cat("|------|-------:|-----------------:|----------:|\n")
+  cat(paste(sprintf(
+    "| `%s` | %d | %d | %.1f |",
+    thin$iso3, thin$n_months, thin$n_complete_seasons, thin$span_years
+  ), collapse = "\n"))
+  cat("\n\n")
+
+  cat(sprintf(
+    "**Gaps in the last 5 years** (%d countries, since %s) -- a fixed-window backtest trains on discontinuous history here:\n\n",
+    nrow(gaps_5y), format(cutoff)
+  ))
+  cat(sprintf(
+    "- 12+ gap months (%d): %s\n\n",
+    nrow(heavy),
+    paste(sprintf("`%s` (%d)", heavy$iso3, heavy$gap_months), collapse = ", ")
+  ))
+  cat(sprintf("- fewer than 12 (%d): %s\n", nrow(light), fmt_iso(light$iso3)))
+}
+```
+
+:::
+
 ::: {.callout-note title="Notes / observations"}
-_Add: which countries are thin on history, how much of the recent record is
-corrected vs estimated, anything that will constrain the backtest windows._
+_Add: reading of the flags above — which of these default to the seasonal
+baseline vs still get a bespoke model, whether the expanding window rescues the
+gappy countries, how much of the recent record is corrected vs estimated._
 :::
 
 ---
