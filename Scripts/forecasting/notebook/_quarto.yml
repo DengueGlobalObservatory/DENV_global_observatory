@@ -1,0 +1,28 @@
+# Standalone sub-project so this internal notebook is rendered on its own and
+# never picked up by the public website project in the repo root _quarto.yml.
+project:
+  type: default
+  execute-dir: project
+  render:
+    - forecast_evaluation_notebook.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    code-summary: "code"
+    embed-resources: true
+    df-print: paged
+    fig-width: 8
+    fig-height: 4.5
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: false

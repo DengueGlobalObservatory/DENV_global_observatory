@@ -1,0 +1,430 @@
+---
+title: "GDO Forecasting — Evaluation Notebook"
+subtitle: "Results, figures and working notes for the forecasting objective"
+author: "K M Susong"
+date: today
+format:
+  html:
+    grid:
+      body-width: 1000px
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(dplyr)
+library(tidyr)
+library(readr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(knitr)
+
+knitr::opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE,
+  fig.width = 8, fig.height = 4.5, dpi = 150
+)
+
+theme_set(theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold")))
+
+# --- Locate the repo root, whatever directory this renders from ---
+find_repo_root <- function(start = getwd()) {
+  d <- normalizePath(start, winslash = "/")
+  repeat {
+    if (file.exists(file.path(d, "Scripts", "V1_Pipeline.R"))) return(d)
+    parent <- dirname(d)
+    if (identical(parent, d)) {
+      stop("DENV_global_observatory repo root not found from ", start)
+    }
+    d <- parent
+  }
+}
+repo_root <- find_repo_root()
+
+# Pinned parameters and provisional thresholds come straight from the pipeline
+# config, so this notebook always reports what the scripts actually used.
+source(file.path(repo_root, "Scripts", "forecasting", "00_config.R"), local = TRUE)
+
+fc_out <- file.path(repo_root, forecast_out)
+
+# Load a forecasting output if it exists yet, else NULL.
+read_fc <- function(...) {
+  p <- file.path(fc_out, ...)
+  if (!file.exists(p)) return(NULL)
+  readr::read_csv(p, show_col_types = FALSE)
+}
+
+# Emit a "not generated yet" callout for sections whose script has not run.
+# asis_output renders correctly whether or not the calling chunk is `asis`.
+pending <- function(script) {
+  knitr::asis_output(sprintf(
+    "::: {.callout-note appearance=\"simple\"}\nNot generated yet -- run `%s` and re-render.\n:::\n",
+    script
+  ))
+}
+```
+
+```{r}
+#| label: load-outputs
+
+panel          <- read_fc("training_data", paste0("training_panel_", snapshot_date, ".csv"))
+region_lookup  <- read_fc("training_data", "country_region_lookup.csv")
+summary_country <- read_fc("data_summary", "summary_country.csv")
+summary_region  <- read_fc("data_summary", "summary_region.csv")
+strata_country  <- read_fc("data_summary", "strata_country.csv")
+coverage_grid   <- read_fc("cv_splits", "rolling_origins.csv")
+stage0_diag     <- read_fc("stage0_fit", "diagnostics.csv")
+
+if (!is.null(panel)) {
+  panel <- panel %>%
+    mutate(
+      date = as.Date(date),
+      data_status = factor(data_status,
+        levels = c("observed", "corrected", "estimated", "gap"))
+    )
+}
+```
+
+## About this notebook {.unnumbered}
+
+This is the **results record** for the GDO forecasting objective — the place to
+look at what each pipeline step produced, keep the figures and tables that will
+go into the manuscript, and write down what they mean and where the work goes
+next.
+
+It is deliberately **not**:
+
+- the running task log — that lives in Logseq;
+- a home for pipeline code — the training-data build, data summary, model
+  definitions, runners and scoring pipeline are all under
+  `Scripts/forecasting/`. This notebook only *reads their outputs*.
+
+::: {.callout-note appearance="simple"}
+**Pinned data snapshot:** `Output/`r snapshot_date`/` — merged historical record
+plus current-period nowcast output. Every result below is against this frozen
+snapshot; re-pin in `Scripts/forecasting/00_config.R` and re-run the pipeline to
+refresh.
+:::
+
+Plan of record: `planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT`.
+Stages: **0** in-sample fit diagnostics · **1** rolling-origin hindcast
+(5 / 7 / 10 yr + expanding) · **2** prospective shadow deployment.
+
+---
+
+# Training data {#sec-training-data}
+
+`01_prepare_training_data.R` merges the deep historical record
+(`full_data_season_monthly_proportions.csv`, complete seasons) with the
+current-period nowcast output (`DENV_cases_nowcast_output.csv`). The nowcast view
+wins on any overlapping country-month, so the panel runs as far forward as data
+exists and carries the post-nowcast "ground truth".
+
+`data_status` is preserved throughout: **observed** (raw report), **corrected**
+(reporting-delay factor applied), **estimated** (seasonal-proportion nowcast),
+**gap** (internal month with no value — the historical file drops all-zero
+years).
+
+```{r}
+#| label: tbl-panel-overview
+#| tbl-cap: "Training panel — coverage and composition."
+
+if (is.null(panel)) {
+  pending("Scripts/forecasting/01_prepare_training_data.R")
+} else {
+  tibble::tibble(
+    Metric = c("Countries", "Country-months", "Date range",
+               "From nowcast output", "From history"),
+    Value = c(
+      as.character(n_distinct(panel$iso3)),
+      as.character(nrow(panel)),
+      paste(format(min(panel$date)), "to", format(max(panel$date))),
+      "", ""
+    )
+  ) %>% knitr::kable()
+}
+```
+
+```{r}
+#| label: tbl-data-status
+#| tbl-cap: "Country-months by data status."
+
+if (!is.null(panel)) {
+  panel %>%
+    count(data_status, name = "country_months") %>%
+    mutate(share = scales::percent(country_months / sum(country_months), 0.1)) %>%
+    knitr::kable()
+}
+```
+
+```{r}
+#| label: fig-data-status-year
+#| fig-cap: "Data-status composition by calendar year. Recent years carry the reporting-delay corrections and seasonal-proportion estimates the forecast layer treats as ground truth."
+#| fig-height: 4
+
+if (!is.null(panel)) {
+  panel %>%
+    filter(Year >= 2018) %>%
+    count(Year, data_status) %>%
+    ggplot(aes(Year, n, fill = data_status)) +
+    geom_col() +
+    scale_fill_manual(values = c(
+      observed = "#4C72B0", corrected = "#DD8452",
+      estimated = "#C44E52", gap = "grey80"
+    )) +
+    labs(x = NULL, y = "Country-months", fill = "Status") +
+    theme(legend.position = "top")
+}
+```
+
+```{r}
+#| label: tbl-country-coverage
+#| tbl-cap: "Per-country coverage (complete seasons, span, and share of months that are model-estimated). Full detail in summary_country.csv."
+
+if (is.null(summary_country)) {
+  pending("Scripts/forecasting/02_data_summary.R")
+} else {
+  summary_country %>%
+    transmute(
+      iso3, country, region,
+      complete_seasons = n_complete_seasons,
+      months = n_months,
+      span_yrs = round(span_years, 1),
+      gap_months = n_gap_months,
+      pct_estimated = scales::percent(pct_estimated, 0.1)
+    ) %>%
+    arrange(region, desc(complete_seasons))
+}
+```
+
+::: {.callout-note title="Notes / observations"}
+_Add: which countries are thin on history, how much of the recent record is
+corrected vs estimated, anything that will constrain the backtest windows._
+:::
+
+---
+
+# Data characterisation & scenario strata {#sec-strata}
+
+`02_data_summary.R` characterises each country's burden and seasonal shape, and
+assigns the two **provisional** scenario strata the Stage 1 backtest will be
+sliced on (the third axis, lead time, is intrinsic to the forecast).
+
+Seasonal shape is read from the mean seasonal profile (`DENV_average_season.csv`):
+`seasonal_concentration` is the Herfindahl index of the mean monthly proportions
+— `r round(1/12, 3)` for a flat year, rising toward 1 as a single month
+dominates.
+
+::: {.callout-important appearance="simple"}
+**Provisional cut-points — to confirm with the team.**
+
+- **seasonality_signal**: tertiles of `seasonal_concentration` across the
+  `r if (!is.null(summary_country)) nrow(summary_country) else 96` countries →
+  weak / moderate / strong.
+- **endemicity**: *endemic* only if mean monthly cases ≥
+  `r endemic_min_mean_cases`, complete seasons ≥ `r endemic_min_seasons`, and
+  zero-month fraction < `r endemic_max_zero_fraction`; otherwise *emerging*.
+
+Alternative under consideration: adopt the seasonality clusters from Joshi et al.
+in place of the tertile split.
+:::
+
+```{r}
+#| label: tbl-strata-crosstab
+#| tbl-cap: "Countries by provisional stratum."
+
+if (is.null(summary_country)) {
+  pending("Scripts/forecasting/02_data_summary.R")
+} else {
+  summary_country %>%
+    count(seasonality_signal, endemicity) %>%
+    pivot_wider(names_from = endemicity, values_from = n, values_fill = 0L) %>%
+    mutate(seasonality_signal = factor(seasonality_signal,
+      levels = c("weak", "moderate", "strong"))) %>%
+    arrange(seasonality_signal) %>%
+    knitr::kable()
+}
+```
+
+```{r}
+#| label: fig-strata-scatter
+#| fig-cap: "Each country by burden (mean monthly cases, log scale) and seasonal concentration, coloured by provisional endemicity. Dashed lines mark the endemicity case threshold and the seasonality-signal tertile cuts."
+#| fig-height: 5
+
+if (!is.null(summary_country)) {
+  cuts <- quantile(summary_country$seasonal_concentration, c(1/3, 2/3), na.rm = TRUE)
+  ggplot(summary_country,
+         aes(mean_monthly_cases, seasonal_concentration, colour = endemicity)) +
+    geom_hline(yintercept = cuts, linetype = "dashed", colour = "grey60") +
+    geom_vline(xintercept = endemic_min_mean_cases, linetype = "dashed", colour = "grey60") +
+    geom_point(size = 2, alpha = 0.8) +
+    scale_x_log10(labels = scales::label_comma()) +
+    scale_colour_manual(values = c(endemic = "#C44E52", emerging = "#4C72B0")) +
+    labs(x = "Mean monthly cases (log scale)", y = "Seasonal concentration (HHI)",
+         colour = NULL) +
+    theme(legend.position = "top")
+}
+```
+
+```{r}
+#| label: fig-region-endemicity
+#| fig-cap: "Countries per region, split by provisional endemicity."
+#| fig-height: 3.6
+
+if (!is.null(summary_country)) {
+  summary_country %>%
+    count(region, endemicity) %>%
+    ggplot(aes(n, reorder(region, n, sum), fill = endemicity)) +
+    geom_col() +
+    scale_fill_manual(values = c(endemic = "#C44E52", emerging = "#4C72B0")) +
+    labs(x = "Countries", y = NULL, fill = NULL) +
+    theme(legend.position = "top")
+}
+```
+
+```{r}
+#| label: tbl-region-summary
+#| tbl-cap: "Region summary."
+
+if (!is.null(summary_region)) {
+  summary_region %>%
+    transmute(
+      region, n_countries,
+      endemic = n_endemic, emerging = n_emerging,
+      seasons_median, total_cases = scales::label_comma()(total_cases)
+    ) %>%
+    knitr::kable()
+}
+```
+
+::: {.callout-note title="Notes / observations"}
+_Add: does the strata split look epidemiologically sensible? Any region with too
+few countries in a stratum to score separately? Decision on tertile vs cluster
+approach._
+:::
+
+---
+
+# Backtest window coverage {#sec-coverage}
+
+`03_check_window_coverage.R` — the pre-Stage-1 gate: for each rolling origin and
+each window length (5 / 7 / 10 yr / expanding), how many countries have enough
+history to enter a fit.
+
+```{r}
+#| label: sec-coverage-body
+
+if (is.null(coverage_grid)) {
+  pending("Scripts/forecasting/03_check_window_coverage.R")
+} else {
+  knitr::asis_output("_(coverage tables and figures to be added once the script lands)_\n")
+}
+```
+
+::: {.callout-note title="Notes / observations"}
+_Add: earliest usable origin per window, which countries never clear the 10-year
+window, whether any window is too thin to bother testing._
+:::
+
+---
+
+# Stage 0 — model fit diagnostics {#sec-stage0}
+
+`run_stage0_fit.R` fits each model once on the full panel and runs its diagnostic
+checklist (convergence, dispersion, residual structure). Diagnostic only — no
+skill claim.
+
+```{r}
+#| label: tbl-stage0
+#| tbl-cap: "Stage 0 fit diagnostics."
+
+if (is.null(stage0_diag)) {
+  pending("Scripts/forecasting/run_stage0_fit.R")
+} else {
+  knitr::kable(stage0_diag)
+}
+```
+
+::: {.callout-note title="Notes / observations"}
+_Add: did every candidate pass the sanity check? Any coefficient signs or
+dispersion values worth flagging before Stage 1._
+:::
+
+---
+
+# Stage 1 — hindcast skill {#sec-stage1}
+
+Rolling-origin backtest across the four window lengths and the scenario strata.
+Primary metrics: WIS (log scale) and peak-timing difference. Secondary: MAE,
+RMSE, CRPS, PIT / coverage.
+
+```{r}
+#| label: sec-stage1-body
+
+pending("the Stage 1 backtest runner (not built yet)")
+```
+
+Planned outputs to land here: relative-skill leaderboard by lead time, score
+table (model × lead × stratum, with `n_seasons`), score heatmap, per-country fan
+charts, PIT / coverage calibration.
+
+::: {.callout-note title="Notes / observations"}
+_Add as results arrive._
+:::
+
+---
+
+# Conclusions & manuscript notes {#sec-conclusions}
+
+Running synthesis for the forecasting paper (target: PLOS Comp Biol / PLOS NTD).
+
+- **Data.** _..._
+- **Strata.** _..._
+- **Baselines.** _..._
+- **Best model(s) so far.** _..._
+- **Where the forecast is trustworthy / where it is not.** _..._
+
+---
+
+# Open questions & directions {#sec-directions}
+
+- Minimum complete-seasons floor below which a country defaults to the seasonal
+  baseline (`[Q2.4]`).
+- Spatial (region-grouped) blocking alongside the temporal windows (`§6`).
+- Promotion rule: beat both baselines at *majority* vs *all* lead times (`§6`).
+- Refit cadence for the hierarchical model — monthly vs quarterly (`[Q2.6]`).
+- Operational-utility scoring design at ~83-country scale (`[Q5.2]`).
+- Climate covariate sources and the GAM / hierarchical model structure.
+
+---
+
+# Provenance {.unnumbered}
+
+```{r}
+#| label: provenance
+#| echo: false
+
+tibble::tibble(
+  item = c("Data snapshot", "Forecast horizons", "Rolling windows (months)",
+           "Min training months", "Origin start", "Rendered"),
+  value = c(
+    snapshot_date,
+    paste(range(forecast_horizons), collapse = "–"),
+    paste(names(roll_windows), unname(roll_windows), sep = "=", collapse = ", "),
+    as.character(min_train_months),
+    format(origin_start),
+    format(Sys.time(), "%Y-%m-%d %H:%M")
+  )
+) %>% knitr::kable()
+```
+
+```{r}
+#| label: sessioninfo
+#| code-fold: true
+#| code-summary: "R session"
+
+sessionInfo()
+```
