@@ -449,23 +449,144 @@ approach._
 
 # Backtest window coverage {#sec-coverage}
 
-`03_check_window_coverage.R` — the pre-Stage-1 gate: for each rolling origin and
-each window length (5 / 7 / 10 yr / expanding), how many countries have enough
-history to enter a fit.
+`03_check_window_coverage.R` is the pre-Stage-1 gate: for each monthly rolling
+origin and each candidate training window (fixed 5 / 7 / 10 yr, expanding), how
+many countries have at least `r min_train_months` valued months in the window
+**and** at least one target month with truth. No models are fitted.
 
 ```{r}
-#| label: sec-coverage-body
+#| label: load-coverage
+
+coverage_country <- read_fc("cv_splits", "rolling_origin_country.csv")
+
+win_lvls <- c("fixed_5y", "fixed_7y", "fixed_10y", "expanding")
+if (!is.null(coverage_grid)) {
+  coverage_grid <- coverage_grid %>%
+    mutate(
+      origin_date = as.Date(origin_date),
+      window_type = factor(window_type, levels = win_lvls)
+    )
+}
+```
+
+```{r}
+#| label: fig-coverage-lines
+#| fig-cap: "Countries eligible for a fit at each rolling origin, by training window. Shorter windows lose the countries with gappy recent history; all windows fall away at the final origins as the countries with no 2026 data drop out."
+#| fig-height: 3.8
 
 if (is.null(coverage_grid)) {
   pending("Scripts/forecasting/03_check_window_coverage.R")
 } else {
-  knitr::asis_output("_(coverage tables and figures to be added once the script lands)_\n")
+  ggplot(coverage_grid, aes(origin_date, n_countries_eligible, colour = window_type)) +
+    geom_line(linewidth = 0.7) +
+    geom_hline(yintercept = unique(coverage_grid$n_countries_total),
+               linetype = "dotted", colour = "grey50") +
+    scale_colour_brewer(palette = "Set2") +
+    scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+    labs(x = NULL, y = "Countries eligible", colour = NULL) +
+    theme(legend.position = "top")
 }
 ```
 
+```{r}
+#| label: tbl-coverage-summary
+#| tbl-cap: "Eligible countries per window, and the first origin reaching 60."
+
+if (!is.null(coverage_grid)) {
+  coverage_grid %>%
+    arrange(window_type, origin_date) %>%
+    group_by(window_type) %>%
+    summarise(
+      first_origin  = first(n_countries_eligible),
+      median_origin = round(median(n_countries_eligible)),
+      last_origin   = last(n_countries_eligible),
+      reaches_60    = {
+        hit <- origin_date[n_countries_eligible >= 60]
+        if (length(hit) == 0) "never" else format(min(hit))
+      },
+      .groups = "drop"
+    ) %>%
+    knitr::kable()
+}
+```
+
+```{r}
+#| label: coverage-never-eligible
+#| output: asis
+
+if (!is.null(coverage_country)) {
+  cc <- coverage_country %>%
+    mutate(window_type = factor(window_type, levels = win_lvls))
+  all_iso <- sort(unique(cc$iso3))
+
+  cat("**Countries never eligible at any origin** (short or gap-dominated records):\n\n")
+  for (w in win_lvls) {
+    ever <- cc %>% filter(window_type == w, eligible) %>% distinct(iso3) %>% pull(iso3)
+    never <- setdiff(all_iso, ever)
+    cat(sprintf("- `%s` (%d): %s\n", w, length(never),
+                if (length(never)) paste0("`", paste(sort(never), collapse = "`, `"), "`") else "_none_"))
+  }
+}
+```
+
+::: {.callout-tip title="Window viability, by region"}
+
+Median number of origins (of `r if (!is.null(coverage_grid)) length(unique(coverage_grid$origin_date)) else 121`)
+at which the typical country in a region is eligible, per window. `121` = every
+origin.
+
+```{r}
+#| label: tbl-window-viability-region
+
+if (is.null(coverage_country)) {
+  pending("Scripts/forecasting/03_check_window_coverage.R")
+} else {
+  guidance <- tibble::tribble(
+    ~region,                              ~guidance,
+    "North & Central America",            "any window; modelling choice only",
+    "South America",                      "any window (only CHL needs expanding)",
+    "South Asia",                         "any window",
+    "East & Southeast Asia",              "any window; recent drop = no-2026-data countries, not window length",
+    "Pacific Islands",                    "7 yr minimum; 10 yr / expanding covers all 15",
+    "Caribbean",                          "7 yr minimum; 5 yr drops ~8 islands at recent origins",
+    "Sub-Saharan Africa",                 "expanding only; short windows unusable, several still fall to Baseline 2",
+    "Europe, Middle East & North Africa", "no standalone stratum under any window; pool to global"
+  )
+
+  n_ctry <- coverage_country %>% distinct(region, iso3) %>% count(region, name = "n")
+
+  coverage_country %>%
+    mutate(window_type = factor(window_type, levels = win_lvls)) %>%
+    group_by(region, window_type, iso3) %>%
+    summarise(n_elig = sum(eligible), .groups = "drop") %>%
+    group_by(region, window_type) %>%
+    summarise(median_origins = round(median(n_elig)), .groups = "drop") %>%
+    pivot_wider(names_from = window_type, values_from = median_origins) %>%
+    left_join(n_ctry, by = "region") %>%
+    left_join(guidance, by = "region") %>%
+    mutate(region = factor(region, levels = region_levels)) %>%
+    arrange(region) %>%
+    transmute(
+      region = paste0(as.character(region), " (", n, ")"),
+      `5 yr` = fixed_5y, `7 yr` = fixed_7y, `10 yr` = fixed_10y, expanding,
+      guidance
+    ) %>%
+    knitr::kable(align = c("l", "r", "r", "r", "r", "l"))
+}
+```
+
+**Default: expanding** — the only window viable everywhere it physically can be
+(94 / 96 countries eligible at some origin). **`fixed_10y`** carried as the
+trimming comparison for the data-rich regions (≈ expanding for coverage, diverges
+only where >10 yr of history exists). **`fixed_7y`** as a Caribbean / Pacific
+fallback. **`fixed_5y`** diagnostic only — it cannot be a global default.
+
+:::
+
 ::: {.callout-note title="Notes / observations"}
-_Add: earliest usable origin per window, which countries never clear the 10-year
-window, whether any window is too thin to bother testing._
+_Add: final window decision, how the chronically-intermittent countries (SSA,
+Caribbean tail) are handled, whether fixed-5yr is worth the compute as a
+diagnostic._
 :::
 
 ---
