@@ -129,41 +129,51 @@ exists and carries the post-nowcast "ground truth".
 years).
 
 ```{r}
-#| label: tbl-panel-overview
-#| tbl-cap: "Training panel — coverage and composition."
+#| label: status-palette
 
-if (is.null(panel)) {
-  pending("Scripts/forecasting/01_prepare_training_data.R")
-} else {
-  tibble::tibble(
-    Metric = c("Countries", "Country-months", "Date range",
-               "From nowcast output", "From history"),
-    Value = c(
-      as.character(n_distinct(panel$iso3)),
-      as.character(nrow(panel)),
-      paste(format(min(panel$date)), "to", format(max(panel$date))),
-      "", ""
-    )
-  ) %>% knitr::kable()
+status_pal <- c(
+  observed  = "#4C72B0",
+  corrected = "#DD8452",
+  estimated = "#C44E52",
+  gap       = "grey85"
+)
+
+if (!is.null(panel)) {
+  panel <- panel %>%
+    mutate(region = factor(region, levels = region_levels))
 }
 ```
 
 ```{r}
-#| label: tbl-data-status
-#| tbl-cap: "Country-months by data status."
+#| label: tbl-panel-overview
+#| tbl-cap: "Training panel: coverage and composition."
 
-if (!is.null(panel)) {
-  panel %>%
-    count(data_status, name = "country_months") %>%
-    mutate(share = scales::percent(country_months / sum(country_months), 0.1)) %>%
-    knitr::kable()
+if (is.null(panel)) {
+  pending("Scripts/forecasting/01_prepare_training_data.R")
+} else {
+  fmt <- function(x) formatC(x, big.mark = ",", format = "d")
+  tibble::tibble(
+    Metric = c("Countries", "Country-months", "Date range",
+               "Observed", "Corrected (reporting-delay factor)",
+               "Estimated (seasonal-proportion nowcast)",
+               "Gap (internal month, no value)"),
+    Value = c(
+      fmt(n_distinct(panel$iso3)),
+      fmt(nrow(panel)),
+      paste(format(min(panel$date)), "to", format(max(panel$date))),
+      fmt(sum(panel$data_status == "observed")),
+      fmt(sum(panel$data_status == "corrected")),
+      fmt(sum(panel$data_status == "estimated")),
+      fmt(sum(panel$data_status == "gap"))
+    )
+  ) %>% knitr::kable(align = c("l", "r"))
 }
 ```
 
 ```{r}
 #| label: fig-data-status-year
 #| fig-cap: "Data-status composition by calendar year. Recent years carry the reporting-delay corrections and seasonal-proportion estimates the forecast layer treats as ground truth."
-#| fig-height: 4
+#| fig-height: 3.6
 
 if (!is.null(panel)) {
   panel %>%
@@ -171,32 +181,93 @@ if (!is.null(panel)) {
     count(Year, data_status) %>%
     ggplot(aes(Year, n, fill = data_status)) +
     geom_col() +
-    scale_fill_manual(values = c(
-      observed = "#4C72B0", corrected = "#DD8452",
-      estimated = "#C44E52", gap = "grey80"
-    )) +
-    labs(x = NULL, y = "Country-months", fill = "Status") +
+    scale_fill_manual(values = status_pal) +
+    labs(x = NULL, y = "Country-months", fill = NULL) +
     theme(legend.position = "top")
 }
 ```
 
 ```{r}
+#| label: fig-gap-tiles
+#| fig-cap: "Gap months per country-year (months the historical record drops as all-zero, shown as missing for the forecast layer). Blank cells are outside a country's covered span. Faceted by region."
+#| fig-width: 8.5
+#| fig-height: 12
+#| column: body-outset
+
+if (!is.null(panel)) {
+  panel %>%
+    group_by(region, iso3, Year) %>%
+    summarise(gap_months = sum(data_status == "gap"), .groups = "drop") %>%
+    ggplot(aes(Year, iso3, fill = gap_months)) +
+    geom_tile(colour = "grey40", linewidth = 0.15) +
+    facet_grid(region ~ ., scales = "free_y", space = "free_y") +
+    scale_fill_gradient(low = "white", high = "#C44E52",
+                        breaks = c(0, 3, 6, 9, 12), limits = c(0, 12)) +
+    scale_x_continuous(breaks = seq(2010, 2026, 2), expand = c(0, 0)) +
+    labs(x = NULL, y = NULL, fill = "Gap months",
+         caption = "Grey background = year outside the country's record.") +
+    theme(
+      axis.text.y = element_text(size = 6),
+      panel.grid = element_blank(),
+      panel.background = element_rect(fill = "grey82", colour = NA),
+      strip.text.y = element_text(angle = 0, hjust = 0, size = 8),
+      legend.position = "top"
+    )
+}
+```
+
+```{r}
+#| label: fig-status-tiles
+#| fig-cap: "Monthly data status for every country, 2010 to present. The forecast layer trains on observed + corrected + estimated months; gaps are internal missing months. Faceted by region."
+#| fig-width: 9
+#| fig-height: 13
+#| column: body-outset
+
+if (!is.null(panel)) {
+  panel %>%
+    ggplot(aes(date, iso3, fill = data_status)) +
+    geom_tile() +
+    facet_grid(region ~ ., scales = "free_y", space = "free_y") +
+    scale_fill_manual(values = status_pal, drop = FALSE) +
+    scale_x_date(date_breaks = "2 years", date_labels = "%Y", expand = c(0, 0)) +
+    labs(x = NULL, y = NULL, fill = NULL) +
+    theme(
+      axis.text.y = element_text(size = 6),
+      panel.grid = element_blank(),
+      strip.text.y = element_text(angle = 0, hjust = 0, size = 8),
+      legend.position = "top"
+    )
+}
+```
+
+```{r}
 #| label: tbl-country-coverage
-#| tbl-cap: "Per-country coverage (complete seasons, span, and share of months that are model-estimated). Full detail in summary_country.csv."
+#| tbl-cap: "Per-country coverage, searchable reference (full detail in summary_country.csv)."
 
 if (is.null(summary_country)) {
   pending("Scripts/forecasting/02_data_summary.R")
 } else {
-  summary_country %>%
+  cov_tbl <- summary_country %>%
     transmute(
       iso3, country, region,
       complete_seasons = n_complete_seasons,
       months = n_months,
       span_yrs = round(span_years, 1),
       gap_months = n_gap_months,
-      pct_estimated = scales::percent(pct_estimated, 0.1)
+      pct_estimated = round(100 * pct_estimated, 1)
     ) %>%
     arrange(region, desc(complete_seasons))
+
+  if (requireNamespace("DT", quietly = TRUE)) {
+    DT::datatable(
+      cov_tbl,
+      rownames = FALSE,
+      filter = "top",
+      options = list(pageLength = 15, order = list(list(2, "asc")))
+    )
+  } else {
+    knitr::kable(cov_tbl)
+  }
 }
 ```
 
