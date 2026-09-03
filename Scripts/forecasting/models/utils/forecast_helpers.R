@@ -22,9 +22,10 @@
 #'   predict(fitted, targets, spec)   -> tibble with EXACTLY these columns,
 #'       in this order (see `forecast_output_cols`):
 #'         iso3, origin_date, horizon, target_date,
-#'         .pred, .pred_lower50, .pred_upper50, .pred_lower90, .pred_upper90
+#'         .pred, .pred_lower50, .pred_upper50, .pred_lower95, .pred_upper95
 #'       One row per input target row. .pred is the point forecast; the four
-#'       .pred_* columns are the 50% and 90% central predictive intervals.
+#'       .pred_* columns are the 50% and 95% central predictive intervals
+#'       (matching GDO's calibrated-interval files and its 95% whiskers).
 #'       NA is allowed where the model genuinely cannot forecast.
 #'
 #'   diagnose(fitted, train_df, spec) -> named list
@@ -52,7 +53,7 @@
 # The exact, ordered output columns every model$predict() must return.
 forecast_output_cols <- c(
   "iso3", "origin_date", "horizon", "target_date",
-  ".pred", ".pred_lower50", ".pred_upper50", ".pred_lower90", ".pred_upper90"
+  ".pred", ".pred_lower50", ".pred_upper50", ".pred_lower95", ".pred_upper95"
 )
 
 #' Build (and validate) a model object.
