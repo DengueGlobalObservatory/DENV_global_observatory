@@ -1,0 +1,41 @@
+GDO forecast backtest -- window coverage check
+Generated 2026-09-03 12:59
+
+Data snapshot        : 2026_08_01
+Panel span           : 2010-01-01 to 2026-07-01
+Countries            : 96
+Forecast horizons    : 1-6 months
+Min training months  : 36
+Rolling origins       : 2016-01-01 to 2026-01-01  (121 monthly origins)
+
+== Eligible countries per window ==
+window         first   median     last   >= 40 by   >= 60 by
+fixed_5y          58       62       64 2016-01-01 2018-03-01
+fixed_7y          60       66       74 2016-01-01 2016-01-01
+fixed_10y         60       68       79 2016-01-01 2016-01-01
+expanding         60       68       84 2016-01-01 2016-01-01
+
+== Countries never eligible (any origin) ==
+fixed_5y    : 11
+   BES, BHS, CHL, COK, CUW, ERI, ETH, KNA, MRT, SXM, TON
+fixed_7y    : 7
+   BES, CHL, CUW, ERI, ETH, MRT, SXM
+fixed_10y   : 6
+   BES, CHL, CUW, ERI, ETH, SXM
+expanding   : 2
+   BES, CUW
+
+== First origin each country becomes eligible ==
+fixed_5y (n eligible somewhere = 85):
+   2016:62  2017:2  2018:3  2019:2  2020:7  2021:4  2022:1  2024:2  2025:2
+fixed_7y (n eligible somewhere = 89):
+   2016:67  2017:1  2018:3  2019:2  2020:6  2021:4  2022:1  2023:2  2024:2  2025:1
+fixed_10y (n eligible somewhere = 90):
+   2016:67  2017:1  2018:3  2019:4  2020:5  2021:4  2022:1  2023:2  2024:1  2025:2
+expanding (n eligible somewhere = 94):
+   2016:67  2017:1  2018:3  2019:4  2020:5  2021:4  2022:1  2023:3  2024:3  2025:3
+
+== Note ==
+12 countries have no valued month in 2026, so they drop out of the
+latest origins regardless of window:
+   BES, BRN, CUW, DMA, HTI, IDN, NIC, OMN, PHL, SAU, TWN, YEM
