@@ -49,6 +49,7 @@
 #' Timeline:
 #' ========
 #' 03-09-2026: Created alongside models/00a_baseline_naive.R.
+#' 04-09-2026: Reviewed.
 
 # The exact, ordered output columns every model$predict() must return.
 forecast_output_cols <- c(
@@ -124,4 +125,27 @@ check_forecast_output <- function(df, model_name = "?") {
   df[forecast_output_cols]
 }
 
-# save_forecast_model() is added here alongside run_stage0_fit.R.
+#' Save a fitted model object with provenance metadata.
+#'
+#' Writes an .rds holding `list(fitted = <fit result>, meta = <provenance>)`,
+#' creating the directory. `meta` is merged over defaults (model name pulled
+#' from the fit when present, a timestamp, and the R version).
+#'
+#' @param fitted A model$fit() result.
+#' @param path Destination .rds path.
+#' @param meta Named list of extra provenance to record (e.g. stage, snapshot,
+#'   window_type, origin_date).
+#' @return `path`, invisibly.
+save_forecast_model <- function(fitted, path, meta = list()) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  default_meta <- list(
+    model     = tryCatch(fitted$name, error = function(e) NA_character_),
+    created   = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
+    r_version = as.character(getRversion())
+  )
+  saveRDS(
+    list(fitted = fitted, meta = utils::modifyList(default_meta, meta)),
+    path
+  )
+  invisible(path)
+}
