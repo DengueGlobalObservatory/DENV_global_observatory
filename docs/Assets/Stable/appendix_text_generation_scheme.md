@@ -1,9 +1,6 @@
----
+------------------------------------------------------------------------
 
-editor: 
-  markdown: 
-    wrap: 72
----
+editor: markdown: wrap: 72 ---
 
 # Appendix N: Summary Text Generation Scheme
 
@@ -268,7 +265,7 @@ Used on the homepage high-severity panel and the all-countries index:
 The table below provides a unified view of all classification thresholds across the observatory, organized by the ratio value:
 
 | Ratio Range | `ratio_phrase()` | `monthly_phrase()` | `relative_level_phrase()` | `season_phrase()` | `classify_modifier()` / cards |
-|:--------:|:----------:|:------------:|:-----------:|:-----------:|:----------------:|
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 | ≥ 1.40 | running well above | well above | **well above** | above | above |
 | 1.30–1.39 | running well above | well above | above | above | above |
 | 1.20–1.29 | running slightly above | slightly above | above | **above** | above |

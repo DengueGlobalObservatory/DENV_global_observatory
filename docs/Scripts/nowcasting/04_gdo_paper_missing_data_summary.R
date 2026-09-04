@@ -2,13 +2,14 @@
 
 # Paper missing-data summary for the GDO descriptive manuscript.
 #
-# Fills the "missing in the data" prose with values computed from the most
-# recent local Output/<date>/DENV_cases_nowcast_output.csv (loaded via the
-# same V1_Dashboard_setup.R that local Quarto preview uses) and prints two
-# manuscript tables to the console. No CSV files are written.
+# Fills the "missing in the data" prose with values computed directly from a
+# single Output/<date>/DENV_cases_nowcast_output.csv snapshot. No dashboard
+# script is sourced and no CSV files are written -- this only reads the one
+# nowcast CSV (and, optionally, pages/country/country-config.csv for a
+# comparison count).
 #
-# Universe: countries with a radial plot in the live dashboard
-# (`names(all_country_plots)`), restricted to current-year months 1..recent_month.
+# Universe: all countries present in that snapshot's current-year rows,
+# restricted to months 1..recent_month.
 #
 # "Missing" definitions reported in parallel (per the plan):
 #   - Primary  : source == "Estimates"     (nowcast-filled months)
@@ -16,9 +17,8 @@
 #
 # Backfill is intentionally out of scope.
 #
-# Usage (from project root):
+# Usage: set `date` below to the Output/<date> folder you want, then
 #   Rscript Scripts/nowcasting/04_gdo_paper_missing_data_summary.R
-#   Rscript Scripts/nowcasting/04_gdo_paper_missing_data_summary.R Output/2026_06_01
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -26,73 +26,60 @@ suppressPackageStartupMessages({
 })
 
 # ---- Locate project root ---------------------------------------------------
-if (!file.exists("Scripts/V1_Dashboard_setup.R")) {
+if (!dir.exists("Output")) {
   # Allow running from Scripts/nowcasting/
-  if (file.exists("../../Scripts/V1_Dashboard_setup.R")) {
+  if (dir.exists("../../Output")) {
     setwd("../..")
   }
 }
-if (!file.exists("Scripts/V1_Dashboard_setup.R")) {
-  stop("Run from project root (cannot find Scripts/V1_Dashboard_setup.R).")
+if (!dir.exists("Output")) {
+  stop("Run from project root (cannot find Output/).")
 }
 
-# ---- Optional CLI: pin a specific Output snapshot --------------------------
-cli_args <- commandArgs(trailingOnly = TRUE)
-pinned_dir <- if (length(cli_args) >= 1 && nzchar(cli_args[1])) cli_args[1] else NA_character_
+# ---- Set the snapshot to summarize here ------------------------------------
+date <- "2026_06_30"
+output_path <- paste0("Output/", date, "/DENV_cases_nowcast_output.csv")
 
-if (!is.na(pinned_dir)) {
-  pinned_file <- file.path(pinned_dir, "DENV_cases_nowcast_output.csv")
-  if (!file.exists(pinned_file)) {
-    stop("Pinned snapshot not found: ", pinned_file)
-  }
-  message("Pinning snapshot: ", pinned_file)
+if (!file.exists(output_path)) {
+  stop("No file at: ", output_path)
 }
 
-# ---- Load dashboard data (matches local Quarto preview) --------------------
-# The setup script prints plot-construction debug messages via cat(); silence
-# them so the summary output is readable.
-invisible(capture.output(
-  suppressMessages(suppressWarnings(source("Scripts/V1_Dashboard_setup.R"))),
-  type = "output"
-))
-
-if (!exists("data") || !exists("all_country_plots") ||
-    !exists("current_year") || !exists("recent_month")) {
-  stop(
-    "V1_Dashboard_setup.R did not produce expected objects ",
-    "(data, all_country_plots, current_year, recent_month)."
-  )
+data <- read.csv(output_path, check.names = FALSE)
+col_names <- names(data)
+if (length(col_names) > 0 &&
+    (col_names[1] == "" || col_names[1] == "X" || col_names[1] == "X.")) {
+  data <- data %>% dplyr::select(-1)
 }
 
-if (!is.na(pinned_dir)) {
-  data <- read.csv(file.path(pinned_dir, "DENV_cases_nowcast_output.csv"),
-                   check.names = FALSE)
-  col_names <- names(data)
-  if (length(col_names) > 0 &&
-      (col_names[1] == "" || col_names[1] == "X" || col_names[1] == "X.")) {
-    data <- data %>% dplyr::select(-1)
-  }
-  # Apply the same future-month masking as the dashboard setup.
-  data <- data %>%
-    dplyr::mutate(
-      is_future = (Year > current_year) | (Year == current_year & Month > recent_month),
-      cases = dplyr::if_else(is_future, NA_real_, cases)
-    ) %>%
-    dplyr::select(-is_future)
-}
+# current_year / recent_month for this run come from `date`, not Sys.Date().
+current_year <- as.integer(substr(date, 1, 4))
+recent_month <- as.integer(substr(date, 6, 7)) - 1
+if (recent_month == 0) recent_month <- 12
 
+# Mask any stray future-month cases beyond recent_month (same as the dashboard).
+data <- data %>%
+  dplyr::mutate(
+    is_future = (Year > current_year) | (Year == current_year & Month > recent_month),
+    cases = dplyr::if_else(is_future, NA_real_, cases)
+  ) %>%
+  dplyr::select(-is_future)
 
 # ---- Pick country/region columns -------------------------------------------
 country_col <- if ("country" %in% names(data)) "country" else "Country"
 region_col  <- "Region"
 
-# ---- Country universe: radial plot list (live, ~88) ------------------------
-radial_countries <- names(all_country_plots)
+# ---- Country universe: every country present in this snapshot's current-
+# year rows (months 1..recent_month) -- no dependency on the live dashboard.
+radial_countries <- data %>%
+  dplyr::filter(Year == current_year, Month >= 1, Month <= recent_month) %>%
+  dplyr::pull(.data[[country_col]]) %>%
+  unique()
 radial_countries <- radial_countries[!is.na(radial_countries) & nzchar(radial_countries)]
 
 n_radial_countries <- length(radial_countries)
 
-# Also compute the country-config "complete data" tier (~81) for the prose note.
+# Also compute the country-config "complete data" tier for the prose note
+# (just a comparison count; reads the static CSV directly, no sourcing).
 country_cfg_path <- "pages/country/country-config.csv"
 n_complete_data <- if (file.exists(country_cfg_path)) {
   cfg <- read.csv(country_cfg_path, check.names = FALSE, stringsAsFactors = FALSE)
@@ -101,9 +88,7 @@ n_complete_data <- if (file.exists(country_cfg_path)) {
   NA_integer_
 }
 
-# Paper table universe: the radial-plot country list (83 in your example).
-# This ensures the manuscript denominator matches the dashboard “All Countries”
-# panel and the expected 83 × 5 = 415 country-months layout.
+# Paper table universe: same as radial_countries above.
 paper_countries <- radial_countries
 n_paper_countries <- length(paper_countries)
 
@@ -166,6 +151,8 @@ ytd <- ytd %>%
     )
   )
 
+ytd %>%
+  filter(delay_type == "internal_gap")
 # ---- Headline counts -------------------------------------------------------
 n_missing_est   <- sum(ytd$is_missing_estimates)
 n_missing_unobs <- sum(ytd$is_missing_unobserved)
@@ -310,18 +297,14 @@ country_missing_distribution <- country_totals %>%
   dplyr::arrange(bucket)
 
 # ---- Print results ---------------------------------------------------------
-as_of_label <- format(Sys.Date(), "%d-%B-%Y")
-folder_label <- if (!is.na(pinned_dir)) pinned_dir else
-  tryCatch(get_latest_dataset_info()$dir, error = function(e) NA_character_)
+as_of_label <- format(as.Date(gsub("_", "-", date)), "%d-%B-%Y")
 
 cat("\n")
 cat("==============================================================\n")
 cat(" GDO paper missing-data summary\n")
 cat("==============================================================\n")
 cat(sprintf(" As of            : %s\n", as_of_label))
-
-cat(sprintf(" Snapshot folder  : %s\n",
-            if (is.null(folder_label) || is.na(folder_label)) "NA" else folder_label))
+cat(sprintf(" Snapshot folder  : %s\n", output_path))
 cat(sprintf(" Current year     : %d\n", current_year))
 cat(sprintf(" Months included  : 1..%d (recent_month)\n", recent_month))
 cat(sprintf(" Radial countries : %d (denominator)\n", n_radial_countries))
