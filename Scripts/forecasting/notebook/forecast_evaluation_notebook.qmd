@@ -90,43 +90,26 @@ if (!is.null(panel)) {
 
 ## About this notebook {.unnumbered}
 
-This is the **results record** for the GDO forecasting objective — the place to
-look at what each pipeline step produced, keep the figures and tables that will
-go into the manuscript, and write down what they mean and where the work goes
-next.
+This is the **results record** for the GDO forecasting objective — the place to look at what each pipeline step produced, keep the figures and tables that will go into the manuscript, and write down what they mean and where the work goes next.
 
 It is deliberately **not**:
 
 - the running task log — that lives in Logseq;
-- a home for pipeline code — the training-data build, data summary, model
-  definitions, runners and scoring pipeline are all under
-  `Scripts/forecasting/`. This notebook only *reads their outputs*.
+- a home for pipeline code — the training-data build, data summary, model definitions, runners and scoring pipeline are all under `Scripts/forecasting/`. This notebook only *reads their outputs*.
 
 ::: {.callout-note appearance="simple"}
-**Pinned data snapshot:** `Output/`r snapshot_date`/` — merged historical record
-plus current-period nowcast output. Every result below is against this frozen
-snapshot; re-pin in `Scripts/forecasting/00_config.R` and re-run the pipeline to
-refresh.
+**Pinned data snapshot:** `Output/`r snapshot_date`/` — merged historical record plus current-period nowcast output. Every result below is against this frozen snapshot; re-pin in `Scripts/forecasting/00_config.R` and re-run the pipeline to refresh.
 :::
 
-Plan of record: `planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT`.
-Stages: **0** in-sample fit diagnostics · **1** rolling-origin hindcast
-(5 / 7 / 10 yr + expanding) · **2** prospective shadow deployment.
+Plan of record: `planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT`. Stages: **0** in-sample fit diagnostics · **1** rolling-origin hindcast (5 / 7 / 10 yr + expanding) · **2** prospective shadow deployment.
 
----
+------------------------------------------------------------------------
 
 # Training data {#sec-training-data}
 
-`01_prepare_training_data.R` merges the deep historical record
-(`full_data_season_monthly_proportions.csv`, complete seasons) with the
-current-period nowcast output (`DENV_cases_nowcast_output.csv`). The nowcast view
-wins on any overlapping country-month, so the panel runs as far forward as data
-exists and carries the post-nowcast "ground truth".
+`01_prepare_training_data.R` merges the deep historical record (`full_data_season_monthly_proportions.csv`, complete seasons) with the current-period nowcast output (`DENV_cases_nowcast_output.csv`). The nowcast view wins on any overlapping country-month, so the panel runs as far forward as data exists and carries the post-nowcast "ground truth".
 
-`data_status` is preserved throughout: **observed** (raw report), **corrected**
-(reporting-delay factor applied), **estimated** (seasonal-proportion nowcast),
-**gap** (internal month with no value — the historical file drops all-zero
-years).
+`data_status` is preserved throughout: **observed** (raw report), **corrected** (reporting-delay factor applied), **estimated** (seasonal-proportion nowcast), **gap** (internal month with no value — the historical file drops all-zero years).
 
 ```{r}
 #| label: status-palette
@@ -272,7 +255,6 @@ if (is.null(summary_country)) {
 ```
 
 ::: {.callout-warning title="Coverage flags — countries that will constrain the backtest"}
-
 ```{r}
 #| label: coverage-flags
 #| output: asis
@@ -335,40 +317,44 @@ if (is.null(panel) || is.null(summary_country)) {
   cat(sprintf("- fewer than 12 (%d): %s\n", nrow(light), fmt_iso(light$iso3)))
 }
 ```
-
 :::
 
 ::: {.callout-note title="Notes / observations"}
-_Add: reading of the flags above — which of these default to the seasonal
-baseline vs still get a bespoke model, whether the expanding window rescues the
-gappy countries, how much of the recent record is corrected vs estimated._
+*Add: reading of the flags above — which of these default to the seasonal baseline vs still get a bespoke model, whether the expanding window rescues the gappy countries, how much of the recent record is corrected vs estimated.*
 :::
 
----
+------------------------------------------------------------------------
+
+# Covariate & climate data {#sec-covariates}
+
+Placeholder for climate and other covariate data once sourced (plan §1, item 4
+— GLM+climate / GAM+climate). Candidate variables, sources, coverage by
+country/region, and any exploratory relationship with case counts will go
+here once that sourcing work starts.
+
+::: {.callout-note appearance="simple"}
+Not sourced yet — no covariate data exists in the repo at this point.
+:::
+
+::: {.callout-note title="Notes / observations"}
+_Add: candidate covariates under consideration, sourcing plan, coverage._
+:::
+
+------------------------------------------------------------------------
 
 # Data characterisation & scenario strata {#sec-strata}
 
-`02_data_summary.R` characterises each country's burden and seasonal shape, and
-assigns the two **provisional** scenario strata the Stage 1 backtest will be
-sliced on (the third axis, lead time, is intrinsic to the forecast).
+`02_data_summary.R` characterises each country's burden and seasonal shape, and assigns the two **provisional** scenario strata the Stage 1 backtest will be sliced on (the third axis, lead time, is intrinsic to the forecast).
 
-Seasonal shape is read from the mean seasonal profile (`DENV_average_season.csv`):
-`seasonal_concentration` is the Herfindahl index of the mean monthly proportions
-— `r round(1/12, 3)` for a flat year, rising toward 1 as a single month
-dominates.
+Seasonal shape is read from the mean seasonal profile (`DENV_average_season.csv`): `seasonal_concentration` is the Herfindahl index of the mean monthly proportions — `r round(1/12, 3)` for a flat year, rising toward 1 as a single month dominates.
 
 ::: {.callout-important appearance="simple"}
 **Provisional cut-points — to confirm with the team.**
 
-- **seasonality_signal**: tertiles of `seasonal_concentration` across the
-  `r if (!is.null(summary_country)) nrow(summary_country) else 96` countries →
-  weak / moderate / strong.
-- **endemicity**: *endemic* only if mean monthly cases ≥
-  `r endemic_min_mean_cases`, complete seasons ≥ `r endemic_min_seasons`, and
-  zero-month fraction < `r endemic_max_zero_fraction`; otherwise *emerging*.
+- **seasonality_signal**: tertiles of `seasonal_concentration` across the `r if (!is.null(summary_country)) nrow(summary_country) else 96` countries → weak / moderate / strong.
+- **endemicity**: *endemic* only if mean monthly cases ≥ `r endemic_min_mean_cases`, complete seasons ≥ `r endemic_min_seasons`, and zero-month fraction \< `r endemic_max_zero_fraction`; otherwise *emerging*.
 
-Alternative under consideration: adopt the seasonality clusters from Joshi et al.
-in place of the tertile split.
+Alternative under consideration: adopt the seasonality clusters from Joshi et al. in place of the tertile split.
 :::
 
 ```{r}
@@ -440,19 +426,14 @@ if (!is.null(summary_region)) {
 ```
 
 ::: {.callout-note title="Notes / observations"}
-_Add: does the strata split look epidemiologically sensible? Any region with too
-few countries in a stratum to score separately? Decision on tertile vs cluster
-approach._
+*Add: does the strata split look epidemiologically sensible? Any region with too few countries in a stratum to score separately? Decision on tertile vs cluster approach.*
 :::
 
----
+------------------------------------------------------------------------
 
 # Backtest window coverage {#sec-coverage}
 
-`03_check_window_coverage.R` is the pre-Stage-1 gate: for each monthly rolling
-origin and each candidate training window (fixed 5 / 7 / 10 yr, expanding), how
-many countries have at least `r min_train_months` valued months in the window
-**and** at least one target month with truth. No models are fitted.
+`03_check_window_coverage.R` is the pre-Stage-1 gate: for each monthly rolling origin and each candidate training window (fixed 5 / 7 / 10 yr, expanding), how many countries have at least `r min_train_months` valued months in the window **and** at least one target month with truth. No models are fitted.
 
 ```{r}
 #| label: load-coverage
@@ -530,10 +511,7 @@ if (!is.null(coverage_country)) {
 ```
 
 ::: {.callout-tip title="Window viability, by region"}
-
-Median number of origins (of `r if (!is.null(coverage_grid)) length(unique(coverage_grid$origin_date)) else 121`)
-at which the typical country in a region is eligible, per window. `121` = every
-origin.
+Median number of origins (of `r if (!is.null(coverage_grid)) length(unique(coverage_grid$origin_date)) else 121`) at which the typical country in a region is eligible, per window. `121` = every origin.
 
 ```{r}
 #| label: tbl-window-viability-region
@@ -575,27 +553,65 @@ if (is.null(coverage_country)) {
 }
 ```
 
-**Default: expanding** — the only window viable everywhere it physically can be
-(94 / 96 countries eligible at some origin). **`fixed_10y`** carried as the
-trimming comparison for the data-rich regions (≈ expanding for coverage, diverges
-only where >10 yr of history exists). **`fixed_7y`** as a Caribbean / Pacific
-fallback. **`fixed_5y`** diagnostic only — it cannot be a global default.
-
+**Default: expanding** — the only window viable everywhere it physically can be (94 / 96 countries eligible at some origin). **`fixed_10y`** carried as the trimming comparison for the data-rich regions (≈ expanding for coverage, diverges only where \>10 yr of history exists). **`fixed_7y`** as a Caribbean / Pacific fallback. **`fixed_5y`** diagnostic only — it cannot be a global default.
 :::
 
 ::: {.callout-note title="Notes / observations"}
-_Add: final window decision, how the chronically-intermittent countries (SSA,
-Caribbean tail) are handled, whether fixed-5yr is worth the compute as a
-diagnostic._
+*Add: final window decision, how the chronically-intermittent countries (SSA, Caribbean tail) are handled, whether fixed-5yr is worth the compute as a diagnostic.*
 :::
 
----
+------------------------------------------------------------------------
+
+# Model progress {#sec-progress}
+
+Which models have a definition file, and which stages they've cleared so far.
+
+```{r}
+#| label: tbl-model-progress
+#| tbl-cap: "Stage 0 status for every model with a Stage 0 record."
+
+if (is.null(stage0_diag)) {
+  pending("Scripts/forecasting/run_stage0_fit.R")
+} else {
+  stage0_diag %>%
+    transmute(
+      Model = model,
+      `Run at` = run_at,
+      `Stage 0` = if_else(pass, "PASS", "FAIL"),
+      `Stage 1` = "-",
+      `Stage 2` = "-",
+      Notes = notes
+    ) %>%
+    knitr::kable()
+}
+```
+
+```{r}
+#| label: model-files-note
+#| output: asis
+
+model_files <- sort(list.files(
+  file.path(repo_root, "Scripts", "forecasting", "models"),
+  pattern = "^[0-9].*\\.R$"
+))
+have_record <- if (!is.null(stage0_diag)) nrow(stage0_diag) else 0L
+cat(sprintf(
+  "%d model definition file%s in `Scripts/forecasting/models/`: %s. %d have a Stage 0 record above; the rest are defined but not yet run (or parked).\n",
+  length(model_files), if (length(model_files) == 1) "" else "s",
+  paste0("`", model_files, "`", collapse = ", "),
+  have_record
+))
+```
+
+::: {.callout-note title="Notes / observations"}
+*Add: which parked/unrun models need attention before Stage 1.*
+:::
+
+------------------------------------------------------------------------
 
 # Stage 0 — model fit diagnostics {#sec-stage0}
 
-`run_stage0_fit.R` fits each model once on the full panel and runs its diagnostic
-checklist (convergence, dispersion, residual structure). Diagnostic only — no
-skill claim.
+`run_stage0_fit.R` fits each model once on the full panel and runs its diagnostic checklist (convergence, dispersion, residual structure). Diagnostic only — no skill claim.
 
 ```{r}
 #| label: tbl-stage0
@@ -609,17 +625,14 @@ if (is.null(stage0_diag)) {
 ```
 
 ::: {.callout-note title="Notes / observations"}
-_Add: did every candidate pass the sanity check? Any coefficient signs or
-dispersion values worth flagging before Stage 1._
+*Add: did every candidate pass the sanity check? Any coefficient signs or dispersion values worth flagging before Stage 1.*
 :::
 
----
+------------------------------------------------------------------------
 
 # Stage 1 — hindcast skill {#sec-stage1}
 
-Rolling-origin backtest across the four window lengths and the scenario strata.
-Primary metrics: WIS (log scale) and peak-timing difference. Secondary: MAE,
-RMSE, CRPS, PIT / coverage.
+Rolling-origin backtest across the four window lengths and the scenario strata. Primary metrics: WIS (log scale) and peak-timing difference. Secondary: MAE, RMSE, CRPS, PIT / coverage.
 
 ```{r}
 #| label: sec-stage1-body
@@ -627,39 +640,271 @@ RMSE, CRPS, PIT / coverage.
 pending("the Stage 1 backtest runner (not built yet)")
 ```
 
-Planned outputs to land here: relative-skill leaderboard by lead time, score
-table (model × lead × stratum, with `n_seasons`), score heatmap, per-country fan
-charts, PIT / coverage calibration.
+Planned outputs to land here: relative-skill leaderboard by lead time, score table (model × lead × stratum, with `n_seasons`), score heatmap, per-country fan charts, PIT / coverage calibration.
 
 ::: {.callout-note title="Notes / observations"}
-_Add as results arrive._
+*Add as results arrive.*
 :::
 
----
+------------------------------------------------------------------------
 
 # Conclusions & manuscript notes {#sec-conclusions}
 
 Running synthesis for the forecasting paper (target: PLOS Comp Biol / PLOS NTD).
 
-- **Data.** _..._
-- **Strata.** _..._
-- **Baselines.** _..._
-- **Best model(s) so far.** _..._
-- **Where the forecast is trustworthy / where it is not.** _..._
+- **Data.** *...*
+- **Strata.** *...*
+- **Baselines.** *...*
+- **Best model(s) so far.** *...*
+- **Where the forecast is trustworthy / where it is not.** *...*
 
----
+------------------------------------------------------------------------
 
 # Open questions & directions {#sec-directions}
 
-- Minimum complete-seasons floor below which a country defaults to the seasonal
-  baseline (`[Q2.4]`).
+- Minimum complete-seasons floor below which a country defaults to the seasonal baseline (`[Q2.4]`).
 - Spatial (region-grouped) blocking alongside the temporal windows (`§6`).
 - Promotion rule: beat both baselines at *majority* vs *all* lead times (`§6`).
 - Refit cadence for the hierarchical model — monthly vs quarterly (`[Q2.6]`).
-- Operational-utility scoring design at ~83-country scale (`[Q5.2]`).
+- Operational-utility scoring design at \~83-country scale (`[Q5.2]`).
 - Climate covariate sources and the GAM / hierarchical model structure.
 
----
+------------------------------------------------------------------------
+
+# Appendix: Model details {#sec-model-details}
+
+One subsection per model, added as each clears Stage 0. Every subsection
+follows the same template — a forecast summary and an uncertainty-by-lead-time
+/ region view — with room underneath for anything specific to that model.
+
+::: {.callout-important appearance="simple"}
+Everything here is a **Stage 0 snapshot**: one origin (the training panel's
+last month), no ground truth, produced by the `predict()` contract check in
+`run_stage0_fit.R` (`stage0_fit/<model>/wiring_check_forecasts.csv`). It shows
+what the model's output currently looks like — **not** how well it forecasts.
+Skill (does the interval actually cover the truth) has to wait for the Stage 1
+backtest.
+:::
+
+```{r}
+#| label: model-detail-helper
+
+# Load one model's Stage 0 wiring-check forecasts, with region attached and a
+# relative-interval-width column added. Shared by every model subsection
+# below. NULL if that model hasn't been run through Stage 0 yet.
+model_wiring_forecasts <- function(slug) {
+  fc <- read_fc("stage0_fit", slug, "wiring_check_forecasts.csv")
+  if (is.null(fc)) return(NULL)
+  fc %>%
+    mutate(
+      origin_date = as.Date(origin_date),
+      target_date = as.Date(target_date),
+      # NA (not Inf) when .pred is 0, so it drops out of medians rather than
+      # dominating them.
+      rel_width95 = if_else(.pred > 0, (.pred_upper95 - .pred_lower95) / .pred, NA_real_)
+    ) %>%
+    left_join(region_lookup, by = "iso3")
+}
+```
+
+## nowcast {#sec-model-nowcast}
+
+```{r}
+#| label: nowcast-load
+
+nc_fc <- model_wiring_forecasts("nowcast")
+```
+
+```{r}
+#| label: tbl-nowcast-summary
+#| tbl-cap: "nowcast: Stage 0 forecast summary."
+
+if (is.null(nc_fc)) {
+  pending("Scripts/forecasting/run_stage0_fit.R nowcast")
+} else {
+  fmt <- function(x) formatC(x, big.mark = ",", format = "d")
+  tibble::tibble(
+    Metric = c("Origin", "Countries forecast", "No forecast (NA)",
+               "Median .pred", "Min .pred", "Max .pred"),
+    Value = c(
+      format(unique(nc_fc$origin_date)),
+      sprintf("%s / %s",
+              fmt(n_distinct(nc_fc$iso3[!is.na(nc_fc$.pred)])),
+              fmt(n_distinct(nc_fc$iso3))),
+      sprintf("%s (%s)", fmt(sum(is.na(nc_fc$.pred))),
+              scales::percent(mean(is.na(nc_fc$.pred)), 0.1)),
+      fmt(median(nc_fc$.pred, na.rm = TRUE)),
+      fmt(min(nc_fc$.pred, na.rm = TRUE)),
+      fmt(max(nc_fc$.pred, na.rm = TRUE))
+    )
+  ) %>% knitr::kable(align = c("l", "r"))
+}
+```
+
+```{r}
+#| label: fig-nowcast-pred-by-horizon
+#| fig-cap: "nowcast: distribution of the point forecast by lead time (log scale)."
+#| fig-height: 3.6
+
+if (!is.null(nc_fc)) {
+  nc_fc %>%
+    filter(!is.na(.pred)) %>%
+    ggplot(aes(factor(horizon), .pred + 1)) +
+    geom_boxplot(fill = "#4C72B0", alpha = 0.6, outlier.size = 0.8) +
+    scale_y_log10(labels = scales::label_comma()) +
+    labs(x = "Lead time (months)", y = ".pred + 1 (log scale)")
+}
+```
+
+```{r}
+#| label: fig-nowcast-uncertainty-lead
+#| fig-cap: "nowcast: median relative 95% interval width by lead time. Width = (.pred_upper95 - .pred_lower95) / .pred."
+#| fig-height: 3.6
+
+if (!is.null(nc_fc)) {
+  nc_fc %>%
+    group_by(horizon) %>%
+    summarise(median_rel_width = median(rel_width95, na.rm = TRUE), .groups = "drop") %>%
+    ggplot(aes(horizon, median_rel_width)) +
+    geom_col(fill = "#DD8452") +
+    scale_x_continuous(breaks = sort(unique(nc_fc$horizon))) +
+    labs(x = "Lead time (months)", y = "Median relative 95% width")
+}
+```
+
+```{r}
+#| label: fig-nowcast-uncertainty-region
+#| fig-cap: "nowcast: median relative 95% interval width by region and lead time."
+#| fig-height: 4
+
+if (!is.null(nc_fc)) {
+  nc_fc %>%
+    mutate(region = factor(region, levels = region_levels)) %>%
+    group_by(region, horizon) %>%
+    summarise(median_rel_width = median(rel_width95, na.rm = TRUE), .groups = "drop") %>%
+    ggplot(aes(horizon, region, fill = median_rel_width)) +
+    geom_tile(colour = "white") +
+    scale_fill_viridis_c(option = "magma", direction = -1, na.value = "grey90") +
+    scale_x_continuous(breaks = sort(unique(nc_fc$horizon))) +
+    labs(x = "Lead time (months)", y = NULL, fill = "Median\nrel. width")
+}
+```
+
+### 2026 year-to-date and 6-month forecast, by region
+
+Solid = observed 2026 (the panel's post-nowcast series); dashed = the Stage 0
+forecast from the last observed month, with a light 95% band. One figure per
+region — a single panel with all 96 countries would be unreadable, and even
+within a region the y-axis is shared and linear, so very low-burden countries
+will sit flat near zero next to a country like Cuba or Brazil.
+
+```{r}
+#| label: nowcast-2026-forecast-data
+
+if (!is.null(nc_fc)) {
+  nc_origin <- unique(nc_fc$origin_date)
+
+  # region is a factor on `panel` (set earlier) and plain character on `nc_fc`
+  # (joined from country_region_lookup.csv) - cast both to character here so
+  # bind_rows() below doesn't hit a factor/character type conflict.
+  obs_2026 <- panel %>%
+    filter(Year == 2026, !is.na(cases)) %>%
+    transmute(iso3, region = as.character(region), date, value = cases,
+              segment = "observed", lower95 = NA_real_, upper95 = NA_real_)
+
+  # Anchor the forecast segment at the origin's observed value, so the dashed
+  # line starts exactly where the solid line ends rather than jumping.
+  fc_anchor <- panel %>%
+    filter(date == nc_origin, !is.na(cases)) %>%
+    transmute(iso3, region = as.character(region), date, value = cases,
+              segment = "forecast", lower95 = cases, upper95 = cases)
+
+  fc_future <- nc_fc %>%
+    filter(!is.na(.pred)) %>%
+    transmute(iso3, region = as.character(region), date = target_date,
+              value = .pred, segment = "forecast",
+              lower95 = .pred_lower95, upper95 = .pred_upper95)
+
+  nc_2026_plot_df <- bind_rows(obs_2026, fc_anchor, fc_future) %>%
+    mutate(region = factor(region, levels = region_levels)) %>%
+    arrange(iso3, date)
+
+  nc_2026_labels <- nc_2026_plot_df %>%
+    filter(!is.na(value)) %>%
+    group_by(iso3, region) %>%
+    slice_max(date, n = 1, with_ties = FALSE) %>%
+    ungroup()
+}
+```
+
+```{r}
+#| label: fig-nowcast-2026-by-region
+#| output: asis
+#| fig-cap: "nowcast: 2026 year-to-date and 6-month forecast, by region."
+
+if (is.null(nc_fc)) {
+  pending("Scripts/forecasting/run_stage0_fit.R nowcast")
+} else {
+  fig_dir <- tempfile("nowcast_2026_region_figs_")
+  dir.create(fig_dir)
+
+  for (rg in levels(nc_2026_plot_df$region)) {
+    d <- nc_2026_plot_df %>% filter(region == rg)
+    if (nrow(d) == 0) next
+    lbl <- nc_2026_labels %>% filter(region == rg)
+    n_ctry <- n_distinct(d$iso3)
+
+    p <- ggplot(d, aes(date, value, group = iso3, colour = iso3)) +
+      geom_ribbon(
+        data = d %>% filter(segment == "forecast", !is.na(lower95)),
+        aes(ymin = lower95, ymax = upper95, fill = iso3),
+        colour = NA, alpha = 0.12, show.legend = FALSE
+      ) +
+      # Two layers, not one aes(linetype=) mapping: ggplot2 can't draw a
+      # single line with both varying colour and a non-solid linetype, but a
+      # fixed (non-aes) linetype per layer is fine.
+      geom_line(
+        data = d %>% filter(segment == "observed"),
+        linewidth = 0.6, linetype = "solid"
+      ) +
+      geom_line(
+        data = d %>% filter(segment == "forecast"),
+        linewidth = 0.6, linetype = "22"
+      ) +
+      ggrepel::geom_text_repel(
+        data = lbl, aes(label = iso3), size = 3, hjust = 0, direction = "y",
+        nudge_x = 25, segment.size = 0.2, min.segment.length = 0,
+        max.overlaps = Inf, show.legend = FALSE
+      ) +
+      scale_colour_viridis_d(option = "turbo") +
+      scale_fill_viridis_d(option = "turbo") +
+      scale_x_date(date_labels = "%b %Y", expand = expansion(mult = c(0.02, 0.2))) +
+      scale_y_continuous(labels = scales::label_comma()) +
+      labs(x = NULL, y = "Monthly cases")
+
+    fname <- file.path(fig_dir, paste0(make.names(rg), ".png"))
+    fig_h <- max(3.5, 0.3 * n_ctry + 2.2)
+    ggsave(fname, p, width = 8, height = fig_h, dpi = 130)
+
+    cat(sprintf(
+      "\n\n#### %s\n\n<img src=\"%s\" style=\"width:100%%;\" alt=\"2026 observed and 6-month forecast for %s\">\n\n",
+      rg, knitr::image_uri(fname), rg
+    ))
+  }
+}
+```
+
+::: {.callout-note title="nowcast-specific notes"}
+_Add: behaviour tied to this method specifically — e.g. next_season_method
+choice, calibration-file coverage, the [UNDER REVIEW] uncertainty redesign's
+expected effect on these plots once it lands._
+:::
+
+::: {.callout-note title="Notes / observations"}
+_Add._
+:::
+
+------------------------------------------------------------------------
 
 # Provenance {.unnumbered}
 
@@ -672,7 +917,7 @@ tibble::tibble(
            "Min training months", "Origin start", "Rendered"),
   value = c(
     snapshot_date,
-    paste(range(forecast_horizons), collapse = "–"),
+    paste(range(forecast_horizons), collapse = "-"),
     paste(names(roll_windows), unname(roll_windows), sep = "=", collapse = ", "),
     as.character(min_train_months),
     format(origin_start),
