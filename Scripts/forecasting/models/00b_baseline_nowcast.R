@@ -6,9 +6,12 @@
 #' Overview:
 #' ========
 #' Baseline 2 for the forecast evaluation: GDO's seasonal-proportion nowcast,
-#' repurposed as a forecast. DEFINITION ONLY - this file builds `nowcast_model`
-#' and does nothing else on source (it does read the stable calibrated-interval
-#' assets inside fit(); see spec$calibration_dir).
+#' repurposed as a forecast. 
+#' 
+#' DEFINITION ONLY - this file builds `nowcast_model`and does nothing else on 
+#' source.  
+#' (it does read the stable calibrated-interval assets inside fit(); 
+#' see spec$calibration_dir).
 #'
 #' Every function here is prefixed `nowcast_` and is private to this file.
 #'
@@ -19,29 +22,47 @@
 #'
 #'   1. fit() builds, per country with >= spec$min_train_seasons complete
 #'      historical seasons:
-#'        - the mean seasonal profile (share of the season's cases in each
-#'          season-month, and the cumulative share) via the validation helper
+#'        - the mean seasonal profile via the validation helper
 #'          fit_baseline_profile()
 #'        - the mean season total
 #'        - the current season's cases observed up to the origin, and the
 #'          origin's season-month k
 #'   2. predict() for a target at season-month m:
-#'        - estimated season total  T = (cases observed to date) / (mean
-#'          cumulative proportion at k)   -- only trusted once k >=
-#'          spec$min_cutoff and some cases have been observed; otherwise the
-#'          mean season total is used
+#'        - estimated season total
+#'            -T = (cases observed to date) / (mean
+#'              cumulative proportion at k)   -- only trusted once k >=
+#'              spec$min_cutoff and some cases have been observed; otherwise the
+#'              mean season total is used
 #'        - .pred = T * (mean monthly proportion at m)
-#'      Targets in the *next* season (k + horizon crosses season end) use
-#'      spec$next_season_method: "climatology" (mean season total), "carry"
-#'      (this year's T), or "none" (NA).
-#'   3. Intervals are multiplicative and read from GDO's calibrated relative-
-#'      error quantiles (Assets/Stable/calibrated_prediction_intervals*.csv),
-#'      country -> region -> global fallback, keyed on (cutoff_month k,
-#'      prediction_month m). Next-season targets look up at cutoff_month 1.
+#'        
+#'      ! Targets in the *next* season (k + horizon crosses season end) use
+#'      spec$next_season_method: "mean_T" (mean season total), "carry_T"
+#'      (this year's T carried forward), or "NA".
+#'      * "NA" is how this is currently handled in the deployed GDO nowcast and
+#'      results in no estimate if cases have not been observed this season.
+#'
+#'   3. [UNDER REVIEW - see 04-09-2026 note] Intervals are multiplicative and
+#'      read from GDO's *static* calibrated relative-error quantiles
+#'      (Assets/Stable/calibrated_prediction_intervals*.csv), country -> region
+#'      -> global fallback, keyed on (cutoff_month k, prediction_month m).
+#'      Next-season targets look up at cutoff_month 1. This file is fit once,
+#'      on the full historical record, via LOSO across complete seasons - it is
+#'      NOT recomputed per training window. That is fine for a single Stage 0
+#'      fit on the full panel, but is not internally consistent with a Stage 1
+#'      backtest, where each (window, origin) fit sees a different, often much
+#'      smaller, set of seasons: the borrowed calibration would not reflect
+#'      that fit's own uncertainty. Before Stage 1 this needs replacing with an
+#'      uncertainty method computed FROM each fit's own training window (see
+#'      nowcast_attach_intervals() below for the current placeholder and the
+#'      planned direction).
 #'
 #' Timeline:
 #' ========
 #' 03-09-2026: Created.
+#' 04-09-2026: Second review. Renamed next_season_method values. Flagged the
+#'   static-calibration interval method as needing a per-window redesign before
+#'   Stage 1 (see notes on nowcast_attach_intervals()). min_cutoff confirmed to
+#'   NOT be a GDO parameter.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -60,9 +81,20 @@ if (!exists("fit_baseline_profile")) {
 
 nowcast_spec <- list(
   min_train_seasons  = 3L,   # complete historical seasons needed for a profile
-  min_cutoff         = 3L,   # season-months observed before the current-season
-                             # signal (cases / cum. proportion) is trusted
-  next_season_method = "climatology",  # "climatology" | "carry" | "none"
+  min_cutoff         = 3L,   # NOT a GDO parameter -- added here as a guard
+                             # against a wild C/P_k at k=1. The deployed nowcast
+                             # (03_proportion_nowcast.R) and its LOSO validation
+                             # (03_nowcast_validation_ind.R, k = 1:11) apply no
+                             # such floor. Revisit: keep, drop, or make it 1
+                             # (= off) to match GDO exactly.
+  next_season_method = "mean_T",  # "mean_T" | "carry_T" | "NA"
+                             # (a *string* "NA", not R's NA -- matches how the
+                             # deployed nowcast labels "no estimate this season")
+  # [UNDER REVIEW] calibrate_point + calibration_dir below implement the
+  # interim, static-file interval method. Expected to be replaced by a
+  # per-training-window empirical method before Stage 1 -- see
+  # nowcast_attach_intervals(). calibrate_point should become unnecessary once
+  # that method supplies a coherent, self-consistent quantile set directly.
   calibrate_point    = TRUE, # shift .pred to the calibrated IQR midpoint so the
                              # point sits inside the interval (FALSE keeps the
                              # raw estimate and widens the bands to bracket it)
@@ -76,13 +108,22 @@ nowcast_spec <- list(
 #' A season runs 12 months starting in `low` (the country's mean lowest-
 #' transmission month). season_nMonth counts 1..12 from there.
 #'
+#' Matches the GDO pipeline's own season assignment exactly (same formula as
+#' `circular_encode()` in Scripts/seasonal_baseline/02_identify_seasonal_baseline.R);
+#' verified empirically against the panel's GDO-assigned season/season_nMonth
+#' columns on 04-09-2026: 0 mismatches across 13,803 rows.
+#'
 #' @param dates Date vector.
 #' @param low Integer month 1..12 (scalar or same length as `dates`).
 #' @return tibble(season, season_nMonth, season_start_year), one row per date.
 nowcast_season_position <- function(dates, low) {
   mo <- lubridate::month(dates)
   yr <- lubridate::year(dates)
-  offset     <- (mo - low) %% 12L          # 0 in the low month, 11 the month before
+  offset <- (mo - low) %% 12L  # 0 in the low month, 11 the month before
+  # Once the month reaches `low`, the season is counted as starting THIS
+  # calendar year (yr); before `low`, we're still in the tail of the season
+  # that started LAST calendar year (yr - 1). E.g. low = 7 (Jul): Aug -> yr,
+  # season "yr/yr+1"; Mar -> yr - 1, season "yr-1/yr".
   start_year <- ifelse(mo >= low, yr, yr - 1L)
   tibble::tibble(
     season            = sprintf("%d/%d", start_year, start_year + 1L),
@@ -92,6 +133,14 @@ nowcast_season_position <- function(dates, low) {
 }
 
 #' Read the three calibrated relative-error quantile files, if present.
+#'
+#' [UNDER REVIEW] These are GDO's static, whole-history files - see the
+#' UNDER REVIEW note in the file overview and on nowcast_attach_intervals().
+#'
+#' @param dir Directory holding the three calibrated_prediction_intervals*.csv
+#'   files (spec$calibration_dir).
+#' @return Named list `country`/`region`/`global`; an element is NULL if its
+#'   file is missing.
 nowcast_load_calibration <- function(dir) {
   files <- c(
     country = "calibrated_prediction_intervals.csv",
@@ -108,23 +157,41 @@ nowcast_load_calibration <- function(dir) {
 #' Turn a raw seasonal-proportion estimate into a calibrated predictive
 #' distribution using GDO's relative-error quantiles.
 #'
-#' `df` must already have iso3, region, cutoff_month, prediction_month and
-#' `.pred_raw`. The relative-error quantiles q_p (quantiles of (actual - est)/est
-#' from the LOSO nowcast validation) are taken from the country file where
-#' available, else the region file, else the global file - one source per row so
-#' the quantiles stay monotone. Then, per row:
+#' [UNDER REVIEW, 04-09-2026] `calib` here is GDO's *static* file, fit once via
+#' LOSO on the full historical record (see nowcast_load_calibration()). That is
+#' consistent with a Stage 0 fit on the full panel, but not with Stage 1: each
+#' rolling-origin (window, origin) fit trains on a different, often much
+#' smaller, set of seasons, and this function would apply the SAME borrowed
+#' calibration to all of them regardless. The planned fix is a per-window
+#' empirical method computed inside nowcast_fit() itself (e.g. a LOSO sweep
+#' over just that fit's training seasons, mirroring
+#' Scripts/validation/nowcasting/03_nowcast_validation_ind.R but scoped to
+#' `train_df`), stored on the fitted object and consumed here (or replacing
+#' this function). That also removes the need for `calibrate_point` (a
+#' self-computed residual distribution is already a coherent set of quantiles
+#' around a real centre) and frees the interval schema from being locked to
+#' whatever quantile levels happen to be in GDO's file - e.g. moving to 50/90 -
+#' which could then be retrofitted onto the live GDO nowcast too.
 #'
-#'   est(1 + q_p) is the p-th predictive quantile for the truth
-#'   -> .pred_lower95 = est(1 + q_0.025), .pred_lower50 = est(1 + q_0.25), etc.
+#' Until that lands, this is the interim behaviour: `df` must already have
+#' iso3, region, cutoff_month, prediction_month and `.pred_raw`. The
+#' relative-error quantiles q_p (quantiles of (actual - est)/est from the LOSO
+#' nowcast validation) are taken from the country file where available, else
+#' the region file, else the global file - one source per row so the quantiles
+#' stay monotone. Then, per row, est(1 + q_p) is treated as the p-th predictive
+#' quantile for the truth.
 #'
-#' The point forecast:
-#'   calibrate_point = TRUE  -> est(1 + (q_0.25 + q_0.75)/2), the IQR midpoint,
-#'       a bias-corrected median proxy (the calibrated files carry no q_0.5),
-#'       so .pred always sits inside the interval.
-#'   calibrate_point = FALSE -> the raw estimate, with the interval bounds
-#'       clamped outward to bracket it.
-#'
-#' Rows with no calibrated match keep .pred = .pred_raw and get NA intervals.
+#' @param df Rows needing intervals; must have `iso3`, `region`, `cutoff_month`,
+#'   `prediction_month`, `.pred_raw` (the uncalibrated point estimate).
+#' @param calib Output of nowcast_load_calibration().
+#' @param calibrate_point If TRUE (default), `.pred` is shifted to
+#'   `est * (1 + (q_0.25 + q_0.75)/2)` - the IQR midpoint, a bias-corrected
+#'   median proxy (the calibrated files carry no q_0.5) - so it always sits
+#'   inside the interval. If FALSE, `.pred` stays the raw estimate and the
+#'   interval bounds are clamped outward to bracket it instead.
+#' @return `df` with `.pred`, `.pred_lower50`, `.pred_upper50`,
+#'   `.pred_lower95`, `.pred_upper95` added (all four NA together on rows with
+#'   no calibrated match at any level; `.pred` falls back to `.pred_raw` there).
 nowcast_attach_intervals <- function(df, calib, calibrate_point = TRUE) {
   qn <- c("q025", "q25", "q75", "q975")
 
@@ -206,8 +273,29 @@ nowcast_attach_intervals <- function(df, calib, calibrate_point = TRUE) {
     dplyr::select(-dplyr::matches("^q(025|25|75|975)_[crg]$"))
 }
 
-# ---- fit ------------------------------------------------------
+#' Fit the seasonal-proportion baseline on one training panel slice.
+#'
+#' Builds, per country with >= `spec$min_train_seasons` *complete* historical
+#' seasons (all 12 season-months present with a proportion value, so an
+#' ongoing or partly-seen season cannot leak in): the mean seasonal profile
+#' (fit_baseline_profile()) and the mean season total. Also records the
+#' current-season state as of the origin (= `max(train_df$date)`): cases
+#' observed so far this season, and the season-month `k` that represents.
+#'
+#' Also loads GDO's calibrated interval files (spec$calibration_dir) - see the
+#' UNDER REVIEW note on nowcast_attach_intervals().
+#'
+#' @param train_df Training panel slice. Needs `iso3`, `region`, `date`,
+#'   `cases`, `mean_low_month`, `Actual_monthly_proportion`,
+#'   `Actual_cum_monthly_proportion`.
+#' @param spec `nowcast_spec`, or a runner's override of it.
+#' @return A `"nowcast_model_fit"` list: `spec`, `origin_date`, `profiles`,
+#'   `season_totals`, `origin_state`, `cum_to_date`, `region_map`, `low_map`,
+#'   `calibration`.
 nowcast_fit <- function(train_df, spec = nowcast_spec) {
+  spec$next_season_method <- match.arg(spec$next_season_method,
+                                       c("mean_T", "carry_T", "NA"))
+
   req <- c("iso3", "region", "date", "cases", "mean_low_month",
            "Actual_monthly_proportion", "Actual_cum_monthly_proportion")
   miss <- setdiff(req, names(train_df))
@@ -286,7 +374,30 @@ nowcast_fit <- function(train_df, spec = nowcast_spec) {
   ), class = "nowcast_model_fit")
 }
 
-# ---- predict -----------------------------------------------
+#' Forecast each target from a nowcast_fit() result.
+#'
+#' For every target row, works out its season position (`nowcast_season_position()`
+#' on `target_date`) relative to the fit's origin season, then:
+#'   - current-season target (`is_current`): estimated season total
+#'     `T = cum_to_date / p_cum_k` once `k >= spec$min_cutoff` and some cases
+#'     are observed, else the mean season total; `.pred_raw = T * p_m`
+#'   - next-season target (`is_next`): `T` per `spec$next_season_method`
+#'     ("mean_T" / "carry_T" / "NA" - see the file overview)
+#'   - any other case (further than one season out, or no profile/mean_low_month
+#'     for the country): `.pred_raw` is NA
+#' Intervals are then attached by `nowcast_attach_intervals()` - see its
+#' [UNDER REVIEW] note on the static-calibration method.
+#'
+#' @param fitted Output of `nowcast_fit()`.
+#' @param targets `tibble(iso3, origin_date, horizon, target_date)` - the
+#'   contract's target rows (`origin_date` is carried through but not otherwise
+#'   used here; the fit's own `origin_date` from `nowcast_fit()` is what
+#'   defines "current" vs "next" season).
+#' @param spec `nowcast_spec`, or a runner's override of it (defaults to the
+#'   spec captured at fit time).
+#' @return Tibble with exactly `forecast_output_cols` (`iso3`, `origin_date`,
+#'   `horizon`, `target_date`, `.pred`, `.pred_lower50`, `.pred_upper50`,
+#'   `.pred_lower95`, `.pred_upper95`).
 nowcast_predict <- function(fitted, targets, spec = fitted$spec) {
   need <- c("iso3", "origin_date", "horizon", "target_date")
   miss <- setdiff(need, names(targets))
@@ -329,11 +440,12 @@ nowcast_predict <- function(fitted, targets, spec = fitted$spec) {
         cum_to_date / p_cum_k, NA_real_
       ),
       season_total_used = dplyr::case_when(
-        is_current & !is.na(season_total_signal)            ~ season_total_signal,
-        is_current                                          ~ mean_season_total,
-        is_next & spec$next_season_method == "carry"        ~ dplyr::coalesce(season_total_signal, mean_season_total),
-        is_next & spec$next_season_method == "climatology"  ~ mean_season_total,
-        TRUE                                                ~ NA_real_
+        is_current & !is.na(season_total_signal)          ~ season_total_signal,
+        is_current                                        ~ mean_season_total,
+        is_next & spec$next_season_method == "carry_T"    ~ dplyr::coalesce(season_total_signal, mean_season_total),
+        is_next & spec$next_season_method == "mean_T"     ~ mean_season_total,
+        is_next & spec$next_season_method == "NA"         ~ NA_real_,  # deployed-nowcast behaviour: no estimate
+        TRUE                                              ~ NA_real_
       ),
       .pred_raw = dplyr::if_else(!is.na(p_m), pmax(0, season_total_used * p_m), NA_real_),
       cutoff_month     = dplyr::if_else(is_current, k, 1L),
@@ -345,7 +457,21 @@ nowcast_predict <- function(fitted, targets, spec = fitted$spec) {
   dplyr::select(t, dplyr::all_of(forecast_output_cols))
 }
 
-# ---- diagnose ---------------------------------------------
+#' Stage 0 checklist for the nowcast baseline.
+#'
+#' This isn't a statistical fit in the GLM sense (no likelihood, no
+#' convergence, no dispersion parameter), so the checklist is instead: how many
+#' countries does the method actually apply to, and did its calibration inputs
+#' load. `pass` requires at least one country with a usable profile AND the
+#' global calibration file present (without it every interval is NA).
+#'
+#' @param fitted Output of `nowcast_fit()`.
+#' @param train_df Unused; present only for interface parity with the other
+#'   models (the contract's `diagnose(fitted, train_df, spec)` signature).
+#' @param spec `nowcast_spec`, or a runner's override of it.
+#' @return Named list: `n_countries`, `n_countries_with_profile`,
+#'   `n_countries_no_profile`, `median_train_seasons`, `min_train_seasons`,
+#'   `next_season_method`, `calibration_loaded`, `pass`, `notes`.
 nowcast_diagnose <- function(fitted, train_df = NULL, spec = fitted$spec) {
   all_iso      <- unique(fitted$region_map$iso3)
   with_profile <- unique(fitted$profiles$iso3)
