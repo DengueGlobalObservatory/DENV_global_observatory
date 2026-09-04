@@ -24,7 +24,10 @@
 #'
 #' Input : Output/forecasting/training_data/training_panel_<snapshot_date>.csv
 #' Output: Output/forecasting/stage0_fit/<slug>/fit.rds
-#'         Output/forecasting/stage0_fit/<slug>/fit_warnings.txt   (if any)
+#'         Output/forecasting/stage0_fit/<slug>/fit_warnings.txt              (if any)
+#'         Output/forecasting/stage0_fit/<slug>/wiring_check_forecasts.csv    (the
+#'         predict() contract-check output itself - one origin, no truth, not a
+#'         skill claim; read by the notebook's model-details appendix)
 #'         Output/forecasting/stage0_fit/diagnostics.csv           (accumulates
 #'         across partial runs - a re-run of a model replaces just its row,
 #'         other models' rows are kept; each row carries its own `run_at`
@@ -33,7 +36,7 @@
 #' Timeline:
 #' ========
 #' 03-09-2026: Created.
-#' 04-09-2026: Reviewed.
+#' 04-09-2026: Reviewed. Persist the wiring-check forecasts for the notebook.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -144,8 +147,9 @@ stage0_targets <- function(panel) {
 #' @param model A `forecast_model`.
 #' @param fitted That model's `fit()` result.
 #' @param panel The training panel (only used to build the targets).
-#' @return One-row tibble: `predict_ok`, `n_predictions`, `pct_pred_na`,
-#'   `intervals_monotone`, `predict_error`.
+#' @return A list: `summary` (one-row tibble - `predict_ok`, `n_predictions`,
+#'   `pct_pred_na`, `intervals_monotone`, `predict_error`) and `forecasts`
+#'   (the full predict() result, contract columns only, or NULL on error).
 predict_contract_check <- function(model, fitted, panel) {
   tryCatch({
     fc <- check_forecast_output(
@@ -159,20 +163,26 @@ predict_contract_check <- function(model, fitted, panel) {
         .pred_upper50 <= .pred_upper95 + 1e-6,
       na.rm = TRUE
     ))
-    tibble::tibble(
-      predict_ok         = TRUE,
-      n_predictions      = nrow(fc),
-      pct_pred_na        = round(mean(is.na(fc$.pred)), 3),
-      intervals_monotone = monotone,
-      predict_error      = NA_character_
+    list(
+      summary = tibble::tibble(
+        predict_ok         = TRUE,
+        n_predictions      = nrow(fc),
+        pct_pred_na        = round(mean(is.na(fc$.pred)), 3),
+        intervals_monotone = monotone,
+        predict_error      = NA_character_
+      ),
+      forecasts = fc
     )
   }, error = function(e) {
-    tibble::tibble(
-      predict_ok         = FALSE,
-      n_predictions      = NA_integer_,
-      pct_pred_na        = NA_real_,
-      intervals_monotone = NA,
-      predict_error      = conditionMessage(e)
+    list(
+      summary = tibble::tibble(
+        predict_ok         = FALSE,
+        n_predictions      = NA_integer_,
+        pct_pred_na        = NA_real_,
+        intervals_monotone = NA,
+        predict_error      = conditionMessage(e)
+      ),
+      forecasts = NULL
     )
   })
 }
@@ -208,20 +218,25 @@ run_stage0_one <- function(model, panel) {
   if (length(warns) > 0L) {
     writeLines(warns, file.path(out_dir, "fit_warnings.txt"))
   }
+  if (!is.null(pchk$forecasts)) {
+    # The wiring-check output itself, kept for the notebook's model-details
+    # appendix - a Stage 0 snapshot (one origin, no truth), not a skill claim.
+    write_csv(pchk$forecasts, file.path(out_dir, "wiring_check_forecasts.csv"))
+  }
 
   cli::cli_inform(c(
     ">" = "fit: {length(warns)} warning{?s}  |  diagnose pass: {diag$pass}",
-    ">" = "predict: {if (isTRUE(pchk$predict_ok)) 'ok' else 'FAILED'}  |  {pchk$n_predictions} rows  |  monotone: {pchk$intervals_monotone}",
+    ">" = "predict: {if (isTRUE(pchk$summary$predict_ok)) 'ok' else 'FAILED'}  |  {pchk$summary$n_predictions} rows  |  monotone: {pchk$summary$intervals_monotone}",
     ">" = "saved: {.path {fit_path}}"
   ))
-  if (!isTRUE(pchk$predict_ok)) {
-    cli::cli_warn("predict() check failed for {.val {model$name}}: {pchk$predict_error}")
+  if (!isTRUE(pchk$summary$predict_ok)) {
+    cli::cli_warn("predict() check failed for {.val {model$name}}: {pchk$summary$predict_error}")
   }
 
   diag_scalars <- diag[vapply(diag, function(x) length(x) == 1L && !is.list(x), logical(1))]
 
   tibble::as_tibble(diag_scalars) %>%
-    dplyr::bind_cols(pchk) %>%
+    dplyr::bind_cols(pchk$summary) %>%
     dplyr::mutate(
       n_fit_warnings = length(warns),
       run_at         = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
@@ -236,6 +251,19 @@ diag_path <- file.path(stage0_dir, "diagnostics.csv")
 if (file.exists(diag_path)) {
   prior <- read_csv(diag_path, show_col_types = FALSE) %>%
     dplyr::filter(!model %in% results$model)
+
+  # readr guesses each column's type per-run from its own values (e.g. an
+  # all-NA predict_error column reads back as logical, not character; a
+  # timestamp-shaped run_at reads back as a datetime, not a string) - coerce
+  # every shared column in `prior` to match the freshly-computed `results`,
+  # which has the correct type, before binding.
+  for (col in intersect(names(prior), names(results))) {
+    caster <- switch(class(results[[col]])[1],
+      character = as.character, logical = as.logical,
+      integer = as.integer, numeric = as.numeric, as.character
+    )
+    prior[[col]] <- caster(prior[[col]])
+  }
   results <- dplyr::bind_rows(prior, results)
 }
 results <- results %>%

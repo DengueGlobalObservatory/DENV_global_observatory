@@ -1,2 +1,2 @@
 model,run_at,pass,n_fit_warnings,predict_ok,intervals_monotone,n_predictions,pct_pred_na,n_countries,n_countries_with_profile,n_countries_no_profile,median_train_seasons,min_train_seasons,next_season_method,calibration_loaded,notes,predict_error,fit_path
-nowcast,2026-09-04 15:21:02,TRUE,0,TRUE,TRUE,576,0,96,96,0,12.5,3,mean_T,TRUE,seasonal-proportion baseline; profile for 96/96 countries (>= 3 seasons); next-season = mean_T; calibration loaded,NA,Output/forecasting/stage0_fit/nowcast/fit.rds
+nowcast,2026-09-04 15:42:42,TRUE,0,TRUE,TRUE,576,0,96,96,0,12.5,3,mean_T,TRUE,seasonal-proportion baseline; profile for 96/96 countries (>= 3 seasons); next-season = mean_T; calibration loaded,NA,Output/forecasting/stage0_fit/nowcast/fit.rds
