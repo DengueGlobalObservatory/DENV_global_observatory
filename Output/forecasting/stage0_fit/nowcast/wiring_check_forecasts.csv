@@ -1,4 +1,4 @@
-iso3,origin_date,horizon,target_date,.pred,.pred_lower50,.pred_upper50,.pred_lower95,.pred_upper95
+iso3,origin_date,horizon,target_date,.pred,.pred_lower50,.pred_upper50,.pred_lower90,.pred_upper90
 ABW,2026-07-01,1,2026-08-01,38,29,47,0,56
 ABW,2026-07-01,2,2026-09-01,65,43,87,0,117
 ABW,2026-07-01,3,2026-10-01,57,45,68,0,100
