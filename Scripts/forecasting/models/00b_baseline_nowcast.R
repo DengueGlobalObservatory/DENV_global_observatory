@@ -190,8 +190,10 @@ nowcast_load_calibration <- function(dir) {
 #'   inside the interval. If FALSE, `.pred` stays the raw estimate and the
 #'   interval bounds are clamped outward to bracket it instead.
 #' @return `df` with `.pred`, `.pred_lower50`, `.pred_upper50`,
-#'   `.pred_lower95`, `.pred_upper95` added (all four NA together on rows with
+#'   `.pred_lower90`, `.pred_upper90` added (all four NA together on rows with
 #'   no calibrated match at any level; `.pred` falls back to `.pred_raw` there).
+#'   See the INTERIM note in the body: the `_90` columns currently carry the
+#'   static file's 2.5 / 97.5 quantiles pending the Step 3 redesign.
 nowcast_attach_intervals <- function(df, calib, calibrate_point = TRUE) {
   qn <- c("q025", "q25", "q75", "q975")
 
@@ -262,13 +264,18 @@ nowcast_attach_intervals <- function(df, calib, calibrate_point = TRUE) {
     up50 <- pmax(up50, point); up95 <- pmax(up95, point)
   }
 
+  # INTERIM (10-09-2026): the contract's outer interval moved to 90% for Stage 1,
+  # but GDO's static calibration file only carries 2.5 / 97.5 quantiles. Until the
+  # Step 3 per-window self-calibration lands (which computes a real 5 / 95), these
+  # `_lower90` / `_upper90` columns actually hold the file's 2.5 / 97.5 quantiles -
+  # slightly wider than a true 90%. Only matters for the Stage 0 wiring check.
   out %>%
     dplyr::mutate(
       .pred         = pmax(0, round(dplyr::if_else(is.na(point), est, point))),
       .pred_lower50 = dplyr::if_else(have_q, pmax(0, round(lo50)), NA_real_),
       .pred_upper50 = dplyr::if_else(have_q, pmax(0, round(up50)), NA_real_),
-      .pred_lower95 = dplyr::if_else(have_q, pmax(0, round(lo95)), NA_real_),
-      .pred_upper95 = dplyr::if_else(have_q, pmax(0, round(up95)), NA_real_)
+      .pred_lower90 = dplyr::if_else(have_q, pmax(0, round(lo95)), NA_real_),
+      .pred_upper90 = dplyr::if_else(have_q, pmax(0, round(up95)), NA_real_)
     ) %>%
     dplyr::select(-dplyr::matches("^q(025|25|75|975)_[crg]$"))
 }
@@ -397,7 +404,7 @@ nowcast_fit <- function(train_df, spec = nowcast_spec) {
 #'   spec captured at fit time).
 #' @return Tibble with exactly `forecast_output_cols` (`iso3`, `origin_date`,
 #'   `horizon`, `target_date`, `.pred`, `.pred_lower50`, `.pred_upper50`,
-#'   `.pred_lower95`, `.pred_upper95`).
+#'   `.pred_lower90`, `.pred_upper90`).
 nowcast_predict <- function(fitted, targets, spec = fitted$spec) {
   need <- c("iso3", "origin_date", "horizon", "target_date")
   miss <- setdiff(need, names(targets))

@@ -22,11 +22,11 @@
 #'   predict(fitted, targets, spec)   -> tibble with EXACTLY these columns,
 #'       in this order (see `forecast_output_cols`):
 #'         iso3, origin_date, horizon, target_date,
-#'         .pred, .pred_lower50, .pred_upper50, .pred_lower95, .pred_upper95
-#'       One row per input target row. .pred is the point forecast; the four
-#'       .pred_* columns are the 50% and 95% central predictive intervals
-#'       (matching GDO's calibrated-interval files and its 95% whiskers).
-#'       NA is allowed where the model genuinely cannot forecast.
+#'         .pred, .pred_lower50, .pred_upper50, .pred_lower90, .pred_upper90
+#'       One row per input target row. .pred is the point forecast (predictive
+#'       median); the four .pred_* columns are the 50% and 90% central
+#'       predictive intervals - i.e. the 0.05 / 0.25 / 0.75 / 0.95 predictive
+#'       quantiles. NA is allowed where the model genuinely cannot forecast.
 #'
 #'   diagnose(fitted, train_df, spec) -> named list
 #'       Stage 0 checklist. Must contain a logical `pass`. Everything else is
@@ -50,11 +50,15 @@
 #' ========
 #' 03-09-2026: Created alongside models/00a_baseline_naive.R.
 #' 04-09-2026: Reviewed.
+#' 10-09-2026: Interval schema 50%/95% -> 50%/90% for Stage 1 (.pred_lower90 /
+#'   .pred_upper90). Quantile set is now 0.05 / 0.25 / 0.5 / 0.75 / 0.95.
 
 # The exact, ordered output columns every model$predict() must return.
+# The four .pred_* columns are the 50% and 90% central predictive intervals
+# (0.05 / 0.25 / 0.75 / 0.95 predictive quantiles); .pred is the median.
 forecast_output_cols <- c(
   "iso3", "origin_date", "horizon", "target_date",
-  ".pred", ".pred_lower50", ".pred_upper50", ".pred_lower95", ".pred_upper95"
+  ".pred", ".pred_lower50", ".pred_upper50", ".pred_lower90", ".pred_upper90"
 )
 
 #' Build (and validate) a model object.

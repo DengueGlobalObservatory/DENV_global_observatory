@@ -157,10 +157,10 @@ predict_contract_check <- function(model, fitted, panel) {
       model$name
     )
     monotone <- with(fc, all(
-      .pred_lower95 <= .pred_lower50 + 1e-6 &
+      .pred_lower90 <= .pred_lower50 + 1e-6 &
         .pred_lower50 <= .pred + 1e-6 &
         .pred <= .pred_upper50 + 1e-6 &
-        .pred_upper50 <= .pred_upper95 + 1e-6,
+        .pred_upper50 <= .pred_upper90 + 1e-6,
       na.rm = TRUE
     ))
     list(

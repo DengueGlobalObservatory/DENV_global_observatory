@@ -327,17 +327,14 @@ if (is.null(panel) || is.null(summary_country)) {
 
 # Covariate & climate data {#sec-covariates}
 
-Placeholder for climate and other covariate data once sourced (plan §1, item 4
-— GLM+climate / GAM+climate). Candidate variables, sources, coverage by
-country/region, and any exploratory relationship with case counts will go
-here once that sourcing work starts.
+Placeholder for climate and other covariate data once sourced (plan §1, item 4 — GLM+climate / GAM+climate). Candidate variables, sources, coverage by country/region, and any exploratory relationship with case counts will go here once that sourcing work starts.
 
 ::: {.callout-note appearance="simple"}
 Not sourced yet — no covariate data exists in the repo at this point.
 :::
 
 ::: {.callout-note title="Notes / observations"}
-_Add: candidate covariates under consideration, sourcing plan, coverage._
+*Add: candidate covariates under consideration, sourcing plan, coverage.*
 :::
 
 ------------------------------------------------------------------------
@@ -673,17 +670,10 @@ Running synthesis for the forecasting paper (target: PLOS Comp Biol / PLOS NTD).
 
 # Appendix: Model details {#sec-model-details}
 
-One subsection per model, added as each clears Stage 0. Every subsection
-follows the same template — a forecast summary and an uncertainty-by-lead-time
-/ region view — with room underneath for anything specific to that model.
+One subsection per model, added as each clears Stage 0. Every subsection follows the same template — a forecast summary and an uncertainty-by-lead-time / region view — with room underneath for anything specific to that model.
 
 ::: {.callout-important appearance="simple"}
-Everything here is a **Stage 0 snapshot**: one origin (the training panel's
-last month), no ground truth, produced by the `predict()` contract check in
-`run_stage0_fit.R` (`stage0_fit/<model>/wiring_check_forecasts.csv`). It shows
-what the model's output currently looks like — **not** how well it forecasts.
-Skill (does the interval actually cover the truth) has to wait for the Stage 1
-backtest.
+Everything here is a **Stage 0 snapshot**: one origin (the training panel's last month), no ground truth, produced by the `predict()` contract check in `run_stage0_fit.R` (`stage0_fit/<model>/wiring_check_forecasts.csv`). It shows what the model's output currently looks like — **not** how well it forecasts. Skill (does the interval actually cover the truth) has to wait for the Stage 1 backtest.
 :::
 
 ```{r}
@@ -792,11 +782,7 @@ if (!is.null(nc_fc)) {
 
 ### 2026 year-to-date and 6-month forecast, by region
 
-Solid = observed 2026 (the panel's post-nowcast series); dashed = the Stage 0
-forecast from the last observed month, with a light 90% band. One figure per
-region — a single panel with all 96 countries would be unreadable, and even
-within a region the y-axis is shared and linear, so very low-burden countries
-will sit flat near zero next to a country like Cuba or Brazil.
+Solid = observed 2026 (the panel's post-nowcast series); dashed = the Stage 0 forecast from the last observed month, with a light 90% band. One figure per region — a single panel with all 96 countries would be unreadable, and even within a region the y-axis is shared and linear, so very low-burden countries will sit flat near zero next to a country like Cuba or Brazil.
 
 ```{r}
 #| label: nowcast-2026-forecast-data
@@ -895,13 +881,11 @@ if (is.null(nc_fc)) {
 ```
 
 ::: {.callout-note title="nowcast-specific notes"}
-_Add: behaviour tied to this method specifically — e.g. next_season_method
-choice, calibration-file coverage, the [UNDER REVIEW] uncertainty redesign's
-expected effect on these plots once it lands._
+*Add: behaviour tied to this method specifically — e.g. next_season_method choice, calibration-file coverage, the \[UNDER REVIEW\] uncertainty redesign's expected effect on these plots once it lands.*
 :::
 
 ::: {.callout-note title="Notes / observations"}
-_Add._
+*Add.*
 :::
 
 ------------------------------------------------------------------------
