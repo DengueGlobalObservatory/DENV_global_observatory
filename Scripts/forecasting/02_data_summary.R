@@ -12,12 +12,14 @@
 #'
 #' **Per country:** coverage (complete seasons, months, span), data composition
 #' (observed / corrected / estimated share), magnitude (mean / median / max
-#' monthly cases, CV, zero-month fraction) and seasonality shape, read from the
+#' monthly cases, CV, zero-month fraction), seasonality shape read from the
 #' mean seasonal profile (`DENV_average_season.csv`):
 #'   - seasonal_concentration : HHI of the mean monthly proportions
 #'                              (1/12 ~ flat, -> 1 as one month dominates)
 #'   - peak_to_trough_ratio   : mean peak month / mean trough month
 #'   - peak_month, top3_month_share
+#' and land area (km^2) from the country outline geometry (`base_map.gpkg`),
+#' equal-area projected (World Mollweide, ESRI:54009) before `sf::st_area()`.
 #'
 #' **Provisional strata (thresholds in 00_config.R, flagged `strata_provisional`):**
 #'   - seasonality_signal : weak / moderate / strong, by tertiles of
@@ -25,32 +27,44 @@
 #'   - endemicity         : endemic if mean monthly cases, complete seasons and
 #'                          zero-month fraction all clear their cut-points;
 #'                          otherwise emerging
-#'   NOTE: an alternative to the tertile split is to adopt the seasonality
-#'   clusters from Joshi et al. once published - see 00_config.R.
+#'   - size_class         : land-area class, `cut()` on `size_breaks` /
+#'                          `size_labels` (00_config.R) - edit the breaks or the
+#'                          class count there.
+#'   NOTE: an alternative to the seasonality tertile split is to adopt the
+#'   seasonality clusters from Joshi et al. - ask Kishen for the file.
 #'
 #' Input : Output/forecasting/training_data/training_panel_<snapshot_date>.csv
 #'         Output/<snapshot_date>/DENV_average_season.csv
+#'         Assets/Stable/OD_maps/base_map.gpkg  (country_geo_ref)
 #' Output: Output/forecasting/data_summary/{summary_country,summary_region,strata_country}.csv
 #'
 #' Timeline:
 #' ========
 #' 02-09-2026: Created. Stage 0 scaffold.
+#' 10-09-2026: Added the country-size (land area, km^2) sensitivity stratum.
 
 suppressPackageStartupMessages({
   library(dplyr)
   library(tidyr)
   library(readr)
   library(stringr)
+  library(sf)
   library(cli)
 })
 
 # ---- Define project configs ----------------------------------------
 source("Scripts/forecasting/00_config.R")
 
+if (length(size_breaks) != length(size_labels) + 1L) {
+  cli::cli_abort(
+    "00_config.R: {.code size_breaks} must have one more element than {.code size_labels}."
+  )
+}
+
 panel_path <- file.path(forecast_out, "training_data",
                         paste0("training_panel_", snapshot_date, ".csv"))
 
-for (f in c(panel_path, seasonal_profile)) {
+for (f in c(panel_path, seasonal_profile, country_geo_ref)) {
   if (!file.exists(f)) {
     cli::cli_abort(c(
       "Required input not found: {.path {f}}.",
@@ -138,12 +152,31 @@ if (nrow(bad_prop) > 0) {
 }
 seasonality <- seasonality %>% dplyr::select(-prop_sum)
 
+# ---- Land area (per country) ---------------------------------
+# One area per iso3 from the country outline geometry, equal-area projected
+# (World Mollweide) so st_area() is metric. Polygons for the smallest island
+# states are coarse at this map resolution and slightly under-state their area -
+# immaterial to a class split. Multi-part territories are summed.
+country_area <- sf::st_read(country_geo_ref, quiet = TRUE) %>%
+  dplyr::filter(!is.na(iso_a3), iso_a3 != "-99") %>%
+  sf::st_transform("ESRI:54009") %>%
+  dplyr::mutate(.area_km2 = as.numeric(sf::st_area(.)) / 1e6) %>%
+  sf::st_drop_geometry() %>%
+  dplyr::group_by(iso3 = str_to_upper(iso_a3)) %>%
+  dplyr::summarise(country_area_km2 = sum(.area_km2), .groups = "drop")
+
+missing_area <- setdiff(unique(coverage$iso3), country_area$iso3)
+if (length(missing_area) > 0) {
+  cli::cli_warn("No land area for: {.val {missing_area}} - size_class will be NA.")
+}
+
 # ---- Assemble the country summary --------------------------
 summary_country <- coverage %>%
   dplyr::left_join(complete_seasons, by = "iso3") %>%
   dplyr::left_join(n_gap, by = "iso3") %>%
   dplyr::left_join(magnitude, by = "iso3") %>%
   dplyr::left_join(seasonality, by = "iso3") %>%
+  dplyr::left_join(country_area, by = "iso3") %>%
   dplyr::mutate(
     n_complete_seasons = tidyr::replace_na(n_complete_seasons, 0L),
     n_gap_months       = tidyr::replace_na(n_gap_months, 0L)
@@ -161,6 +194,10 @@ summary_country <- summary_country %>%
         zero_month_fraction <  endemic_max_zero_fraction,
       "endemic", "emerging"
     ),
+    size_class = cut(
+      country_area_km2,
+      breaks = size_breaks, labels = size_labels, right = FALSE
+    ),
     strata_provisional = TRUE
   ) %>%
   dplyr::arrange(region, dplyr::desc(mean_monthly_cases))
@@ -170,6 +207,15 @@ signal_cuts <- stats::quantile(
 )
 
 # ---- Region summary ---------------------------------------
+# size_class counts per region, driven entirely by size_labels (add/remove a
+# class in 00_config.R and this follows with no edit here).
+region_size_counts <- summary_country %>%
+  dplyr::count(region, size_class, .drop = FALSE) %>%
+  tidyr::pivot_wider(
+    names_from = size_class, values_from = n,
+    values_fill = 0L, names_prefix = "n_size_"
+  )
+
 summary_region <- summary_country %>%
   dplyr::group_by(region) %>%
   dplyr::summarise(
@@ -186,14 +232,15 @@ summary_region <- summary_country %>%
     seasons_max          = max(n_complete_seasons),
     .groups              = "drop"
   ) %>%
+  dplyr::left_join(region_size_counts, by = "region") %>%
   dplyr::arrange(dplyr::desc(total_cases))
 
 # ---- Strata key (focused join table for scoring) ---------
 strata_country <- summary_country %>%
   dplyr::select(
-    iso3, country, region, seasonality_signal, endemicity,
+    iso3, country, region, seasonality_signal, endemicity, size_class,
     seasonal_concentration, mean_monthly_cases, n_complete_seasons,
-    zero_month_fraction, strata_provisional
+    zero_month_fraction, country_area_km2, strata_provisional
   )
 
 # ---- Write -----------------------------------------------
@@ -212,9 +259,19 @@ cli::cli_inform(c(
 cli::cli_h3("seasonal_concentration tertile cut-points (provisional)")
 cli::cli_inform("weak < {round(signal_cuts[1], 3)} <= moderate < {round(signal_cuts[2], 3)} <= strong")
 
+cli::cli_h3("land-area class break-points (km^2)")
+cli::cli_inform(paste(size_labels, "<", format(size_breaks[-1], big.mark = ",", scientific = FALSE), collapse = " | "))
+
 cli::cli_h3("provisional strata: seasonality_signal x endemicity")
 summary_country %>%
   dplyr::count(seasonality_signal, endemicity) %>%
+  tidyr::pivot_wider(names_from = endemicity, values_from = n, values_fill = 0L) %>%
+  as.data.frame() %>%
+  print(row.names = FALSE)
+
+cli::cli_h3("provisional strata: size_class x endemicity")
+summary_country %>%
+  dplyr::count(size_class, endemicity, .drop = FALSE) %>%
   tidyr::pivot_wider(names_from = endemicity, values_from = n, values_fill = 0L) %>%
   as.data.frame() %>%
   print(row.names = FALSE)

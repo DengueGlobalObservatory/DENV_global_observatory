@@ -341,52 +341,52 @@ Not sourced yet — no covariate data exists in the repo at this point.
 
 # Data characterisation & scenario strata {#sec-strata}
 
-`02_data_summary.R` characterises each country's burden and seasonal shape, and assigns the two **provisional** scenario strata the Stage 1 backtest will be sliced on (the third axis, lead time, is intrinsic to the forecast).
+`02_data_summary.R` characterises each country's burden, seasonal shape and land area, and assigns the **provisional** scenario strata the Stage 1 hindcast will be sliced on (the remaining axis, lead time, is intrinsic to the forecast).
 
-Seasonal shape is read from the mean seasonal profile (`DENV_average_season.csv`): `seasonal_concentration` is the Herfindahl index of the mean monthly proportions — `r round(1/12, 3)` for a flat year, rising toward 1 as a single month dominates.
+Seasonal shape is read from the mean seasonal profile (`DENV_average_season.csv`): `seasonal_concentration` is the Herfindahl index of the mean monthly proportions — `r round(1/12, 3)` for a flat year, rising toward 1 as a single month dominates. Land area is computed from the country outline geometry (`base_map.gpkg`), equal-area projected.
 
 ::: {.callout-important appearance="simple"}
 **Provisional cut-points — to confirm with the team.**
 
 - **seasonality_signal**: tertiles of `seasonal_concentration` across the `r if (!is.null(summary_country)) nrow(summary_country) else 96` countries → weak / moderate / strong.
 - **endemicity**: *endemic* only if mean monthly cases ≥ `r endemic_min_mean_cases`, complete seasons ≥ `r endemic_min_seasons`, and zero-month fraction \< `r endemic_max_zero_fraction`; otherwise *emerging*.
+- **size_class**: land area `cut()` on fixed km² breaks — `r if (exists("size_labels")) paste(size_labels, collapse = " / ") else "very_small / small / medium / large / continental"`. Change the breaks or the class count in `00_config.R`.
 
-Alternative under consideration: adopt the seasonality clusters from Joshi et al. in place of the tertile split.
+Alternative under consideration for seasonality: adopt Kishen Joshi's seasonality clusters in place of the tertile split (ask him for the file).
 :::
 
 ```{r}
-#| label: tbl-strata-crosstab
-#| tbl-cap: "Countries by provisional stratum."
+#| label: strata-crosstab-helper
 
-if (is.null(summary_country)) {
-  pending("Scripts/forecasting/02_data_summary.R")
-} else {
-  summary_country %>%
-    count(seasonality_signal, endemicity) %>%
-    pivot_wider(names_from = endemicity, values_from = n, values_fill = 0L) %>%
-    mutate(seasonality_signal = factor(seasonality_signal,
-      levels = c("weak", "moderate", "strong"))) %>%
-    arrange(seasonality_signal) %>%
-    knitr::kable()
+# A 2-way count with a Total column and a Total row, for the small strata
+# crosstabs below. `row_var` stays a factor so the row order is kept.
+strata_crosstab <- function(df, row_var, col_var) {
+  wide <- df %>%
+    count({{ row_var }}, {{ col_var }}, .drop = FALSE) %>%
+    pivot_wider(names_from = {{ col_var }}, values_from = n, values_fill = 0L) %>%
+    arrange({{ row_var }}) %>%
+    mutate(Total = rowSums(across(where(is.numeric))))
+  total_row <- wide %>%
+    summarise(across(where(is.numeric), sum)) %>%
+    mutate("{{ row_var }}" := "Total", .before = 1)
+  bind_rows(mutate(wide, "{{ row_var }}" := as.character({{ row_var }})), total_row)
 }
 ```
 
 ```{r}
-#| label: fig-strata-scatter
-#| fig-cap: "Each country by burden (mean monthly cases, log scale) and seasonal concentration, coloured by provisional endemicity. Dashed lines mark the endemicity case threshold and the seasonality-signal tertile cuts."
-#| fig-height: 5
+#| label: fig-region-seasonality
+#| fig-cap: "Countries per region, split by seasonality signal (weak -> strong)."
+#| fig-height: 3.6
 
 if (!is.null(summary_country)) {
-  cuts <- quantile(summary_country$seasonal_concentration, c(1/3, 2/3), na.rm = TRUE)
-  ggplot(summary_country,
-         aes(mean_monthly_cases, seasonal_concentration, colour = endemicity)) +
-    geom_hline(yintercept = cuts, linetype = "dashed", colour = "grey60") +
-    geom_vline(xintercept = endemic_min_mean_cases, linetype = "dashed", colour = "grey60") +
-    geom_point(size = 2, alpha = 0.8) +
-    scale_x_log10(labels = scales::label_comma()) +
-    scale_colour_manual(values = c(endemic = "#C44E52", emerging = "#4C72B0")) +
-    labs(x = "Mean monthly cases (log scale)", y = "Seasonal concentration (HHI)",
-         colour = NULL) +
+  summary_country %>%
+    mutate(seasonality_signal = factor(seasonality_signal,
+      levels = c("weak", "moderate", "strong"))) %>%
+    count(region, seasonality_signal, .drop = FALSE) %>%
+    ggplot(aes(n, reorder(region, n, sum), fill = seasonality_signal)) +
+    geom_col() +
+    scale_fill_brewer(palette = "YlOrRd", direction = 1) +
+    labs(x = "Countries", y = NULL, fill = NULL) +
     theme(legend.position = "top")
 }
 ```
@@ -408,23 +408,93 @@ if (!is.null(summary_country)) {
 ```
 
 ```{r}
-#| label: tbl-region-summary
-#| tbl-cap: "Region summary."
+#| label: fig-region-size
+#| fig-cap: "Countries per region, split by land-area class (very_small -> continental)."
+#| fig-height: 3.6
 
-if (!is.null(summary_region)) {
-  summary_region %>%
-    transmute(
-      region, n_countries,
-      endemic = n_endemic, emerging = n_emerging,
-      seasons_median, total_cases = scales::label_comma()(total_cases)
-    ) %>%
+if (!is.null(summary_country)) {
+  summary_country %>%
+    mutate(size_class = factor(size_class, levels = size_labels)) %>%
+    count(region, size_class, .drop = FALSE) %>%
+    ggplot(aes(n, reorder(region, n, sum), fill = size_class)) +
+    geom_col() +
+    scale_fill_viridis_d(option = "mako", direction = -1, end = 0.92) +
+    labs(x = "Countries", y = NULL, fill = NULL) +
+    theme(legend.position = "top")
+}
+```
+
+```{r}
+#| label: tbl-strata-crosstab
+#| tbl-cap: "Countries by provisional stratum: seasonality signal x endemicity."
+
+if (is.null(summary_country)) {
+  pending("Scripts/forecasting/02_data_summary.R")
+} else {
+  summary_country %>%
+    mutate(seasonality_signal = factor(seasonality_signal,
+      levels = c("weak", "moderate", "strong"))) %>%
+    strata_crosstab(seasonality_signal, endemicity) %>%
+    knitr::kable()
+}
+```
+
+```{r}
+#| label: tbl-strata-size
+#| tbl-cap: "Countries by land-area class (x endemicity). Classes and km2 breaks are set in 00_config.R."
+
+if (!is.null(summary_country)) {
+  summary_country %>%
+    mutate(size_class = factor(size_class, levels = size_labels)) %>%
+    strata_crosstab(size_class, endemicity) %>%
     knitr::kable()
 }
 ```
 
 ::: {.callout-note title="Notes / observations"}
-*Add: does the strata split look epidemiologically sensible? Any region with too few countries in a stratum to score separately? Decision on tertile vs cluster approach.*
+**Endemicity**
+
+- *I am surprised that the USA seems to be classified as endemic. The monthly case count min does not account for population, that maybe a problem, should it be a monthly average incidence to account for population size?*
+
+**Seasonality**
+
+- *seasonality tertile will be replaced Kishen's clusters as soon as I have the file*
+
+**Size Class**
+
+- *`size_class` is very_small-heavy (island states) — is the current 5-class / km² cut the right granularity, or collapse to small/medium/large or small/large?*
+
+- *There are region patterns to the distribution on nation size. Will the cause confounding effects to consider?*
 :::
+
+```{r}
+#| label: tbl-strata-lookup
+#| tbl-cap: "Every country's assignment on all three provisional strata, with the underlying values. Searchable; full detail in strata_country.csv."
+
+if (!is.null(strata_country)) {
+  lk_tbl <- strata_country %>%
+    transmute(
+      iso3, country, region,
+      seasonality_signal, endemicity, size_class,
+      seas_conc      = round(seasonal_concentration, 3),
+      mean_cases_mo  = round(mean_monthly_cases),
+      seasons        = n_complete_seasons,
+      area_km2       = round(country_area_km2)
+    ) %>%
+    arrange(region, country)
+
+  if (requireNamespace("DT", quietly = TRUE)) {
+    DT::datatable(
+      lk_tbl,
+      rownames = FALSE,
+      filter = "top",
+      options = list(pageLength = 15, order = list(list(2, "asc")))
+    )
+  } else {
+    knitr::kable(lk_tbl)
+  }
+}
+```
 
 ------------------------------------------------------------------------
 
