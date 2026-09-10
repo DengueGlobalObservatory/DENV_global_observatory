@@ -701,7 +701,7 @@ model_wiring_forecasts <- function(slug) {
       target_date = as.Date(target_date),
       # NA (not Inf) when .pred is 0, so it drops out of medians rather than
       # dominating them.
-      rel_width95 = if_else(.pred > 0, (.pred_upper95 - .pred_lower95) / .pred, NA_real_)
+      rel_width90 = if_else(.pred > 0, (.pred_upper90 - .pred_lower90) / .pred, NA_real_)
     ) %>%
     left_join(region_lookup, by = "iso3")
 }
@@ -758,30 +758,30 @@ if (!is.null(nc_fc)) {
 
 ```{r}
 #| label: fig-nowcast-uncertainty-lead
-#| fig-cap: "nowcast: median relative 95% interval width by lead time. Width = (.pred_upper95 - .pred_lower95) / .pred."
+#| fig-cap: "nowcast: median relative 90% interval width by lead time. Width = (.pred_upper90 - .pred_lower90) / .pred."
 #| fig-height: 3.6
 
 if (!is.null(nc_fc)) {
   nc_fc %>%
     group_by(horizon) %>%
-    summarise(median_rel_width = median(rel_width95, na.rm = TRUE), .groups = "drop") %>%
+    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
     ggplot(aes(horizon, median_rel_width)) +
     geom_col(fill = "#DD8452") +
     scale_x_continuous(breaks = sort(unique(nc_fc$horizon))) +
-    labs(x = "Lead time (months)", y = "Median relative 95% width")
+    labs(x = "Lead time (months)", y = "Median relative 90% width")
 }
 ```
 
 ```{r}
 #| label: fig-nowcast-uncertainty-region
-#| fig-cap: "nowcast: median relative 95% interval width by region and lead time."
+#| fig-cap: "nowcast: median relative 90% interval width by region and lead time."
 #| fig-height: 4
 
 if (!is.null(nc_fc)) {
   nc_fc %>%
     mutate(region = factor(region, levels = region_levels)) %>%
     group_by(region, horizon) %>%
-    summarise(median_rel_width = median(rel_width95, na.rm = TRUE), .groups = "drop") %>%
+    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
     ggplot(aes(horizon, region, fill = median_rel_width)) +
     geom_tile(colour = "white") +
     scale_fill_viridis_c(option = "magma", direction = -1, na.value = "grey90") +
@@ -793,7 +793,7 @@ if (!is.null(nc_fc)) {
 ### 2026 year-to-date and 6-month forecast, by region
 
 Solid = observed 2026 (the panel's post-nowcast series); dashed = the Stage 0
-forecast from the last observed month, with a light 95% band. One figure per
+forecast from the last observed month, with a light 90% band. One figure per
 region — a single panel with all 96 countries would be unreadable, and even
 within a region the y-axis is shared and linear, so very low-burden countries
 will sit flat near zero next to a country like Cuba or Brazil.
@@ -810,20 +810,20 @@ if (!is.null(nc_fc)) {
   obs_2026 <- panel %>%
     filter(Year == 2026, !is.na(cases)) %>%
     transmute(iso3, region = as.character(region), date, value = cases,
-              segment = "observed", lower95 = NA_real_, upper95 = NA_real_)
+              segment = "observed", lower90 = NA_real_, upper90 = NA_real_)
 
   # Anchor the forecast segment at the origin's observed value, so the dashed
   # line starts exactly where the solid line ends rather than jumping.
   fc_anchor <- panel %>%
     filter(date == nc_origin, !is.na(cases)) %>%
     transmute(iso3, region = as.character(region), date, value = cases,
-              segment = "forecast", lower95 = cases, upper95 = cases)
+              segment = "forecast", lower90 = cases, upper90 = cases)
 
   fc_future <- nc_fc %>%
     filter(!is.na(.pred)) %>%
     transmute(iso3, region = as.character(region), date = target_date,
               value = .pred, segment = "forecast",
-              lower95 = .pred_lower95, upper95 = .pred_upper95)
+              lower90 = .pred_lower90, upper90 = .pred_upper90)
 
   nc_2026_plot_df <- bind_rows(obs_2026, fc_anchor, fc_future) %>%
     mutate(region = factor(region, levels = region_levels)) %>%
@@ -856,8 +856,8 @@ if (is.null(nc_fc)) {
 
     p <- ggplot(d, aes(date, value, group = iso3, colour = iso3)) +
       geom_ribbon(
-        data = d %>% filter(segment == "forecast", !is.na(lower95)),
-        aes(ymin = lower95, ymax = upper95, fill = iso3),
+        data = d %>% filter(segment == "forecast", !is.na(lower90)),
+        aes(ymin = lower90, ymax = upper90, fill = iso3),
         colour = NA, alpha = 0.12, show.legend = FALSE
       ) +
       # Two layers, not one aes(linetype=) mapping: ggplot2 can't draw a
