@@ -951,11 +951,84 @@ if (is.null(nc_fc)) {
 ```
 
 ::: {.callout-note title="nowcast-specific notes"}
-*Add: behaviour tied to this method specifically — e.g. next_season_method choice, calibration-file coverage, the \[UNDER REVIEW\] uncertainty redesign's expected effect on these plots once it lands.*
+*Add: behaviour tied to this method specifically — e.g. `next_season_method` choice, and how the per-window self-calibration (10-09-2026, replacing the static calibrated-interval file) is behaving — residual counts per country, how often the graded fallback is used.*
 :::
 
 ::: {.callout-note title="Notes / observations"}
 *Add.*
+:::
+
+------------------------------------------------------------------------
+
+## glm_ar1 {#sec-model-glm-ar1}
+
+Pooled negative-binomial GLM, `cases ~ log1p(cases_lag1)`, recursive for horizons ≥ 2. The "linear temporal autoregressive" comparator from the scoring plan — deliberately the simplest case-only model (no country term, no seasonality). Expect it to mean-revert and to lose to the seasonal baseline wherever the seasonal signal is strong.
+
+```{r}
+#| label: glm-ar1-load
+
+ga_fc <- model_wiring_forecasts("glm_ar1")
+```
+
+```{r}
+#| label: tbl-glm-ar1-summary
+#| tbl-cap: "glm_ar1: Stage 0 forecast summary."
+
+if (is.null(ga_fc)) {
+  pending("Scripts/forecasting/run_stage0_fit.R glm_ar1")
+} else {
+  fmt <- function(x) formatC(x, big.mark = ",", format = "d")
+  tibble::tibble(
+    Metric = c("Origin", "Countries forecast", "No forecast (NA)",
+               "Median .pred", "Min .pred", "Max .pred"),
+    Value = c(
+      format(unique(ga_fc$origin_date)),
+      sprintf("%s / %s",
+              fmt(n_distinct(ga_fc$iso3[!is.na(ga_fc$.pred)])),
+              fmt(n_distinct(ga_fc$iso3))),
+      sprintf("%s (%s)", fmt(sum(is.na(ga_fc$.pred))),
+              scales::percent(mean(is.na(ga_fc$.pred)), 0.1)),
+      fmt(median(ga_fc$.pred, na.rm = TRUE)),
+      fmt(min(ga_fc$.pred, na.rm = TRUE)),
+      fmt(max(ga_fc$.pred, na.rm = TRUE))
+    )
+  ) %>% knitr::kable(align = c("l", "r"))
+}
+```
+
+```{r}
+#| label: fig-glm-ar1-pred-by-horizon
+#| fig-cap: "glm_ar1: distribution of the point forecast by lead time (log scale)."
+#| fig-height: 3.6
+
+if (!is.null(ga_fc)) {
+  ga_fc %>%
+    filter(!is.na(.pred)) %>%
+    ggplot(aes(factor(horizon), .pred + 1)) +
+    geom_boxplot(fill = "#55A868", alpha = 0.6, outlier.size = 0.8) +
+    scale_y_log10(labels = scales::label_comma()) +
+    labs(x = "Lead time (months)", y = ".pred + 1 (log scale)")
+}
+```
+
+```{r}
+#| label: fig-glm-ar1-uncertainty-lead
+#| fig-cap: "glm_ar1: median relative 90% interval width by lead time. Width = (.pred_upper90 - .pred_lower90) / .pred."
+#| fig-height: 3.6
+
+if (!is.null(ga_fc)) {
+  ga_fc %>%
+    group_by(horizon) %>%
+    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
+    ggplot(aes(horizon, median_rel_width)) +
+    geom_col(fill = "#DD8452") +
+    scale_x_continuous(breaks = sort(unique(ga_fc$horizon))) +
+    labs(x = "Lead time (months)", y = "Median relative 90% width")
+}
+```
+
+::: {.callout-note title="glm_ar1-specific notes"}
+*Add: dispersion ratio is large (single lag, no seasonal/country structure, pooled across 96 countries of very different scale) — expected for a floor baseline. AR coefficient ≈ 0.75 on the log scale → geometric mean-reversion. Recursive multi-step: check whether horizons ≥ 2 drift unrealistically.*
 :::
 
 ------------------------------------------------------------------------
