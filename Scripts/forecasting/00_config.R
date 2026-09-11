@@ -63,6 +63,14 @@ min_train_months <- 36L                        # a country needs this many obser
                                                # months in-window to enter a fit
 origin_start <- as.Date("2016-01-01")          # earliest rolling-origin month
 
+# ---- Model output quantile schema ------------------------------------------
+# Single source of truth for the five predictive quantiles every model targets
+# (matches forecast_output_cols in models/utils/forecast_helpers.R: q25/q75 are
+# the 50% interval, q05/q95 the 90% interval, q50 the median/.pred). Every
+# model file sources this rather than keeping its own copy, so the schema can't
+# drift between models.
+interval_probs <- c(q05 = 0.05, q25 = 0.25, q50 = 0.50, q75 = 0.75, q95 = 0.95)
+
 # ---- Model object saving -------------------------------------------------
 save_fit_objects <- TRUE
 

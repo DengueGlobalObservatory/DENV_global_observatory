@@ -79,6 +79,9 @@ suppressPackageStartupMessages({
   library(purrr)
 })
 
+if (!exists("interval_probs")) {
+  source("Scripts/forecasting/00_config.R")
+}
 if (!exists("new_forecast_model")) {
   source("Scripts/forecasting/models/utils/forecast_helpers.R")
 }
@@ -86,9 +89,11 @@ if (!exists("fit_baseline_profile")) {
   source("Scripts/validation/FUNCTIONS/00_FUN_validation_metrics.R")
 }
 
-# Predictive quantile probabilities. q05 / q95 are the bounds of the 90%
-# interval, q25 / q75 the 50%, q50 the median - matching forecast_output_cols.
-nowcast_probs <- c(q05 = 0.05, q25 = 0.25, q50 = 0.50, q75 = 0.75, q95 = 0.95)
+# Predictive quantile probabilities - q05 / q95 are the bounds of the 90%
+# interval, q25 / q75 the 50%, q50 the median (matches forecast_output_cols).
+# Single source of truth is 00_config.R's `interval_probs`, so this can't drift
+# from what the GLM factory (or any other model) targets.
+nowcast_probs <- interval_probs
 
 nowcast_spec <- list(
   min_train_seasons  = 3L,   # complete historical seasons needed for a profile
