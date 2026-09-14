@@ -46,10 +46,12 @@
 #' (a whole-trajectory metric has none) - `operational.csv` mirrors
 #' `scores_by_stratum.csv`'s long shape minus the lead column.
 #'
-#' Note (not fixed here): the Stage 1 build plan's Step 5 spec called for
-#' `dtw::dtw(...)$normalizedDistance`; the committed `dtw_distance()` in
-#' `01_scoring.R` returns `$distance` (unnormalised). Flagging for the team,
-#' not silently changed - that function was reviewed and committed in Step 5.
+#' `dtw_distance()` (in `01_scoring.R`) returns `dtw::dtw()$normalizedDistance`,
+#' not raw `$distance` - fixed there (not here) on 15-09-2026, found while
+#' building this runner's operational.csv: raw distance scales with
+#' trajectory length, and trajectories near the edge of the training panel
+#' have fewer resolved months than a mid-history one, which inverted the real
+#' quality signal when averaged. See 01_scoring.R's timeline for detail.
 #'
 #' Input : Output/forecasting/stage1_hindcast/forecasts/<model>__<window_type>.csv
 #'         Output/forecasting/training_data/training_panel_<snapshot_date>.csv
@@ -191,6 +193,7 @@ scores_row <- score_forecast(scorable, actual_col = "actual", unit_cols = unit_c
   dplyr::select(-prediction_month)
 
 write_csv(scores_row, file.path(scores_dir, "scores_row.csv"))
+#---log: confirm the row-level table was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'scores_row.csv')}} ({nrow(scores_row)} rows)"))
 
 # ---- Aggregation helper (shared by scores_by_lead / scores_by_stratum) ----
@@ -228,6 +231,7 @@ scores_by_lead <- scores_row %>%
   dplyr::group_by(model, window_type, lead_time) %>%
   summarise_scores()
 write_csv(scores_by_lead, file.path(scores_dir, "scores_by_lead.csv"))
+#---log: confirm the by-lead table was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'scores_by_lead.csv')}} ({nrow(scores_by_lead)} rows)"))
 
 # ---- scores_by_stratum.csv: lead x each stratum axis, long format ---------
@@ -240,6 +244,7 @@ scores_by_stratum <- purrr::map_dfr(stratum_axes, function(axis) {
     dplyr::mutate(stratum_axis = axis, .after = window_type)
 })
 write_csv(scores_by_stratum, file.path(scores_dir, "scores_by_stratum.csv"))
+#---log: confirm the by-stratum table (all 3 axes, long format) was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'scores_by_stratum.csv')}} ({nrow(scores_by_stratum)} rows)"))
 
 # ---- leaderboard.csv: relative CRPS vs each mandatory/candidate baseline --
@@ -260,15 +265,18 @@ leaderboard <- purrr::map_dfr(candidate_baselines, function(bl) {
     dplyr::mutate(baseline = bl)
 })
 write_csv(leaderboard, file.path(scores_dir, "leaderboard.csv"))
+#---log: confirm the relative-skill leaderboard was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'leaderboard.csv')}} ({nrow(leaderboard)} rows)"))
 
 # ---- pit.csv / coverage.csv: calibration diagnostics, per model x window -
 pit <- pit_histogram(scorable, actual_col = "actual", by = c("model", "window_type"), unit_cols = unit_cols)
 write_csv(pit, file.path(scores_dir, "pit.csv"))
+#---log: confirm the PIT histogram table was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'pit.csv')}} ({nrow(pit)} rows)"))
 
 coverage <- coverage_diagnostics(scorable, actual_col = "actual", by = c("model", "window_type"), unit_cols = unit_cols)
 write_csv(coverage, file.path(scores_dir, "coverage.csv"))
+#---log: confirm the coverage diagnostics table was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'coverage.csv')}} ({nrow(coverage)} rows)"))
 
 # ---- operational.csv: peak-timing + DTW, one trajectory per (model, window,
@@ -319,6 +327,7 @@ operational_by_stratum <- purrr::map_dfr(stratum_axes, function(axis) {
 
 operational <- dplyr::bind_rows(operational_overall, operational_by_stratum)
 write_csv(operational, file.path(scores_dir, "operational.csv"))
+#---log: confirm the operational (peak-timing + DTW) table was written, and its size
 cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'operational.csv')}} ({nrow(operational)} rows)"))
 
 # ---- Console summary --------------------------------------------------------
