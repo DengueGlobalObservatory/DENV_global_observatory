@@ -5,73 +5,46 @@
 #'
 #' Overview:
 #' ========
-#' The GDO forecasting objective's metric library - not Stage-1-specific.
-#' DEFINITION ONLY - pure functions, no file I/O, no side effects on source.
-#' Every scorer works directly off a model's `forecast_output_cols` (iso3,
-#' origin_date, horizon, target_date, .pred, .pred_lower50, .pred_upper50,
-#' .pred_lower90, .pred_upper90) joined to observed truth, so the Stage 1
-#' hindcast runner, Stage 2's shadow-deployment logging (scored once outcomes
-#' are known), and any ad hoc notebook use all call the same code.
+#' The GDO forecasting objective's metric library (Stage 1 hindcast, Stage 2
+#' shadow-deployment, ad hoc notebook use - all call the same code).
+#' 
+#' Built on `scoringutils` (Bosse et al. 2022; epiforecasts.io) and `dtw`, 
+#' rather than hand-rolled WIS/PIT/DTW. Quantile levels come from `00_config.R`'s .
+#' `interval_probs` - currently 5 (50%/90% intervals + median). 
+#' `score_forecast()` takes either shape a model can
+#' emit: QUANTILE (`forecast_output_cols`, today's only model type) or SAMPLE
+#' (`sample_id` + `predicted`, for a future hierarchical/INLA model).
 #'
-#' Quantile levels are NOT hard-coded here: the wide -> long adapter maps
-#' `forecast_output_cols` onto whatever `00_config.R`'s `interval_probs` says,
-#' the same single source of truth the models (models/00b_baseline_nowcast.R,
-#' models/utils/glm_factory.R) already use. Currently 5 levels (50%/90%
-#' central intervals + median) - kept as-is for now; likely to widen once
-#' GAM/hierarchical models are compared and a denser posterior is available to
-#' score against (see the CRPS note below).
-#'
-#' Built on `scoringutils` (Bosse, Gruson, Cori, van Leeuwen, Funk & Abbott
-#' 2022; Sebastian Funk's epiforecasts.io group, a named GDO collaborator) and
-#' `dtw`, rather than hand-rolled WIS/CRPS/PIT/DTW - the field-standard tools,
-#' now added to renv.lock. Metrics, per the plan
-#' (planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT.md §3) and the
-#' 2026-09-08 team meeting:
-#'   - PRIMARY:   WIS (log scale primary, raw scale kept alongside), with its
-#'                dispersion / overprediction / underprediction decomposition
-#'                (Bracher, Ray, Gneiting & Reich 2021) - `score_forecast()`.
-#'   - SECONDARY: PIT (`pit_histogram()`) and interval/quantile coverage
-#'                (`coverage_diagnostics()`, plus `interval_coverage_50/90` in
-#'                every `score_forecast()` row); `ae_median`/`ae_median_log`
-#'                (median point-accuracy, raw and log scale - GDO's MAE
-#'                building block; aggregate and burden-normalise with
-#'                `normalise_by_burden()` for uMAE/uRMSE).
-#'                [NOTE] No CRPS column: `scoringutils` only computes CRPS for
-#'                SAMPLE-based forecasts, not quantile-based ones - with just 5
-#'                quantile levels there is no way to get an independent CRPS
-#'                anyway (a hand-checked identity: summing pinball loss at
-#'                exactly the 5 levels WIS's intervals use reproduces WIS's own
-#'                numerator exactly, to ~1e-13). WIS already is the CRPS
-#'                approximation here; a real CRPS needs either a denser
-#'                quantile set or a model that can generate posterior samples
-#'                (the hierarchical/INLA model later in the roster is the
-#'                obvious candidate - scoringutils' `crps_sample()` handles
-#'                that format directly, no new code needed here when it lands).
-#'   - OPERATIONAL (trajectory-level, one row per group): peak-timing
-#'                difference (`peak_timing_diff()`, GDO-specific, no package
-#'                covers it) and DTW distance (`dtw_distance()`, wrapping
-#'                `dtw::dtw()` - Campbell et al. 2026's D-MOSS metric). Two
-#'                distinct uses, both just a call on two numeric vectors:
-#'                (a) one forecast's own 6-month trajectory vs what actually
-#'                happened (group by iso3 x origin_date, vector = horizon 1-6);
-#'                (b) Campbell's own axis - one lead time's forecast series
-#'                across many rolling origins vs the observed series over that
-#'                same calendar span (group by iso3 x horizon, vector = origin
-#'                date) - only meaningful once Stage 1 has multiple origins
-#'                per window, i.e. once the hindcast runner exists.
-#'   - RELATIVE:  `relative_skill()` wraps `scoringutils::get_pairwise_comparisons()`
-#'                - the pairwise geometric-mean relative-WIS convention (Cramer
-#'                et al. 2022) - for "vs nowcast" / "vs GLM AR" / "vs prior best
-#'                model". Takes a full multi-model `score_forecast()`-shaped
-#'                table (needs >= 2 models present to compare); building that
-#'                table is the caller's job once real multi-model Stage 1
-#'                output exists.
+#' Metrics, by role:
+#'   - PRIMARY:   CRPS (log scale primary, raw kept alongside) - approximated
+#'                from the 5 quantiles for a quantile forecast (`crps_approx()`,
+#'                equivelent to WIS at quartile number = 5, Bracher, Ray, Gneiting &
+#'                Reich 2021), real (`scoringRules::crps_sample()`) for a sample forecast.
+#'                Decomposed into dispersion/overprediction/
+#'                underprediction regardless of shape. 
+#'   - SECONDARY: PIT (`pit_histogram()`) and coverage (`coverage_diagnostics()`,
+#'                `interval_coverage_50/90`, quantile forecasts only); `ae_median`
+#'                (`_log`) for GDO's uMAE/uRMSE convention (`normalise_by_burden()`).
+#'   - OPERATIONAL: peak-timing difference (`peak_timing_diff()`, GDO-specific)
+#'                and DTW distance (`dtw_distance()`, wraps `dtw::dtw()` -
+#'                Campbell et al. 2026's D-MOSS metric; two axes - one
+#'                forecast's own trajectory, or one lead across rolling origins).
+#'   - RELATIVE:  `relative_skill()` wraps `get_pairwise_comparisons()` for
+#'                relative WIS (Cramer et al. 2022) - internally still scored
+#'                as "wis" (scoringutils' own column name for a quantile
+#'                forecast), identical to `crps` above.
 #'
 #' Timeline:
 #' ========
-#' 11-09-2026: Created (hand-rolled WIS/CRPS/PIT, no dtw dependency).
-#' 11-09-2026: Rewritten on `scoringutils` + `dtw` (agreed additions to
-#'   renv.lock) rather than reimplementing the same maths by hand.
+#' 11-09-2026: Created (hand-rolled WIS/CRPS/PIT).
+#' 11-09-2026: Rewritten on `scoringutils` + `dtw`.
+#' 14-09-2026: Re-added the CRPS approximation (`crps_approx()`) and made
+#'   `score_forecast()` dispatch on forecast shape: approx CRPS for quantile
+#'   forecasts, real `scoringutils` CRPS for sample forecasts.
+#' 14-09-2026: Dropped `wis`/`wis_log` from `score_forecast()`'s output -
+#'   confirmed identical to `crps`/`crps_log` in both forecast shapes, so
+#'   carrying both was redundant. `dispersion`/`overprediction`/`underprediction`
+#'   (that decomposition) kept, now read as decomposing `crps` directly.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -85,20 +58,19 @@ if (!exists("interval_probs")) {
   source("Scripts/forecasting/00_config.R")
 }
 
-# ---- wide (forecast_output_cols) -> long (scoringutils quantile format) ---
+forecast_unit_cols <- c("iso3", "origin_date", "horizon", "target_date", "model")
+log_metric_cols <- c("dispersion", "overprediction", "underprediction", "ae_median")
 
-#' Reshape one model's wide forecast rows into a `scoringutils` quantile
-#' forecast object.
+# ---- wide/long -> scoringutils forecast objects ----------------------------
+
+#' Reshape a wide quantile forecast (`forecast_output_cols`) into a
+#' `scoringutils` `forecast_quantile` object.
 #'
-#' @param df A data frame with `forecast_output_cols` + a `model` column +
-#'   an actual-value column (`actual_col`).
+#' @param df Data frame with `forecast_output_cols` + `model` + `actual_col`.
 #' @param actual_col Name of the truth column in `df`.
-#' @param log_scale If `TRUE`, both `predicted` and `observed` are
-#'   `scoringutils::log_shift(offset = 1)`-transformed (= `log1p()`) before
-#'   building the forecast object - the Bosse et al. 2023 log-scale scoring
-#'   convention, built into the package itself.
-#' @return A `scoringutils` `forecast_quantile` object, forecast unit
-#'   `iso3, origin_date, horizon, target_date, model`.
+#' @param log_scale Log1p-transform predicted and observed first
+#'   (`scoringutils::log_shift(offset = 1)` - the Bosse et al. 2023 convention).
+#' @return A `forecast_quantile` object, unit `forecast_unit_cols`.
 to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
   long <- df %>%
     dplyr::rename(observed = dplyr::all_of(actual_col)) %>%
@@ -116,7 +88,7 @@ to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
       )
     ) %>%
     dplyr::select(-which_q)
-  
+
   if (isTRUE(log_scale)) {
     long <- long %>%
       dplyr::mutate(
@@ -124,110 +96,200 @@ to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
         predicted = scoringutils::log_shift(predicted, offset = 1)
       )
   }
-  
-  scoringutils::as_forecast_quantile(
-    long,
-    forecast_unit = c("iso3", "origin_date", "horizon", "target_date", "model")
-  )
+  scoringutils::as_forecast_quantile(long, forecast_unit = forecast_unit_cols)
+}
+
+#' Reshape a long sample forecast (`sample_id` + `predicted`, one row per
+#' draw) into a `scoringutils` `forecast_sample` object. For a future model
+#' that exposes a posterior sample rather than fixed quantiles.
+#'
+#' @inheritParams to_forecast_quantile
+#' @return A `forecast_sample` object, unit `forecast_unit_cols`.
+to_forecast_sample <- function(df, actual_col = "actual", log_scale = FALSE) {
+  long <- df %>% dplyr::rename(observed = dplyr::all_of(actual_col))
+  if (isTRUE(log_scale)) {
+    long <- long %>%
+      dplyr::mutate(
+        observed  = scoringutils::log_shift(observed, offset = 1),
+        predicted = scoringutils::log_shift(predicted, offset = 1)
+      )
+  }
+  scoringutils::as_forecast_sample(long, forecast_unit = forecast_unit_cols)
+}
+
+#' Does `df` look like a quantile forecast (has `forecast_output_cols`'
+#' predictive columns) or a sample forecast (`sample_id` + `predicted`)?
+#' @param df A data frame.
+#' @return `"quantile"`, `"sample"`, or an error if neither shape matches.
+forecast_shape <- function(df) {
+  quantile_cols <- c(".pred", ".pred_lower50", ".pred_upper50", ".pred_lower90", ".pred_upper90")
+  if (all(quantile_cols %in% names(df))) return("quantile")
+  if (all(c("sample_id", "predicted") %in% names(df))) return("sample")
+  cli::cli_abort(c(
+    "`df` isn't a recognised forecast shape.",
+    "i" = "Needs either {.field {quantile_cols}} (quantile) or {.field sample_id}/{.field predicted} (sample)."
+  ))
+}
+
+# ---- CRPS approximation for quantile forecasts -----------------------------
+
+#' Quantile (pinball) loss: `(actual - q) * (tau - 1(actual < q))`.
+#' @param actual,q Numeric vectors (recycled). @param tau Probability, scalar
+#'   or vector. @return Numeric vector.
+pinball_loss <- function(actual, q, tau) {
+  (actual - q) * (tau - as.numeric(actual < q))
+}
+
+#' Quantile-based CRPS approximation for a quantile forecast (Gneiting &
+#' Raftery 2007): `2 * mean_tau[ pinball_loss(y, q_tau, tau) ]` over
+#' `interval_probs`'s 5 levels.
+#'
+#' With exactly this quantile set (median + both interval bounds), this is
+#' ALGEBRAICALLY IDENTICAL to what `scoringutils::score()` calls `wis` at this
+#' resolution - verified numerically (max diff ~1e-13), which is why
+#' `score_forecast()` reports only `crps`, not both. Computed explicitly here
+#' (rather than reusing that internal `wis` value) so the calculation stays
+#' auditable. A denser future quantile set, or a sample-based model (scored
+#' via `to_forecast_sample()` instead), would make the two genuinely diverge -
+#' see the file overview.
+#'
+#' @param actual Numeric vector. @param q05,q25,q50,q75,q95 Numeric vectors,
+#'   same length as `actual`. @return Numeric vector.
+crps_approx <- function(actual, q05, q25, q50, q75, q95) {
+  qs   <- list(q05 = q05, q25 = q25, q50 = q50, q75 = q75, q95 = q95)
+  taus <- interval_probs[names(qs)]
+  losses <- Map(function(q, tau) pinball_loss(actual, q, tau), qs, taus)
+  2 * Reduce(`+`, losses) / length(losses)
 }
 
 # ---- row-level scoring wrapper ---------------------------------------------
 
-#' Score one (or several, already stacked) model's forecasts against observed
-#' truth - one row per (iso3, origin_date, horizon, target_date, model), even
-#' where `scoringutils::score()` would otherwise drop a unit entirely (every
-#' quantile `NA`, i.e. the model "genuinely cannot forecast" that row): those
-#' rows are kept and left `NA` across every metric, so a row count here always
-#' matches the row count of the input `df`, not a silently-shrunk subset.
-#'
-#' @param df A data frame with the model contract's `forecast_output_cols`
-#'   (`iso3`, `origin_date`, `horizon`, `target_date`, `.pred`,
-#'   `.pred_lower50`, `.pred_upper50`, `.pred_lower90`, `.pred_upper90`) plus
-#'   an actual-value column (`actual_col`, default `"actual"`) already joined
-#'   in by the caller. A `model` column identifying which model produced each
-#'   row, if scoring several models' output stacked together (use
-#'   `model_name` instead for a single model's output with no such column).
-#' @param actual_col Name of the truth column in `df`.
-#' @param model_name Used to stamp a `model` column onto `df` if it doesn't
-#'   already have one; required in that case.
-#' @return `df`'s `iso3, origin_date, horizon, target_date, model` plus: `wis`,
-#'   `dispersion`, `overprediction`, `underprediction`, `bias`, `ae_median`,
-#'   `interval_coverage_50`, `interval_coverage_90` (raw scale); `wis_log`,
-#'   `dispersion_log`, `overprediction_log`, `underprediction_log`,
-#'   `ae_median_log` (log1p scale, PRIMARY per the plan). `bias` and the
-#'   coverage indicators are scale-invariant under a monotone transform (does
-#'   `actual` fall inside `[lower, upper]`?), so they aren't duplicated with a
-#'   `_log` suffix.
-score_forecast <- function(df, actual_col = "actual", model_name = NULL) {
-  need <- c("iso3", "origin_date", "horizon", "target_date",
-            ".pred", ".pred_lower50", ".pred_upper50",
-            ".pred_lower90", ".pred_upper90", actual_col)
+#' Score a quantile-shaped forecast: `crps` is `crps_approx()` above (its own
+#' total, computed explicitly rather than reused from `scoringutils::score()`'s
+#' `wis` - the two are identical here, see the file overview); `dispersion`/
+#' `overprediction`/`underprediction` (raw & log) are that same `score()`
+#' call's WIS decomposition, which sums to `crps`.
+#' @keywords internal
+score_quantile_forecast <- function(df, actual_col) {
+  need <- c(forecast_unit_cols, ".pred_lower90", ".pred_lower50", ".pred",
+           ".pred_upper50", ".pred_upper90", actual_col)
   miss <- setdiff(need, names(df))
-  if (length(miss) > 0) {
-    cli::cli_abort("`df` is missing column{?s}: {.field {miss}}.")
+  if (length(miss) > 0) cli::cli_abort("`df` is missing column{?s}: {.field {miss}}.")
+
+  score_one <- function(log_scale) {
+    as.data.frame(scoringutils::score(to_forecast_quantile(df, actual_col, log_scale)))
   }
+  raw  <- score_one(FALSE)
+  logs <- score_one(TRUE) %>%
+    dplyr::select(dplyr::all_of(forecast_unit_cols), dplyr::all_of(log_metric_cols)) %>%
+    dplyr::rename_with(~ paste0(.x, "_log"), dplyr::all_of(log_metric_cols))
+
+  actual <- df[[actual_col]]
+  crps_cols <- df %>%
+    dplyr::transmute(
+      dplyr::across(dplyr::all_of(forecast_unit_cols)),
+      crps = crps_approx(actual, .pred_lower90, .pred_lower50, .pred, .pred_upper50, .pred_upper90),
+      crps_log = crps_approx(log1p(actual), log1p(.pred_lower90), log1p(.pred_lower50),
+                             log1p(.pred), log1p(.pred_upper50), log1p(.pred_upper90))
+    )
+
+  dplyr::distinct(df, dplyr::across(dplyr::all_of(forecast_unit_cols))) %>%
+    dplyr::left_join(dplyr::select(raw, -wis),  by = forecast_unit_cols) %>%
+    dplyr::left_join(logs, by = forecast_unit_cols) %>%
+    dplyr::left_join(crps_cols, by = forecast_unit_cols)
+}
+
+#' Score a sample-shaped forecast: `crps` is the real
+#' `scoringRules::crps_sample()` value (via `scoringutils`); `dispersion`/
+#' `overprediction`/`underprediction` (raw & log) are its sample-analogue
+#' decomposition, which sums to `crps` exactly (verified numerically).
+#' @keywords internal
+score_sample_forecast <- function(df, actual_col) {
+  need <- c(forecast_unit_cols, "sample_id", "predicted", actual_col)
+  miss <- setdiff(need, names(df))
+  if (length(miss) > 0) cli::cli_abort("`df` is missing column{?s}: {.field {miss}}.")
+
+  score_one <- function(log_scale) {
+    as.data.frame(scoringutils::score(to_forecast_sample(df, actual_col, log_scale)))
+  }
+  raw  <- score_one(FALSE) %>%
+    dplyr::select(dplyr::all_of(forecast_unit_cols), bias, crps, dplyr::all_of(log_metric_cols))
+  logs <- score_one(TRUE) %>%
+    dplyr::select(dplyr::all_of(forecast_unit_cols), crps, dplyr::all_of(log_metric_cols)) %>%
+    dplyr::rename_with(~ paste0(.x, "_log"), c(crps, dplyr::all_of(log_metric_cols)))
+
+  # interval_coverage_50/90 is a quantile-native concept (does actual fall in
+  # the 50%/90% band?); a sample forecast has no such band without first
+  # choosing quantiles from the sample, so left NA - the one field this
+  # shape's schema doesn't (yet) share with the quantile path's.
+  dplyr::distinct(df, dplyr::across(dplyr::all_of(forecast_unit_cols))) %>%
+    dplyr::left_join(raw,  by = forecast_unit_cols) %>%
+    dplyr::left_join(logs, by = forecast_unit_cols) %>%
+    dplyr::mutate(interval_coverage_50 = NA, interval_coverage_90 = NA)
+}
+
+#' Score one (or several, stacked) model's forecasts against observed truth -
+#' one row per forecast unit, dispatching on shape (`forecast_shape()`): real
+#' CRPS for a sample forecast, approximate (algebraically identical) CRPS for
+#' a quantile forecast (today's only model type) - one `crps` column either
+#' way, so quantile- and sample-based models compare and merge directly. No
+#' separate `wis` column: it would just be the same number as `crps` under a
+#' different name (see the file overview). Preserves a row even where
+#' `scoringutils::score()` would drop a unit entirely (every prediction `NA`,
+#' i.e. the model "genuinely cannot forecast" that row) - left `NA` across
+#' every metric instead, so row count always matches `df`'s.
+#'
+#' @param df A data frame, quantile- or sample-shaped (see `forecast_shape()`),
+#'   plus an actual-value column (`actual_col`) and a `model` column (or pass
+#'   `model_name` to stamp one on, for a single model's output).
+#' @param actual_col Name of the truth column in `df`.
+#' @param model_name Stamps a `model` column onto `df` if it lacks one.
+#' @return `forecast_unit_cols` plus: `crps` (PRIMARY), its decomposition
+#'   `dispersion`/`overprediction`/`underprediction`, `bias`, `ae_median` (raw
+#'   scale; `interval_coverage_50/90` for quantile forecasts only, `NA` for
+#'   sample) and the `_log` (log1p scale) equivalents of `crps`/decomposition/
+#'   `ae_median`. `bias` and the coverage indicators are scale-invariant (does
+#'   `actual` fall inside `[lower, upper]`?), so not duplicated as `_log`.
+score_forecast <- function(df, actual_col = "actual", model_name = NULL) {
   if (!"model" %in% names(df)) {
     if (is.null(model_name)) {
       cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
     }
     df$model <- model_name
   }
-  
-  log_cols <- c("wis", "dispersion", "overprediction", "underprediction", "ae_median")
-  
-  score_one <- function(log_scale) {
-    as.data.frame(scoringutils::score(to_forecast_quantile(df, actual_col, log_scale)))
-  }
-  raw <- score_one(FALSE)
-  logs <- score_one(TRUE) %>%
-    dplyr::select(iso3, origin_date, horizon, target_date, model,
-                  dplyr::all_of(log_cols)) %>%
-    dplyr::rename_with(~ paste0(.x, "_log"), dplyr::all_of(log_cols))
-  
-  units <- dplyr::distinct(df, iso3, origin_date, horizon, target_date, model)
-  
-  units %>%
-    dplyr::left_join(raw,  by = c("iso3", "origin_date", "horizon", "target_date", "model")) %>%
-    dplyr::left_join(logs, by = c("iso3", "origin_date", "horizon", "target_date", "model"))
+  switch(forecast_shape(df),
+    quantile = score_quantile_forecast(df, actual_col),
+    sample   = score_sample_forecast(df, actual_col)
+  )
 }
 
 # ---- calibration diagnostics ------------------------------------------------
 
-#' PIT histogram (`scoringutils::get_pit_histogram()`), for the calibration
-#' plots in §5 of the evaluation plan.
-#'
+#' PIT histogram (`scoringutils::get_pit_histogram()`) for a quantile
+#' forecast - §5 of the evaluation plan's calibration plots.
 #' @inheritParams score_forecast
-#' @param by Grouping column(s) to build a separate histogram per (default
-#'   `"model"`).
-#' @param ... Passed on to `scoringutils::get_pit_histogram()` (e.g.
-#'   `num_bins`).
+#' @param by Grouping column(s), one histogram per (default `"model"`).
+#' @param ... Passed to `scoringutils::get_pit_histogram()` (e.g. `num_bins`).
 #' @return A data frame: `bin`, `mid`, `density`, one row per bin per group.
 pit_histogram <- function(df, actual_col = "actual", model_name = NULL,
                           by = "model", ...) {
   if (!"model" %in% names(df)) {
-    if (is.null(model_name)) {
-      cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
-    }
+    if (is.null(model_name)) cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
     df$model <- model_name
   }
   scoringutils::get_pit_histogram(to_forecast_quantile(df, actual_col), by = by, ...)
 }
 
 #' Empirical coverage per quantile level and nominal interval
-#' (`scoringutils::get_coverage()`) - the finer-grained sibling of
-#' `score_forecast()`'s `interval_coverage_50/90` columns, for a full
-#' coverage-vs-nominal calibration plot.
-#'
+#' (`scoringutils::get_coverage()`) for a quantile forecast - the
+#' finer-grained sibling of `score_forecast()`'s `interval_coverage_50/90`.
 #' @inheritParams pit_histogram
-#' @return A data frame: `model` (or whatever `by` names), `quantile_level`,
-#'   `interval_range`, `interval_coverage`, `interval_coverage_deviation`,
-#'   `quantile_coverage`, `quantile_coverage_deviation`.
+#' @return `model` (or `by`), `quantile_level`, `interval_range`,
+#'   `interval_coverage(_deviation)`, `quantile_coverage(_deviation)`.
 coverage_diagnostics <- function(df, actual_col = "actual", model_name = NULL,
                                  by = "model") {
   if (!"model" %in% names(df)) {
-    if (is.null(model_name)) {
-      cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
-    }
+    if (is.null(model_name)) cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
     df$model <- model_name
   }
   scoringutils::get_coverage(to_forecast_quantile(df, actual_col), by = by)
@@ -235,69 +297,49 @@ coverage_diagnostics <- function(df, actual_col = "actual", model_name = NULL,
 
 # ---- burden normalisation (GDO's u* convention) ----------------------------
 
-#' Burden-normalise an error metric (GDO's u* convention: uMAE, uRMSE, ...).
-#'
-#' `burden` should be the same "mean_actual_predicted_month" quantity used
-#' throughout `Scripts/validation/` (`mean_actual_by_prediction_month()` in
-#' `00_FUN_validation_metrics.R`) - typically a country's mean historical
-#' cases for the target calendar/season month, computed once by the caller and
-#' joined in, not recomputed here.
-#'
-#' @param x A row-level or already-aggregated error (e.g. `ae_median`, or
-#'   `mean(ae_median)`).
-#' @param burden Numeric vector/scalar, same length as `x` or length 1.
+#' Burden-normalise an error metric (GDO's uMAE/uRMSE convention). `burden`
+#' should be `mean_actual_by_prediction_month()`'s output
+#' (`00_FUN_validation_metrics.R`) - a country's mean historical cases for the
+#' target month, joined in by the caller.
+#' @param x A row-level or aggregated error (e.g. `ae_median`, `mean(ae_median)`).
+#' @param burden Numeric, same length as `x` or length 1.
 #' @return `x / burden`, `NA` where `burden` is 0 or missing.
 normalise_by_burden <- function(x, burden) {
   dplyr::if_else(!is.na(burden) & burden > 0, x / burden, NA_real_)
 }
 
-# ---- trajectory-level scorers (one group - e.g. iso3 x origin_date - at a time) --
+# ---- trajectory-level scorers -----------------------------------------------
 
-#' Peak-timing difference, in months, between an observed and a predicted
-#' trajectory (Campbell et al. 2026's D-MOSS metric). No package covers this -
-#' GDO/D-MOSS-specific, not a general forecast-scoring quantity.
-#'
-#' Positive = the model's peak lands AFTER the observed peak; negative = the
-#' model peaks too early. Restricted to rows where both `actual` and
-#' `predicted` are observed, so the two peaks are found over the same window;
-#' returns `NA` if fewer than `min_months` such rows remain (a peak read off
-#' 1-2 months is not a meaningful comparison).
-#'
-#' @param target_date Date vector, one per group member (a month, for a
-#'   within-trajectory call; an origin date, for a fixed-lead call across
-#'   rolling origins - see the file overview).
-#' @param actual,predicted Numeric vectors, same length as `target_date`.
-#' @param min_months Minimum complete (actual & predicted both present)
-#'   members required to compute a peak at all.
+#' Peak-timing difference, in months (Campbell et al. 2026's D-MOSS metric;
+#' GDO-specific, no package covers it). Positive = model peaks AFTER the
+#' observed peak; negative = too early. Restricted to rows where both are
+#' observed; `NA` if fewer than `min_months` such rows remain.
+#' @param target_date Date vector, one per group member (a month, within one
+#'   trajectory; an origin date, across rolling origins at fixed lead).
+#' @param actual,predicted Numeric, same length as `target_date`.
+#' @param min_months Minimum complete-pair members required.
 #' @return A single integer (months), or `NA`.
 peak_timing_diff <- function(target_date, actual, predicted, min_months = 3L) {
   ok <- !is.na(actual) & !is.na(predicted)
   if (sum(ok) < min_months) return(NA_integer_)
-  d  <- target_date[ok]
-  a  <- actual[ok]
-  p  <- predicted[ok]
+  d <- target_date[ok]; a <- actual[ok]; p <- predicted[ok]
   peak_actual    <- d[which.max(a)]
   peak_predicted <- d[which.max(p)]
   (lubridate::year(peak_predicted)  - lubridate::year(peak_actual))  * 12L +
     (lubridate::month(peak_predicted) - lubridate::month(peak_actual))
 }
 
-#' Dynamic time warping distance between an observed and a predicted
-#' trajectory (Campbell et al. 2026's D-MOSS metric: trajectory shape,
-#' tolerant of a timing offset the pointwise metrics above penalise). Thin
-#' wrapper on `dtw::dtw()` (the same package Campbell et al. used).
-#'
-#' Two distinct, equally valid uses - see the file overview for which grouping
-#' each implies: (a) one forecast's own trajectory across horizons vs what
-#' actually happened; (b) Campbell's own axis, one lead time's forecast series
-#' across rolling origins vs the observed series over that span.
-#'
-#' @param actual,predicted Numeric vectors (need not be the same length; `NA`s
-#'   are dropped from each independently before alignment).
-#' @param ... Passed on to `dtw::dtw()` (e.g. `step.pattern`, `window.type`, to
-#'   match a specific published configuration exactly).
-#' @return A single numeric distance (`dtw::dtw()`'s cumulative, unnormalised
-#'   `$distance`), or `NA` if either input has 0 non-`NA` values.
+#' Dynamic time warping distance (Campbell et al. 2026's D-MOSS metric:
+#' trajectory shape, tolerant of a timing offset). Thin wrapper on `dtw::dtw()`
+#' (Campbell et al.'s own package). Two uses: one forecast's own trajectory vs
+#' truth; or one lead time's series across rolling origins vs the observed
+#' series over that span.
+#' @param actual,predicted Numeric (need not be equal length; `NA`s dropped
+#'   independently before alignment).
+#' @param ... Passed to `dtw::dtw()` (e.g. `step.pattern`, to match a specific
+#'   published configuration).
+#' @return `dtw::dtw()$distance` (cumulative, unnormalised), or `NA` if either
+#'   input has 0 non-`NA` values.
 dtw_distance <- function(actual, predicted, ...) {
   x <- actual[!is.na(actual)]
   y <- predicted[!is.na(predicted)]
@@ -307,32 +349,20 @@ dtw_distance <- function(actual, predicted, ...) {
 
 # ---- relative comparison ---------------------------------------------------
 
-#' Pairwise relative skill (relative WIS convention: Cramer et al. 2022, PNAS
-#' - the COVID-19 Forecast Hub's primary cross-model metric). Thin wrapper on
-#' `scoringutils::get_pairwise_comparisons()`.
-#'
-#' Takes the WIDE, stacked multi-model input (same shape `score_forecast()`
-#' takes) rather than `score_forecast()`'s own flattened output:
-#' `get_pairwise_comparisons()` needs the metadata `scoringutils::score()`
-#' attaches to its result, which plain data-frame reshaping (what
-#' `score_forecast()` does to produce an easy-to-join table) strips - so this
-#' scores fresh, once, and keeps that object intact.
-#'
-#' `< 1` means the compared model beats `baseline` (lower score = better).
-#' Needs >= 2 models present (in `df$model`) to compare at all.
-#'
-#' @param df A data frame with `forecast_output_cols` + an actual-value column
-#'   + a `model` column, for >= 2 models stacked (`dplyr::bind_rows()`).
-#' @param baseline Model name in `df$model` to compare every other model
-#'   against.
+#' Pairwise relative skill (relative WIS convention, Cramer et al. 2022 - the
+#' COVID-19 Forecast Hub's primary cross-model metric). Thin wrapper on
+#' `scoringutils::get_pairwise_comparisons()`; scores fresh from the wide
+#' input rather than reusing `score_forecast()`'s output, which strips the
+#' metadata that function needs. `< 1` means the compared model beats
+#' `baseline`. Needs >= 2 models in `df$model`.
+#' @param df Quantile-shaped, stacked for >= 2 models (`dplyr::bind_rows()`).
+#' @param baseline Model name in `df$model` to compare every other model against.
 #' @param actual_col Name of the truth column in `df`.
-#' @param by Extra grouping column(s) to compute relative skill within (e.g.
-#'   `"horizon"`) - `NULL` (default) pools everything into one comparison.
-#' @param log_scale Score on the log1p scale before comparing (default `TRUE`,
-#'   the plan's primary metric) or the raw scale (`FALSE`).
-#' @return A data frame - see `?scoringutils::get_pairwise_comparisons`;
-#'   `wis_scaled_relative_skill` is the column of interest (still named `wis`
-#'   regardless of `log_scale` - it is whichever scale was scored).
+#' @param by Extra grouping (e.g. `"horizon"`) - `NULL` pools everything.
+#' @param log_scale Score on the log1p scale (default `TRUE`, the plan's
+#'   primary metric).
+#' @return See `?scoringutils::get_pairwise_comparisons`; `wis_scaled_relative_skill`
+#'   is the column of interest (named `wis` regardless of `log_scale`).
 relative_skill <- function(df, baseline, actual_col = "actual", by = NULL,
                            log_scale = TRUE) {
   if (!"model" %in% names(df)) {
