@@ -45,6 +45,13 @@
 #'   confirmed identical to `crps`/`crps_log` in both forecast shapes, so
 #'   carrying both was redundant. `dispersion`/`overprediction`/`underprediction`
 #'   (that decomposition) kept, now read as decomposing `crps` directly.
+#' 14-09-2026: `forecast_unit_cols` threaded through as a `unit_cols` argument
+#'   (defaulting to the constant) on every function that builds a
+#'   `scoringutils` forecast object or joins on the unit, instead of being
+#'   read as a fixed global. Stage 1 will need `window_type` added to the unit
+#'   whenever a call stacks >1 window; Stage 2 will need its own extra
+#'   dimension (e.g. champion/shadow). Neither requires editing this file -
+#'   the caller just passes a wider `unit_cols`.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -70,8 +77,17 @@ log_metric_cols <- c("dispersion", "overprediction", "underprediction", "ae_medi
 #' @param actual_col Name of the truth column in `df`.
 #' @param log_scale Log1p-transform predicted and observed first
 #'   (`scoringutils::log_shift(offset = 1)` - the Bosse et al. 2023 convention).
-#' @return A `forecast_quantile` object, unit `forecast_unit_cols`.
-to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
+#' @param unit_cols Columns that jointly identify one forecast (`scoringutils`'
+#'   "forecast unit"). Defaults to `forecast_unit_cols`
+#'   (iso3/origin_date/horizon/target_date/model) - correct whenever a call
+#'   covers only one value of every other grouping dimension (e.g. one
+#'   window_type's file). Widen it (e.g. `c(forecast_unit_cols,
+#'   "window_type")`) whenever a single call stacks rows that would otherwise
+#'   collide as "the same forecast" - Stage 1 scoring several windows
+#'   together, or Stage 2 scoring champion + shadow candidates together.
+#' @return A `forecast_quantile` object, unit `unit_cols`.
+to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE,
+                                 unit_cols = forecast_unit_cols) {
   long <- df %>%
     dplyr::rename(observed = dplyr::all_of(actual_col)) %>%
     tidyr::pivot_longer(
@@ -96,7 +112,7 @@ to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
         predicted = scoringutils::log_shift(predicted, offset = 1)
       )
   }
-  scoringutils::as_forecast_quantile(long, forecast_unit = forecast_unit_cols)
+  scoringutils::as_forecast_quantile(long, forecast_unit = unit_cols)
 }
 
 #' Reshape a long sample forecast (`sample_id` + `predicted`, one row per
@@ -104,8 +120,9 @@ to_forecast_quantile <- function(df, actual_col = "actual", log_scale = FALSE) {
 #' that exposes a posterior sample rather than fixed quantiles.
 #'
 #' @inheritParams to_forecast_quantile
-#' @return A `forecast_sample` object, unit `forecast_unit_cols`.
-to_forecast_sample <- function(df, actual_col = "actual", log_scale = FALSE) {
+#' @return A `forecast_sample` object, unit `unit_cols`.
+to_forecast_sample <- function(df, actual_col = "actual", log_scale = FALSE,
+                               unit_cols = forecast_unit_cols) {
   long <- df %>% dplyr::rename(observed = dplyr::all_of(actual_col))
   if (isTRUE(log_scale)) {
     long <- long %>%
@@ -114,7 +131,7 @@ to_forecast_sample <- function(df, actual_col = "actual", log_scale = FALSE) {
         predicted = scoringutils::log_shift(predicted, offset = 1)
       )
   }
-  scoringutils::as_forecast_sample(long, forecast_unit = forecast_unit_cols)
+  scoringutils::as_forecast_sample(long, forecast_unit = unit_cols)
 }
 
 #' Does `df` look like a quantile forecast (has `forecast_output_cols`'
@@ -169,62 +186,64 @@ crps_approx <- function(actual, q05, q25, q50, q75, q95) {
 #' `wis` - the two are identical here, see the file overview); `dispersion`/
 #' `overprediction`/`underprediction` (raw & log) are that same `score()`
 #' call's WIS decomposition, which sums to `crps`.
+#' @inheritParams to_forecast_quantile
 #' @keywords internal
-score_quantile_forecast <- function(df, actual_col) {
-  need <- c(forecast_unit_cols, ".pred_lower90", ".pred_lower50", ".pred",
+score_quantile_forecast <- function(df, actual_col, unit_cols = forecast_unit_cols) {
+  need <- c(unit_cols, ".pred_lower90", ".pred_lower50", ".pred",
            ".pred_upper50", ".pred_upper90", actual_col)
   miss <- setdiff(need, names(df))
   if (length(miss) > 0) cli::cli_abort("`df` is missing column{?s}: {.field {miss}}.")
 
   score_one <- function(log_scale) {
-    as.data.frame(scoringutils::score(to_forecast_quantile(df, actual_col, log_scale)))
+    as.data.frame(scoringutils::score(to_forecast_quantile(df, actual_col, log_scale, unit_cols)))
   }
   raw  <- score_one(FALSE)
   logs <- score_one(TRUE) %>%
-    dplyr::select(dplyr::all_of(forecast_unit_cols), dplyr::all_of(log_metric_cols)) %>%
+    dplyr::select(dplyr::all_of(unit_cols), dplyr::all_of(log_metric_cols)) %>%
     dplyr::rename_with(~ paste0(.x, "_log"), dplyr::all_of(log_metric_cols))
 
   actual <- df[[actual_col]]
   crps_cols <- df %>%
     dplyr::transmute(
-      dplyr::across(dplyr::all_of(forecast_unit_cols)),
+      dplyr::across(dplyr::all_of(unit_cols)),
       crps = crps_approx(actual, .pred_lower90, .pred_lower50, .pred, .pred_upper50, .pred_upper90),
       crps_log = crps_approx(log1p(actual), log1p(.pred_lower90), log1p(.pred_lower50),
                              log1p(.pred), log1p(.pred_upper50), log1p(.pred_upper90))
     )
 
-  dplyr::distinct(df, dplyr::across(dplyr::all_of(forecast_unit_cols))) %>%
-    dplyr::left_join(dplyr::select(raw, -wis),  by = forecast_unit_cols) %>%
-    dplyr::left_join(logs, by = forecast_unit_cols) %>%
-    dplyr::left_join(crps_cols, by = forecast_unit_cols)
+  dplyr::distinct(df, dplyr::across(dplyr::all_of(unit_cols))) %>%
+    dplyr::left_join(dplyr::select(raw, -wis),  by = unit_cols) %>%
+    dplyr::left_join(logs, by = unit_cols) %>%
+    dplyr::left_join(crps_cols, by = unit_cols)
 }
 
 #' Score a sample-shaped forecast: `crps` is the real
 #' `scoringRules::crps_sample()` value (via `scoringutils`); `dispersion`/
 #' `overprediction`/`underprediction` (raw & log) are its sample-analogue
 #' decomposition, which sums to `crps` exactly (verified numerically).
+#' @inheritParams to_forecast_quantile
 #' @keywords internal
-score_sample_forecast <- function(df, actual_col) {
-  need <- c(forecast_unit_cols, "sample_id", "predicted", actual_col)
+score_sample_forecast <- function(df, actual_col, unit_cols = forecast_unit_cols) {
+  need <- c(unit_cols, "sample_id", "predicted", actual_col)
   miss <- setdiff(need, names(df))
   if (length(miss) > 0) cli::cli_abort("`df` is missing column{?s}: {.field {miss}}.")
 
   score_one <- function(log_scale) {
-    as.data.frame(scoringutils::score(to_forecast_sample(df, actual_col, log_scale)))
+    as.data.frame(scoringutils::score(to_forecast_sample(df, actual_col, log_scale, unit_cols)))
   }
   raw  <- score_one(FALSE) %>%
-    dplyr::select(dplyr::all_of(forecast_unit_cols), bias, crps, dplyr::all_of(log_metric_cols))
+    dplyr::select(dplyr::all_of(unit_cols), bias, crps, dplyr::all_of(log_metric_cols))
   logs <- score_one(TRUE) %>%
-    dplyr::select(dplyr::all_of(forecast_unit_cols), crps, dplyr::all_of(log_metric_cols)) %>%
+    dplyr::select(dplyr::all_of(unit_cols), crps, dplyr::all_of(log_metric_cols)) %>%
     dplyr::rename_with(~ paste0(.x, "_log"), c(crps, dplyr::all_of(log_metric_cols)))
 
   # interval_coverage_50/90 is a quantile-native concept (does actual fall in
   # the 50%/90% band?); a sample forecast has no such band without first
   # choosing quantiles from the sample, so left NA - the one field this
   # shape's schema doesn't (yet) share with the quantile path's.
-  dplyr::distinct(df, dplyr::across(dplyr::all_of(forecast_unit_cols))) %>%
-    dplyr::left_join(raw,  by = forecast_unit_cols) %>%
-    dplyr::left_join(logs, by = forecast_unit_cols) %>%
+  dplyr::distinct(df, dplyr::across(dplyr::all_of(unit_cols))) %>%
+    dplyr::left_join(raw,  by = unit_cols) %>%
+    dplyr::left_join(logs, by = unit_cols) %>%
     dplyr::mutate(interval_coverage_50 = NA, interval_coverage_90 = NA)
 }
 
@@ -244,13 +263,21 @@ score_sample_forecast <- function(df, actual_col) {
 #'   `model_name` to stamp one on, for a single model's output).
 #' @param actual_col Name of the truth column in `df`.
 #' @param model_name Stamps a `model` column onto `df` if it lacks one.
-#' @return `forecast_unit_cols` plus: `crps` (PRIMARY), its decomposition
+#' @param unit_cols Columns that jointly identify one forecast. Defaults to
+#'   `forecast_unit_cols` (iso3/origin_date/horizon/target_date/model) -
+#'   correct as long as `df` covers only one value of every other grouping
+#'   dimension. Widen it (e.g. `c(forecast_unit_cols, "window_type")` for a
+#'   Stage 1 call stacking several windows, or `c(forecast_unit_cols,
+#'   "champion_flag")` for a future Stage 2 call stacking champion + shadow
+#'   candidates) whenever rows would otherwise collide as "the same forecast".
+#' @return `unit_cols` plus: `crps` (PRIMARY), its decomposition
 #'   `dispersion`/`overprediction`/`underprediction`, `bias`, `ae_median` (raw
 #'   scale; `interval_coverage_50/90` for quantile forecasts only, `NA` for
 #'   sample) and the `_log` (log1p scale) equivalents of `crps`/decomposition/
 #'   `ae_median`. `bias` and the coverage indicators are scale-invariant (does
 #'   `actual` fall inside `[lower, upper]`?), so not duplicated as `_log`.
-score_forecast <- function(df, actual_col = "actual", model_name = NULL) {
+score_forecast <- function(df, actual_col = "actual", model_name = NULL,
+                           unit_cols = forecast_unit_cols) {
   if (!"model" %in% names(df)) {
     if (is.null(model_name)) {
       cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
@@ -258,8 +285,8 @@ score_forecast <- function(df, actual_col = "actual", model_name = NULL) {
     df$model <- model_name
   }
   switch(forecast_shape(df),
-    quantile = score_quantile_forecast(df, actual_col),
-    sample   = score_sample_forecast(df, actual_col)
+    quantile = score_quantile_forecast(df, actual_col, unit_cols),
+    sample   = score_sample_forecast(df, actual_col, unit_cols)
   )
 }
 
@@ -272,12 +299,12 @@ score_forecast <- function(df, actual_col = "actual", model_name = NULL) {
 #' @param ... Passed to `scoringutils::get_pit_histogram()` (e.g. `num_bins`).
 #' @return A data frame: `bin`, `mid`, `density`, one row per bin per group.
 pit_histogram <- function(df, actual_col = "actual", model_name = NULL,
-                          by = "model", ...) {
+                          by = "model", unit_cols = forecast_unit_cols, ...) {
   if (!"model" %in% names(df)) {
     if (is.null(model_name)) cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
     df$model <- model_name
   }
-  scoringutils::get_pit_histogram(to_forecast_quantile(df, actual_col), by = by, ...)
+  scoringutils::get_pit_histogram(to_forecast_quantile(df, actual_col, unit_cols = unit_cols), by = by, ...)
 }
 
 #' Empirical coverage per quantile level and nominal interval
@@ -287,12 +314,12 @@ pit_histogram <- function(df, actual_col = "actual", model_name = NULL,
 #' @return `model` (or `by`), `quantile_level`, `interval_range`,
 #'   `interval_coverage(_deviation)`, `quantile_coverage(_deviation)`.
 coverage_diagnostics <- function(df, actual_col = "actual", model_name = NULL,
-                                 by = "model") {
+                                 by = "model", unit_cols = forecast_unit_cols) {
   if (!"model" %in% names(df)) {
     if (is.null(model_name)) cli::cli_abort("`df` has no {.field model} column - pass `model_name`.")
     df$model <- model_name
   }
-  scoringutils::get_coverage(to_forecast_quantile(df, actual_col), by = by)
+  scoringutils::get_coverage(to_forecast_quantile(df, actual_col, unit_cols = unit_cols), by = by)
 }
 
 # ---- burden normalisation (GDO's u* convention) ----------------------------
@@ -361,13 +388,14 @@ dtw_distance <- function(actual, predicted, ...) {
 #' @param by Extra grouping (e.g. `"horizon"`) - `NULL` pools everything.
 #' @param log_scale Score on the log1p scale (default `TRUE`, the plan's
 #'   primary metric).
+#' @inheritParams score_forecast
 #' @return See `?scoringutils::get_pairwise_comparisons`; `wis_scaled_relative_skill`
 #'   is the column of interest (named `wis` regardless of `log_scale`).
 relative_skill <- function(df, baseline, actual_col = "actual", by = NULL,
-                           log_scale = TRUE) {
+                           log_scale = TRUE, unit_cols = forecast_unit_cols) {
   if (!"model" %in% names(df)) {
     cli::cli_abort("`df` needs a {.field model} column with >= 2 models to compare.")
   }
-  sc <- scoringutils::score(to_forecast_quantile(df, actual_col, log_scale = log_scale))
+  sc <- scoringutils::score(to_forecast_quantile(df, actual_col, log_scale = log_scale, unit_cols = unit_cols))
   scoringutils::get_pairwise_comparisons(sc, by = by, baseline = baseline, metric = "wis")
 }
