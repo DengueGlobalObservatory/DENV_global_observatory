@@ -52,6 +52,20 @@
 #'   whenever a call stacks >1 window; Stage 2 will need its own extra
 #'   dimension (e.g. champion/shadow). Neither requires editing this file -
 #'   the caller just passes a wider `unit_cols`.
+#' 15-09-2026: `dtw_distance()` switched from `dtw::dtw()$distance` (raw,
+#'   scales with path length) to `$normalizedDistance` (divided by N+M under
+#'   the default step pattern) - found while building `run_stage1_score.R`'s
+#'   operational.csv: raw distance conflated trajectory length with shape
+#'   mismatch, so pooling it across trajectories of differing length gave a
+#'   misleading average. (Checked, not assumed: the differing lengths here
+#'   turned out to be a mid-history data gap shared by several small/marginal
+#'   countries at one origin, not censoring near the panel's edge as first
+#'   guessed - see the 2026-09-15 chat for the investigation.)
+#' 15-09-2026: `dtw_distance()` gained a `min_months` guard (default `3L`,
+#'   matching `peak_timing_diff()`) - below it, `dtw::dtw()` aligns 1-2 points,
+#'   a bare pointwise difference rather than a genuine shape comparison, and
+#'   was found (same investigation) to read as spuriously large for
+#'   near-zero-incidence countries hitting exactly that data gap.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -362,16 +376,27 @@ peak_timing_diff <- function(target_date, actual, predicted, min_months = 3L) {
 #' truth; or one lead time's series across rolling origins vs the observed
 #' series over that span.
 #' @param actual,predicted Numeric (need not be equal length; `NA`s dropped
-#'   independently before alignment).
+#'   independently before alignment - a trajectory can lose months either to
+#'   the genuine future (near the edge of the training panel) or to a
+#'   mid-history data gap for that country).
+#' @param min_months Minimum non-`NA` months required in EACH of `actual` and
+#'   `predicted` after dropping. Below this, `dtw::dtw()` is aligning 1-2
+#'   points - a bare pointwise difference, not a genuine shape comparison -
+#'   so it's `NA`, not silently computed. Same default and rationale as
+#'   `peak_timing_diff()`'s `min_months`.
 #' @param ... Passed to `dtw::dtw()` (e.g. `step.pattern`, to match a specific
 #'   published configuration).
-#' @return `dtw::dtw()$distance` (cumulative, unnormalised), or `NA` if either
-#'   input has 0 non-`NA` values.
-dtw_distance <- function(actual, predicted, ...) {
+#' @return `dtw::dtw()$normalizedDistance` (path-length-normalised: raw
+#'   `$distance` divided by N+M under the default `symmetric2` step pattern),
+#'   or `NA` if either input has fewer than `min_months` non-`NA` values.
+#'   Normalised, not raw, so that averaging across trajectories of different
+#'   length (unavoidable here - see `actual`/`predicted` above) reflects shape
+#'   mismatch, not how many points happened to be summed over.
+dtw_distance <- function(actual, predicted, min_months = 3L, ...) {
   x <- actual[!is.na(actual)]
   y <- predicted[!is.na(predicted)]
-  if (length(x) < 1L || length(y) < 1L) return(NA_real_)
-  dtw::dtw(x, y, ...)$distance
+  if (length(x) < min_months || length(y) < min_months) return(NA_real_)
+  dtw::dtw(x, y, ...)$normalizedDistance
 }
 
 # ---- relative comparison ---------------------------------------------------
