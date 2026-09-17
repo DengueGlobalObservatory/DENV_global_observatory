@@ -78,6 +78,14 @@ strata_country  <- read_fc("data_summary", "strata_country.csv")
 coverage_grid   <- read_fc("cv_splits", "rolling_origins.csv")
 stage0_diag     <- read_fc("stage0_fit", "diagnostics.csv")
 
+stage1_scores_row        <- read_fc("stage1_hindcast", "scores", "scores_row.csv")
+stage1_scores_by_lead    <- read_fc("stage1_hindcast", "scores", "scores_by_lead.csv")
+stage1_scores_by_stratum <- read_fc("stage1_hindcast", "scores", "scores_by_stratum.csv")
+stage1_leaderboard       <- read_fc("stage1_hindcast", "scores", "leaderboard.csv")
+stage1_pit               <- read_fc("stage1_hindcast", "scores", "pit.csv")
+stage1_coverage          <- read_fc("stage1_hindcast", "scores", "coverage.csv")
+stage1_operational       <- read_fc("stage1_hindcast", "scores", "operational.csv")
+
 if (!is.null(panel)) {
   panel <- panel %>%
     mutate(
@@ -90,18 +98,13 @@ if (!is.null(panel)) {
 
 ## About this notebook {.unnumbered}
 
-This is the **results record** for the GDO forecasting objective — the place to look at what each pipeline step produced, keep the figures and tables that will go into the manuscript, and write down what they mean and where the work goes next.
-
-It is deliberately **not**:
-
-- the running task log — that lives in Logseq;
-- a home for pipeline code — the training-data build, data summary, model definitions, runners and scoring pipeline are all under `Scripts/forecasting/`. This notebook only *reads their outputs*.
+Results record for the GDO forecasting objective. Not the task log (Logseq) and not pipeline code (`Scripts/forecasting/`) — this notebook only reads its outputs.
 
 ::: {.callout-note appearance="simple"}
-**Pinned data snapshot:** `Output/`r snapshot_date`/` — merged historical record plus current-period nowcast output. Every result below is against this frozen snapshot; re-pin in `Scripts/forecasting/00_config.R` and re-run the pipeline to refresh.
+Pinned snapshot: `Output/`r snapshot_date`/`. Re-pin in `00_config.R` and re-run the pipeline to refresh.
 :::
 
-Plan of record: `planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT`. Stages: **0** in-sample fit diagnostics · **1** rolling-origin hindcast (5 / 7 / 10 yr + expanding) · **2** prospective shadow deployment.
+Plan of record: `planning/2026_forecast_evaluation/03_Evaluation_Plan_DRAFT`. Stages: **0** in-sample fit · **1** rolling-origin hindcast (5/7/10 yr + expanding) · **2** prospective shadow deployment.
 
 ------------------------------------------------------------------------
 
@@ -640,12 +643,14 @@ Which models have a definition file, and which stages they've cleared so far.
 if (is.null(stage0_diag)) {
   pending("Scripts/forecasting/run_stage0_fit.R")
 } else {
+  scored_models <- if (!is.null(stage1_scores_by_lead)) unique(stage1_scores_by_lead$model) else character(0)
+
   stage0_diag %>%
     transmute(
       Model = model,
       `Run at` = run_at,
       `Stage 0` = if_else(pass, "PASS", "FAIL"),
-      `Stage 1` = "-",
+      `Stage 1` = if_else(model %in% scored_models, "scored", "-"),
       `Stage 2` = "-",
       Notes = notes
     ) %>%
@@ -699,18 +704,335 @@ if (is.null(stage0_diag)) {
 
 # Stage 1 — hindcast skill {#sec-stage1}
 
-Rolling-origin backtest across the four window lengths and the scenario strata. Primary metrics: WIS (log scale) and peak-timing difference. Secondary: MAE, RMSE, CRPS, PIT / coverage.
+Rolling-origin backtest (`run_stage1_hindcast.R`), scored by `run_stage1_score.R`. Reads top to bottom, widest view first: model performance overall, then by lead time, then by scenario category, then lead x category together; calibration and the full data table sit at the end for reference.
+
+| Role | Metric | Note |
+|----|----|----|
+| Primary | CRPS (log scale) | `wis`/`wis_log` dropped 14-09-2026, confirmed identical to `crps`/`crps_log` at today's 5-quantile schema. `scoringutils`' own pairwise-comparison output still calls it `wis` internally. |
+| Secondary | uMAE, uRMSE | GDO's burden-normalised convention |
+| Secondary | PIT / interval coverage | 50%, 90% |
+| Operational | Peak-timing difference | Months; D-MOSS (Campbell et al. 2026) convention |
+| Operational | DTW distance | Path-length-normalised (`normalizedDistance`); `NA` below 3 resolved months |
+
+`n_seasons` (distinct `iso3 x season` pairs, not raw row count) and `thin_evidence = n_seasons < 5` are carried on every table/figure below — flagged, never dropped.
 
 ```{r}
-#| label: sec-stage1-body
+#| label: sec-stage1-guard
 
-pending("the Stage 1 backtest runner (not built yet)")
+stage1_ready <- !is.null(stage1_scores_by_lead)
+if (!stage1_ready) pending("Scripts/forecasting/run_stage1_hindcast.R and run_stage1_score.R")
+
+stratum_axes <- c("seasonality_signal", "endemicity", "size_class")
 ```
 
-Planned outputs to land here: relative-skill leaderboard by lead time, score table (model × lead × stratum, with `n_seasons`), score heatmap, per-country fan charts, PIT / coverage calibration.
+```{r}
+#| label: tile-heatmap-helper
+
+# One heatmap style, reused for CRPS-by-category-x-lead below and for any
+# later ad hoc / cross-strata comparison (matches fig-nowcast-uncertainty-region's
+# look). Thin evidence is a black tile border, not an alpha fade - fading
+# competed with the fill's own colour intensity and was hard to read.
+tile_heatmap <- function(df, x_var, y_var, fill_var, x_lab, fill_lab,
+                         facet_var = "model", thin_var = NULL) {
+  p <- ggplot(df, aes(.data[[x_var]], .data[[y_var]], fill = .data[[fill_var]]))
+  p <- if (is.null(thin_var)) {
+    p + geom_tile(colour = "white")
+  } else {
+    p + geom_tile(aes(colour = .data[[thin_var]]), linewidth = 0.6) +
+      scale_colour_manual(values = c(`TRUE` = "black", `FALSE` = "white"), guide = "none")
+  }
+  p + facet_wrap(stats::reformulate(facet_var)) +
+    scale_fill_viridis_c(option = "magma", direction = -1, na.value = "grey90") +
+    labs(x = x_lab, y = NULL, fill = fill_lab)
+}
+```
+
+### Overview: model x window
+
+Everything pooled — the widest possible view.
+
+```{r}
+#| label: fig-overview
+#| fig-cap: "Primary and operational scores, pooled across lead time and scenario category."
+#| fig-height: 3.2
+
+if (stage1_ready) {
+  bind_rows(
+    stage1_scores_row %>%
+      group_by(model, window_type) %>%
+      summarise(value = mean(crps_log, na.rm = TRUE), .groups = "drop") %>%
+      mutate(metric = "CRPS (log)"),
+    stage1_operational %>%
+      filter(stratum_axis == "overall") %>%
+      transmute(model, window_type, value = mean_peak_timing_diff, metric = "Peak-timing (mo)"),
+    stage1_operational %>%
+      filter(stratum_axis == "overall") %>%
+      transmute(model, window_type, value = mean_dtw_distance, metric = "DTW (norm.)")
+  ) %>%
+    mutate(metric = factor(metric, levels = c("CRPS (log)", "Peak-timing (mo)", "DTW (norm.)"))) %>%
+    ggplot(aes(model, value, fill = window_type)) +
+    geom_col(position = "dodge") +
+    facet_wrap(~metric, scales = "free_y") +
+    scale_fill_brewer(palette = "Set2") +
+    labs(x = NULL, y = NULL, fill = "Window") +
+    theme(legend.position = "top")
+}
+```
+
+### By lead time
+
+```{r}
+#| label: fig-crps-by-lead
+#| fig-cap: "CRPS (log scale) by lead time and window."
+#| fig-height: 3.6
+
+if (stage1_ready) {
+  stage1_scores_by_lead %>%
+    ggplot(aes(lead_time, crps_log, colour = model, group = model)) +
+    geom_line(linewidth = 0.7) +
+    geom_point(size = 1.8) +
+    facet_wrap(~window_type) +
+    scale_colour_brewer(palette = "Set2") +
+    scale_x_continuous(breaks = sort(unique(stage1_scores_by_lead$lead_time))) +
+    labs(x = "Lead time (months)", y = "CRPS (log scale)", colour = NULL) +
+    theme(legend.position = "top")
+}
+```
+
+Same comparison as a ratio to `nowcast` (GDO's mandatory seasonal-profile baseline) — `< 1` beats it. `leaderboard.csv` also carries `glm_ar1` as a comparator and the full `scoringutils` pairwise output (p-values, the scaled relative-skill version) for once more models exist.
+
+```{r}
+#| label: fig-leaderboard
+#| fig-cap: "CRPS relative to nowcast, by lead time and window."
+#| fig-height: 3.2
+
+if (stage1_ready) {
+  # Both `baseline == "nowcast"` AND `compare_against == "nowcast"`: leaderboard.csv
+  # has one row per (model, compare_against) pair, so filtering on `baseline`
+  # alone leaves nowcast's own comparisons against every OTHER model in too -
+  # duplicate x-values per model that broke the line into a zigzag.
+  stage1_leaderboard %>%
+    filter(baseline == "nowcast", compare_against == "nowcast") %>%
+    ggplot(aes(horizon, mean_scores_ratio, colour = model, group = model)) +
+    geom_hline(yintercept = 1, linetype = "dashed", colour = "grey50") +
+    geom_line(linewidth = 0.7) +
+    geom_point(size = 1.8) +
+    facet_wrap(~window_type) +
+    scale_colour_brewer(palette = "Set2") +
+    scale_x_continuous(breaks = sort(unique(stage1_leaderboard$horizon))) +
+    labs(x = "Lead time (months)", y = "CRPS relative to nowcast", colour = NULL) +
+    theme(legend.position = "top")
+}
+```
+
+Peak-timing and DTW have no lead-time axis (both are computed once per full 1-6 month trajectory, not per lead — see the metrics table above); the closest analogue is the calendar month the forecast was *issued* from, following Campbell et al.'s own month-based view.
+
+```{r}
+#| label: fig-operational-by-month
+#| fig-cap: "Peak-timing difference and DTW distance by origin month, per model and window (Campbell et al. 2026 style)."
+#| fig-height: 4.2
+
+if (!is.null(stage1_operational)) {
+  stage1_operational_row <- read_fc("stage1_hindcast", "scores", "operational_row.csv")
+}
+if (!is.null(stage1_operational_row)) {
+  stage1_operational_row %>%
+    mutate(origin_month = lubridate::month(as.Date(origin_date))) %>%
+    group_by(model, window_type, origin_month) %>%
+    summarise(
+      `Peak-timing diff (mo)` = mean(peak_timing_diff, na.rm = TRUE),
+      `DTW (normalised)`      = mean(dtw_distance, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    pivot_longer(c(`Peak-timing diff (mo)`, `DTW (normalised)`), names_to = "metric", values_to = "value") %>%
+    ggplot(aes(origin_month, value, colour = model, group = model)) +
+    geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
+    geom_line(linewidth = 0.7) +
+    geom_point(size = 1.6) +
+    facet_grid(metric ~ window_type, scales = "free_y") +
+    scale_colour_brewer(palette = "Set2") +
+    scale_x_continuous(breaks = 1:12) +
+    labs(x = "Origin month", y = NULL, colour = NULL) +
+    theme(legend.position = "top")
+} else {
+  pending("Scripts/forecasting/run_stage1_score.R")
+}
+```
+
+### By scenario category
+
+Pooled across lead time, one axis at a time.
+
+```{r}
+#| label: fig-crps-by-category
+#| fig-cap: "CRPS (log scale) by scenario category, pooled across lead time."
+#| fig-height: 3.4
+
+if (stage1_ready) {
+  stage1_scores_by_stratum %>%
+    group_by(model, window_type, stratum_axis, stratum_value) %>%
+    summarise(crps_log = weighted.mean(crps_log, w = n_obs, na.rm = TRUE), .groups = "drop") %>%
+    ggplot(aes(stratum_value, crps_log, fill = model)) +
+    geom_col(position = "dodge") +
+    facet_wrap(~stratum_axis, scales = "free_x") +
+    scale_fill_brewer(palette = "Set2") +
+    labs(x = NULL, y = "CRPS (log scale)", fill = NULL) +
+    theme(legend.position = "top", axis.text.x = element_text(angle = 20, hjust = 1))
+}
+```
+
+```{r}
+#| label: fig-operational-by-category
+#| fig-cap: "Peak-timing difference and DTW distance by scenario category, pooled across lead time."
+#| fig-height: 3.6
+
+if (!is.null(stage1_operational)) {
+  stage1_operational %>%
+    filter(stratum_axis != "overall") %>%
+    select(model, window_type, stratum_axis, stratum_value,
+           `Peak-timing diff (mo)` = mean_peak_timing_diff, `DTW (normalised)` = mean_dtw_distance) %>%
+    pivot_longer(c(`Peak-timing diff (mo)`, `DTW (normalised)`), names_to = "metric", values_to = "value") %>%
+    ggplot(aes(stratum_value, value, fill = model)) +
+    geom_col(position = "dodge") +
+    facet_grid(metric ~ stratum_axis, scales = "free", space = "free_x") +
+    scale_fill_brewer(palette = "Set2") +
+    labs(x = NULL, y = NULL, fill = NULL) +
+    theme(legend.position = "top", axis.text.x = element_text(angle = 20, hjust = 1))
+} else {
+  pending("Scripts/forecasting/run_stage1_score.R")
+}
+```
+
+### By category x lead time
+
+Same view as `fig-nowcast-uncertainty-region`, generalised: category on the y-axis, lead time on the x-axis, faceted by model. Reusable (`tile_heatmap()` above) for any later ad hoc or cross-strata comparison.
+
+```{r}
+#| label: fig-score-heatmap
+#| fig-cap: "CRPS (log scale) by scenario category and lead time, faceted by model. Black border = thin evidence (n_seasons < 5)."
+#| fig-height: 6
+
+if (stage1_ready) {
+  tile_heatmap(
+    stage1_scores_by_stratum, x_var = "lead_time", y_var = "stratum_value",
+    fill_var = "crps_log", x_lab = "Lead time (months)", fill_lab = "CRPS\n(log)",
+    thin_var = "thin_evidence"
+  ) +
+    facet_grid(stratum_axis ~ model, scales = "free_y", space = "free_y")
+}
+```
+
+```{r}
+#| label: fig-operational-heatmap
+#| fig-cap: "Peak-timing difference by scenario category and origin month, faceted by model."
+#| fig-height: 6
+
+if (!is.null(stage1_operational_row)) {
+  op_cat <- bind_rows(lapply(stratum_axes, function(axis) {
+    stage1_operational_row %>%
+      rename(stratum_value = all_of(axis)) %>%
+      mutate(origin_month = lubridate::month(as.Date(origin_date))) %>%
+      group_by(model, window_type, stratum_value, origin_month) %>%
+      summarise(
+        n_seasons = n_distinct(paste(iso3, season)),
+        mean_peak_timing_diff = mean(peak_timing_diff, na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      mutate(stratum_axis = axis, thin_evidence = n_seasons < 5)
+  }))
+
+  tile_heatmap(
+    op_cat, x_var = "origin_month", y_var = "stratum_value",
+    fill_var = "mean_peak_timing_diff", x_lab = "Origin month", fill_lab = "Peak-timing\ndiff (mo)",
+    thin_var = "thin_evidence"
+  ) +
+    facet_grid(stratum_axis ~ model, scales = "free_y", space = "free_y") +
+    scale_x_continuous(breaks = 1:12)
+} else {
+  pending("Scripts/forecasting/run_stage1_score.R")
+}
+```
+
+### Calibration: PIT and coverage
+
+```{r}
+#| label: fig-pit
+#| fig-cap: "PIT histogram by model and window. A well-calibrated model is flat across bins."
+#| fig-height: 3.4
+
+if (!is.null(stage1_pit)) {
+  # scoringutils' PIT bins are NOT equal-width (5%/20%/25%/25%/20%/5%) - parse
+  # the true edges out of `bin` (e.g. "[0.05,0.25)") rather than drawing
+  # equal-width bars at `mid`, which would mis-represent the wider middle
+  # bins and overlap the narrow end bins.
+  pit_rect <- stage1_pit %>%
+    mutate(
+      xmin = as.numeric(str_extract(bin, "(?<=\\[)[0-9.]+")),
+      xmax = as.numeric(str_extract(bin, "[0-9.]+(?=[\\]\\)])"))
+    )
+  ggplot(pit_rect, aes(xmin = xmin, xmax = xmax, ymin = 0, ymax = density)) +
+    geom_rect(fill = "#4C72B0", colour = "white") +
+    geom_hline(yintercept = 1, linetype = "dashed", colour = "grey50") +
+    facet_grid(window_type ~ model) +
+    labs(x = "PIT", y = "Density")
+} else {
+  pending("Scripts/forecasting/run_stage1_score.R")
+}
+```
+
+```{r}
+#| label: fig-coverage
+#| fig-cap: "Empirical vs nominal quantile coverage, by model and window. Points on the diagonal are well-calibrated; below it is over-confident (too narrow)."
+#| fig-height: 3.6
+
+if (!is.null(stage1_coverage)) {
+  ggplot(stage1_coverage, aes(quantile_level, quantile_coverage, colour = model)) +
+    geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey50") +
+    geom_line(linewidth = 0.6) +
+    geom_point(size = 1.6) +
+    facet_wrap(~window_type) +
+    scale_colour_brewer(palette = "Set2") +
+    labs(x = "Nominal quantile", y = "Empirical coverage", colour = NULL) +
+    theme(legend.position = "top")
+} else {
+  pending("Scripts/forecasting/run_stage1_score.R")
+}
+```
+
+### Full stratum table (reference)
+
+Every model x window x lead x category cell, long format, searchable — the detail behind every figure above.
+
+```{r}
+#| label: tbl-scores-by-stratum
+#| tbl-cap: "Stage 1 scores by scenario stratum. Thin-evidence cells (n_seasons < 5) flagged, not dropped."
+
+if (stage1_ready) {
+  strat_tbl <- stage1_scores_by_stratum %>%
+    transmute(
+      Model = model, Window = window_type, Axis = stratum_axis, Stratum = stratum_value,
+      Lead = lead_time, n = n_obs, n_seasons,
+      thin = thin_evidence,
+      CRPS = round(crps, 1), `CRPS (log)` = round(crps_log, 3),
+      `Cov. 90%` = round(coverage_90, 2), uMAE = round(uMAE, 3), uRMSE = round(uRMSE, 3)
+    ) %>%
+    arrange(Axis, Stratum, Model, Window, Lead)
+
+  if (requireNamespace("DT", quietly = TRUE)) {
+    DT::datatable(
+      strat_tbl, rownames = FALSE, filter = "top",
+      options = list(pageLength = 15)
+    ) %>%
+      DT::formatStyle("thin", target = "row",
+                      backgroundColor = DT::styleEqual(c(TRUE, FALSE), c("#fdf3d0", "white")))
+  } else {
+    knitr::kable(strat_tbl)
+  }
+}
+```
 
 ::: {.callout-note title="Notes / observations"}
-*Add as results arrive.*
+*Add as results accumulate on the full backtest grid (this is currently the reduced check run — one window, stride-6 origins). Watch in particular: `coverage_90` degrading at longer leads below the \~0.7 floor you'd want from a well-calibrated model; whether that holds up once the full grid runs.*
 :::
 
 ------------------------------------------------------------------------
@@ -740,174 +1062,94 @@ Running synthesis for the forecasting paper (target: PLOS Comp Biol / PLOS NTD).
 
 # Appendix: Model details {#sec-model-details}
 
-One subsection per model, added as each clears Stage 0. Every subsection follows the same template — a forecast summary and an uncertainty-by-lead-time / region view — with room underneath for anything specific to that model.
+### Forecast: August-December 2026
 
-::: {.callout-important appearance="simple"}
-Everything here is a **Stage 0 snapshot**: one origin (the training panel's last month), no ground truth, produced by the `predict()` contract check in `run_stage0_fit.R` (`stage0_fit/<model>/wiring_check_forecasts.csv`). It shows what the model's output currently looks like — **not** how well it forecasts. Skill (does the interval actually cover the truth) has to wait for the Stage 1 backtest.
-:::
+Case counts, not skill — every candidate model's actual forecast from the current data edge, one plot per region, faceted by model so a region's behaviour is directly comparable across models. Solid = observed 2026 to date; dashed + band = forecast (median, 90%), from the Stage 0 fit's origin (the panel's last observed month).
 
 ```{r}
-#| label: model-detail-helper
+#| label: forecast-2026-load
 
-# Load one model's Stage 0 wiring-check forecasts, with region attached and a
-# relative-interval-width column added. Shared by every model subsection
-# below. NULL if that model hasn't been run through Stage 0 yet.
+# Stage 0 wiring-check forecast for every model - this IS the current
+# production forecast (fit on the full panel, origin = its last observed
+# month), not a hindcast-grid artifact. Both models share one origin, but
+# that's not assumed - checked below.
 model_wiring_forecasts <- function(slug) {
   fc <- read_fc("stage0_fit", slug, "wiring_check_forecasts.csv")
   if (is.null(fc)) return(NULL)
   fc %>%
-    mutate(
-      origin_date = as.Date(origin_date),
-      target_date = as.Date(target_date),
-      # NA (not Inf) when .pred is 0, so it drops out of medians rather than
-      # dominating them.
-      rel_width90 = if_else(.pred > 0, (.pred_upper90 - .pred_lower90) / .pred, NA_real_)
-    ) %>%
-    left_join(region_lookup, by = "iso3")
+    mutate(origin_date = as.Date(origin_date), target_date = as.Date(target_date)) %>%
+    left_join(region_lookup, by = "iso3") %>%
+    mutate(model = slug, .before = 1)
 }
-```
 
-## nowcast {#sec-model-nowcast}
-
-```{r}
-#| label: nowcast-load
-
-nc_fc <- model_wiring_forecasts("nowcast")
+wiring_models <- c("nowcast", "glm_ar1")
+wiring_all <- bind_rows(lapply(wiring_models, model_wiring_forecasts))
 ```
 
 ```{r}
-#| label: tbl-nowcast-summary
-#| tbl-cap: "nowcast: Stage 0 forecast summary."
+#| label: forecast-2026-data
 
-if (is.null(nc_fc)) {
-  pending("Scripts/forecasting/run_stage0_fit.R nowcast")
-} else {
-  fmt <- function(x) formatC(x, big.mark = ",", format = "d")
-  tibble::tibble(
-    Metric = c("Origin", "Countries forecast", "No forecast (NA)",
-               "Median .pred", "Min .pred", "Max .pred"),
-    Value = c(
-      format(unique(nc_fc$origin_date)),
-      sprintf("%s / %s",
-              fmt(n_distinct(nc_fc$iso3[!is.na(nc_fc$.pred)])),
-              fmt(n_distinct(nc_fc$iso3))),
-      sprintf("%s (%s)", fmt(sum(is.na(nc_fc$.pred))),
-              scales::percent(mean(is.na(nc_fc$.pred)), 0.1)),
-      fmt(median(nc_fc$.pred, na.rm = TRUE)),
-      fmt(min(nc_fc$.pred, na.rm = TRUE)),
-      fmt(max(nc_fc$.pred, na.rm = TRUE))
-    )
-  ) %>% knitr::kable(align = c("l", "r"))
-}
-```
+if (!is.null(wiring_all) && nrow(wiring_all) > 0) {
+  origins <- unique(wiring_all$origin_date)
+  #---check: every model's Stage 0 fit shares one origin - if not, the anchor
+  # logic below (one shared `obs_2026`) would silently misalign per model.
+  if (length(origins) > 1) {
+    cli::cli_abort("Models disagree on Stage 0 origin: {paste(format(origins), collapse=', ')}.")
+  }
+  fc_origin <- origins
 
-```{r}
-#| label: fig-nowcast-pred-by-horizon
-#| fig-cap: "nowcast: distribution of the point forecast by lead time (log scale)."
-#| fig-height: 3.6
+  # Window fixed to what was asked for (Aug-Dec 2026), even though the
+  # model's own horizon runs one month further (to fc_origin + 6).
+  window_start <- as.Date("2026-08-01")
+  window_end   <- as.Date("2026-12-01")
 
-if (!is.null(nc_fc)) {
-  nc_fc %>%
-    filter(!is.na(.pred)) %>%
-    ggplot(aes(factor(horizon), .pred + 1)) +
-    geom_boxplot(fill = "#4C72B0", alpha = 0.6, outlier.size = 0.8) +
-    scale_y_log10(labels = scales::label_comma()) +
-    labs(x = "Lead time (months)", y = ".pred + 1 (log scale)")
-}
-```
-
-```{r}
-#| label: fig-nowcast-uncertainty-lead
-#| fig-cap: "nowcast: median relative 90% interval width by lead time. Width = (.pred_upper90 - .pred_lower90) / .pred."
-#| fig-height: 3.6
-
-if (!is.null(nc_fc)) {
-  nc_fc %>%
-    group_by(horizon) %>%
-    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
-    ggplot(aes(horizon, median_rel_width)) +
-    geom_col(fill = "#DD8452") +
-    scale_x_continuous(breaks = sort(unique(nc_fc$horizon))) +
-    labs(x = "Lead time (months)", y = "Median relative 90% width")
-}
-```
-
-```{r}
-#| label: fig-nowcast-uncertainty-region
-#| fig-cap: "nowcast: median relative 90% interval width by region and lead time."
-#| fig-height: 4
-
-if (!is.null(nc_fc)) {
-  nc_fc %>%
-    mutate(region = factor(region, levels = region_levels)) %>%
-    group_by(region, horizon) %>%
-    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
-    ggplot(aes(horizon, region, fill = median_rel_width)) +
-    geom_tile(colour = "white") +
-    scale_fill_viridis_c(option = "magma", direction = -1, na.value = "grey90") +
-    scale_x_continuous(breaks = sort(unique(nc_fc$horizon))) +
-    labs(x = "Lead time (months)", y = NULL, fill = "Median\nrel. width")
-}
-```
-
-### 2026 year-to-date and 6-month forecast, by region
-
-Solid = observed 2026 (the panel's post-nowcast series); dashed = the Stage 0 forecast from the last observed month, with a light 90% band. One figure per region — a single panel with all 96 countries would be unreadable, and even within a region the y-axis is shared and linear, so very low-burden countries will sit flat near zero next to a country like Cuba or Brazil.
-
-```{r}
-#| label: nowcast-2026-forecast-data
-
-if (!is.null(nc_fc)) {
-  nc_origin <- unique(nc_fc$origin_date)
-
-  # region is a factor on `panel` (set earlier) and plain character on `nc_fc`
-  # (joined from country_region_lookup.csv) - cast both to character here so
-  # bind_rows() below doesn't hit a factor/character type conflict.
   obs_2026 <- panel %>%
     filter(Year == 2026, !is.na(cases)) %>%
     transmute(iso3, region = as.character(region), date, value = cases,
-              segment = "observed", lower90 = NA_real_, upper90 = NA_real_)
+              segment = "observed", lower90 = NA_real_, upper90 = NA_real_) %>%
+    tidyr::crossing(model = wiring_models)
 
-  # Anchor the forecast segment at the origin's observed value, so the dashed
-  # line starts exactly where the solid line ends rather than jumping.
+  # Anchor the forecast segment at the origin's observed value, per model, so
+  # the dashed line starts exactly where the solid line ends.
   fc_anchor <- panel %>%
-    filter(date == nc_origin, !is.na(cases)) %>%
+    filter(date == fc_origin, !is.na(cases)) %>%
     transmute(iso3, region = as.character(region), date, value = cases,
-              segment = "forecast", lower90 = cases, upper90 = cases)
+              segment = "forecast", lower90 = cases, upper90 = cases) %>%
+    tidyr::crossing(model = wiring_models)
 
-  fc_future <- nc_fc %>%
-    filter(!is.na(.pred)) %>%
-    transmute(iso3, region = as.character(region), date = target_date,
+  fc_future <- wiring_all %>%
+    filter(!is.na(.pred), target_date >= window_start, target_date <= window_end) %>%
+    transmute(model, iso3, region = as.character(region), date = target_date,
               value = .pred, segment = "forecast",
               lower90 = .pred_lower90, upper90 = .pred_upper90)
 
-  nc_2026_plot_df <- bind_rows(obs_2026, fc_anchor, fc_future) %>%
+  forecast_2026_df <- bind_rows(obs_2026, fc_anchor, fc_future) %>%
     mutate(region = factor(region, levels = region_levels)) %>%
-    arrange(iso3, date)
+    arrange(model, iso3, date)
 
-  nc_2026_labels <- nc_2026_plot_df %>%
+  forecast_2026_labels <- forecast_2026_df %>%
     filter(!is.na(value)) %>%
-    group_by(iso3, region) %>%
+    group_by(model, iso3, region) %>%
     slice_max(date, n = 1, with_ties = FALSE) %>%
     ungroup()
 }
 ```
 
 ```{r}
-#| label: fig-nowcast-2026-by-region
+#| label: fig-forecast-2026-by-region
 #| output: asis
-#| fig-cap: "nowcast: 2026 year-to-date and 6-month forecast, by region."
+#| fig-cap: "August-December 2026 forecast, by region, faceted by model."
 
-if (is.null(nc_fc)) {
-  pending("Scripts/forecasting/run_stage0_fit.R nowcast")
+if (is.null(wiring_all) || nrow(wiring_all) == 0) {
+  pending("Scripts/forecasting/run_stage0_fit.R")
 } else {
-  fig_dir <- tempfile("nowcast_2026_region_figs_")
+  fig_dir <- tempfile("forecast_2026_region_figs_")
   dir.create(fig_dir)
 
-  for (rg in levels(nc_2026_plot_df$region)) {
-    d <- nc_2026_plot_df %>% filter(region == rg)
+  for (rg in levels(forecast_2026_df$region)) {
+    d <- forecast_2026_df %>% filter(region == rg)
     if (nrow(d) == 0) next
-    lbl <- nc_2026_labels %>% filter(region == rg)
+    lbl <- forecast_2026_labels %>% filter(region == rg)
     n_ctry <- n_distinct(d$iso3)
 
     p <- ggplot(d, aes(date, value, group = iso3, colour = iso3)) +
@@ -916,120 +1158,31 @@ if (is.null(nc_fc)) {
         aes(ymin = lower90, ymax = upper90, fill = iso3),
         colour = NA, alpha = 0.12, show.legend = FALSE
       ) +
-      # Two layers, not one aes(linetype=) mapping: ggplot2 can't draw a
-      # single line with both varying colour and a non-solid linetype, but a
-      # fixed (non-aes) linetype per layer is fine.
-      geom_line(
-        data = d %>% filter(segment == "observed"),
-        linewidth = 0.6, linetype = "solid"
-      ) +
-      geom_line(
-        data = d %>% filter(segment == "forecast"),
-        linewidth = 0.6, linetype = "22"
-      ) +
+      geom_line(data = d %>% filter(segment == "observed"), linewidth = 0.6, linetype = "solid") +
+      geom_line(data = d %>% filter(segment == "forecast"), linewidth = 0.6, linetype = "22") +
       ggrepel::geom_text_repel(
         data = lbl, aes(label = iso3), size = 3, hjust = 0, direction = "y",
-        nudge_x = 25, segment.size = 0.2, min.segment.length = 0,
+        nudge_x = 15, segment.size = 0.2, min.segment.length = 0,
         max.overlaps = Inf, show.legend = FALSE
       ) +
+      facet_wrap(~model) +
       scale_colour_viridis_d(option = "turbo") +
       scale_fill_viridis_d(option = "turbo") +
-      scale_x_date(date_labels = "%b %Y", expand = expansion(mult = c(0.02, 0.2))) +
+      scale_x_date(date_labels = "%b", expand = expansion(mult = c(0.02, 0.15))) +
       scale_y_continuous(labels = scales::label_comma()) +
       labs(x = NULL, y = "Monthly cases")
 
     fname <- file.path(fig_dir, paste0(make.names(rg), ".png"))
-    fig_h <- max(3.5, 0.3 * n_ctry + 2.2)
-    ggsave(fname, p, width = 8, height = fig_h, dpi = 130)
+    fig_h <- max(3.5, 0.25 * n_ctry + 2.2)
+    ggsave(fname, p, width = 10, height = fig_h, dpi = 130)
 
     cat(sprintf(
-      "\n\n#### %s\n\n<img src=\"%s\" style=\"width:100%%;\" alt=\"2026 observed and 6-month forecast for %s\">\n\n",
+      "\n\n#### %s\n\n<img src=\"%s\" style=\"width:100%%;\" alt=\"Aug-Dec 2026 forecast for %s, by model\">\n\n",
       rg, knitr::image_uri(fname), rg
     ))
   }
 }
 ```
-
-::: {.callout-note title="nowcast-specific notes"}
-*Add: behaviour tied to this method specifically — e.g. `next_season_method` choice, and how the per-window self-calibration (10-09-2026, replacing the static calibrated-interval file) is behaving — residual counts per country, how often the graded fallback is used.*
-:::
-
-::: {.callout-note title="Notes / observations"}
-*Add.*
-:::
-
-------------------------------------------------------------------------
-
-## glm_ar1 {#sec-model-glm-ar1}
-
-Pooled negative-binomial GLM, `cases ~ log1p(cases_lag1)`, recursive for horizons ≥ 2. The "linear temporal autoregressive" comparator from the scoring plan — deliberately the simplest case-only model (no country term, no seasonality). Expect it to mean-revert and to lose to the seasonal baseline wherever the seasonal signal is strong.
-
-```{r}
-#| label: glm-ar1-load
-
-ga_fc <- model_wiring_forecasts("glm_ar1")
-```
-
-```{r}
-#| label: tbl-glm-ar1-summary
-#| tbl-cap: "glm_ar1: Stage 0 forecast summary."
-
-if (is.null(ga_fc)) {
-  pending("Scripts/forecasting/run_stage0_fit.R glm_ar1")
-} else {
-  fmt <- function(x) formatC(x, big.mark = ",", format = "d")
-  tibble::tibble(
-    Metric = c("Origin", "Countries forecast", "No forecast (NA)",
-               "Median .pred", "Min .pred", "Max .pred"),
-    Value = c(
-      format(unique(ga_fc$origin_date)),
-      sprintf("%s / %s",
-              fmt(n_distinct(ga_fc$iso3[!is.na(ga_fc$.pred)])),
-              fmt(n_distinct(ga_fc$iso3))),
-      sprintf("%s (%s)", fmt(sum(is.na(ga_fc$.pred))),
-              scales::percent(mean(is.na(ga_fc$.pred)), 0.1)),
-      fmt(median(ga_fc$.pred, na.rm = TRUE)),
-      fmt(min(ga_fc$.pred, na.rm = TRUE)),
-      fmt(max(ga_fc$.pred, na.rm = TRUE))
-    )
-  ) %>% knitr::kable(align = c("l", "r"))
-}
-```
-
-```{r}
-#| label: fig-glm-ar1-pred-by-horizon
-#| fig-cap: "glm_ar1: distribution of the point forecast by lead time (log scale)."
-#| fig-height: 3.6
-
-if (!is.null(ga_fc)) {
-  ga_fc %>%
-    filter(!is.na(.pred)) %>%
-    ggplot(aes(factor(horizon), .pred + 1)) +
-    geom_boxplot(fill = "#55A868", alpha = 0.6, outlier.size = 0.8) +
-    scale_y_log10(labels = scales::label_comma()) +
-    labs(x = "Lead time (months)", y = ".pred + 1 (log scale)")
-}
-```
-
-```{r}
-#| label: fig-glm-ar1-uncertainty-lead
-#| fig-cap: "glm_ar1: median relative 90% interval width by lead time. Width = (.pred_upper90 - .pred_lower90) / .pred."
-#| fig-height: 3.6
-
-if (!is.null(ga_fc)) {
-  ga_fc %>%
-    group_by(horizon) %>%
-    summarise(median_rel_width = median(rel_width90, na.rm = TRUE), .groups = "drop") %>%
-    ggplot(aes(horizon, median_rel_width)) +
-    geom_col(fill = "#DD8452") +
-    scale_x_continuous(breaks = sort(unique(ga_fc$horizon))) +
-    labs(x = "Lead time (months)", y = "Median relative 90% width")
-}
-```
-
-::: {.callout-note title="glm_ar1-specific notes"}
-*Add: dispersion ratio is large (single lag, no seasonal/country structure, pooled across 96 countries of very different scale) — expected for a floor baseline. AR coefficient ≈ 0.75 on the log scale → geometric mean-reversion. Recursive multi-step: check whether horizons ≥ 2 drift unrealistically.*
-:::
 
 ------------------------------------------------------------------------
 

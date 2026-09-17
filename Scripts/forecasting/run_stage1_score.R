@@ -58,11 +58,17 @@
 #'         Output/forecasting/data_summary/strata_country.csv
 #' Output: Output/forecasting/stage1_hindcast/scores/
 #'           scores_row.csv, scores_by_lead.csv, scores_by_stratum.csv,
-#'           leaderboard.csv, pit.csv, coverage.csv, operational.csv
+#'           leaderboard.csv, pit.csv, coverage.csv, operational.csv,
+#'           operational_row.csv
 #'
 #' Timeline:
 #' ========
 #' 15-09-2026: Created.
+#' 17-09-2026: Added `operational_row.csv` (trajectory-level, with
+#'   `origin_date`) alongside the aggregated `operational.csv` - the notebook
+#'   needs origin_date's calendar month to build a Campbell-et-al.-style view
+#'   of peak-timing/DTW, which `lead_time` can't provide for a whole-trajectory
+#'   metric.
 
 suppressPackageStartupMessages({
   library(dplyr)
@@ -298,6 +304,14 @@ operational_row <- scorable %>%
     .groups = "drop"
   ) %>%
   dplyr::inner_join(trajectory_meta, by = c("model", "window_type", "iso3", "origin_date"))
+
+# Written out (not just aggregated) so the notebook can build a Campbell-style
+# calendar-month view: peak-timing/DTW are trajectory-level (no lead_time),
+# so origin_date's calendar month - not lead - is the axis these metrics can
+# actually vary over.
+write_csv(operational_row, file.path(scores_dir, "operational_row.csv"))
+#---log: confirm the trajectory-level operational table was written, and its size
+cli::cli_inform(c(">" = "wrote {.path {file.path(scores_dir, 'operational_row.csv')}} ({nrow(operational_row)} rows)"))
 
 summarise_operational <- function(grouped) {
   grouped %>%
