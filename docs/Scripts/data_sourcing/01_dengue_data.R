@@ -147,7 +147,10 @@ searo$d_unit <- "month"
 log_message("Open Open Dengue ")
 
 # opens in current version from the github
-OD_national <-  read.csv("Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv")
+# OD_national <-  read.csv("Assets/Stable/OD_maps/pred_downscale_with_ci_V3.csv")
+# 10-sept-2026 - update historical gap filled data
+OD_national <-  read.csv("Assets/Stable/OD_maps/opendengue_gap_filled_MI_20260901.csv")
+
 
 log_message("Open Dengue complete")
 
